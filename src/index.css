@@ -11,8 +11,7 @@ body {
   font-family: "Karla", sans-serif;
 }
 
-/* lato font  */
-h1,
+lato font h1,
 h2,
 h3,
 h4,
@@ -31,4 +30,16 @@ h6 {
 }
 .color-green-dark {
   color: #00a45f;
+}
+
+.my-btn-pri {
+  @apply px-4 py-1 rounded-lg bg-[#3AE895] text-white border ease-in-out duration-300 transition-all;
+}
+
+.my-btn-pri:hover {
+  @apply bg-white border-[#3AE895] text-[#3AE895];
+}
+
+.my-btn-sec {
+  @apply px-4 py-1 rounded-lg bg-[#E2474B] text-white border;
 }
