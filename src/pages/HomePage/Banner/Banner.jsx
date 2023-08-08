@@ -33,7 +33,7 @@ const Banner = () => {
                         <h1 className='text-4xl font-semibold pb-4'>E-voting Made Easy</h1>
                         <p>Simplify your organization's voting process with our intuitive, secure, and reliable e-voting system. Easy voting is just a click away.</p>
                     </SwiperSlide>
-                    <SwiperSlide className='mb-2'>
+                    <SwiperSlide className='mb-10'>
                         <h1 className='text-4xl font-semibold pb-4'>Secure. Simple. Swift. Your Digital Ballot Box.</h1>
                         <p>We provide a reliable online voting platform that values your security, appreciates simplicity, and delivers swift results. Welcome to your digital ballot box.</p>
                     </SwiperSlide>
