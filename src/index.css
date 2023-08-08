@@ -25,6 +25,10 @@ h6 {
   @apply lg:w-[85%] w-[90%] mx-auto;
 }
 
+/* color */
 .color-green {
   @apply text-[#00E05A];
+}
+.color-green-dark {
+  color: #00a45f;
 }
