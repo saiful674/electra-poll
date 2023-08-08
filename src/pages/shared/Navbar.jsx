@@ -10,12 +10,18 @@ const Navbar = () => {
     return (
         <div className="bg-white">
             <div className="lg:flex hidden my-container justify-between py-1">
-                <img className="h-16" src="/logo.png" alt="" />
+                <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/'>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/about'>About</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/services'>Services</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/contact'>Contact</NavLink>
+                </div>
+                <div className="flex justify-between items-center gap-5 text-lg">
+                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/contact'>Login</NavLink>
+                    <button className="my-btn-pri">
+                        Register
+                    </button>
                 </div>
             </div>
 
