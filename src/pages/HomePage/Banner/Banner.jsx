@@ -25,15 +25,18 @@ const Banner = () => {
                 className='lg:w-full w-[90vw] order-2 lg:order-1 static md:text-center lg:text-start text-center'
             >
                 <SwiperSlide className='mb-10'>
-                    <h1 className='text-4xl font-semibold pb-4'>Your Vote, Your Voice, Our Commitment</h1>
+                    <h1 className='text-4xl font-bold pb-4'>Your Vote, Your Voice, Our Commitment</h1>
                     <p>We are committed to providing a seamless and secure online voting experience. Empower your voice with us.</p>
+                    <button className='my-btn-sec'>
+                        learn more
+                    </button>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <h1 className='text-4xl font-semibold pb-4'>E-voting Made Easy</h1>
+                    <h1 className='text-4xl font-bold pb-4'>E-voting Made Easy</h1>
                     <p>Simplify your organization's voting process with our intuitive, secure, and reliable e-voting system. Easy voting is just a click away.</p>
                 </SwiperSlide>
                 <SwiperSlide className='mb-10'>
-                    <h1 className='text-4xl font-semibold pb-4'>Secure. Simple. Swift. Your Digital Ballot Box.</h1>
+                    <h1 className='text-4xl font-bold pb-4'>Secure. Simple. Swift. Your Digital Ballot Box.</h1>
                     <p>We provide a reliable online voting platform that values your security, appreciates simplicity, and delivers swift results. Welcome to your digital ballot box.</p>
                 </SwiperSlide>
             </Swiper>

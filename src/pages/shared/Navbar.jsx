@@ -8,26 +8,26 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="bg-white">
+        <div className="">
             <div className="lg:flex hidden my-container justify-between py-1">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/'>Home</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/about'>About</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/about '>About</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/services'>Services</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
-                </div>
+                </div >
                 <div className="flex justify-between items-center gap-5 text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Login</NavLink>
                     <button className="my-btn-pri">
                         Register
                     </button>
                 </div>
-            </div>
+            </div >
 
 
             {/* ================ mobile view================ */}
-            <div className="lg:hidden flex justify-between my-container py-1 relative">
+            < div className="lg:hidden flex justify-between my-container py-1 relative" >
                 <img className="h-11" src="/logo.png" alt="" />
                 <button onClick={() => setIsOpen(true)}>
                     <HiBars3BottomRight className="text-2xl"></HiBars3BottomRight>
@@ -43,8 +43,8 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
                     </ul>
                 }
-            </div>
-        </div>
+            </ div>
+        </div >
     );
 };
 
