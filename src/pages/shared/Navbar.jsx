@@ -12,13 +12,13 @@ const Navbar = () => {
             <div className="lg:flex hidden my-container justify-between py-1">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
-                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/'>Home</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/about'>About</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/services'>Services</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/contact'>Contact</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/'>Home</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/about'>About</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/services'>Services</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
                 </div>
                 <div className="flex justify-between items-center gap-5 text-lg">
-                    <NavLink className={({ isActive }) => isActive ? 'color-green' : ''} to='/contact'>Login</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Login</NavLink>
                     <button className="my-btn-pri">
                         Register
                     </button>
@@ -37,10 +37,10 @@ const Navbar = () => {
                         <button className="absolute right-2" onClick={() => setIsOpen(false)}>
                             <HiXMark className="text-xl"></HiXMark>
                         </button>
-                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'color-green' : ''} to='/'>Home</NavLink>
-                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'color-green' : ''} to='/about'>About</NavLink>
-                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'color-green' : ''} to='/services'>Services</NavLink>
-                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'color-green' : ''} to='/contact'>Contact</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/'>Home</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/about'>About</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/services'>Services</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
                     </ul>
                 }
             </div>
