@@ -1,0 +1,10 @@
+.accordion__button{
+    margin-bottom: 10px !important;
+}
+.accordion{
+    border: none !important;
+}
+.accordion__panel{
+    border: 1px solid #c9c6c6;
+    margin-bottom: 10px;
+}
