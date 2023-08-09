@@ -7,28 +7,16 @@ const About = () => {
         title={"About Electro-Poll"}
         subTitle={"Revolutionizing online elections since 2023"}
       ></SectionTitle>
-      <div className="md:flex items-start mt-10 gap-6">
-        <div className="w-1/2">
-          <img className="w-[450px]" src="about.jpg" alt="" />
+      <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
+        <div className="">
+          <img className="w-[85%] mx-auto" src="about.jpg" alt="" />
         </div>
-        <div className="w-1/2 space-y-3 text-lg">
+        <div className="space-y-3 text-lg">
           <p>
-            Electro poll is an election system that facilitates voters to record
-            their secure and secret ballot electronically. It has a friendly
-            user interface and enables voters to cast their votes in few simple
-            steps. We ensures the authenticity of the voters and the votes cast
-            by them along with non-traceability of the casted vote.
+            Electro Poll is your trusted e-voting companion. We make voting simple, secure, and secret. With just a few clicks, you're done! Our system verifies voter authenticity and ensures complete privacy. Renowned for its reliability and ease of use, Electro Poll boosts voter turnout by making the process smooth for everyone.
           </p>
           <p>
-            Electro poll's robust architecture has persistently manifested to be
-            one of the most reliable, comprehensible and economical electronic
-            voting solution. It renders Simple and Accessible voter experience
-            that eventually increases voter engagement and turnout. Auditable,
-            Easy To Use, Secure and Reliable is what sets Electro poll apart
-            from its competitors. Electro poll has facilitated several
-            organizations,across a wide range of industries to conduct
-            hassle-free electronic voting with utmost security and integrity.
-            Some of our fortes include
+            We've proudly served diverse industries, ensuring every vote is secure and counts. Our strengths? Auditable, straightforward, and rock-solid security.
           </p>
         </div>
       </div>
