@@ -32,6 +32,7 @@ h6 {
   color: #00a45f;
 }
 
+/* button */
 .my-btn-pri {
   @apply px-4 py-1 rounded-lg bg-[#3AE895] text-white border ease-in-out duration-300 transition-all;
 }
@@ -42,4 +43,9 @@ h6 {
 
 .my-btn-sec {
   @apply px-4 py-1 rounded-lg bg-[#E2474B] text-white border;
+}
+
+/* off-white image */
+.off-white {
+  filter: grayscale(100%);
 }
