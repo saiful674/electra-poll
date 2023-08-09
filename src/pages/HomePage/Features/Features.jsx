@@ -40,7 +40,7 @@ const Features = () => {
         <div className="text-center">
           <MdSupportAgent className="h-16 w-16 text-teal-500 mx-auto" />
           <h3 className="font-bold text-xl mt-3 mb-2">Amazing Support</h3>
-          <p>Each voter has a unique "Voter ID" and "Voter Key" and those have voter ID and Key they can only vote once.</p>
+          <p>Have a question? Need help? Our support team averages a response time of 8 minutes during business hours.</p>
         </div>
 
       </div>
