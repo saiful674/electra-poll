@@ -13,7 +13,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 const Banner = () => {
     return (
         <div className="bg-green-50 mb-10">
-            <div className='my-container h-auto lg:h-[85vh] grid gap-10 my-16 lg:my-0 lg:grid-cols-2 items-center'>
+            <div className='my-container h-auto lg:h-[85vh] grid py-5 lg:py-0 gap-10 my-16 lg:my-0 lg:grid-cols-2 items-center'>
                 <Swiper
                     slidesPerView={1}
                     autoplay={{ delay: 2500, disableOnInteraction: false }}

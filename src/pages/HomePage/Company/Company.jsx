@@ -10,9 +10,9 @@ const Company = () => {
         <section className='my-container mb-20'>
             <SectionTitle title={'Company Connected With Us'} subTitle={"We've been helping marketers with our campaign platform since 2010.Find out for yourself why we're so popular."} />
 
-            <div className='mt-10 grid grid-cols-2 md:grid-cols-5 gap-5 items-center off-white'>
+            <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" className='mt-10 grid grid-cols-2 md:grid-cols-5 gap-5 items-center off-white'>
                 <figure >
-                    <img src={companyLogo1} alt="our connected companies logo"/>
+                    <img src={companyLogo1} alt="our connected companies logo" />
                 </figure>
                 <figure>
                     <img src={companyLogo2} alt="our connected companies logo" />
