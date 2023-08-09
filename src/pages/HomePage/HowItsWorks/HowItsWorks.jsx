@@ -13,7 +13,7 @@ const HowItsWorks = () => {
       ></SectionTitle>
       <div className="md:flex gap-2 items-center">
         <div className="">
-          <div className="card shadow-sm md:w-[700px]">
+          <div data-aos="fade-up" data-aos-duration="1400" className="card shadow-sm md:w-[700px]">
             <div className="card-body">
               <div className="md:flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -32,7 +32,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div className="card shadow-sm md:w-[700px]">
+          <div data-aos="fade-up" data-aos-duration="1400" className="card shadow-sm md:w-[700px]">
             <div className="card-body">
               <div className="md:flex gap-6 items-center">
                 <div className=" w-[90px] mx-auto">
@@ -50,7 +50,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div className="card shadow-sm md:w-[700px]">
+          <div data-aos="fade-up" data-aos-duration="1400" className="card shadow-sm md:w-[700px]">
             <div className="card-body">
               <div className="md:flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -70,7 +70,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div className="card shadow-sm md:w-[700px]">
+          <div data-aos="fade-up" data-aos-duration="1400" className="card shadow-sm md:w-[700px]">
             <div className="card-body">
               <div className="md:flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -90,7 +90,7 @@ const HowItsWorks = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div data-aos="fade-left" data-aos-duration="1400" data-aos-delay="200">
           <img src={dashboardImage} alt="" />
         </div>
       </div>
