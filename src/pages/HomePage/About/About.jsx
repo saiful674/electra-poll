@@ -2,9 +2,9 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const About = () => {
   return (
-    <section className="my-container my-20">
+    <section className="my-container mb-20">
       <SectionTitle
-        title={"About Electro-Poll"}
+        title={"About Electro Poll"}
         subTitle={"Revolutionizing online elections since 2023"}
       ></SectionTitle>
       <div className="md:flex items-start mt-10 gap-6">
