@@ -15,10 +15,9 @@ const Testimonial = () => {
   console.log(testimonials);
   return (
     <div className=" my-container my-20">
-  <div className="my-12">
-  <SectionTitle title={"Testimonial"} subTitle={""}></SectionTitle>
-  </div>
-    
+      <div className="my-12">
+        <SectionTitle title={"Testimonial"} subTitle={""}></SectionTitle>
+      </div>
 
       <Swiper
         spaceBetween={50}
