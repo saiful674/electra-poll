@@ -8,7 +8,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="">
+        <div className="fixed w-full bg-white">
             <div className="lg:flex hidden my-container justify-between py-1">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
@@ -19,7 +19,7 @@ const Navbar = () => {
                 </div >
                 <div className="flex justify-between items-center gap-5 text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Login</NavLink>
-                    <button className="my-btn-pri">
+                    <button className="my-btn-sec">
                         Register
                     </button>
                 </div>

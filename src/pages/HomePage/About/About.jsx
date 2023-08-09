@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section className="my-container mb-20">
       <SectionTitle
-        title={"About Electro-Poll"}
+        title={"About Electro Poll"}
         subTitle={"Revolutionizing online elections since 2023"}
       ></SectionTitle>
       <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
