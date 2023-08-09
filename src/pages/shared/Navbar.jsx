@@ -2,13 +2,12 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HiBars3BottomRight, HiXMark } from 'react-icons/hi2';
 
-
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="fixed w-full bg-white">
+        <div data-aos="fade-down" data-aos-delay="200" data className="fixed w-full bg-white z-10 top-0">
             <div className="lg:flex hidden my-container justify-between py-1">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
