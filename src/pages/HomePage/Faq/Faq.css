@@ -1,0 +1,19 @@
+.accordion__button{
+    margin-bottom: 10px !important;
+    background-color: #F0FDFA !important;
+    font-weight: 700;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+.accordion__button:hover {
+    background-color: #99f6e4 !important;
+}
+
+.accordion{
+    border: none !important;
+
+}
+.accordion__panel{
+    border: 1px solid #99f6e4;
+    margin-bottom: 10px;
+}
