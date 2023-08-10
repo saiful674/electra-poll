@@ -1,6 +1,7 @@
-import contact from '../../../assets/faq-lottie/contact.json'
+import contact from '../../../assets/faq-lottie/contact2.json'
 import Lottie from "lottie-react";
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
 const ContactUs = () => {
 
 
@@ -54,10 +55,7 @@ const ContactUs = () => {
       required
     />
   </div>
-
-  <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
-    send your massage
-  </button>
+<ButtonPrimary>send your massage</ButtonPrimary>
 </form>
  </div>
     </div>
