@@ -2,6 +2,7 @@ import React from "react";
 import { FaChartPie, FaClipboardList, FaRocket } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 import dashboardImage from "../../../assets/How-it-work/dashboard2.jpg";
+import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const HowItsWorks = () => {
@@ -17,7 +18,7 @@ const HowItsWorks = () => {
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
-                  <p className="bg-color-green text-center text-white p-5 rounded-full text-5xl ">
+                  <p className="bg-green-400 text-center text-white p-5 rounded-full text-5xl ">
                     <FaClipboardList />
                   </p>
                 </div>
@@ -36,7 +37,7 @@ const HowItsWorks = () => {
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className=" w-[90px] mx-auto">
-                  <p className="bg-color-green text-white p-5 rounded-full text-5xl ">
+                  <p className="bg-green-400 text-white p-5 rounded-full text-5xl ">
                     <FaPeopleGroup></FaPeopleGroup>
                   </p>
                 </div>
@@ -54,7 +55,7 @@ const HowItsWorks = () => {
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
-                  <p className="bg-color-green text-white p-5 rounded-full text-5xl ">
+                  <p className="bg-green-400 text-white p-5 rounded-full text-5xl ">
                     <FaRocket />
                   </p>
                 </div>
@@ -74,7 +75,7 @@ const HowItsWorks = () => {
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
-                  <p className="bg-color-green text-white p-5 rounded-full text-5xl ">
+                  <p className="bg-green-400 text-white p-5 rounded-full text-5xl ">
                     <FaChartPie />
                   </p>
                 </div>
@@ -87,6 +88,9 @@ const HowItsWorks = () => {
                   </p>
                 </div>
               </div>
+            </div>
+            <div className="mt-5">
+              <ButtonPrimary>Create A Poll</ButtonPrimary>
             </div>
           </div>
         </div>

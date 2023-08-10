@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import TestimonialCard from "./TestimonialCard";
-import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -22,6 +30,17 @@ const Testimonial = () => {
       <Swiper
         spaceBetween={50}
         slidesPerView={3}
+        centeredSlides={true}
+
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
         breakpoints={{
           // When screen width is >= 1024px
           1024: {
@@ -40,10 +59,9 @@ const Testimonial = () => {
         onSwiper={(swiper) => console.log(swiper)}
       >
         {testimonials.map((testimonial) => (
-          <SwiperSlide>
+          <SwiperSlide key={testimonial.id}>
             {" "}
             <TestimonialCard
-              key={testimonial.id}
               testimonial={testimonial}
             ></TestimonialCard>
           </SwiperSlide>
