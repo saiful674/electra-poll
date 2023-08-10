@@ -2,7 +2,11 @@ import React from "react";
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div data-aos="fade-left" data-aos-duration="1400" className="text-center h-96 flex justify-center items-center  bg-gray-50 rounded-lg p-5 shadow-lg border-l">
+    <div
+      data-aos="fade-left"
+      data-aos-duration="1400"
+      className="text-center h-96 flex justify-center items-center mb-5  bg-gray-50 rounded-lg p-5 shadow-lg border-l"
+    >
       <div>
         <h3 className="text-xl font-semibold mb-2">{testimonial.user.name}</h3>
         <p className="text-gray-600">{testimonial.user.occupation}</p>
