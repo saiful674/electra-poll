@@ -5,9 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import "./Testimonial.css"
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -23,14 +21,13 @@ const Testimonial = () => {
   console.log(testimonials);
   return (
     <div className=" my-container my-20">
-      <div className="my-12">
+      <div className="my-5">
         <SectionTitle title={"Testimonial"} subTitle={""}></SectionTitle>
       </div>
 
       <Swiper
         spaceBetween={50}
         slidesPerView={3}
-        centeredSlides={true}
 
         autoplay={{
           delay: 2000,
@@ -39,7 +36,7 @@ const Testimonial = () => {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+
         modules={[Autoplay, Pagination, Navigation]}
         breakpoints={{
           // When screen width is >= 1024px
