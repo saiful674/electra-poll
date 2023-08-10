@@ -7,8 +7,8 @@ const About = () => {
         title={"About Electro Poll"}
         subTitle={"Revolutionizing online elections since 2023"}
       ></SectionTitle>
-      <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
-        <div className="">
+      <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
+        <div data-aos="fade-right" data-aos-duration="1400" data-aos-delay="200" className="">
           <img className="w-[85%] mx-auto" src="about.jpg" alt="" />
         </div>
         <div className="space-y-3 text-lg">
