@@ -43,12 +43,12 @@ const ContactUs = () => {
 
   <div className="mb-4">
     <label htmlFor="comment" className="block  text-slate-600 font-semibold">
-      Comment:
+    Massage:
     </label>
     <textarea
       id="comment"
       name="comment"
-      placeholder='write your comment'
+      placeholder='write your massage'
       rows={4}
       className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-teal-200"
       required
