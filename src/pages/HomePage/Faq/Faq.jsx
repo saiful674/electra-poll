@@ -1,16 +1,16 @@
+import Lottie from "lottie-react";
 import React, { useState } from 'react';
-import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import {
     Accordion,
     AccordionItem,
-    AccordionItemHeading,
     AccordionItemButton,
+    AccordionItemHeading,
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import Lottie from "lottie-react";
-import faq from '../../../assets/faq-lottie/faq.json'
-import './Faq.css'
+import faq from '../../../assets/faq-lottie/faq.json';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import './Faq.css';
 
 
 const Faq = () => {
@@ -62,7 +62,7 @@ const Faq = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10  gap-6 items-center'>
                 <Accordion allowZeroExpanded>
                     {faqs.map((item) => (
-                        <AccordionItem data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" key={item.id}>
+                        <AccordionItem data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" data-aos-once="true" key={item.id}>
                             <AccordionItemHeading>
                                 <AccordionItemButton>
                                     {item.question}
@@ -74,7 +74,7 @@ const Faq = () => {
                         </AccordionItem>
                     ))}
                 </Accordion>
-                <div data-aos="fade-left" data-aos-duration="1400" data-aos-delay="200" className=' md:ps-20 '>
+                <div data-aos="fade-left" data-aos-duration="1400" data-aos-delay="200" data-aos-once="true" className=' md:ps-20 '>
                     <Lottie className='w-[85%] mx-auto order-2' animationData={faq} loop={true} />
                 </div>
             </div>

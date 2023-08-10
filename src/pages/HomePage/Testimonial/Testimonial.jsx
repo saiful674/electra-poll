@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import TestimonialCard from "./TestimonialCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 
 // Import Swiper styles
-import "./Testimonial.css"
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "./Testimonial.css";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -57,10 +60,9 @@ const Testimonial = () => {
         onSwiper={(swiper) => console.log(swiper)}
       >
         {testimonials.map((testimonial) => (
-          <SwiperSlide>
+          <SwiperSlide key={testimonial.id}>
             {" "}
             <TestimonialCard
-              key={testimonial.id}
               testimonial={testimonial}
             ></TestimonialCard>
           </SwiperSlide>
