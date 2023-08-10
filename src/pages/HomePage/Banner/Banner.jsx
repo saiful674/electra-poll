@@ -47,7 +47,7 @@ const Banner = () => {
                     </SwiperSlide>
                 </Swiper>
                 <div className='order-1 lg:order-2 banner-img'>
-                    <img className='w-full h-full' src={bannerImg} alt="" />
+                    <img className='w-full lg:w-full h-full md:w-[75%] md:mx-auto' src={bannerImg} alt="" />
                 </div>
             </div>
         </div>
