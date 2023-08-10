@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return (
         <div data-aos="fade-down" data-aos-delay="200" data className="fixed w-full bg-white z-10 top-0">
-            <div className="lg:flex hidden my-container justify-between py-1">
+            <div className="lg:flex hidden my-container justify-between py-2">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/'>Home</NavLink>

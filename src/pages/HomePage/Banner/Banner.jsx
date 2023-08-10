@@ -1,6 +1,7 @@
 import bannerImg from "../../../assets/banner-2.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import './Banner.css'
 
 // Import Swiper styles
 import "swiper/css";
@@ -44,7 +45,7 @@ const Banner = () => {
                         </button>
                     </SwiperSlide>
                 </Swiper>
-                <div className='order-1 lg:order-2'>
+                <div className='order-1 lg:order-2 banner-img'>
                     <img className='w-full h-full' src={bannerImg} alt="" />
                 </div>
             </div>
