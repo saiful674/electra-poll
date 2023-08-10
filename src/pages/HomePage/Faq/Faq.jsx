@@ -60,7 +60,7 @@ const Faq = () => {
                 subTitle={"Your Questions, Our Answers"}
             />
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10  gap-6 items-center'>
-                <Accordion allowZeroExpanded>
+                <Accordion className="order-2" allowZeroExpanded>
                     {faqs.map((item) => (
                         <AccordionItem data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" data-aos-once="true" key={item.id}>
                             <AccordionItemHeading>
@@ -74,7 +74,7 @@ const Faq = () => {
                         </AccordionItem>
                     ))}
                 </Accordion>
-                <div data-aos="fade-left" data-aos-duration="1400" data-aos-delay="200" data-aos-once="true" className=' md:ps-20 '>
+                <div data-aos="fade-right" data-aos-duration="1400" data-aos-delay="200" data-aos-once="true" className=' md:ps-20 order-1'>
                     <Lottie className='w-[85%] mx-auto order-2' animationData={faq} loop={true} />
                 </div>
             </div>
