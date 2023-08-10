@@ -1,0 +1,11 @@
+/* Testimonial.css */
+/* Adjust the pagination color here */
+.swiper-pagination-bullet {
+    background-color: red;
+  }
+  
+  /* Adjust the active pagination bullet color here */
+  .swiper-pagination-bullet-active {
+    background-color: rgb(26, 179, 23);
+  }
+  

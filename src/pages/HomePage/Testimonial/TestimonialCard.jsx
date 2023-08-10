@@ -7,6 +7,8 @@ const TestimonialCard = ({ testimonial }) => {
     <div
 
       className="text-center h-96 flex justify-center items-center mb-5  bg-gray-50 rounded-lg p-5 shadow-lg border-l"
+      data-aos="fade-left"
+      data-aos-duration="1400"
     >
       <div>
         <h3 className="text-xl font-semibold mb-2">{testimonial.user.name}</h3>

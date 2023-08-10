@@ -8,6 +8,7 @@ import TestimonialCard from "./TestimonialCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "./Testimonial.css";
 
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -23,23 +24,23 @@ const Testimonial = () => {
   console.log(testimonials);
   return (
     <div className=" my-container my-20">
-      <div className="my-12">
+      <div className="my-5">
         <SectionTitle title={"Testimonial"} subTitle={""}></SectionTitle>
       </div>
 
       <Swiper
         spaceBetween={50}
         slidesPerView={3}
-        centeredSlides={true}
 
         autoplay={{
           delay: 2000,
           disableOnInteraction: false,
         }}
+        loop={true}
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+
         modules={[Autoplay, Pagination, Navigation]}
         breakpoints={{
           // When screen width is >= 1024px

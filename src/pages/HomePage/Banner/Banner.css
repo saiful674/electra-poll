@@ -1,0 +1,15 @@
+.banner-img{
+    animation: wiggle 5s infinite;
+}
+
+@keyframes wiggle {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    35% {
+        transform: translateY(10px) translateX(2px);
+    }
+    70% {
+        transform: translateY(10px) translateX(-2px);
+    }
+}
