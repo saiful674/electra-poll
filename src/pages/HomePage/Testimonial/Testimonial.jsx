@@ -5,13 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -31,6 +30,8 @@ const Testimonial = () => {
       <Swiper
         spaceBetween={50}
         slidesPerView={3}
+        centeredSlides={true}
+
         autoplay={{
           delay: 2000,
           disableOnInteraction: false,
