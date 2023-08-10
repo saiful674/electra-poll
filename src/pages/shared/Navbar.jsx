@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { HiBars3BottomRight, HiXMark } from 'react-icons/hi2';
 import { NavLink } from "react-router-dom";
@@ -5,9 +6,35 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = useState(false)
+    const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+    const [visible, setVisible] = useState(true);
+    const [zeroScroll, setZeroScroll] = useState(true)
+
+    useEffect
+        (() => {
+            const handleScroll = () => {
+                const currentScrollPos = window.scrollY;
+                const isVisible = prevScrollPos > currentScrollPos;
+
+                setPrevScrollPos(currentScrollPos);
+                setVisible(isVisible);
+            };
+
+            if (window.scrollY <= 0) {
+                setZeroScroll(true)
+            }
+            else {
+                setZeroScroll(false)
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }, [prevScrollPos]);
 
     return (
-        <div data-aos="fade-down" data-aos-delay="200" data className="fixed w-full bg-white z-10 top-0">
+        <div data-aos="fade-down" data className={`${visible ? '' : 'hidden'} ${!zeroScroll ? 'bg-white shadow-lg' : 'bg-green-50'} fixed w-full z-10 top-0`}>
             <div className="hidden lg:flex my-container justify-between py-2">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
