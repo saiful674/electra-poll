@@ -28,9 +28,13 @@ h6 {
 .color-green {
   @apply text-[#00E05A];
 }
+.bg-color-green {
+  background-color: #00a45f;
+}
 .color-green-dark {
   color: #00a45f;
-}npm run :-moz-drag-over
+}
+npm run :-moz-drag-over
 
 /* button */
 .my-btn-pri {
