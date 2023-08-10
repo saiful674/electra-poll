@@ -59,7 +59,7 @@ const Navbar = () => {
                     <HiBars3BottomRight className="text-2xl"></HiBars3BottomRight>
                 </button>
                 {
-                    isOpen && <ul className="absolute py-3 gap-2 rounded-md bg-green-50 flex flex-col right-0 top-2 w-1/2 items-center">
+                    isOpen && <ul className="absolute py-3 gap-2 rounded-md bg-white flex flex-col right-0 top-2 w-1/2 items-center">
                         <button className="absolute right-2" onClick={() => setIsOpen(false)}>
                             <HiXMark className="text-xl"></HiXMark>
                         </button>
