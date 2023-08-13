@@ -34,7 +34,7 @@ const Navbar = () => {
         }, [prevScrollPos]);
 
     return (
-        <div data-aos="fade-down" data className={`${visible ? '' : 'hidden'} ${!zeroScroll ? 'bg-white shadow-lg' : 'bg-green-50'} fixed w-full z-10 top-0`}>
+        <div data-aos="fade-down"  className={`${visible ? '' : 'hidden'} ${!zeroScroll ? 'bg-white shadow-lg' : 'bg-green-50'} fixed w-screen z-10 top-0`}>``
             <div className="hidden lg:flex my-container justify-between py-2">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
@@ -59,7 +59,7 @@ const Navbar = () => {
                     <HiBars3BottomRight className="text-2xl"></HiBars3BottomRight>
                 </button>
                 {
-                    isOpen && <ul className="absolute py-3 gap-2 rounded-md bg-green-50 flex flex-col right-0 top-2 w-1/2 items-center">
+                    isOpen && <ul className="absolute py-3 gap-2 rounded-md bg-white flex flex-col right-0 top-2 w-1/2 items-center">
                         <button className="absolute right-2" onClick={() => setIsOpen(false)}>
                             <HiXMark className="text-xl"></HiXMark>
                         </button>
