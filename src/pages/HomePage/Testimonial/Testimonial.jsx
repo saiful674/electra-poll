@@ -12,8 +12,16 @@ import "./Testimonial.css";
 
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import Aos from "aos";
 
 const Testimonial = () => {
+
+  useEffect(() => {
+    Aos.init({
+      duration: 800
+    })
+  }, [])
+
   const [testimonials, setTestimonials] = useState([
     {
       "id": 1,
@@ -118,8 +126,6 @@ const Testimonial = () => {
             slidesPerView: 1,
           },
         }}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
       >
         {testimonials.map((testimonial) => (
           <SwiperSlide key={testimonial.id}>
