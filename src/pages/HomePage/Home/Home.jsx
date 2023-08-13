@@ -1,7 +1,7 @@
 import About from "../About/About";
 import Banner from "../Banner/Banner";
 import Company from "../Company/Company";
-// import ContactUs from "../ContactUs/ContactUs";
+import ContactUs from "../ContactUs/ContactUs";
 import Faq from "../Faq/Faq";
 import Features from "../Features/Features";
 import HowItsWorks from "../HowItsWorks/HowItsWorks";
@@ -17,7 +17,7 @@ const Home = () => {
       <Faq></Faq>
       <Testimonial></Testimonial>
       <Company />
-      {/* <ContactUs></ContactUs> */}
+      <ContactUs></ContactUs>
     </div>
   );
 };
