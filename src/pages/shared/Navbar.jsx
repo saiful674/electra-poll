@@ -2,7 +2,7 @@ import Aos from "aos";
 import { useEffect } from "react";
 import { useState } from "react";
 import { HiBars3BottomRight, HiXMark } from 'react-icons/hi2';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -51,10 +51,10 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
                 </div >
                 <div className="flex justify-between items-center gap-5 text-lg">
-                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Login</NavLink>
-                    <button className="my-btn-sec">
+                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/login'>Login</NavLink>
+                    <Link to='/registration' className="my-btn-sec">
                         Register
-                    </button>
+                    </Link>
                 </div>
             </div >
 
