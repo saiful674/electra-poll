@@ -11,9 +11,7 @@ const ContactUs = () => {
              subTitle={"Let's Connect and Communicate"}
             />
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-5  gap-6 items-center">
-    <div>
-    <Lottie className='w-[85%] mx-auto order-2' animationData={contact} loop={true} />
-    </div>
+    
     <form  className="bg-teal-50 p-6 shadow-lg rounded-lg">
   <div className="mb-4">
     <label htmlFor="name" className="block text-slate-600 font-semibold">
@@ -57,6 +55,9 @@ const ContactUs = () => {
   </div>
 <ButtonPrimary>send your massage</ButtonPrimary>
 </form>
+<div>
+    <Lottie className='w-[85%] mx-auto order-2' animationData={contact} loop={true} />
+    </div>
  </div>
     </div>
 
