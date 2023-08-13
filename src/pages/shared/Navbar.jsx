@@ -34,7 +34,7 @@ const Navbar = () => {
         }, [prevScrollPos]);
 
     return (
-        <div data-aos="fade-down" data className={`${visible ? '' : 'hidden'} ${!zeroScroll ? 'bg-white shadow-lg' : 'bg-green-50'} fixed w-screen z-10 top-0`}>
+        <div data-aos="fade-down"  className={`${visible ? '' : 'hidden'} ${!zeroScroll ? 'bg-white shadow-lg' : 'bg-green-50'} fixed w-screen z-10 top-0`}>``
             <div className="hidden lg:flex my-container justify-between py-2">
                 <img className="h-12" src="/logo.png" alt="" />
                 <div className="flex justify-between items-center gap-5 text-lg">
