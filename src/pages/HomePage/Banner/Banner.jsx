@@ -11,8 +11,17 @@ import "swiper/css/pagination";
 
 import { Autoplay } from "swiper/modules";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
+import { useEffect } from "react";
+import Aos from "aos";
 
 const Banner = () => {
+
+    useEffect(() => {
+        Aos.init({
+            duration: 800
+        })
+    }, [])
+
     return (
         <div className="bg-green-50 mb-10">
             <div className='my-container h-auto lg:h-[100vh] grid py-5 lg:py-0 gap-10 my-12 lg:my-0 lg:grid-cols-2 items-center'>

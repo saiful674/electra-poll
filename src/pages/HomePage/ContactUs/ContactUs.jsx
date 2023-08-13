@@ -2,17 +2,24 @@ import contact from '../../../assets/faq-lottie/contact2.json'
 import Lottie from "lottie-react";
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
+import { useEffect } from 'react';
+import Aos from 'aos';
 const ContactUs = () => {
 
+  useEffect(() => {
+    Aos.init({
+      duration: 800
+    })
+  }, [])
 
   return (
     <div className="my-container ">
       <SectionTitle title={"Contact US"}
         subTitle={"Let's Connect and Communicate"}
       />
-      <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-5  gap-6 items-center">
-        <div data-aos="fade-right" data-aos-duration="1400">
-          <Lottie className='w-[85%] mx-auto order-2' animationData={contact} loop={true} />
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-5  gap-6 items-center">
+        <div data-aos="fade-right" data-aos-duration="800">
+          <Lottie autoplay={false} renderer="svg" className='w-[85%] mx-auto order-2' animationData={contact} loop={true} />
         </div>
         <form className="bg-green-50 p-6 shadow-lg rounded-lg">
           <div className="mb-4">
