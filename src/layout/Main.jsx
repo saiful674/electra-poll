@@ -8,12 +8,13 @@ import 'aos/dist/aos.css';
 const Main = () => {
     useEffect(() => {
         Aos.init({
-            duration: 800
+            duration: 800,
+            once: true
         })
     }, [])
 
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Footer></Footer>

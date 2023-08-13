@@ -4,8 +4,17 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import dashboardImage from "../../../assets/How-it-work/dashboard2.jpg";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import Aos from "aos";
+import { useEffect } from "react";
 
 const HowItsWorks = () => {
+
+  useEffect(() => {
+    Aos.init({
+      duration: 800
+    })
+  }, [])
+
   return (
     <section className="my-container mb-20">
       <SectionTitle
@@ -14,7 +23,7 @@ const HowItsWorks = () => {
       ></SectionTitle>
       <div className="mt-10 grid lg:grid-cols-2 gap-10 items-center">
         <div className="space-y-3 divide-y-2">
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-once="true" className="">
+          <div data-aos="fade-up" data-aos-duration="800" className="">
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -33,7 +42,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-once="true" className="pt-3">
+          <div data-aos="fade-up" data-aos-duration="800" className="pt-3">
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className=" w-[90px] mx-auto">
@@ -51,7 +60,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-once="true" className="pt-3">
+          <div data-aos="fade-up" data-aos-duration="800" className="pt-3">
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -71,7 +80,7 @@ const HowItsWorks = () => {
               </div>
             </div>
           </div>
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-once="true" className="pt-3">
+          <div data-aos="fade-up" data-aos-duration="800" className="pt-3">
             <div className="">
               <div className="flex gap-6 items-center">
                 <div className="w-[90px] mx-auto">
@@ -94,7 +103,7 @@ const HowItsWorks = () => {
             </div>
           </div>
         </div>
-        <div data-aos="fade-left" data-aos-duration="1400" data-aos-once="true" data-aos-delay="200" className="">
+        <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" className="">
           <img src={dashboardImage} alt="dashboard image" className="w-full h-[500px] bg-contain" />
         </div>
       </div>
