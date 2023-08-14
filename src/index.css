@@ -11,15 +11,6 @@ body {
   font-family: "Karla", sans-serif;
 }
 
-lato font h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Lato", sans-serif;
-}
-
 .my-container {
   @apply lg:w-[85%] w-[90%] mx-auto;
 }
@@ -54,11 +45,20 @@ npm run :-moz-drag-over
   filter: grayscale(100%);
 }
 
-
+/* form previous next button */
 .button-next{
   @apply px-4 bg-green-400 text-white rounded-md py-1 text-lg
 }
 
 .button-pre{
   @apply px-4 bg-red-400 text-white rounded-md py-1 text-lg
+}
+
+/* form input */
+.my-input{
+  @apply appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight
+}
+
+.my-input:disabled{
+  opacity: .6;
 }

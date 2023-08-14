@@ -43,9 +43,9 @@ const Navbar = () => {
       className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
         } fixed w-screen z-30 top-0`}
     >
-      <div className="hidden lg:flex my-container justify-between py-2">
+      <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
-        <div className="flex justify-between items-center gap-5 text-lg">
+        <div className="flex justify-between items-center gap-5 text-lg font-semibold">
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/"

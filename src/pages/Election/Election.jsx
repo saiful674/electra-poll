@@ -16,7 +16,7 @@ const Election = () => {
 
     return (
         <div className='py-20 my-container'>
-            <div className='grid lg:grid-cols-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold'>
+            <div className='grid lg:grid-cols-5 mt-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold'>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 0 ? `text-green-400` : ''}`}>Overview <FaLongArrowAltRight /></span>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 1 ? `text-green-400` : ''}`}>Nominees <FaLongArrowAltRight /></span>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 2 ? `text-green-400` : ''}`}>Notice<FaLongArrowAltRight /></span>
