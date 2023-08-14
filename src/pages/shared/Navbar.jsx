@@ -2,7 +2,7 @@ import Aos from "aos";
 import { useEffect } from "react";
 import { useState } from "react";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   useEffect(() => {
@@ -55,7 +55,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/about"
+            to="/about "
           >
             About
           </NavLink>
@@ -79,7 +79,9 @@ const Navbar = () => {
           >
             Login
           </NavLink>
-          <button className="my-btn-sec">Register</button>
+          <Link to="/registration" className="my-btn-sec">
+            Register
+          </Link>
         </div>
       </div>
 
@@ -125,6 +127,20 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/login"
+            >
+              Login
+            </NavLink>
+            <Link
+              onClick={() => setIsOpen(false)}
+              to="/registration"
+              className="my-btn-sec"
+            >
+              Register
+            </Link>
           </ul>
         )}
       </div>
