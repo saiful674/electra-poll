@@ -13,6 +13,7 @@ const ContactUs = () => {
     });
   }, []);
 
+  
   return (
     <div className="my-container ">
       <SectionTitle
@@ -27,10 +28,7 @@ const ContactUs = () => {
       >
         <div data-aos="fade-right" data-aos-duration="800">
           <Lottie
-            autoplay={false}
-            renderer="svg"
-            className="w-[85%] mx-auto order-2"
-            animationData={contactAnimationData}
+
             loop={true}
           />
         </div>
@@ -87,7 +85,11 @@ const ContactUs = () => {
         </form>
       </div>
     </div>
+
+  )
+
   );
+
 };
 
 export default ContactUs;
