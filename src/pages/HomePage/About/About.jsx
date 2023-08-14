@@ -11,13 +11,13 @@ const About = () => {
   }, [])
 
   return (
-    <section className="my-container mb-20">
+    <section data-aos="fade-up" data-aos-duration="800" className="my-container mb-20">
       <SectionTitle
         title={"About Electro Poll"}
         subTitle={"Revolutionizing online elections since 2023"}
       ></SectionTitle>
-      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
-        <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="200" className="">
+      <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
+        <div data-aos="fade-right" data-aos-duration="800" className="">
           <img className="w-[85%] md:w-[70%] lg:w-[75%] mx-auto" src="about.jpg" alt="" />
         </div>
         <div className="space-y-3 text-lg">
