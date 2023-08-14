@@ -6,7 +6,11 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
+<<<<<<< HEAD
 import Election from "../pages/Election/Election";
+=======
+import Contact from "../pages/Contact/Contact";
+>>>>>>> e7517c4514438d4d4a30c5207ad0bbeb8f8a7927
 
 const router = createBrowserRouter([
   {
@@ -38,6 +42,10 @@ const router = createBrowserRouter([
         path: "registration",
         element: <Registration></Registration>,
       },
+      {
+        path:'contact',
+        element: <Contact></Contact>
+      }
     ],
   },
 ]);
