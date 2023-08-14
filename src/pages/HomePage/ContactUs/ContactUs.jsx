@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import contact from '../../../assets/faq-lottie/contact2.json'
 import Lottie from "lottie-react";
-import Aos from "aos";
-import "aos/dist/aos.css"; // Make sure to import AOS CSS
-import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
-import contactAnimationData from "../../../assets/faq-lottie/contact2.json";
-
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
+import { useEffect } from 'react';
+import Aos from 'aos';
 const ContactUs = () => {
+
   useEffect(() => {
     Aos.init({
-      duration: 800,
-    });
-  }, []);
+      duration: 800
+    })
+  }, [])
 
   
   return (
@@ -28,7 +27,10 @@ const ContactUs = () => {
       >
         <div data-aos="fade-right" data-aos-duration="800">
           <Lottie
-
+            autoplay={true}
+            renderer="svg"
+            className="w-[85%] mx-auto order-2"
+            animationData={contact}
             loop={true}
           />
         </div>
@@ -79,11 +81,7 @@ const ContactUs = () => {
         </form>
       </div>
     </div>
-
   )
-
-  );
-
 };
 
 export default ContactUs;
