@@ -16,7 +16,7 @@ const Nominees = () => {
     }
 
     return (
-        <div className='lg:w-[70%] bg-gray-50 p-10'>
+        <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
             <h1>Nominees</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input

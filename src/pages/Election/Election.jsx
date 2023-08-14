@@ -17,11 +17,11 @@ const Election = () => {
     return (
         <div className='py-20 my-container'>
             <div className='grid lg:grid-cols-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold'>
-                <span className={`flex lg:justify-center gap-10 items-center ${pageNum >= 0 ? `text-green-400` : ''}`}>Overview <FaLongArrowAltRight /></span>
-                <span className={`flex lg:justify-center gap-10 items-center ${pageNum >= 1 ? `text-green-400` : ''}`}>Nominees <FaLongArrowAltRight /></span>
-                <span className={`flex lg:justify-center gap-10 items-center ${pageNum >= 2 ? `text-green-400` : ''}`}>Notice<FaLongArrowAltRight /></span>
-                <span className={`flex lg:justify-center gap-10 items-center ${pageNum >= 3 ? `text-green-400` : ''}`}>Security<FaLongArrowAltRight /></span>
-                <span className={`flex lg:justify-center gap-10 items-center ${pageNum >= 4 ? `text-green-400` : ''}`}>Confirmation<FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 0 ? `text-green-400` : ''}`}>Overview <FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 1 ? `text-green-400` : ''}`}>Nominees <FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 2 ? `text-green-400` : ''}`}>Notice<FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 3 ? `text-green-400` : ''}`}>Security<FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 4 ? `text-green-400` : ''}`}>Confirmation<FaLongArrowAltRight /></span>
             </div>
             <div className='mt-10 flex justify-center'>
                 {pageNum === 0 && <Overview></Overview>}

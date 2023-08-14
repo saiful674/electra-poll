@@ -41,7 +41,7 @@ const Navbar = () => {
     <div
       data-aos="fade-down"
       className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0`}
+        } fixed w-screen z-30 top-0`}
     >
       <div className="hidden lg:flex my-container justify-between py-2">
         <img className="h-12" src="/logo.png" alt="" />
@@ -57,12 +57,6 @@ const Navbar = () => {
             to="/about "
           >
             About
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/services"
-          >
-            Services
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
@@ -117,13 +111,6 @@ const Navbar = () => {
               to="/about"
             >
               About
-            </NavLink>
-            <NavLink
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/services"
-            >
-              Services
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(false)}

@@ -19,7 +19,7 @@ const Overview = () => {
     }
 
     return (
-        <div className='lg:w-[70%] bg-gray-50 p-10'>
+        <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     {...register("title", { required: true })}
