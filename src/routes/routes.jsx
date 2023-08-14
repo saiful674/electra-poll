@@ -6,6 +6,7 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
+import Contact from "../pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: "registration",
         element: <Registration></Registration>,
       },
+      {
+        path:'contact',
+        element: <Contact></Contact>
+      }
     ],
   },
 ]);
