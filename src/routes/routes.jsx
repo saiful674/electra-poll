@@ -4,6 +4,7 @@ import Home from "../pages/HomePage/Home/Home";
 import Service from "../pages/Service/Service";
 import ErrorPage from "../pages/shared/ErrorPage";
 import AboutPage from "../pages/AboutPage/AboutPage";
+import Election from "../pages/Election/Election";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import Contact from "../pages/Contact/Contact";
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         element: <Service></Service>,
       },
       {
+        path: 'election',
+        element: <Election></Election>
+      },
+      {
         path: "login",
         element: <Login></Login>,
       },
@@ -35,7 +40,7 @@ const router = createBrowserRouter([
         element: <Registration></Registration>,
       },
       {
-        path:'contact',
+        path: 'contact',
         element: <Contact></Contact>
       }
     ],
