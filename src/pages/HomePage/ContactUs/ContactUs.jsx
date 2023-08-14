@@ -42,10 +42,7 @@ const ContactUs = () => {
             >
               Name:
             </label>
-            <input type="text"
-              id="name"
-              name="name"
-              placeholder="name"
+            <input type="text"  id="name" name="name"  placeholder="name"
               className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-teal-200"
               required
             />
@@ -58,9 +55,7 @@ const ContactUs = () => {
               Email:
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="email"  id="email"    name="email"
               placeholder="email"
               className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-teal-200"
               required
