@@ -42,8 +42,7 @@ const ContactUs = () => {
             >
               Name:
             </label>
-            <input
-              type="text"
+            <input type="text"
               id="name"
               name="name"
               placeholder="name"
