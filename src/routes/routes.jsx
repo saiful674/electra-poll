@@ -6,6 +6,7 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
+import Election from "../pages/Election/Election";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Service></Service>,
+      },
+      {
+        path: 'election',
+        element: <Election></Election>
       },
       {
         path: "login",

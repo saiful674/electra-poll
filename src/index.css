@@ -54,3 +54,11 @@ npm run :-moz-drag-over
   filter: grayscale(100%);
 }
 
+
+.button-next{
+  @apply px-4 bg-green-400 text-white rounded-md py-1 text-lg
+}
+
+.button-pre{
+  @apply px-4 bg-red-400 text-white rounded-md py-1 text-lg
+}
