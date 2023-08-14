@@ -16,23 +16,23 @@ const Company = () => {
     }, [])
 
     return (
-        <section className='my-container mb-20'>
+        <section data-aos="fade-up" className='my-container mb-20'>
             <SectionTitle title={'Company Connected With Us'} subTitle={"We've been helping marketers with our campaign platform since 2010.Find out for yourself why we're so popular."} />
 
             <div className='mt-10 grid grid-cols-2 md:grid-cols-5 gap-5 items-center off-white'>
-                <figure data-aos="fade-up" data-aos-duration="800" data-aos-delay="200"  >
+                <figure>
                     <img src={companyLogo1} alt="our connected companies logo" />
                 </figure>
-                <figure data-aos="fade-up" data-aos-duration="800" data-aos-delay="250"  >
+                <figure>
                     <img src={companyLogo2} alt="our connected companies logo" />
                 </figure>
-                <figure data-aos="fade-up" data-aos-duration="800" data-aos-delay="300"  >
+                <figure>
                     <img src={companyLogo3} alt="our connected companies logo" />
                 </figure>
-                <figure data-aos="fade-up" data-aos-duration="800" data-aos-delay="350"  >
+                <figure>
                     <img src={companyLogo4} alt="our connected companies logo" />
                 </figure>
-                <figure data-aos="fade-up" data-aos-duration="800" data-aos-delay="400"  >
+                <figure>
                     <img src={companyLogo5} alt="our connected companies logo" />
                 </figure>
             </div>
