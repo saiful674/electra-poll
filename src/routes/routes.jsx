@@ -21,13 +21,14 @@ const router = createBrowserRouter([
                 element: <Service></Service>
             },
             {
+                path: 'login',
+                element: <Login></Login>
+            },
+            {
                 path: 'registration',
                 element: <Registration></Registration>
             },
-            {
-                path: 'login',
-                element: <Login></Login>
-            }
+           
         ]
     }
 ])
