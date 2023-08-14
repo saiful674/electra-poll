@@ -400,7 +400,7 @@ const AboutPage = () => {
         </div>
 
         <div className="my-20">
-          <div className="mb-10 text-center">
+          <div className="mb-10  text-center">
             <h3 className="text-3xl font-semibold">Our Team member</h3>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. In, ipsa
@@ -408,11 +408,11 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-10">
-            <div className="card hover:bg-base-100 ">
+            <div className="card  hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
@@ -442,11 +442,11 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="card hover:bg-base-100 ">
+            <div className="card hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
@@ -476,11 +476,11 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="card hover:bg-base-100 ">
+            <div className="card hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
@@ -510,11 +510,11 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="card hover:bg-base-100 ">
+            <div className="card hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
@@ -544,11 +544,11 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="card hover:bg-base-100 ">
+            <div className="card hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
@@ -578,11 +578,11 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-            <div className="card hover:bg-base-100 ">
+            <div className="card hover:shadow-xl hover:bg-base-100 ">
               <figure>
                 <img
                   src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-20 mt-5 w-20 rounded-full"
+                  className="h-52 mt-5 w-48 rounded-lg"
                   alt="Team Picture"
                 />
               </figure>
