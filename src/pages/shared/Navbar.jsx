@@ -74,6 +74,8 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/about'>About</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/services'>Services</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/login'>Login</NavLink>
+                        <Link onClick={() => setIsOpen(false)} to='/registration' className="my-btn-sec">Register</Link>
                     </ul>
                 }
             </ div>
