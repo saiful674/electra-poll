@@ -8,6 +8,7 @@ import Election from "../pages/Election/Election";
 import Registration from "../pages/Registration/Registration";
 import Login from "../pages/Login/Login";
 import Contact from "../pages/Contact/Contact";
+import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact></Contact>
+      },
+      {
+        path:'election-correction',
+       element:<ElectionCreationAndManagement></ElectionCreationAndManagement>
       }
     ],
   },
