@@ -16,8 +16,8 @@
   }
 .create-bg3 {
     position: relative;
-    /* background-image: url('../../assets/create-voting/voting1.jpg'); */
-    background-image: url('../../assets/create-voting/voting.jpg');
+    background-image: url('../../assets/create-voting/voting1.jpg');
+    /* background-image: url('../../assets/create-voting/voting.jpg'); */
     background-size: cover;
     background-position: center;
     height: 50vh;
