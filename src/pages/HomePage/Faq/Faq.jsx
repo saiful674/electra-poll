@@ -1,4 +1,3 @@
-import Lottie from "lottie-react";
 import React, { useState } from 'react';
 import {
     Accordion,
@@ -8,7 +7,6 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import faq from '../../../assets/faq-lottie/faq.json';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import './Faq.css';
 import { useEffect } from "react";
@@ -64,14 +62,14 @@ const Faq = () => {
 
 
     return (
-        <div className='my-container'>
+        <div data-aos="fade-up" className='my-container'>
             <SectionTitle title={"Frequently Asked Questions"}
                 subTitle={"Your Questions, Our Answers"}
             />
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10  gap-6 items-center'>
                 <Accordion className="order-2" allowZeroExpanded>
                     {faqs.map((item) => (
-                        <AccordionItem data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" key={item.id}>
+                        <AccordionItem key={item.id}>
                             <AccordionItemHeading>
                                 <AccordionItemButton>
                                     {item.question}
@@ -83,8 +81,8 @@ const Faq = () => {
                         </AccordionItem>
                     ))}
                 </Accordion>
-                <div data-aos="fade-right" data-aos-duration="800" data-aos-delay="200" className=' md:ps-20 order-1'>
-                    <Lottie autoplay={false} renderer="svg" className='w-[85%] mx-auto order-2' animationData={faq} loop={true} />
+                <div data-aos="fade-right" data-aos-duration="800" className=' md:ps-20 order-1'>
+
                 </div>
             </div>
 

@@ -1,5 +1,3 @@
-import contact from '../../../assets/faq-lottie/contact2.json'
-import Lottie from "lottie-react";
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
 import { useEffect } from 'react';
@@ -12,9 +10,9 @@ const ContactUs = () => {
     })
   }, [])
 
-  
+
   return (
-    <div className="my-container ">
+    <div className="my-container pb-20">
       <SectionTitle
         title={"Contact US"}
         subTitle={"Let's Connect and Communicate"}
@@ -26,13 +24,6 @@ const ContactUs = () => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-5 gap-6 items-center"
       >
         <div data-aos="fade-right" data-aos-duration="800">
-          <Lottie
-            autoplay={true}
-            renderer="svg"
-            className="w-[85%] mx-auto order-2"
-            animationData={contact}
-            loop={true}
-          />
         </div>
         <form className="bg-green-50 p-6 shadow-lg rounded-lg">
           <div className="mb-4">
@@ -42,7 +33,7 @@ const ContactUs = () => {
             >
               Name:
             </label>
-            <input type="text"  id="name" name="name"  placeholder="name"
+            <input type="text" id="name" name="name" placeholder="name"
               className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-teal-200"
               required
             />
@@ -55,7 +46,7 @@ const ContactUs = () => {
               Email:
             </label>
             <input
-              type="email"  id="email"    name="email"
+              type="email" id="email" name="email"
               placeholder="email"
               className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:border-teal-200"
               required

@@ -51,6 +51,7 @@ const Registration = () => {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
+                pattern: /(?=.*[@$!%*#?&])(?=.*[A-Z])/,
               })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
               type={showPassword ? 'text' : 'password'} 

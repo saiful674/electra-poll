@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import errorLotti from '../../assets/faq-lottie/error-page.json'
-import Lottie from "lottie-react";
 
 const ErrorPage = () => {
     return (
@@ -24,7 +22,7 @@ const ErrorPage = () => {
                     </div>
                 </div>
                 <div className='w-full'>
-                    <Lottie className='w-full' animationData={errorLotti}></Lottie>
+
                 </div>
             </div>
         </div>
