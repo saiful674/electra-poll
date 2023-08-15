@@ -6,14 +6,17 @@ import { FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
 const Registration = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => { 
 
       console.log("Form data submitted:", data);
   
     }
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+   
+
     return (
         <div className="flex justify-center items-center h-screen">
       <div className="w-full md:w-[440px]">
@@ -89,19 +92,20 @@ const Registration = () => {
           </div>
           <div className="mb-6">
             <input
-              {...register("photoURL", { required: true })}
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
-              type="url"
-              placeholder="Photo URL"
+              {...register("image", { required: true })}
+              // onChange={(event)=>handleImageChange(event.target.files[0])}
+                type='file'
+                name='image'
+                id='image'
+                accept='image/*'
+              className="cursor-pointer appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
             />
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">photoURL is required</p>
+            {errors.image && (
+              <p className="text-red-500 text-xs mt-1">image is required</p>
             )}
           </div>
-      
           <div className="flex items-center justify-between">
         
-         
             <ButtonPrimary type="submit"> Registration</ButtonPrimary>
           </div>
           <p className='mt-2'><small>Already have an account? <Link className='text-[#e2474b]' to='/login'>please login</Link></small></p>
