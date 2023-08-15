@@ -9,7 +9,8 @@ const Registration = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => { 
 
-        console.log(data)
+      console.log("Form data submitted:", data);
+  
     }
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,7 +51,6 @@ const Registration = () => {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
-                pattern: /(?=.*[@$!%*#?&])(?=.*[A-Z])/,
               })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
               type={showPassword ? 'text' : 'password'} 
