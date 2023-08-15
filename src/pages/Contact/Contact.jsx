@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com';
 import 'leaflet/dist/leaflet.css';
 import ContactHotline from '../../components/ContactHotline/ContactHotline';
 import PageBanner from '../../components/PageBanner/PageBanner';
+import Swal from 'sweetalert2';
 const Contact = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,6 +37,14 @@ const Contact = () => {
                 setName('');
                 setEmail('');
                 setMessage('');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your message has been sent successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  
             })
             .catch((error) => {
                 console.error('Error sending email:', error);
