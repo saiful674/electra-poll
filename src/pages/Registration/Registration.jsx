@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
+import { AuthContext } from "../../Providers/AuthProvider";
+
 const Registration = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
- 
+  const { createUser, user, signInGoogle } = useContext(AuthContext);
+
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+
     const onSubmit = data => { 
 
-      console.log("Form data submitted:", data);
+         const { email,photoURL:imgurl, username:name, password } = data;
+         console.log(data);
+    createUser(email, password, name, imgurl).then(() => {
+      const savedUser = {
+        name: name,
+        email: email,
+        role: "student",
+        imgurl: imgurl,
+      };
+      // fetch("/users", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(savedUser),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data.insertedId) {
+      //       toast.success(`Hello! ${email}! WelCome`);
+      //       navigate("/");
+      //     } else {
+      //       toast.error("Already User");
+      //     }
+      //   });
+    });
   
     }
-   
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     return (
         <div className="flex justify-center items-center h-screen">
       <div className="w-full md:w-[440px]">
@@ -54,7 +82,6 @@ const Registration = () => {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
-                pattern: /(?=.*[@$!%*#?&])(?=.*[A-Z])/,
               })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
               type={showPassword ? 'text' : 'password'} 
@@ -92,16 +119,13 @@ const Registration = () => {
           </div>
           <div className="mb-6">
             <input
-              {...register("image", { required: true })}
-              // onChange={(event)=>handleImageChange(event.target.files[0])}
-                type='file'
-                name='image'
-                id='image'
-                accept='image/*'
-              className="cursor-pointer appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
+              {...register("photoURL", { required: true })}
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
+              type="url"
+              placeholder="Photo URL"
             />
-            {errors.image && (
-              <p className="text-red-500 text-xs mt-1">image is required</p>
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">photoURL is required</p>
             )}
           </div>
           <div className="flex items-center justify-between">

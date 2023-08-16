@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {}
+const initialState = {
+    title: '',
+    autoDate: '',
+    startDate: '',
+    endDate: ''
+}
 
 const formDataSlice = createSlice({
     name: 'form-data',
@@ -8,7 +13,14 @@ const formDataSlice = createSlice({
     reducers: {
         addFirstPage(state, action) {
             const pl = action.payload
-            state.title = pl.title
+            state.title = pl.title;
+            state.autoDate = pl.autoDate;
+            state.startDate = pl.startDate;
+            state.endDate = pl.endDate;
+            state.voteType = pl.voteType;
+            state.ballotAccess = pl.ballotAccess;
+            state.adminResultAccess = pl.adminResultAccess;
+            state.voterResultAccess = pl.voterResultAccess
         }
     }
 })
