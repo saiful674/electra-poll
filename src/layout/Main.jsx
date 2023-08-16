@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Navbar from "../pages/shared/Navbar";
 import Footer from "../pages/shared/Footer";
 import { useEffect } from "react";
@@ -17,11 +17,12 @@ const Main = () => {
 
     return (
         <div className="overflow-x-hidden">
-          <Provider store={store}>
-          <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>
-          </Provider>
+            <Provider store={store}>
+                <Navbar></Navbar>
+                <Outlet></Outlet>
+                <Footer></Footer>
+                <ScrollRestoration></ScrollRestoration>
+            </Provider>
         </div>
     );
 };
