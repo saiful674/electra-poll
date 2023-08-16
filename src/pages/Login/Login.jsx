@@ -72,7 +72,9 @@ const Login = () => {
               <p className="text-red-500 text-xs mt-1">Password is required</p>
             )}
           </div>
-          <button type="submit"> <ButtonPrimary > Login</ButtonPrimary></button>
+          <div className="flex items-center justify-center">
+           <button type="submit"> <ButtonPrimary > Login</ButtonPrimary></button>
+          </div>
           <p className="mt-2">
             <small>
               New Hear?{" "}
