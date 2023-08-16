@@ -1,6 +1,5 @@
 import Aos from "aos";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
 import { Link, NavLink } from "react-router-dom";
 
@@ -63,6 +62,12 @@ const Navbar = () => {
             to="/election"
           >
             Election
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/dashboard/overview"
+          >
+            Dashboard
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
