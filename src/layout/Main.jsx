@@ -4,8 +4,6 @@ import Footer from "../pages/shared/Footer";
 import { useEffect } from "react";
 import Aos from "aos";
 import 'aos/dist/aos.css';
-import { Provider } from "react-redux";
-import store from "../ReduxSlices/electropoll";
 
 const Main = () => {
     useEffect(() => {
@@ -17,12 +15,10 @@ const Main = () => {
 
     return (
         <div className="overflow-x-hidden">
-            <Provider store={store}>
-                <Navbar></Navbar>
-                <Outlet></Outlet>
-                <Footer></Footer>
-                <ScrollRestoration></ScrollRestoration>
-            </Provider>
+            <Navbar></Navbar>
+            <Outlet></Outlet>
+            <Footer></Footer>
+            <ScrollRestoration></ScrollRestoration>
         </div>
     );
 };
