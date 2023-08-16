@@ -22,7 +22,7 @@ const Sidebar = () => {
     return (
         <>
             {/* Small Screen Navbar */}
-            <div className='bg-teal-300  flex justify-between md:hidden'>
+            <div className='bg-teal-900  flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-4 font-bold'>
                         <Link to={'/'}><img className="h-12 mx-auto" src={logo} alt="logo" /></Link>
@@ -38,7 +38,7 @@ const Sidebar = () => {
             </div>
             {/* Sidebar */}
             <div
-                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-teal-300 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
+                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-teal-900  w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
                     }  md:translate-x-0  transition duration-200 ease-in-out`}
             >
                 <div>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                     </div>
 
                     {/* Nav Items */}
-                    <div className='flex flex-col justify-between flex-1 mt-6'>
+                    <div className='flex flex-col justify-between flex-1 mt-6 text-white '>
                         <nav>
                             <>
                                 {/* Menu Links */}
@@ -59,7 +59,7 @@ const Sidebar = () => {
                                     to='/dashboard/overview'
                                     onClick={handleToggle}
                                     className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-white  ${isActive ? 'bg-white' : ''
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950' : ''
                                         }`
                                     }
                                 >
@@ -68,10 +68,10 @@ const Sidebar = () => {
                                     <span className='mx-4 font-medium'>Overview</span>
                                 </NavLink>
                                 <NavLink
-                                    to='/dashboard/elections'
+                                    to='/dashboard/election-correction'
                                     onClick={handleToggle}
                                     className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-white  ${isActive ? 'bg-white' : ''
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
                                         }`
                                     }
                                 >
@@ -83,7 +83,7 @@ const Sidebar = () => {
                                     to='/dashboard/voters'
                                     onClick={handleToggle}
                                     className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-white  ${isActive ? 'bg-white' : ''
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
                                         }`
                                     }
                                 >
@@ -95,7 +95,7 @@ const Sidebar = () => {
                                     to='/dashboard/satings'
                                     onClick={handleToggle}
                                     className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-white  ${isActive ? 'bg-white' : ''
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
                                         }`
                                     }
                                 >

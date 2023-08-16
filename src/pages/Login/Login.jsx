@@ -61,7 +61,7 @@ const Login = () => {
             )}
           </div>
           <div className="flex items-center justify-center">
-            <ButtonPrimary type="submit"> Login</ButtonPrimary>
+           <button type="submit"> <ButtonPrimary > Login</ButtonPrimary></button>
           </div>
           <p className="mt-2">
             <small>
