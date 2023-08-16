@@ -1,0 +1,53 @@
+.contact-bg {
+    position: relative;
+    /* background-image: url('../../assets/contact/contact1.jpeg'); */
+    background-image: url('../../assets/contact/contact2.png');
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+  }
+.contact-bg2 {
+    position: relative;
+    /* background-image: url('../../assets/contact/contact1.jpeg'); */
+    background-image: url('../../assets/contact/hoteline.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+  }
+.create-bg3 {
+    position: relative;
+    background-image: url('../../assets/create-voting/voting1.jpg');
+    /* background-image: url('../../assets/create-voting/voting.jpg'); */
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+  }
+  @media screen and (max-width:576px) {
+    .contact-bg{
+        height: 30vh;
+    }
+    .create-bg3{
+      height: 90vh;
+    }
+    .call{
+        width: 70px;
+    }
+    .contact-bg2 {
+        height: 100vh;
+    }
+  }
+  @media screen and (max-width:767px) {
+    .contact-bg{
+        height: 30vh;
+    }
+    .call{
+        width: 70px;
+    }
+    .contact-bg2 {
+        height: 100vh;
+    }
+    .create-bg3{
+      height: 90vh;
+    }
+  
+  }

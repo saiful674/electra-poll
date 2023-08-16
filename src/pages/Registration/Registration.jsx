@@ -129,11 +129,7 @@ const Registration = () => {
             )}
           </div>
       
-          <div className="flex items-center justify-between">
-        
-         
-            <ButtonPrimary type="submit"> Registration</ButtonPrimary>
-          </div>
+          <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>
           <p className='mt-2'><small>Already have an account? <Link className='text-[#e2474b]' to='/login'>please login</Link></small></p>
         </form>
        
