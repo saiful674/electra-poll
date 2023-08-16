@@ -1,12 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
+import AboutPage from "../pages/AboutPage/AboutPage";
+import Contact from "../pages/Contact/Contact";
+import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
+import Satings from "../pages/Dashboard/SubPages/Sattings/Sattings";
+import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
+import Election from "../pages/Election/Election";
+import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 import Home from "../pages/HomePage/Home/Home";
+import Login from "../pages/Login/Login";
+import Registration from "../pages/Registration/Registration";
 import Service from "../pages/Service/Service";
 import ErrorPage from "../pages/shared/ErrorPage";
-import AboutPage from "../pages/AboutPage/AboutPage";
-import Registration from "../pages/Registration/Registration";
-import Login from "../pages/Login/Login";
-import Contact from "../pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +33,10 @@ const router = createBrowserRouter([
         element: <Service></Service>,
       },
       {
+        path: 'election',
+        element: <Election></Election>
+      },
+      {
         path: "login",
         element: <Login></Login>,
       },
@@ -35,11 +45,34 @@ const router = createBrowserRouter([
         element: <Registration></Registration>,
       },
       {
-        path:'contact',
+        path: 'contact',
         element: <Contact></Contact>
+      },
+      {
+        path: 'election-correction',
+        element: <ElectionCreationAndManagement></ElectionCreationAndManagement>
       }
     ],
   },
+  {
+    path: 'dashboard',
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: 'overview',
+        element: <Overview />
+      },
+      {
+        path: 'voters',
+        element: <Voters />
+      },
+      {
+        path: 'satings',
+        element: <Satings />
+      },
+    ]
+  }
 ]);
 
 export default router;
