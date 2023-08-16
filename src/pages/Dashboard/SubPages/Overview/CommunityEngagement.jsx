@@ -21,7 +21,7 @@ const CommunityEngagement = () => {
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Custom colors for pie chart
 
     return (
-        <div className='bg-white p-8 mt-8 rounded shadow'>
+        <div className='bg-white p-8 mt-8 rounded shadow text-slate-700'>
             <h2 className='text-3xl font-semibold mb-4 uppercase'>Community Engagement</h2>
             <div className='flex items-center justify-center'>
                 <ResponsiveContainer width='80%' height={300}>
