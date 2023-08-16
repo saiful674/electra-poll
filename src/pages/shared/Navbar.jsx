@@ -1,10 +1,20 @@
 import Aos from "aos";
 import { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { HiBars3BottomRight, HiXMark } from 'react-icons/hi2';
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { FaUserCircle } from "react-icons/fa";
+
 
 const Navbar = () => {
+    const { user, logout } = useContext(AuthContext);
+    const handleLogOut = () => {
+        logout()
+          .then(toast.success("logout successfully"))
+          .catch((err) => console.log(err));
+      };
 
     useEffect(() => {
         Aos.init({
@@ -51,10 +61,27 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/contact'>Contact</NavLink>
                 </div >
                 <div className="flex justify-between items-center gap-5 text-lg">
-                    <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/login'>Login</NavLink>
-                    <Link to='/registration' className="my-btn-sec">
-                        Register
-                    </Link>
+
+                {user ? (
+            <button className="my-btn-sec" onClick={handleLogOut}>
+              LogOUT
+            </button>
+          ) : (
+            <NavLink className={({ isActive }) => isActive ? 'text-green-400' : ''} to='/login'>Login</NavLink>
+          )}
+                    
+                    {user && (
+            <div
+              className="w-8 mx-5 tooltip tooltip-left"
+              data-tip={user.displayName}
+            >
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="" className="rounded-full " />
+              ) : (
+                <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
+              )}
+            </div>
+          )}
                 </div>
             </div >
 

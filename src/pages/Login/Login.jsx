@@ -1,15 +1,32 @@
 import React from 'react';
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash, FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
+import { useContext } from 'react';
+import { AuthContext } from '../../Providers/AuthProvider';
+import { toast } from 'react-hot-toast';
 const Login = () => {
+  const { signIn, signInGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => { 
 
-        console.log(data)
+      const { email, password } = data;
+      signIn(email, password)
+        .then((res) => {
+          const loggedUser = res?.user;
+          toast.success("Login successfully");
+          navigate(from, { replace: true });
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
     }
     const [showPassword, setShowPassword] = useState(false);
     return (
@@ -39,7 +56,6 @@ const Login = () => {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
-                pattern: /(?=.*[@$!%*#?&])(?=.*[A-Z])/,
               })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
               type={showPassword ? 'text' : 'password'} 

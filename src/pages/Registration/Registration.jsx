@@ -1,15 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
+import { AuthContext } from "../../Providers/AuthProvider";
+
 const Registration = () => {
+  const { createUser, user, signInGoogle } = useContext(AuthContext);
+
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+
     const onSubmit = data => { 
 
-      console.log("Form data submitted:", data);
+         const { email,photoURL:imgurl, username:name, password } = data;
+         console.log(data);
+    createUser(email, password, name, imgurl).then(() => {
+      const savedUser = {
+        name: name,
+        email: email,
+        role: "student",
+        imgurl: imgurl,
+      };
+      // fetch("/users", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(savedUser),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if (data.insertedId) {
+      //       toast.success(`Hello! ${email}! WelCome`);
+      //       navigate("/");
+      //     } else {
+      //       toast.error("Already User");
+      //     }
+      //   });
+    });
   
     }
     const [showPassword, setShowPassword] = useState(false);
