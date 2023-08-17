@@ -4,25 +4,31 @@ import { useDispatch } from 'react-redux';
 import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption } from '../../../../redux/slices/FormDataSlice';
 import { FaTrash } from 'react-icons/fa';
 
-const Questions = ({ question }) => {
+const Questions = ({ question, questionSubmit, handleSubmit, register, errors }) => {
 
     const dispatch = useDispatch()
     const id = question.id
 
-    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
-    const onSubmit = data => {
-
-    }
-
     return (
         <div className='flex justify-center items-center border-4 border-green-400'>
-            <form onSubmit={handleSubmit(onSubmit)} className='bg-gray-200 w-full p-5 space-y-6'>
+            <form onSubmit={handleSubmit(questionSubmit)} className='bg-gray-200 w-full p-5 space-y-6'>
+
+                {/* handle errors */}
+                {
+                    errors && <div className='bg-red-100 border-l-4 mb-2 flex items-center text-lg p-3 border-red-600'>
+                        <ul className='list-decimal ps-6'>
+                            {errors[`questionTitle${id}`] && <li>Please add question or position.</li>}
+                        </ul>
+                    </div>
+                }
+
+
                 {/* -------question------- */}
                 <div className="form-control bg-white p-2">
                     <label className="label">
-                        <span className="text-lg font-semibold">Election Title <span className='text-red-400'>&#9998;</span></span>
+                        <span className="text-lg font-semibold">Question or Position<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="election title" type='text'
+                    <input {...register(`questionTitle${id}`, { required: true })} onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="election title" type='text'
                         defaultValue={question?.questionTitle} className="my-input focus:outline-green-400" />
                 </div>
 

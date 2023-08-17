@@ -11,7 +11,14 @@ const initialState = {
         vacancy: 1,
         options: ['option/candidate 1'],
         choosedOptions: 1
-    }]
+    }],
+    notice: {
+        emailNotice: true,
+        useName: true
+    },
+    emailSubject: 'Vote Now:',
+    emailInfo: '',
+    voterEmails: []
 }
 
 const formDataSlice = createSlice({
@@ -27,7 +34,9 @@ const formDataSlice = createSlice({
             state.voteType = pl.voteType;
             state.ballotAccess = pl.ballotAccess;
             state.adminResultAccess = pl.adminResultAccess;
-            state.voterResultAccess = pl.voterResultAccess
+            state.voterResultAccess = pl.voterResultAccess;
+            state.adminEmail = pl.adminEmail;
+            state.organization = pl.organization
         },
         addQuestion(state) {
             state.questions.push({
@@ -55,8 +64,42 @@ const formDataSlice = createSlice({
             state.questions.find(q => q.id === action.payload.id).voterChoose = action.payload.voterChoose
         },
         addChoosedOptions(state, action) {
-            state.questions.find(q => q.id === action.payload.id).choosedOptions = action.payload.choosedOptions
+            if (action.payload.choosedOptions <= state.questions.find(q => q.id === action.payload.id).options.length && action.payload.choosedOptions > 0) {
+                state.questions.find(q => q.id === action.payload.id).choosedOptions = action.payload.choosedOptions
+            }
+            else if (action.payload.choosedOptions >= state.questions.find(q => q.id === action.payload.id).options.length) {
+                state.questions.find(q => q.id === action.payload.id).choosedOptions = state.questions.find(q => q.id === action.payload.id).options.length
+            }
+        },
+        setEmailNotice(state) {
+            state.notice.emailNotice = !(state.notice.emailNotice)
+        },
+        setUseName(state) {
+            state.notice.useName = !(state.notice.useName)
+        },
+        setEmailSubject(state, action) {
+            state.emailSubject = action.payload
+        },
+        setEmailInfo(state, action) {
+            state.emailInfo = action.payload
+        },
+        updateVoterEmail(state, action) {
+            const { index, email } = action.payload;
+
+            if (state.voterEmails[index]) {
+                state.voterEmails[index].email = email;
+            } else {
+                state.voterEmails.push({ id: state.voterEmails.length + 1, email });
+            }
+        },
+        addVoterRow(state) {
+            state.voterEmails.push({ id: state.voterEmails.length + 1, email: '' });
+        },
+        removeVoterEmail(state, action) {
+            const idToRemove = action.payload;
+            state.voterEmails = state.voterEmails.filter(email => email.id !== idToRemove);
         }
+
     }
 })
 
@@ -67,6 +110,14 @@ export const { addFirstPage,
     addQuestionTitle,
     addChoosedOptions,
     addVacancy,
-    addVoterChoose } = formDataSlice.actions
+    addVoterChoose,
+    setEmailNotice,
+    setUseName,
+    setEmailSubject,
+    setEmailInfo,
+    updateVoterEmail,
+    addVoterRow,
+    removeVoterEmail
+} = formDataSlice.actions
 
 export const formDataReducer = formDataSlice.reducer
