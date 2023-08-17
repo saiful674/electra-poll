@@ -48,12 +48,6 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact></Contact>,
       },
-      {
-        path: "election-correction",
-        element: (
-          <ElectionCreationAndManagement></ElectionCreationAndManagement>
-        ),
-      },
     ],
   },
   {
@@ -72,6 +66,13 @@ const router = createBrowserRouter([
       {
         path: "satings",
         element: <Satings />,
+      },
+      ,
+      {
+        path: "election-correction",
+        element: (
+          <ElectionCreationAndManagement></ElectionCreationAndManagement>
+        ),
       },
     ],
   },

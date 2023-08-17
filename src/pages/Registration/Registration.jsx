@@ -128,8 +128,10 @@ const Registration = () => {
               <p className="text-red-500 text-xs mt-1">photoURL is required</p>
             )}
           </div>
-      
-          <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>
+          <div className="flex items-center justify-between">
+        
+           <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>
+          </div>
           <p className='mt-2'><small>Already have an account? <Link className='text-[#e2474b]' to='/login'>please login</Link></small></p>
         </form>
        
