@@ -6,7 +6,7 @@ import Notice from './ElectionPages/Notice';
 import Security from './ElectionPages/Security';
 import Confirmation from './ElectionPages/Confirmation';
 import { ScrollRestoration } from 'react-router-dom';
-import Ballot from './ElectionPages/Ballot';
+import Ballot from './ElectionPages/Ballot/Ballot';
 
 const Election = () => {
 
