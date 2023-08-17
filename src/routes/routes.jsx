@@ -11,8 +11,8 @@ import ElectionCreationAndManagement from "../pages/ElectionCreationandManagemen
 import Home from "../pages/HomePage/Home/Home";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
-import Service from "../pages/Service/Service";
 import ErrorPage from "../pages/shared/ErrorPage";
+import Blog from "../pages/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -29,12 +29,12 @@ const router = createBrowserRouter([
         element: <AboutPage></AboutPage>,
       },
       {
-        path: "services",
-        element: <Service></Service>,
+        path: "blog",
+        element: <Blog></Blog>,
       },
       {
-        path: 'election',
-        element: <Election></Election>
+        path: "election",
+        element: <Election></Election>,
       },
       {
         path: "login",
@@ -45,34 +45,36 @@ const router = createBrowserRouter([
         element: <Registration></Registration>,
       },
       {
-        path: 'contact',
-        element: <Contact></Contact>
+        path: "contact",
+        element: <Contact></Contact>,
       },
       {
-        path: 'election-correction',
-        element: <ElectionCreationAndManagement></ElectionCreationAndManagement>
-      }
+        path: "election-correction",
+        element: (
+          <ElectionCreationAndManagement></ElectionCreationAndManagement>
+        ),
+      },
     ],
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     element: <DashboardLayout />,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: 'overview',
-        element: <Overview />
+        path: "overview",
+        element: <Overview />,
       },
       {
-        path: 'voters',
-        element: <Voters />
+        path: "voters",
+        element: <Voters />,
       },
       {
-        path: 'satings',
-        element: <Satings />
+        path: "satings",
+        element: <Satings />,
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export default router;
