@@ -44,9 +44,8 @@ const Navbar = () => {
   return (
     <div
       data-aos="fade-down"
-      className={`${visible ? "" : "hidden"} ${
-        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-      } fixed w-screen z-30 top-0`}
+      className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-30 top-0`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -95,70 +94,13 @@ const Navbar = () => {
         </div>
       </div>
 
+
+      {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${
-          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0`}
+        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+          } fixed w-screen z-10 top-0`}
       >
-        <div className="hidden lg:flex my-container justify-between py-2">
-          <img className="h-12" src="/logo.png" alt="" />
-          <div className="flex justify-between items-center gap-5 text-lg">
-            <NavLink
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/about "
-            >
-              About
-            </NavLink>
-            <NavLink
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/blog"
-            >
-              Blog
-            </NavLink>
-            <NavLink
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/contact"
-            >
-              Contact
-            </NavLink>
-          </div>
-          <div className="flex justify-between items-center gap-5 text-lg">
-            {user ? (
-              <button className="my-btn-sec" onClick={handleLogOut}>
-                LogOUT
-              </button>
-            ) : (
-              <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/login"
-              >
-                Login
-              </NavLink>
-            )}
-
-            {user && (
-              <div
-                className="w-8 mx-5 tooltip tooltip-left"
-                data-tip={user.displayName}
-              >
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt="" className="rounded-full " />
-                ) : (
-                  <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ================ mobile view================ */}
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
           <button onClick={() => setIsOpen(true)}>
@@ -205,58 +147,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ================ mobile view================ */}
-      <div className="lg:hidden flex justify-between my-container py-1 relative">
-        <img className="h-11" src="/logo.png" alt="" />
-        <button onClick={() => setIsOpen(true)}>
-          <HiBars3BottomRight className="text-2xl"></HiBars3BottomRight>
-        </button>
-        {isOpen && (
-          <ul className="absolute py-3 gap-2 rounded-md bg-white flex flex-col right-0 top-2 w-1/2 items-center">
-            <button
-              className="absolute right-2"
-              onClick={() => setIsOpen(false)}
-            >
-              <HiXMark className="text-xl"></HiXMark>
-            </button>
-            <NavLink
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/about"
-            >
-              About
-            </NavLink>
-            <NavLink
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/contact"
-            >
-              Contact
-            </NavLink>
-            <NavLink
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-              to="/login"
-            >
-              Login
-            </NavLink>
-            <Link
-              onClick={() => setIsOpen(false)}
-              to="/registration"
-              className="my-btn-sec"
-            >
-              Register
-            </Link>
-          </ul>
-        )}
-      </div>
     </div>
   );
 };
