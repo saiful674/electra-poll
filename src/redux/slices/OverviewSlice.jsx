@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    selectedTime: 'option1',
+    selectedTime: 'option2',
     voteType: 'test',
     ballotAccess: 'high',
     adminResultAccess: 'after',

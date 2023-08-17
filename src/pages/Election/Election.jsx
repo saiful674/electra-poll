@@ -3,10 +3,10 @@ import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Overview from './ElectionPages/Overview';
 import Notice from './ElectionPages/Notice';
-import Security from './ElectionPages/Security';
 import Confirmation from './ElectionPages/Confirmation';
 import { ScrollRestoration } from 'react-router-dom';
 import Ballot from './ElectionPages/Ballot/Ballot';
+import Voters from './ElectionPages/Voters';
 
 const Election = () => {
 
@@ -28,7 +28,7 @@ const Election = () => {
                 {pageNum === 0 && <Overview></Overview>}
                 {pageNum === 1 && <Ballot></Ballot>}
                 {pageNum === 2 && <Notice></Notice>}
-                {pageNum === 3 && <Security></Security>}
+                {pageNum === 3 && <Voters></Voters>}
                 {pageNum === 4 && <Confirmation></Confirmation>}
             </div>
             <ScrollRestoration></ScrollRestoration>

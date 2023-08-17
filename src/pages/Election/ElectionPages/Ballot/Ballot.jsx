@@ -23,6 +23,10 @@ const Ballot = () => {
     const onSubmit = data => {
         dispatch(next())
     }
+
+    const questionSubmit = data => {
+    }
+
     return (
         <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
             <h1 className='text-2xl font-bold pb-3'>Create Ballot</h1>
@@ -42,6 +46,10 @@ const Ballot = () => {
                     questions.map(question => <Questions
                         key={question.id}
                         question={question}
+                        questionSubmit={questionSubmit}
+                        handleSubmit={handleSubmit}
+                        register={register}
+                        errors={errors}
                     ></Questions>)
                 }
             </div>

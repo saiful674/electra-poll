@@ -42,8 +42,6 @@ const Overview = () => {
             adminEmail: data.adminEmail,
             organization: data.organization
         };
-
-        console.log(payload);
         dispatch(addFirstPage(payload));
         dispatch(next());
 
