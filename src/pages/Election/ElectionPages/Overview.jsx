@@ -38,7 +38,9 @@ const Overview = () => {
             voteType: selectedVoteType,
             ballotAccess: selectedBallotAccess,
             adminResultAccess,
-            voterResultAccess
+            voterResultAccess,
+            adminEmail: data.adminEmail,
+            organization: data.organization
         };
 
         console.log(payload);
@@ -150,7 +152,7 @@ const Overview = () => {
                         <span className="text-lg font-semibold">Primary email as orginizar <span className='text-red-400'>&#9998;</span></span>
                         <p className='text-sm'>voters can contact this email for any inquery or help</p>
                     </label>
-                    <input {...register("email", { required: true })} placeholder="primary email" type='text'
+                    <input {...register("adminEmail", { required: true })} placeholder="primary email" type='text'
                         defaultValue={'codeCreafter@gmail.com'} className="my-input focus:outline-green-400" />
                 </div>
 
