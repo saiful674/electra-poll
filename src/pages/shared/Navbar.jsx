@@ -82,15 +82,33 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
-          <NavLink
+       
+        {user && (
+            <div
+              className="w-8 mx-5 tooltip tooltip-left"
+              data-tip={user.displayName}
+            >
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="" className="rounded-full " />
+              ) : (
+                <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
+              )}
+            </div>
+          )}
+        
+          {user ? (
+            <button className="my-btn-sec" onClick={handleLogOut}>
+              LogOUT
+            </button>
+          ) : (
+            <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/login"
           >
             Login
           </NavLink>
-          <Link to="/registration" className="my-btn-sec">
-            Register
-          </Link>
+          )}
+        
         </div>
       </div>
 
