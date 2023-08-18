@@ -8,7 +8,7 @@ import { AuthContext } from '../../Providers/AuthProvider';
 const ElectionCreationAndManagement = () => {
 
   const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const handleAddElection = () => {
     const electionData = {
