@@ -4,7 +4,7 @@ import Main from "../layout/Main";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import Contact from "../pages/Contact/Contact";
 import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
-import Satings from "../pages/Dashboard/SubPages/Sattings/Sattings";
+import Sating from "../pages/Dashboard/SubPages/Sattings/Sating";
 import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
 import Election from "../pages/Election/Election";
 import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       },
       {
         path: "satings",
-        element: <Satings />,
+        element: <Sating/>,
       },
       ,
       {
