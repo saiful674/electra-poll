@@ -27,7 +27,9 @@
     .contact-bg{
         height: 30vh;
     }
-  
+  .create-bg3{
+    height: 70vh;
+  }
     .call{
         width: 70px;
     }
@@ -44,6 +46,9 @@
     }
     .contact-bg2 {
         height: 100vh;
+    }
+    .create-bg3{
+      height: 90vh;
     }
   
   }
