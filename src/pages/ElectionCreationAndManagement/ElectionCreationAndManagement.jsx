@@ -8,7 +8,7 @@ const ElectionCreationAndManagement = () => {
    <>
      <UserName></UserName>
         <div className="create-bg3">
-          <div className='bg-slate-600 bg-opacity-60 text-center h-[90vh] md:h-[50vh] flex flex-col items-center justify-center p-10 md:p-24 '>
+          <div className='bg-slate-600 bg-opacity-60 text-center overflow-hidden h-[50vh]  flex flex-col items-center justify-center p-2 md:p-24 '>
          <h2 className='text-slate-100  uppercase font-bold text-2xl  sm:text-2xl md:text-5xl mb-4'> Create Your Election</h2>
          <p className=' text-slate-200 md:text-xl mb-4'> Empower Your Voice Online! Shape the Future with Our User-Friendly  <br /> Voting Platform. Make Your Vote Count.We are always ready to give a pure election</p>
           <Link to='/election'><BsPlusSquare className='text-6xl  md:text-7xl text-white'/></Link>  
