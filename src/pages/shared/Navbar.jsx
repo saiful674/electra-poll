@@ -44,8 +44,9 @@ const Navbar = () => {
   return (
     <div
       data-aos="fade-down"
-      className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-30 top-0`}
+      className={`${visible ? "" : "hidden"} ${
+        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+      } fixed w-screen z-30 top-0`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -61,6 +62,13 @@ const Navbar = () => {
             to="/about "
           >
             About
+          </NavLink>
+          <NavLink
+            onClick={() => setIsOpen(false)}
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/blog"
+          >
+            Blog
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
@@ -82,7 +90,6 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
-
           {user && (
             <div
               className="w-8 mx-5 tooltip tooltip-left"
@@ -108,16 +115,15 @@ const Navbar = () => {
               Login
             </NavLink>
           )}
-
         </div>
       </div>
-
 
       {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-          } fixed w-screen z-10 top-0`}
+        className={`${visible ? "" : "hidden"} ${
+          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -164,7 +170,6 @@ const Navbar = () => {
           )}
         </div>
       </div>
-
     </div>
   );
 };
