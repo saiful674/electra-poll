@@ -6,11 +6,12 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../../../Providers/AuthProvider';
 import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
 import UserName from '../../../../components/Deshboard/UserName/UserName';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 const Voters = () => {
     const { user } = useContext(AuthContext)
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`http://localhost:5000/voters/${user.email}`)
+        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user.email}`)
         return await res.json()
     })
 
@@ -71,6 +72,10 @@ const Voters = () => {
             }
         })
 
+    }
+
+    if(isLoading){
+        return <LoadingSpinner/>
     }
     return (
         <div>
