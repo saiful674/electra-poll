@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { next } from '../../../redux/slices/PageNumSlice';
-import { addFirstPage } from '../../../redux/slices/FormDataSlice';
-import { useState } from 'react';
+import { addFirstPage, next, setInitalState } from '../../../redux/slices/FormDataSlice';
+import { useContext } from 'react'
 import { setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, setVoterResultAccess } from '../../../redux/slices/OverviewSlice';
+import { AuthContext } from '../../../Providers/AuthProvider';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Overview = () => {
 
-    const pageNum = useSelector(s => s.pageNum.page)
+    const params = useParams()
+    const id = params.id
+
+    const { user } = useContext(AuthContext)
+    console.log(user?.email);
     const formData = useSelector(s => s.formData)
     const overviewStates = useSelector(s => s.overview)
     const selectedTime = overviewStates.selectedTime
@@ -28,23 +34,32 @@ const Overview = () => {
     }, [formData]);
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
-    console.log(errors);
     const onSubmit = data => {
-        let payload = {
-            title: data.title,
-            autoDate: selectedTime === 'option1' ? data.autoDate : '',
-            startDate: selectedTime === 'option2' ? data.startDate : '',
-            endDate: selectedTime === 'option2' ? data.endDate : '',
-            voteType: selectedVoteType,
-            ballotAccess: selectedBallotAccess,
-            adminResultAccess,
-            voterResultAccess,
-            adminEmail: data.adminEmail,
-            organization: data.organization
-        };
-        dispatch(addFirstPage(payload));
-        dispatch(next());
+        if (user) {
+            let payload = {
+                title: data.title,
+                autoDate: selectedTime === 'option1' ? Math.floor(data.autoDate) : '',
+                startDate: selectedTime === 'option2' ? data.startDate : '',
+                endDate: selectedTime === 'option2' ? data.endDate : '',
+                voteType: selectedVoteType,
+                ballotAccess: selectedBallotAccess,
+                adminResultAccess,
+                voterResultAccess,
+                adminEmail: data.adminEmail,
+                organization: data.organization,
+                email: user?.email
+            };
+            dispatch(addFirstPage(payload))
+            axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data) {
+                        dispatch(next());
+                    }
+                })
 
+
+        }
     }
 
 
