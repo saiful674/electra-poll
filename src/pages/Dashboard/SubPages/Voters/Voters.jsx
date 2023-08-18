@@ -12,9 +12,9 @@ const Voters = () => {
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
         const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user?.email}`)
-        return await res.json()
+        return await res.json();
     })
-
+console.log(data)
 
     // add voter function
     const handleSubmit = () => {
@@ -122,7 +122,7 @@ const Voters = () => {
                                     <th>{index + 1}</th>
                                     <td>{voterInfo.voter.voterName}</td>
                                     <td>{voterInfo.voter.voterEmail}</td>
-                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-4 w-4' /> Remove</button></td>
+                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> Remove</button></td>
                                 </tr>)}
                             </tbody>
                         </table>
