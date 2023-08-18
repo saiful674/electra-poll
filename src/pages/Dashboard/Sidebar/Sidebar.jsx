@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsFillHouseAddFill } from 'react-icons/bs'
+import { FaUsers } from 'react-icons/fa'
 import { FcSettings } from 'react-icons/fc'
+import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
 
@@ -31,7 +33,7 @@ const Sidebar = () => {
 
                 <button
                     onClick={handleToggle}
-                    className='mobile-menu-button p-4 focus:outline-none focus:bg-teal-200'
+                    className='mobile-menu-button p-4 focus:outline-none focus:bg-teal-800'
                 >
                     <AiOutlineBars className='h-5 w-5' />
                 </button>
@@ -75,7 +77,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                    <BsFillHouseAddFill className='w-5 h-5' />
+                                    <MdBallot className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Elections</span>
                                 </NavLink>
@@ -87,7 +89,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                    <BsFillHouseAddFill className='w-5 h-5' />
+                                    <FaUsers className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Voters</span>
                                 </NavLink>

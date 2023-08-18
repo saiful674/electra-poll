@@ -11,8 +11,8 @@ import "swiper/css/pagination";
 import "./Testimonial.css";
 
 // import required modules
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Aos from "aos";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const Testimonial = () => {
 
@@ -91,7 +91,7 @@ const Testimonial = () => {
   //     .then((data) => setTestimonials(data));
   // }, []);
 
-  console.log(testimonials);
+  
   return (
     <div className=" my-container my-20">
       <div className="my-5">
