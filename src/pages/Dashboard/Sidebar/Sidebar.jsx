@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsFillHouseAddFill } from 'react-icons/bs'
+import { FaUsers } from 'react-icons/fa'
 import { FcSettings } from 'react-icons/fc'
+import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
 
@@ -75,7 +77,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                    <BsFillHouseAddFill className='w-5 h-5' />
+                                    <MdBallot className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Elections</span>
                                 </NavLink>
@@ -87,7 +89,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                    <BsFillHouseAddFill className='w-5 h-5' />
+                                    <FaUsers className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Voters</span>
                                 </NavLink>
