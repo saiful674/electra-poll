@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/Deshboard/UserName/UserName';
 import axios from 'axios';
+import { AuthContext } from '../../Providers/AuthProvider';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getMyElections } from '../../Hooks/myElections';
+import ElectionCard from './ElectionCard';
 
 const ElectionCreationAndManagement = () => {
 
   const navigate = useNavigate()
+  const { user } = useContext(AuthContext);
+  const [elections, setElections] = useState([])
 
   const handleAddElection = () => {
     const electionData = {
       title: '',
+      email: user?.email,
       autoDate: '',
       startDate: '',
       page: 0,
@@ -29,18 +37,35 @@ const ElectionCreationAndManagement = () => {
       },
       emailSubject: 'Vote Now:',
       emailInfo: '',
-      voterEmails: []
+      voterEmails: [],
+      status: 'pending'
     }
-    axios.post('http://localhost:5000/add-election', electionData)
-      .then(res => {
-        const id = res.data.insertedId
-        axios.get(`http://localhost:5000/election/${id}`)
-          .then(res => {
-            console.log(res.data, id);
-            navigate(`/election/${id}`)
-          })
-      })
+    if (user) {
+      axios.post('http://localhost:5000/add-election', electionData)
+        .then(res => {
+          const id = res.data.insertedId
+          axios.get(`http://localhost:5000/election/${id}`)
+            .then(res => {
+              console.log(res.data, id);
+              navigate(`/election/${id}`)
+            })
+        })
+    }
   }
+
+
+  useEffect(() => {
+    getMyElections(user)
+      .then(data => {
+        console.log(data)
+        setElections(data)
+      })
+      .catch(error => {
+        const errorMessage = error.errorMessage;
+        console.log(errorMessage)
+      })
+  }, [])
+
 
   return (
     <>
@@ -53,10 +78,12 @@ const ElectionCreationAndManagement = () => {
         </div>
       </div>
       <div className='my-container mt-10 mb-10'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3  '>
-          <div className='sm:w-96 md:w-96 h-[280px]  border  rounded-2xl shadow p-6'>
-            <h1 className='text-xl font-semibold'>My Election</h1>
-          </div>
+        <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3  '>
+
+          {
+            elections.map(election => <ElectionCard key={election._id} election={election}></ElectionCard>)
+          }
+
         </div>
       </div>
     </>

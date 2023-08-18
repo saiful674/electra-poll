@@ -27,17 +27,17 @@ const Voters = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setEmailErrors(false)
-        dispatch(setEmailValid())
         axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
-                    dispatch(setEmailValid())
                 }
             })
+        dispatch(setEmailValid(true))
     }
 
     const handleNext = () => {
+        console.log(emailsValid);
         if (emailsValid && voterEmails.length >= 1) {
             dispatch(next())
         }
@@ -50,6 +50,11 @@ const Voters = () => {
         dispatch(removeVoterEmail(id));
         reset();
     };
+
+    const handleUpdateEmail = (id, email) => {
+        dispatch(updateVoterEmail({ id, email }))
+        dispatch(setEmailValid(false))
+    }
 
     return (
         <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
@@ -83,7 +88,7 @@ const Voters = () => {
                                                     type="text"
                                                     className={errors[`voterEmail${row.id}`] ? 'bg-red-300 w-full px-2' : 'bg-gray-200 w-full'}
                                                     defaultValue={row.email}
-                                                    onChange={e => dispatch(updateVoterEmail({ id: row.id, email: e.target.value }))}
+                                                    onChange={e => handleUpdateEmail(row.id, e.target.value)}
                                                 />
                                             </div>
                                             <button type='button'>
