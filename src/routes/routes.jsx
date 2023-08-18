@@ -7,12 +7,12 @@ import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
 import Sating from "../pages/Dashboard/SubPages/Sattings/Sating";
 import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
 import Election from "../pages/Election/Election";
-import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 import Home from "../pages/HomePage/Home/Home";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
 import Blog from "../pages/Blog/Blog";
+import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Blog></Blog>,
       },
       {
-        path: "election",
+        path: "election/:id",
         element: <Election></Election>,
       },
       {

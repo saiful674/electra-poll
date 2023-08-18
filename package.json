@@ -35,7 +35,7 @@
     "react-router-dom": "^6.14.2",
     "react-tabbordion": "^1.0.6",
     "recharts": "^2.7.3",
-    "sweetalert2": "^11.7.22",
+    "sweetalert2": "^11.7.23",
     "swiper": "^10.1.0",
     "tesseract.js": "^4.1.1"
   },

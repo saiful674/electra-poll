@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { next, previous } from '../../../../redux/slices/PageNumSlice';
+import { next, previous } from '../../../../redux/slices/FormDataSlice';
 import { addQuestion } from '../../../../redux/slices/FormDataSlice';
 import Questions from './Questions';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const Ballot = () => {
 
-    const pageNum = useSelector(s => s.pageNum.page)
     const formData = useSelector(s => s.formData)
     const questions = formData.questions
 
@@ -21,7 +21,13 @@ const Ballot = () => {
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
-        dispatch(next())
+        axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
+            .then(res => {
+                console.log(res.data);
+                if (res.data) {
+                    dispatch(next());
+                }
+            })
     }
 
     const questionSubmit = data => {
