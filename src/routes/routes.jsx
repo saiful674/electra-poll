@@ -13,6 +13,7 @@ import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
 import Blog from "../pages/Blog/Blog";
 import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
+import PrivateRoutes from "./PrivateRoutes";
 // import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
 
 const router = createBrowserRouter([
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
