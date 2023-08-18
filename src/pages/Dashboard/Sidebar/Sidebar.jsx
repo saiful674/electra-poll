@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsFillHouseAddFill } from 'react-icons/bs'
 import { FaUsers } from 'react-icons/fa'
-import { FcSettings } from 'react-icons/fc'
+import { HiMiniCog6Tooth } from 'react-icons/hi2'
 import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
@@ -101,7 +101,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                   <FcSettings className='w-5 h-5' />
+                                   <HiMiniCog6Tooth className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Satings</span>
                                 </NavLink>
