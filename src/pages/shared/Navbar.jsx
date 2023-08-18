@@ -68,12 +68,12 @@ const Navbar = () => {
           >
             Election
           </NavLink>
-          <NavLink
+          {user && <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/overview"
           >
             Dashboard
-          </NavLink>
+          </NavLink>}
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/contact"
@@ -150,12 +150,12 @@ const Navbar = () => {
               >
                 Election
               </NavLink>
-              <NavLink
+              {user && <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/overview"
               >
                 Dashboard
-              </NavLink>
+              </NavLink>}
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/contact"
