@@ -26,7 +26,7 @@ const Voters = () => {
 
 
 
-        axios.post(`http://localhost:5000/add-voters`, voterInfo)
+        axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
@@ -52,17 +52,18 @@ const Voters = () => {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/voters/${id}`)
+                axios.delete(`https://electra-poll-server.vercel.app/voters/${id}`)
                     .then(data => {
                         if (data.status === 200) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your voter has been removed.',
-                                'success'
-                            )
+                            Swal.fire({
+                                icon: 'success',
+                                title: `Your voter removed`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
                             refetch()
                         }
                     })
