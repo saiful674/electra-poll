@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getMyElections } from '../../Hooks/myElections';
 import ElectionCard from './ElectionCard';
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 const ElectionCreationAndManagement = () => {
 
@@ -64,7 +65,7 @@ const ElectionCreationAndManagement = () => {
         const errorMessage = error.errorMessage;
         console.log(errorMessage)
       })
-  }, [])
+  }, [user])
 
 
   return (
@@ -78,13 +79,15 @@ const ElectionCreationAndManagement = () => {
         </div>
       </div>
       <div className='my-container mt-10 mb-10'>
-        <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3  '>
+        {
+          elections.length !== 0 ? <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
 
-          {
-            elections.map(election => <ElectionCard key={election._id} election={election}></ElectionCard>)
-          }
+            {
+              elections.map(election => <ElectionCard key={election._id} election={election}></ElectionCard>)
+            }
 
-        </div>
+          </div> : <LoadingSpinner></LoadingSpinner>
+        }
       </div>
     </>
   );

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ElectionCard = ({ election }) => {
     const { _id, title, status, startDate, endDate, organization, voteType, voterEmails } = election;
+    const navigate = useNavigate()
 
     return (
-        <div className='sm:w-96 md:w-96 h-[280px] border rounded-2xl shadow-md p-8 mb-4 '>
+        <div onClick={() => navigate(`/election/${_id}`)} className='h-[280px] border cursor-pointer rounded-2xl shadow-md p-8 mb-4 '>
             {
                 title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
                     {title}
