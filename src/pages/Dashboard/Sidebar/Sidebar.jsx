@@ -33,7 +33,7 @@ const Sidebar = () => {
 
                 <button
                     onClick={handleToggle}
-                    className='mobile-menu-button p-4 focus:outline-none focus:bg-teal-200'
+                    className='mobile-menu-button p-4 focus:outline-none focus:bg-teal-800'
                 >
                     <AiOutlineBars className='h-5 w-5' />
                 </button>

@@ -13,7 +13,7 @@ const Voters = () => {
         const res = await fetch(`http://localhost:5000/voters/${user.email}`)
         return await res.json()
     })
-    console.log({ data, user })
+
 
     // add voter function
     const handleSubmit = () => {
@@ -26,7 +26,7 @@ const Voters = () => {
 
 
 
-        axios.post(`http://localhost:5000/add-voters`, voterInfo)
+        axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
@@ -40,6 +40,37 @@ const Voters = () => {
                 }
             })
         form.reset()
+    }
+
+    // voter remove function
+    const handleRemoveVoter = (id) => {
+        console.log(id)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`https://electra-poll-server.vercel.app/voters/${id}`)
+                    .then(data => {
+                        if (data.status === 200) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: `Your voter removed`,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            refetch()
+                        }
+                    })
+
+            }
+        })
+
     }
     return (
         <div>
@@ -61,34 +92,38 @@ const Voters = () => {
             }
 
             {/* when voter data length is more then 0 */}
-            <div className='text-right'>
-                <button onClick={() => window.my_modal_5.showModal()}>
-                    <ButtonPrimary>Add Voters</ButtonPrimary>
-                </button>
-            </div>
-            <div className="overflow-x-auto mt-5">
-                <table className="table table-zebra-zebra">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th className='bg-teal-900 text-white'>#</th>
-                            <th className='bg-teal-900 text-white'>Voter Name</th>
-                            <th className='bg-teal-900 text-white'>Voter Email</th>
-                            <th className='bg-teal-900 text-white'>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* row 1 */}
+            { data.length > 0 &&
+                <>
+                    <div className='text-right'>
+                        <button onClick={() => window.my_modal_5.showModal()}>
+                            <ButtonPrimary>Add Voters</ButtonPrimary>
+                        </button>
+                    </div>
+                    <div className="overflow-x-auto mt-5">
+                        <table className="table table-zebra-zebra">
+                            {/* head */}
+                            <thead>
+                                <tr>
+                                    <th className='bg-teal-900 text-white'>#</th>
+                                    <th className='bg-teal-900 text-white'>Voter Name</th>
+                                    <th className='bg-teal-900 text-white'>Voter Email</th>
+                                    <th className='bg-teal-900 text-white'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* row 1 */}
 
-                        {data.map((voterInfo, index) => <tr key={index} className="bg-base-200">
-                            <th>{index + 1}</th>
-                            <td>{voterInfo.voter.voterName}</td>
-                            <td>{voterInfo.voter.voterEmail}</td>
-                            <td><button className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-4 w-4' /> Remove</button></td>
-                        </tr>)}
-                    </tbody>
-                </table>
-            </div>
+                                {data.map((voterInfo, index) => <tr key={index} className="bg-base-200">
+                                    <th>{index + 1}</th>
+                                    <td>{voterInfo.voter.voterName}</td>
+                                    <td>{voterInfo.voter.voterEmail}</td>
+                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-4 w-4' /> Remove</button></td>
+                                </tr>)}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            }
 
             {/* add voter modal */}
             {/* Open the modal using ID.showModal() method */}
