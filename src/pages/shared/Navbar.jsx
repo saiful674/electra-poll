@@ -133,28 +133,30 @@ const Navbar = () => {
                 <HiXMark className="text-xl"></HiXMark>
               </button>
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/"
               >
                 Home
               </NavLink>
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/about"
+                to="/about "
               >
                 About
               </NavLink>
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/blog"
+                to="/dashboard/election-correction"
               >
-                Blog
+                Election
               </NavLink>
               <NavLink
-                onClick={() => setIsOpen(false)}
+                className={({ isActive }) => (isActive ? "text-green-400" : "")}
+                to="/dashboard/overview"
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/contact"
               >
