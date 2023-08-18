@@ -11,7 +11,7 @@ const Voters = () => {
     const { user } = useContext(AuthContext)
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user.email}`)
+        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user?.email}`)
         return await res.json()
     })
 
