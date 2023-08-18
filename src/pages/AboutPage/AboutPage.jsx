@@ -1,12 +1,23 @@
 import React from "react";
 import { FaFacebook, FaLinkedinIn, FaTwitter, FaYoutube } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import PageBanner from "../../components/PageBanner/PageBanner";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import required modules
+import Aos from "aos";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const AboutPage = () => {
   return (
     <div className="">
-      <PageBanner title={'about us'} pageRoute={'about'}></PageBanner>
+      <PageBanner title={"about us"} pageRoute={"about"}></PageBanner>
       <div className="2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 sm:gap-10 gap-12">
           <div className="w-full lg:w-6/12">
@@ -409,212 +420,209 @@ const AboutPage = () => {
               dicta?
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-10">
-            <div className="card  hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
 
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
+          <Swiper
+            // install Swiper modules
+            modules={[Navigation, Autoplay, Pagination]}
+            spaceBetween={50}
+            slidesPerView={3}
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+          >
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
+                    className="h-52 mt-5 w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    MD Farukul Islam
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        farukgb1999@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
+
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/xH6qPd1/anis.jpg"
+                    className="h-52 mt-5 w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    Mohammad Anisur Rahman
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        anisurrahman01815001904@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
 
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/bK4HB9L/maruf.jpg"
+                    className="h-52 mt-5 w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    MD Ahmed Maruf
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        marufdev09@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
 
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/bH0GX2k/saifulvail.jpg"
+                    className="h-52 mt-5 w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    Mohammad Saiful Islam
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        saifmdislam231@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
 
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/tpFkpVp/mahdulhasan.jpg"
+                    className="h-52 mt-5 w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    Mahmudul Hasan Khan
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        Khanmahmud994@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
 
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card hover:shadow-xl hover:bg-base-100 ">
-              <figure>
-                <img
-                  src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                  className="h-52 mt-5 w-48 rounded-lg"
-                  alt="Team Picture"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title flex justify-center text-[#008e48]">
-                  Maruf Ahmed
-                </h2>
-                <div className="flex mt-1 text-center">
-                  <p className="font-bold">
-                    <span className="font-semibold">Example@gmail.com</span>{" "}
-                  </p>
-                </div>
-                <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
-                  <Link>
-                    <FaFacebook></FaFacebook>
-                  </Link>
-                  <Link>
-                    <FaLinkedinIn></FaLinkedinIn>
-                  </Link>
-
-                  <Link>
-                    <FaYoutube></FaYoutube>
-                  </Link>
-                  <Link>
-                    <FaTwitter></FaTwitter>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </div>

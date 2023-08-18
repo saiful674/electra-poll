@@ -21,14 +21,13 @@
     background-size: cover;
     background-position: center;
     height: 50vh;
+    overflow: hidden;
   }
   @media screen and (max-width:576px) {
     .contact-bg{
         height: 30vh;
     }
-    .create-bg3{
-      height: 90vh;
-    }
+  
     .call{
         width: 70px;
     }
@@ -45,9 +44,6 @@
     }
     .contact-bg2 {
         height: 100vh;
-    }
-    .create-bg3{
-      height: 90vh;
     }
   
   }
