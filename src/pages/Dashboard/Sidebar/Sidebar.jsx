@@ -5,7 +5,7 @@ import { FaUsers } from 'react-icons/fa'
 import { FcSettings } from 'react-icons/fc'
 import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import logo from '../../../assets/logo.png'
+import logo from '../../../assets/logo-white.png'
 
 const Sidebar = () => {
     const navigate = useNavigate()
@@ -101,7 +101,7 @@ const Sidebar = () => {
                                         }`
                                     }
                                 >
-                                   <FcSettings className='w-5 h-5' />
+                                    <FcSettings className='w-5 h-5' />
 
                                     <span className='mx-4 font-medium'>Satings</span>
                                 </NavLink>
@@ -111,7 +111,7 @@ const Sidebar = () => {
                     </div>
                 </div>
 
-               
+
             </div>
         </>
     )

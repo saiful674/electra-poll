@@ -64,7 +64,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/election"
+            to="/dashboard/election-correction"
           >
             Election
           </NavLink>
@@ -82,8 +82,8 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
-       
-        {user && (
+
+          {user && (
             <div
               className="w-8 mx-5 tooltip tooltip-left"
               data-tip={user.displayName}
@@ -95,20 +95,20 @@ const Navbar = () => {
               )}
             </div>
           )}
-        
+
           {user ? (
             <button className="my-btn-sec" onClick={handleLogOut}>
               LogOUT
             </button>
           ) : (
             <NavLink
-            className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/login"
-          >
-            Login
-          </NavLink>
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/login"
+            >
+              Login
+            </NavLink>
           )}
-        
+
         </div>
       </div>
 

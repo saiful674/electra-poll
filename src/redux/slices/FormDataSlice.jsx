@@ -81,8 +81,8 @@ const formDataSlice = createSlice({
             const idToRemove = action.payload;
             state.voterEmails = state.voterEmails.filter(email => email.id !== idToRemove);
         },
-        setEmailValid(state) {
-            state.emailsValid = !state.emailsValid
+        setEmailValid(state, action) {
+            state.emailsValid = action.payload
         },
         next(state) {
             state.page++

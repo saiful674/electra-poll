@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import UserName from '../../components/Deshboard/UserName/UserName';
 import axios from 'axios';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const ElectionCreationAndManagement = () => {
 
   const navigate = useNavigate()
+  const { user } = useContext(AuthContext)
 
   const handleAddElection = () => {
     const electionData = {
       title: '',
+      email: user?.email,
       autoDate: '',
       startDate: '',
       page: 0,
@@ -29,17 +32,20 @@ const ElectionCreationAndManagement = () => {
       },
       emailSubject: 'Vote Now:',
       emailInfo: '',
-      voterEmails: []
+      voterEmails: [],
+      status: 'pending'
     }
-    axios.post('http://localhost:5000/add-election', electionData)
-      .then(res => {
-        const id = res.data.insertedId
-        axios.get(`http://localhost:5000/election/${id}`)
-          .then(res => {
-            console.log(res.data, id);
-            navigate(`/election/${id}`)
-          })
-      })
+    if (user) {
+      axios.post('http://localhost:5000/add-election', electionData)
+        .then(res => {
+          const id = res.data.insertedId
+          axios.get(`http://localhost:5000/election/${id}`)
+            .then(res => {
+              console.log(res.data, id);
+              navigate(`/election/${id}`)
+            })
+        })
+    }
   }
 
   return (

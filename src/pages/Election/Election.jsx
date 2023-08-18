@@ -21,6 +21,10 @@ const Election = () => {
     const formData = useSelector(s => s.formData)
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pageNum]);
+
+    useEffect(() => {
         axios.get(`http://localhost:5000/election/${id}`)
             .then(res => {
                 console.log(res.data);
@@ -44,7 +48,7 @@ const Election = () => {
                 {pageNum === 3 && <Voters></Voters>}
                 {pageNum === 4 && <Confirmation></Confirmation>}
             </div>
-            <ScrollRestoration></ScrollRestoration>
+            <ScrollRestoration />
         </div>
     );
 };
