@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: "satings",
-        element: <Sating/>,
+        element: <Sating />,
       },
       ,
       {
