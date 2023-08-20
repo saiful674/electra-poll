@@ -17,9 +17,11 @@ const ElectionCreationAndManagement = () => {
     queryKey: ['elections', user],
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
-      return res.data
+     return res.data;
+     
     }
   })
+
 
   const handleAddElection = () => {
     const electionData = {
