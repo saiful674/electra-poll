@@ -155,7 +155,7 @@ const Overview = () => {
                     <label className="label">
                         <span className="text-lg font-semibold">Organization<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input {...register("organization", { required: true })} placeholder="Photo URL" type='text'
+                    <input {...register("organization", { required: true })} placeholder="Organization Name" type='text'
                         defaultValue={'abcd'} className="my-input focus:outline-green-400" />
                 </div>
 
