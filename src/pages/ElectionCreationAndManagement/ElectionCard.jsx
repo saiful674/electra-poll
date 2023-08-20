@@ -35,29 +35,31 @@ const ElectionCard = ({ election, refetch }) => {
     }
 
     return (
-        <div className='border cursor-pointer rounded-2xl shadow-md p-5 mb-4 '>
-            {
-                title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
-                    {title}
-                </Link> : <h3 className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</h3>
-            }
-            <p className='text-xl text-gray-500 mb-2'>Organization: {organization}</p>
-            <p >
-                Status: {status} | {voteType} Vote
-            </p>
-            <p className='text-xl text-gray-500'>
-                Voting Ends in: {autoDate} minutes
-            </p>
-            <p className='text-xl text-gray-500'>
-                Start: {startDate}
-            </p>
-            <p className='text-xl text-gray-500'>
-                End: {endDate}
-            </p>
-            {voterEmails && (
-                <p className='text-xl text-gray-500'>Voters: {voterEmails.length}</p>
-            )}
-            <div onClick={handleElectionDelete} className='flex justify-center items-center gap-1 text-red-400'>
+        <div className='border flex justify-between flex-col cursor-pointer rounded-2xl shadow-md p-5 mb-4 '>
+            <div>
+                {
+                    title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
+                        {title}
+                    </Link> : <h3 className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</h3>
+                }
+                <p className='text-xl text-gray-500 mb-2'>Organization: {organization}</p>
+                <p >
+                    Status: {status} | {voteType} Vote
+                </p>
+                <p className='text-xl text-gray-500'>
+                    Voting Ends in: {autoDate} minutes
+                </p>
+                <p className='text-xl text-gray-500'>
+                    Start: {startDate}
+                </p>
+                <p className='text-xl text-gray-500'>
+                    End: {endDate}
+                </p>
+                {voterEmails && (
+                    <p className='text-xl text-gray-500'>Voters: {voterEmails.length}</p>
+                )}
+            </div>
+            <div onClick={handleElectionDelete} className='flex justify-end items-center gap-1 text-red-400'>
                 <p className='text-xl'>Delete</p><FaTrash></FaTrash>
             </div>
         </div>
