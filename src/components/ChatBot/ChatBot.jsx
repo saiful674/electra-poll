@@ -12,19 +12,22 @@ const ChatBot = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const chatLength = chatHistory.length;
+    const [bounceTime, setBounceTime] = useState(false);
+
+
     useEffect(() => {
         // Retrieve chat history from session storage
         const storedChatHistory = sessionStorage.getItem('chatHistory');
 
         if (storedChatHistory) {
             setChatHistory(JSON.parse(storedChatHistory));
+
         }
 
         // Check if the chat box should be opened automatically
         setTimeout(() => {
             setIsChatOpen(true)
-            console.log(chatHistory.length)
+
             // welcome message request
             if (!storedChatHistory && chatHistory.length === 0) {
                 axios.post('https://electra-poll-server.vercel.app/send-message', { message: 'Welcome Message' })
@@ -34,8 +37,20 @@ const ChatBot = () => {
                     })
             }
         }, 8000);
+
+        const intervalId = setInterval(() => {
+            setBounceTime(true)
+            setTimeout(() => {
+                setBounceTime(false)
+            }, 1000); // Keep the chat box open for 1 second
+        }, 7000); // Bounce every 10 seconds
+
+        return () => {
+            clearInterval(intervalId);
+        };
+
     }, []);
-    
+
 
 
     useEffect(() => {
@@ -43,7 +58,9 @@ const ChatBot = () => {
         if (chatHistory.length > 0) {
             sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
         }
-        chatContainerRef.current.scrollTop += 100;
+        // Scroll the chat container to the bottom
+        // chatContainerRef.current.scrollTop += 100;
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }, [chatHistory]);
 
 
@@ -79,7 +96,7 @@ const ChatBot = () => {
 
     return (
         <>
-            <div className={`fixed bottom-4 right-4 p-4 bg-green-100 border rounded-lg shadow-md w-[340px] z-50 h-fit ${isChatOpen ? '' : 'hidden'}`}>
+            <div className={`fixed bottom-6 right-6 p-4 bg-green-100 border rounded-lg shadow-md w-[360px] z-50 h-fit ${isChatOpen ? '' : 'hidden'}`}>
                 <div className="flex justify-between mb-2">
                     <div className='flex items-center gap-2'>
                         <figure className='h-10 w-10 rounded-full border-2 border-green-500'>
@@ -91,7 +108,7 @@ const ChatBot = () => {
                         <FiMinimize className='h-6 w-6 text-green-800 hover:text-red-700 duration-300' />
                     </button>
                 </div>
-                <div ref={chatContainerRef} className="custom-scrollbar h-80 overflow-auto scroll-smooth mb-4 p-2 bg-slate-100 rounded duration-300">
+                <div ref={chatContainerRef} className="custom-scrollbar h-[350px] overflow-auto scroll-smooth mb-4 p-2 bg-slate-100 rounded duration-300">
                     <>
                         {chatHistory.map((message, index) => (
                             <div
@@ -138,8 +155,9 @@ const ChatBot = () => {
             {!isChatOpen &&
                 <div className="fixed bottom-4 right-4 z-50">
                     <button
-                        className="bg-green-500 text-white p-2 rounded-full shadow-md"
-                        onClick={toggleChat}
+                        className={`bg-green-500 text-white p-2 rounded-full shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-200 ${bounceTime ? 'animate-bounce-once' : ''
+                            }`}
+                        onClick={() =>toggleChat()}
                     >
                         <AiOutlineMessage className='h-6 w-6' />
                     </button>

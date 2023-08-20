@@ -21,6 +21,7 @@ const ElectionCreationAndManagement = () => {
     }
   })
 
+
   const handleAddElection = () => {
     const electionData = {
       title: '',
