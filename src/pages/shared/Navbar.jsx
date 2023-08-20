@@ -44,9 +44,8 @@ const Navbar = () => {
   return (
     <div
       data-aos="fade-down"
-      className={`${visible ? "" : "hidden"} ${
-        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-      } fixed w-screen z-30 top-0`}
+      className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-30 top-0`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -121,9 +120,8 @@ const Navbar = () => {
       {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${
-          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0`}
+        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+          } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -138,6 +136,19 @@ const Navbar = () => {
               >
                 <HiXMark className="text-xl"></HiXMark>
               </button>
+              {user && (
+                <div
+                  className="w-8 mx-5 tooltip tooltip-left"
+                  data-tip={user.displayName}
+                >
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt="" className="rounded-full " />
+                  ) : (
+                    <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
+                  )}
+                </div>
+              )}
+
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/"
@@ -168,6 +179,18 @@ const Navbar = () => {
               >
                 Contact
               </NavLink>
+              {user ? (
+                <button className="my-btn-sec" onClick={handleLogOut}>
+                  LogOUT
+                </button>
+              ) : (
+                <NavLink
+                  className={({ isActive }) => (isActive ? "text-green-400" : "")}
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+              )}
             </ul>
           )}
         </div>
