@@ -11,10 +11,10 @@ const Voters = () => {
     const { user } = useContext(AuthContext)
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`http://localhost:5000/voters/${user?.email}`)
+        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user?.email}`)
         return await res.json();
     })
-console.log({data, userEmail: user?.email})
+    console.log({ data, userEmail: user?.email })
 
     // add voter function
     const handleSubmit = () => {
@@ -27,7 +27,7 @@ console.log({data, userEmail: user?.email})
 
 
 
-        axios.post(`http://localhost:5000/add-voters`, voterInfo)
+        axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
@@ -56,7 +56,7 @@ console.log({data, userEmail: user?.email})
             confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/voters/${id}`)
+                axios.delete(`https://electra-poll-server.vercel.app/voters/${id}`)
                     .then(data => {
                         if (data.status === 200) {
                             Swal.fire({
@@ -74,8 +74,8 @@ console.log({data, userEmail: user?.email})
 
     }
 
-    if(isLoading){
-        return <LoadingSpinner/>
+    if (isLoading) {
+        return <LoadingSpinner />
     }
     return (
         <div>
@@ -97,7 +97,7 @@ console.log({data, userEmail: user?.email})
             }
 
             {/* when voter data length is more then 0 */}
-            { data.length > 0 &&
+            {data.length > 0 &&
                 <>
                     <div className='text-right'>
                         <button onClick={() => window.my_modal_5.showModal()}>

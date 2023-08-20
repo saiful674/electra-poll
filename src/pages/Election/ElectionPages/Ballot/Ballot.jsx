@@ -21,7 +21,7 @@ const Ballot = () => {
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
-        axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
+        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
