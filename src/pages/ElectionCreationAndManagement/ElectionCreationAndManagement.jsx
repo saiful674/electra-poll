@@ -4,17 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/Deshboard/UserName/UserName';
 import axios from 'axios';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { getMyElections } from '../../Hooks/myElections';
 import ElectionCard from './ElectionCard';
 import LoadingSpinner from '../shared/LoadingSpinner';
+import { useQuery } from '@tanstack/react-query';
 
 const ElectionCreationAndManagement = () => {
 
   const navigate = useNavigate()
   const { user } = useContext(AuthContext);
-  const [elections, setElections] = useState([])
+
+  const { data: elections = [], refetch, isLoading } = useQuery({
+    queryKey: ['elections', user],
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
+      return res.data
+    }
+  })
 
   const handleAddElection = () => {
     const electionData = {
@@ -55,19 +60,6 @@ const ElectionCreationAndManagement = () => {
   }
 
 
-  useEffect(() => {
-    getMyElections(user)
-      .then(data => {
-        console.log(data)
-        setElections(data)
-      })
-      .catch(error => {
-        const errorMessage = error.errorMessage;
-        console.log(errorMessage)
-      })
-  }, [user])
-
-
   return (
     <>
       <UserName></UserName>
@@ -80,10 +72,10 @@ const ElectionCreationAndManagement = () => {
       </div>
       <div className='my-container mt-10 mb-10'>
         {
-          elections.length !== 0 ? <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
+          elections?.length !== 0 ? <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
 
             {
-              elections.map(election => <ElectionCard key={election._id} election={election}></ElectionCard>)
+              elections?.map(election => <ElectionCard key={election._id} refetch={refetch} election={election}></ElectionCard>)
             }
 
           </div> : <LoadingSpinner></LoadingSpinner>
