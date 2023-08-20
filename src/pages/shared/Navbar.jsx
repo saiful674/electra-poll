@@ -63,17 +63,24 @@ const Navbar = () => {
             About
           </NavLink>
           <NavLink
+            onClick={() => setIsOpen(false)}
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/blog"
+          >
+            Blog
+          </NavLink>
+          <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/election-correction"
           >
             Election
           </NavLink>
-          <NavLink
+          {user && <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/overview"
           >
             Dashboard
-          </NavLink>
+          </NavLink>}
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/contact"
@@ -82,7 +89,6 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
-
           {user && (
             <div
               className="w-8 mx-5 tooltip tooltip-left"
@@ -108,10 +114,8 @@ const Navbar = () => {
               Login
             </NavLink>
           )}
-
         </div>
       </div>
-
 
       {/* ================ mobile view================ */}
       <div
@@ -132,39 +136,65 @@ const Navbar = () => {
               >
                 <HiXMark className="text-xl"></HiXMark>
               </button>
+              {user && (
+                <div
+                  className="w-8 mx-5 tooltip tooltip-left"
+                  data-tip={user.displayName}
+                >
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt="" className="rounded-full " />
+                  ) : (
+                    <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
+                  )}
+                </div>
+              )}
+
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/"
               >
                 Home
               </NavLink>
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/about"
+                to="/about "
               >
                 About
               </NavLink>
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/blog"
+                to="/dashboard/election-correction"
               >
-                Blog
+                Election
               </NavLink>
+              {user && <NavLink
+                className={({ isActive }) => (isActive ? "text-green-400" : "")}
+                to="/dashboard/overview"
+              >
+                Dashboard
+              </NavLink>}
               <NavLink
-                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/contact"
               >
                 Contact
               </NavLink>
+              {user ? (
+                <button className="my-btn-sec" onClick={handleLogOut}>
+                  LogOUT
+                </button>
+              ) : (
+                <NavLink
+                  className={({ isActive }) => (isActive ? "text-green-400" : "")}
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+              )}
             </ul>
           )}
         </div>
       </div>
-
     </div>
   );
 };

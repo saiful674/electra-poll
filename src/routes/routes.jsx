@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       },
       {
         path: "satings",
-        element: <Sating/>,
+        element: <Sating />,
       },
       ,
       {

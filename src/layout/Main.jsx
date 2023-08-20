@@ -1,9 +1,10 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
-import Navbar from "../pages/shared/Navbar";
-import Footer from "../pages/shared/Footer";
-import { useEffect } from "react";
 import Aos from "aos";
 import 'aos/dist/aos.css';
+import { useEffect } from "react";
+import { Outlet, ScrollRestoration } from "react-router-dom";
+import ChatBot from "../components/ChatBot/ChatBot";
+import Footer from "../pages/shared/Footer";
+import Navbar from "../pages/shared/Navbar";
 
 const Main = () => {
     useEffect(() => {
@@ -19,6 +20,8 @@ const Main = () => {
             <Outlet></Outlet>
             <Footer></Footer>
             <ScrollRestoration></ScrollRestoration>
+            
+            <ChatBot/>
         </div>
     );
 };
