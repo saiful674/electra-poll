@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsFillHouseAddFill } from 'react-icons/bs'
-import { FaUsers } from 'react-icons/fa'
+import { FaBlog, FaHome, FaUsers } from 'react-icons/fa'
 import { HiMiniCog6Tooth } from 'react-icons/hi2'
+import { CgWebsite } from "react-icons/cg";
 import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo-white.png'
+import { AuthContext } from '../../../Providers/AuthProvider'
+import { useContext } from 'react'
+import { BiSolidContact } from 'react-icons/bi'
 
 const Sidebar = () => {
     const navigate = useNavigate()
     const [toggle, setToggle] = useState(false)
     const user = true;
-
+    const {  logout } = useContext(AuthContext);
     const [isActive, setActive] = useState('false')
     const toggleHandler = event => {
         setToggle(event.target.checked)
@@ -20,7 +24,12 @@ const Sidebar = () => {
     const handleToggle = () => {
         setActive(!isActive)
     }
-
+    const handleLogOut = () => {
+        logout()
+          .then(toast.success("logout successfully"))
+          .catch((err) => console.log(err));
+      };
+    
     return (
         <>
             {/* Small Screen Navbar */}
@@ -104,13 +113,61 @@ const Sidebar = () => {
                                     <HiMiniCog6Tooth className='w-5 h-5' />
                                     <span className='mx-4 font-medium'>Satings</span>
                                 </NavLink>
-
+                                <div className="divider  mt-8 font-semibold ">Quick Action</div>
+                                <NavLink
+                                    to='/'
+                                    onClick={handleToggle}
+                                    className={({ isActive }) =>
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                        }`
+                                    }
+                                >
+                                    <FaHome className='w-5 h-5' />
+                                    <span className='mx-4 font-medium'>Home</span>
+                                </NavLink>
+                                <NavLink
+                                    to='/about'
+                                    onClick={handleToggle}
+                                    className={({ isActive }) =>
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                        }`
+                                    }
+                                >
+                                    <CgWebsite className='w-5 h-5 text-white' />
+                                    <span className='mx-4 font-medium'>About</span>
+                                </NavLink>
+                                <NavLink
+                                    to='/blog'
+                                    onClick={handleToggle}
+                                    className={({ isActive }) =>
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                        }`
+                                    }
+                                >
+                                    <FaBlog className='w-5 h-5' />
+                                    <span className='mx-4 font-medium'>Blog</span>
+                                </NavLink>
+                                   
+                                <NavLink
+                                    to='/contact'
+                                    onClick={handleToggle}
+                                    className={({ isActive }) =>
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                        }`
+                                    }
+                                >
+                                    <BiSolidContact className='w-5 h-5' />
+                                    <span className='mx-4 font-medium'>Contact</span>
+                                </NavLink>
+                                   
                             </>
+
                         </nav>
                     </div>
                 </div>
-
-
+                <button className="my-btn-sec" onClick={handleLogOut}>
+              LogOUT
+            </button>
             </div>
         </>
     )
