@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption } from '../../../../redux/slices/FormDataSlice';
+import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption, updateOption } from '../../../../redux/slices/FormDataSlice';
 import { FaTrash } from 'react-icons/fa';
 
 const Questions = ({ question, questionSubmit, handleSubmit, register, errors }) => {
@@ -87,8 +87,8 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                             {
                                 question.options?.map((o, i) => <div className='flex w-full items-center gap-3' key={i}>
                                     <p>{i + 1}.</p>
-                                    <input defaultValue={o} className='my-input' type='text'></input>
-                                    <button onClick={() => dispatch(deleteOption({ id: question.id, option: o }))} type='button'><FaTrash className='text-red-500'></FaTrash></button>
+                                    <input onChange={(e) => dispatch(updateOption({ id: question.id, option: e.target.value, optionId: o.id }))} defaultValue={o.option} className='my-input' type='text'></input>
+                                    <button onClick={() => dispatch(deleteOption({ id: question.id, optionId: o.id }))} type='button'><FaTrash className='text-red-500'></FaTrash></button>
                                 </div>)
                             }
                         </div>

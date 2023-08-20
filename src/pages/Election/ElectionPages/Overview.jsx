@@ -50,7 +50,7 @@ const Overview = () => {
                 email: user?.email
             };
             dispatch(addFirstPage(payload))
-            axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
+            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {

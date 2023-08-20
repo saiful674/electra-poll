@@ -25,7 +25,7 @@ const Election = () => {
     }, [pageNum]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/election/${id}`)
+        axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
                 console.log(res.data);
                 dispatch(setInitalState(res.data))

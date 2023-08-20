@@ -16,7 +16,7 @@ const ElectionCreationAndManagement = () => {
   const { data: elections = [], refetch, isLoading } = useQuery({
     queryKey: ['elections', user],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
+      const res = await axios.get(`https://electra-poll-server.vercel.app/elections/${user?.email}`)
       return res.data
     }
   })
@@ -33,7 +33,11 @@ const ElectionCreationAndManagement = () => {
         id: `xyz${Math.floor(10000 + Math.random() * 90000)}`,
         voterChoose: 'candidate',
         vacancy: 1,
-        options: ['option/candidate 1'],
+        options: [{
+          id: `xyz${Math.floor(100000 + Math.random() * 900000)}`,
+          option: `option/candidate 1}`,
+          votes: 0
+        }],
         choosedOptions: 1
       }],
       emailsValid: false,
@@ -47,10 +51,10 @@ const ElectionCreationAndManagement = () => {
       status: 'pending'
     }
     if (user) {
-      axios.post('http://localhost:5000/add-election', electionData)
+      axios.post('https://electra-poll-server.vercel.app/add-election', electionData)
         .then(res => {
           const id = res.data.insertedId
-          axios.get(`http://localhost:5000/election/${id}`)
+          axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
               console.log(res.data, id);
               navigate(`/election/${id}`)
