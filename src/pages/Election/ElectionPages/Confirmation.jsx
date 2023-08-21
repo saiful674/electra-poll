@@ -23,7 +23,7 @@ const Confirmation = () => {
             confirmButtonText: 'Yes, Publish it'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/election/${formData._id}`, { status: 'published' })
+                axios.patch(`http://localhost:5000/election/${formData._id}`, { status: formData.autoDate ? 'published' : 'ongoing' })
                     .then(res => {
                         console.log(res.data);
                         if (res.data) {

@@ -11,7 +11,7 @@ import { FcAddImage } from 'react-icons/fc';
 import { imageUpload } from '../../Hooks/ImageUploade';
 
 const Registration = () => {
-  const { createUser, updateUserProfile} = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -21,7 +21,7 @@ const Registration = () => {
 
 
   const onSubmit = async (data) => {
-    const { username, email, password, file,organizationName ,membershipSize} = data;
+    const { username, email, password, file, organizationName, membershipSize } = data;
 
     try {
       const result = await createUser(email, password);
@@ -38,7 +38,7 @@ const Registration = () => {
         membershipSize,
 
       };
-  console.log(savedUser)
+      console.log(savedUser)
       const response = await fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
@@ -108,7 +108,7 @@ const Registration = () => {
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ?<AiOutlineEye />  :<FaRegEyeSlash /> }
+              {showPassword ? <AiOutlineEye /> : <FaRegEyeSlash />}
             </span>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
@@ -128,19 +128,19 @@ const Registration = () => {
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? <AiOutlineEye />  :<FaRegEyeSlash /> }
+              {showConfirmPassword ? <AiOutlineEye /> : <FaRegEyeSlash />}
             </span>
             {errors.confirmPassword && (
               <p className="text-red-500 text-xs mt-1">Passwords must match</p>
             )}
           </div>
           <div className="mb-6">
-          <input style={{display: 'none'}}   {...register('file', { required: true })} name='file' type="file" id='file'  />
-     <label className='flex items-center gap-2 cursor-pointer' htmlFor='file'>
-       
-       < FcAddImage className='text-5xl'/>
-       <span className='opacity-50'>Add your image</span>
-                        </label> 
+            <input style={{ display: 'none' }}   {...register('file', { required: true })} name='file' type="file" id='file' />
+            <label className='flex items-center gap-2 cursor-pointer' htmlFor='file'>
+
+              < FcAddImage className='text-5xl' />
+              <span className='opacity-50'>Add your image</span>
+            </label>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Image is required</p>
             )}
@@ -177,7 +177,7 @@ const Registration = () => {
                 {...register('terms', { required: true })}
                 onChange={() => setAgreedToTerms(!agreedToTerms)}
               />
-            
+
               <span className="ml-2">I agree to the <Link className='link link-success '>Terms of Service</Link></span>
             </label>
             {errors.terms && (
@@ -192,7 +192,7 @@ const Registration = () => {
         </form>
 
       </div>
-   
+
     </div>
   );
 };

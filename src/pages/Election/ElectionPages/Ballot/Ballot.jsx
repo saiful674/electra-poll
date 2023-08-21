@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { next, previous } from '../../../../redux/slices/FormDataSlice';
 import { addQuestion } from '../../../../redux/slices/FormDataSlice';
 import Questions from './Questions';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import axios from 'axios';
 
 const Ballot = () => {
@@ -13,18 +11,23 @@ const Ballot = () => {
     const formData = useSelector(s => s.formData)
     const questions = formData.questions
 
+    const [isdisabled, setDisabled] = useState(false)
     const ballotData = useSelector(s => s.ballot)
     const ballots = ballotData.ballots
+    const status = formData.status
+
     const dispatch = useDispatch()
 
     console.log(ballots);
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
+        setDisabled(true)
         axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
+                    setDisabled(false)
                     dispatch(next());
                 }
             })
@@ -43,7 +46,7 @@ const Ballot = () => {
             {/* --------add questions or options------- */}
             <div className="flex justify-between mb-3">
                 <h2 className='text-xl font-semibold'>Total Questions ({questions.length})</h2>
-                <button type='button' onClick={() => dispatch(addQuestion())} className='button-next'>Add quertion or position</button>
+                <button disabled={status !== 'pending'} type='button' onClick={() => dispatch(addQuestion())} className='button-next disabled:opacity-40'>Add quertion or position</button>
             </div>
 
             {/* ---ballot data based on questions--- */}
@@ -62,8 +65,7 @@ const Ballot = () => {
             <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
                 <div className='pt-5 flex justify-between'>
                     <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
-                    <button type='submit' className='bg-gray-400 px-4 rounded-md text-white'>Save</button>
-                    <button type='submit' className='button-next'>Next</button>
+                    <button disabled={isdisabled} type='submit' className='button-next'>Next</button>
                 </div>
             </form>
         </div>

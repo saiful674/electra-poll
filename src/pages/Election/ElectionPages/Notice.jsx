@@ -4,19 +4,23 @@ import { next, previous } from '../../../redux/slices/FormDataSlice';
 import { useForm } from 'react-hook-form';
 import { setEmailInfo, setEmailNotice, setEmailSubject, setUseName } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
+import { useState } from 'react';
 
 const Notice = () => {
 
     const dispatch = useDispatch()
+    const [isdisabled, setDisabled] = useState(false)
     const formData = useSelector(s => s.formData)
     const noticeData = formData.notice
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
+        setDisabled(true)
         axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
+                    setDisabled(false)
                     dispatch(next());
                 }
             })
@@ -73,8 +77,7 @@ const Notice = () => {
 
                 <div className='pt-5 flex justify-between'>
                     <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
-                    <button type='submit' className='bg-gray-400 px-4 rounded-md text-white'>Save</button>
-                    <button type='submit' className='button-next'>Next</button>
+                    <button disabled={isdisabled} type='submit' className='button-next'>Next</button>
 
                 </div>
             </form>
