@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa'
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { formatDateToInputValue } from '../../Hooks/convertDate';
 
 const ElectionCard = ({ election, refetch }) => {
     const { _id, title, status, startDate, autoDate, endDate, organization, voteType, voterEmails } = election;
@@ -40,7 +41,7 @@ const ElectionCard = ({ election, refetch }) => {
                 {
                     title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
                         {title}
-                    </Link> : <h3 className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</h3>
+                    </Link> : <Link to={`/election/${_id}`} className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</Link>
                 }
                 <p className='text-xl text-gray-500 mb-2'>Organization: {organization}</p>
                 <p >
@@ -50,10 +51,10 @@ const ElectionCard = ({ election, refetch }) => {
                     Voting Ends in: {autoDate} minutes
                 </p>
                 <p className='text-xl text-gray-500'>
-                    Start: {startDate}
+                    Start: {startDate && formatDateToInputValue(startDate)}
                 </p>
                 <p className='text-xl text-gray-500'>
-                    End: {endDate}
+                    End: {endDate && formatDateToInputValue(endDate)}
                 </p>
                 {voterEmails && (
                     <p className='text-xl text-gray-500'>Voters: {voterEmails.length}</p>
