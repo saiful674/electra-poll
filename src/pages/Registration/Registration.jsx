@@ -6,50 +6,65 @@ import { FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
 import { AuthContext } from "../../Providers/AuthProvider";
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
+import { FcAddImage } from 'react-icons/fc';
+import { imageUpload } from '../../Hooks/ImageUploade';
 
 const Registration = () => {
-  const { createUser, user, signInGoogle } = useContext(AuthContext);
+  const { createUser, updateUserProfile} = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
 
 
-  const onSubmit = data => {
+  const onSubmit = async (data) => {
+    const { username, email, password, file,organizationName ,membershipSize} = data;
 
-    const { email, photoURL: imgurl, username: name, password } = data;
-    console.log(data);
-    createUser(email, password, name, imgurl).then(() => {
+    try {
+      const result = await createUser(email, password);
+      const loggedUser = result.user;
+      console.log(loggedUser)
+
+      const uploadedImage = await imageUpload(file[0]);
+      await updateUserProfile(username, uploadedImage.data.display_url);
       const savedUser = {
-        name: name,
+        name: username,
         email: email,
-        imgurl: imgurl,
+        uploadedImage: uploadedImage.data.display_url,
+        organizationName,
+        membershipSize,
+
       };
-      fetch("http://localhost:5000/users", {
+  console.log(savedUser)
+      const response = await fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(savedUser),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            toast.success(`Hello! ${email}! WelCome`);
-            navigate("/");
-          } else {
-            toast.error("Already User");
-          }
-        });
-    });
+      });
 
+      const responseData = await response.json();
+
+      if (responseData.insertedId) {
+        toast.success(`Hello! ${email}! Welcome`);
+        reset()
+        navigate("/");
+      } else {
+        toast.error("Already User");
+      }
+    } catch (error) {
+      console.log(error);
+      // Handle error here
+    }
   }
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-full md:w-[440px]">
+    <div className="flex justify-center items-center  ">
+      <div className="w-full md:w-[440px] mt-20 ">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ border: "2px solid #3ae895" }}
@@ -93,7 +108,7 @@ const Registration = () => {
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <FaRegEyeSlash /> : <AiOutlineEye />}
+              {showPassword ?<AiOutlineEye />  :<FaRegEyeSlash /> }
             </span>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
@@ -113,21 +128,60 @@ const Registration = () => {
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? <FaRegEyeSlash /> : <AiOutlineEye />}
+              {showConfirmPassword ? <AiOutlineEye />  :<FaRegEyeSlash /> }
             </span>
             {errors.confirmPassword && (
               <p className="text-red-500 text-xs mt-1">Passwords must match</p>
             )}
           </div>
           <div className="mb-6">
+          <input style={{display: 'none'}}   {...register('file', { required: true })} name='file' type="file" id='file'  />
+     <label className='flex items-center gap-2 cursor-pointer' htmlFor='file'>
+       
+       < FcAddImage className='text-5xl'/>
+       <span className='opacity-50'>Add your image</span>
+                        </label> 
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">Image is required</p>
+            )}
+          </div>
+          <label className="label">
+            <span className="label-text font-bold">Organization Details</span>
+          </label>
+          <div className="mb-6">
             <input
-              {...register("photoURL", { required: true })}
+              {...register("organizationName", { required: true })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
-              type="url"
-              placeholder="Photo URL"
+              type="text"
+              placeholder="Organization Name" name='organizationName'
             />
             {errors.password && (
-              <p className="text-red-500 text-xs mt-1">photoURL is required</p>
+              <p className="text-red-500 text-xs mt-1">Organization Name is required</p>
+            )}
+          </div>
+          <div className="mb-6">
+            <input
+              {...register("membershipSize", { required: true })}
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
+              type="number" name='membershipSize'
+              placeholder="Membership Size"
+            />
+            {errors.membershipSize && (
+              <p className="text-red-500 text-xs mt-1">Membership Size  is required</p>
+            )}
+          </div>
+          <div className="mb-6">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                {...register('terms', { required: true })}
+                onChange={() => setAgreedToTerms(!agreedToTerms)}
+              />
+            
+              <span className="ml-2">I agree to the <Link className='link link-success '>Terms of Service</Link></span>
+            </label>
+            {errors.terms && (
+              <p className="text-red-500 text-xs mt-1">You must agree to the Terms of Service</p>
             )}
           </div>
           <div className="flex items-center justify-between">
@@ -138,6 +192,7 @@ const Registration = () => {
         </form>
 
       </div>
+   
     </div>
   );
 };
