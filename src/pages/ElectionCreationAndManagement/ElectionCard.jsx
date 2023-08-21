@@ -40,7 +40,7 @@ const ElectionCard = ({ election, refetch }) => {
                 {
                     title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
                         {title}
-                    </Link> : <h3 className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</h3>
+                    </Link> : <Link to={`/election/${_id}`} className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</Link>
                 }
                 <p className='text-xl text-gray-500 mb-2'>Organization: {organization}</p>
                 <p >

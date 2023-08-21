@@ -54,7 +54,7 @@ const Confirmation = () => {
                         <p>Please choose {q.choosedOptions} {q.voterChoose} for below option.</p>
                         {
                             q.options.map((o, i) => <div key={o}>
-                                <p className='py-2 px-3 bg-white'>{i + 1}.{o}</p>
+                                <p className='py-2 px-3 bg-white'>{i + 1}.{o.option}</p>
                             </div>)
                         }
                     </div>)}
