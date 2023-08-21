@@ -1,50 +1,82 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import { FcAddImage } from "react-icons/fc";
+import getMyInfo from '../../../../Hooks/getMyInfo';
 import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
+import { imageUpload } from '../../../../Hooks/ImageUploade';
+import axios from 'axios';
+import { useState } from 'react';
+// import Swal from 'sweetalert2';
 const Sating = () => {
-    const { user, PasswordUpdate } = useContext(AuthContext);
-    const [newPassword, setNewPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const { user, updateUserProfile } = useContext(AuthContext);
+    const [myInfo] = getMyInfo();
 
-    const handlePasswordChange = () => {
-        if (newPassword.length < 6 || newPassword.length > 20) {
-            setError('Password must be between 6 and 20 characters long.');
-            setSuccessMessage('');
-            return;
-        }
-        if (newPassword !== confirmPassword) {
-            setError("Passwords don't match.");
-            setSuccessMessage('');
-            return;
-        }
-        PasswordUpdate(user, newPassword)
-            .then(() => {
-                setNewPassword('');
-                setConfirmPassword('');
-                setSuccessMessage('Password changed successfully.');
-                setError(null);
-            }).catch((error) => {
-                setError(error.message);
-                setSuccessMessage('');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const displayName = form.displayName.value;
+        const organizationName = form.organizationName.value;
+        const membershipSize = form.membershipSize.value;
+        const fileInput = form.file;
+
+        setLoading(true);
+
+        try {
+            const uploadedImage = await imageUpload(fileInput.files[0]);
+            console.log(uploadedImage);
+
+            await updateUserProfile(displayName, uploadedImage.data.display_url);
+
+            const userData = {
+                name: displayName,
+                uploadedImage: uploadedImage.data.display_url,
+                organizationName,
+                membershipSize,
+            };
+
+            const response = await axios.patch(`http://localhost:5000/users/${user?.email}`, userData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
+
+            const data = response.data;
+            console.log(data);
+            console.log('Profile information updated successfully');
+        } catch (error) {
+            console.error('An error occurred:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+
     return (
+        <>
         <div className=" ">
             <div className=" p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl  font-semibold mb-4">Profile Information</h2>
                 <div className=" md:flex lg:flex  justify-start items-center gap-6 md:gap-10   lg:gap-20">
                     {/* Profile Picture */}
-                    <div className="mr-4 flex flex-col justify-center items-center  gap-6">
-                        <div className="avatar">
-                            <div className="w-20 md:w-28 lg:w-52 rounded-full ring ring-teal-700 ring-offset-base-100 ring-offset-2">
-                                <img src={user?.photoURL} alt="Profile" />
-                            </div>
-                        </div>
-
-                        <button ><ButtonPrimary>Change</ButtonPrimary></button>
-                    </div>
+                {/* Profile Picture */}
+       <form onSubmit={handleSubmit}>
+       <div className="mr-4 flex flex-col justify-center items-center  gap-6">
+            <div className="avatar">
+              <div className="w-20 md:w-28 lg:w-52 rounded-full ring ring-teal-700 ring-offset-base-100 ring-offset-2">
+                <img src={  user?.photoURL} alt="Profile" />
+              </div>
+            </div>
+            {/* Add the input element for changing the profile image */}
+            <input style={{display: 'none'}} type="file" name='file' id='file'   />
+     <label className='flex items-center gap-2 cursor-pointer' htmlFor='file'>
+       
+       < FcAddImage className='text-5xl'/>
+       <span className='opacity-50'>Add new image</span>
+                        </label> 
+          
+          </div>
                     <div className="divider md:divider-horizontal lg:divider-horizontal"></div>
                     {/* Rest of the Information */}
                     <div className='w-full'>
@@ -57,8 +89,9 @@ const Sating = () => {
                                 id="displayName"
                                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
                                 type="text"
-                                value={user?.displayName}
-                                readOnly
+                                name='displayName'
+                                // value={user?.displayName}
+                                placeholder={user?.displayName}
                             />
                         </div>
                         {/* user email */}
@@ -67,48 +100,49 @@ const Sating = () => {
                                 Email
                             </label>
                             <input
-                                id="email"
+                                id="email" name='email'
                                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
                                 type="email"
                                 value={user?.email}
                                 readOnly
+                                // placeholder={user?.email}
                             />
                         </div>
-                        {/* Change Password */}
                         <div className="mb-4">
-                            <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-                                New Password
+                            <label htmlFor="organizationName" className="block text-sm font-medium text-gray-700">
+                            Organization Name
                             </label>
                             <input
-                                id="newPassword"
+                                id="organizationName" name='organizationName'
                                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
-                                type="password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
+                                type="text"
+                                // value={myInfo[0]?.organizationName}
+                                placeholder={myInfo[0]?.organizationName}
                             />
                         </div>
-                        {/* Confirm Password */}
                         <div className="mb-4">
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                                Confirm New Password
+                            <label htmlFor="displayName" className="block text-sm font-medium text-gray-700">
+                            Membership Size
                             </label>
                             <input
-                                id="confirmPassword"
+                                id="membershipSize" name='membershipSize'
                                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                type="number"
+                                // value={myInfo[0]?.membershipSize}
+                                placeholder={myInfo[0]?.membershipSize}
                             />
                         </div>
-                        {error && <p className="text-red-500">{error}</p>}
-                        {successMessage && <p className="text-green-500">{successMessage}</p>}
-                        <button className='block w-full' onClick={handlePasswordChange}>
-                            <ButtonPrimary> Change Password</ButtonPrimary>
+                        <button className='block w-full' >
+                            <ButtonPrimary> Update Your Information</ButtonPrimary>
                         </button>
-                    </div>
+                       
                 </div>
+       </form>
             </div>
         </div>
+        </div>
+        {/* <ChangePassword></ChangePassword> */}
+        </>
 
     );
 };

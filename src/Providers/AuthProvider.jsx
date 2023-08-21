@@ -21,26 +21,24 @@ import { getASecureRandomPassword } from "../Hooks/getASecureRandomPassword";
     const [loading, setLoading] = useState(true);
   
     //registration
-    const createUser = (email, password, name, imgurl) => {
-      setLoading(true);
+
+    const createUser = (email, password) => {
+      setLoading(true)
       return createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const newUser = userCredential.user;
-          return updateProfile(newUser, {
-            displayName: name,
-            photoURL: imgurl,
-          });
-        })
-        .catch((error) => {
-          console.log("Error creating user", error);
-        });
-    };
+  }
+  const updateUserProfile = (name, photo) => {
+    setLoading(true)
+    return updateProfile(auth.currentUser, {
+        displayName: name, photoURL: photo
+    })
+}
     // Login
     const signIn = (email, password) => {
       setLoading(true);
       return signInWithEmailAndPassword(auth, email, password);
     };
   
+
     // ovserver
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
@@ -80,6 +78,7 @@ import { getASecureRandomPassword } from "../Hooks/getASecureRandomPassword";
       logout,
       signInGoogle,
       PasswordUpdate,
+      updateUserProfile
     };
     return (
       <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
