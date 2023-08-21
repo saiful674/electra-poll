@@ -14,6 +14,7 @@ const Overview = () => {
     const params = useParams()
     const id = params.id
 
+    const [isdisabled, setDisabled] = useState(false)
     const [dateError, setDateError] = useState('')
     console.log(dateError);
 
@@ -45,6 +46,7 @@ const Overview = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     console.log(errors);
     const onSubmit = data => {
+        setDisabled(true)
         setDateError('')
         if (user) {
             if (status === 'pending') {
@@ -76,12 +78,13 @@ const Overview = () => {
                     .then(res => {
                         console.log(res.data);
                         if (res.data) {
+                            setDisabled(false)
                             dispatch(next());
                         }
                     })
             }
             else {
-                console.log('not pending');
+                setDisabled(false)
                 dispatch(next())
             }
         }
@@ -349,7 +352,7 @@ const Overview = () => {
                 </div>
 
                 <div className='pt-5 flex justify-end'>
-                    <button type='submit' className='button-next'>Next</button>
+                    <button disabled={isdisabled} type='submit' className='button-next'>Next</button>
                 </div>
             </form >
         </div >

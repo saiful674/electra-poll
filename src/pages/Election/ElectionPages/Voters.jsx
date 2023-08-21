@@ -20,10 +20,6 @@ const Voters = () => {
         }
     }, [])
 
-    const handleSave = () => {
-
-    }
-
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setEmailErrors(false)
@@ -111,7 +107,6 @@ const Voters = () => {
                 </form>
                 <div className='pt-5 flex justify-between'>
                     <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
-                    <button onClick={handleSave} type='button' className='bg-gray-400 px-4 rounded-md text-white'>Save</button>
                     <button onClick={handleNext} type='button' className='button-next'>Next</button>
                 </div>
             </div>
