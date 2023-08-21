@@ -26,6 +26,24 @@ const Overview = () => {
     const adminResultAccess = overviewStates.adminResultAccess
     const voterResultAccess = overviewStates.voterResultAccess
 
+    // default date value
+    function formatDateToInputValue(dateString) {
+        // Parse the date
+        const date = new Date(dateString);
+
+        // Extract the year, month, day, hours, and minutes
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+
+        // Return the formatted string
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    console.log(formatDateToInputValue(formData.startDate));
+
     const status = formData.status
     const dispatch = useDispatch()
 
@@ -166,12 +184,12 @@ const Overview = () => {
                             <label className="pb-1">
                                 <span className="text-md font-semibold">starting time</span>
                             </label>
-                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("startDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={'' || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("startDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.startDate) || ''} className="my-input ms-5 focus:outline-green-400" />
 
                             <label className="pb-1">
                                 <span className="text-md font-semibold">ending time</span>
                             </label>
-                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("endDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formData.endDate || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("endDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.endDate) || ''} className="my-input ms-5 focus:outline-green-400" />
                         </>
                     }
                 </div>
