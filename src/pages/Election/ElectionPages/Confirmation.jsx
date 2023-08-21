@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { previous } from '../../../redux/slices/FormDataSlice';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Confirmation = () => {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const formData = useSelector(s => s.formData)
     const { title, autoDate, startDate, endDate, questions } = formData
@@ -30,6 +32,7 @@ const Confirmation = () => {
                                 'Your Vote has been published.',
                                 'success'
                             )
+                            navigate('/dashboard/election-correction')
                         }
                     })
             }

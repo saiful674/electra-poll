@@ -84,7 +84,7 @@ const Voters = () => {
                                                             message: "Invalid email address"
                                                         }
                                                     })}
-                                                    autocomplete="off"
+                                                    autoComplete="off"
                                                     type="text"
                                                     className={errors[`voterEmail${row.id}`] ? 'bg-red-300 w-full px-2' : 'bg-gray-200 w-full'}
                                                     defaultValue={row.email}

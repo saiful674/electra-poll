@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Aos from "aos";
+import React, { useEffect, useState } from 'react';
 import {
     Accordion,
     AccordionItem,
@@ -7,11 +8,9 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
+import faqImage from '../../../assets/faq/faq.jpg';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import './Faq.css';
-import { useEffect } from "react";
-import Aos from "aos";
-
 
 const Faq = () => {
 
@@ -82,7 +81,7 @@ const Faq = () => {
                     ))}
                 </Accordion>
                 <div data-aos="fade-right" data-aos-duration="800" className=' md:ps-20 order-1'>
-
+                    <img src={faqImage} alt="faq image" />
                 </div>
             </div>
 

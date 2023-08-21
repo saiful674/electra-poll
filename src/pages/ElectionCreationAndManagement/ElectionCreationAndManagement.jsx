@@ -1,14 +1,27 @@
 import React, { useContext } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/Deshboard/UserName/UserName';
 import axios from 'axios';
 import { AuthContext } from '../../Providers/AuthProvider';
+import ElectionCard from './ElectionCard';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import { useQuery } from '@tanstack/react-query';
 
 const ElectionCreationAndManagement = () => {
 
   const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+
+  const { data: elections = [], refetch, isLoading } = useQuery({
+    queryKey: ['elections', user],
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
+      return res.data
+    }
+  })
+
+  console.log(elections);
 
   const handleAddElection = () => {
     const electionData = {
@@ -22,7 +35,11 @@ const ElectionCreationAndManagement = () => {
         id: `xyz${Math.floor(10000 + Math.random() * 90000)}`,
         voterChoose: 'candidate',
         vacancy: 1,
-        options: ['option/candidate 1'],
+        options: [{
+          id: `xyz${Math.floor(100000 + Math.random() * 900000)}`,
+          option: `option/candidate 1}`,
+          votes: 0
+        }],
         choosedOptions: 1
       }],
       emailsValid: false,
@@ -48,6 +65,7 @@ const ElectionCreationAndManagement = () => {
     }
   }
 
+
   return (
     <>
       <UserName></UserName>
@@ -59,11 +77,17 @@ const ElectionCreationAndManagement = () => {
         </div>
       </div>
       <div className='my-container mt-10 mb-10'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3  '>
-          <div className='sm:w-96 md:w-96 h-[280px]  border  rounded-2xl shadow p-6'>
-            <h1 className='text-xl font-semibold'>My Election</h1>
-          </div>
-        </div>
+        {
+          isLoading ? <LoadingSpinner></LoadingSpinner> : elections.length === 0 ? <p className='text-2xl text-center py-10 text-gray-400'>You have no election.</p>
+            :
+            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
+
+              {
+                elections?.map(election => <ElectionCard key={election._id} refetch={refetch} election={election}></ElectionCard>)
+              }
+
+            </div>
+        }
       </div>
     </>
   );

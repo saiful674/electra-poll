@@ -11,10 +11,10 @@ const Voters = () => {
     const { user } = useContext(AuthContext)
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user?.email}`)
-        return await res.json()
+        const res = await fetch(`http://localhost:5000/voters/${user?.email}`)
+        return await res.json();
     })
-
+    console.log({ data, userEmail: user?.email })
 
     // add voter function
     const handleSubmit = () => {
@@ -27,7 +27,7 @@ const Voters = () => {
 
 
 
-        axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
+        axios.post(`http://localhost:5000/add-voters`, voterInfo)
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
@@ -56,7 +56,7 @@ const Voters = () => {
             confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://electra-poll-server.vercel.app/voters/${id}`)
+                axios.delete(`http://localhost:5000/voters/${id}`)
                     .then(data => {
                         if (data.status === 200) {
                             Swal.fire({
@@ -74,8 +74,8 @@ const Voters = () => {
 
     }
 
-    if(isLoading){
-        return <LoadingSpinner/>
+    if (isLoading) {
+        return <LoadingSpinner />
     }
     return (
         <div>
@@ -97,7 +97,7 @@ const Voters = () => {
             }
 
             {/* when voter data length is more then 0 */}
-            { data.length > 0 &&
+            {data.length > 0 &&
                 <>
                     <div className='text-right'>
                         <button onClick={() => window.my_modal_5.showModal()}>
@@ -122,7 +122,7 @@ const Voters = () => {
                                     <th>{index + 1}</th>
                                     <td>{voterInfo.voter.voterName}</td>
                                     <td>{voterInfo.voter.voterEmail}</td>
-                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-4 w-4' /> Remove</button></td>
+                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> Remove</button></td>
                                 </tr>)}
                             </tbody>
                         </table>

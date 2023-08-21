@@ -13,13 +13,13 @@ const Registration = () => {
   const navigate = useNavigate();
 
 
-    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
 
 
-    const onSubmit = data => { 
+  const onSubmit = data => {
 
-         const { email,photoURL:imgurl, username:name, password } = data;
-         console.log(data);
+    const { email, photoURL: imgurl, username: name, password } = data;
+    console.log(data);
     createUser(email, password, name, imgurl).then(() => {
       const savedUser = {
         name: name,
@@ -43,19 +43,19 @@ const Registration = () => {
           }
         });
     });
-  
-    }
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    return (
-        <div className="flex justify-center items-center h-screen">
+
+  }
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  return (
+    <div className="flex justify-center items-center h-screen">
       <div className="w-full md:w-[440px]">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ border: "2px solid #3ae895" }}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 "
-          >
-            <h3 className='text-xl font-bold text-center mb-4'>Registration Now!</h3>
+        >
+          <h3 className='text-xl font-bold text-center mb-4'>Registration Now!</h3>
           <div className="mb-4">
             <input
               {...register("username", { required: true })}
@@ -86,14 +86,14 @@ const Registration = () => {
                 maxLength: 20,
               })}
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200  focus:shadow-outline focus:out"
-              type={showPassword ? 'text' : 'password'} 
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
             />
             <span
               className="absolute right-3 top-3 cursor-pointer"
-              onClick={() => setShowPassword(!showPassword)} 
+              onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <FaRegEyeSlash /> : <AiOutlineEye />} 
+              {showPassword ? <FaRegEyeSlash /> : <AiOutlineEye />}
             </span>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
@@ -131,12 +131,12 @@ const Registration = () => {
             )}
           </div>
           <div className="flex items-center justify-between">
-        
-           <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>
+
+            <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>
           </div>
           <p className='mt-2'><small>Already have an account? <Link className='text-[#e2474b]' to='/login'>please login</Link></small></p>
         </form>
-       
+
       </div>
     </div>
   );

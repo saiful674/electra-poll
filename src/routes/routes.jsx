@@ -12,9 +12,15 @@ import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
 import Blog from "../pages/Blog/Blog";
+<<<<<<< HEAD
 import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
 import PrivateRoutes from "./PrivateRoutes";
 
+=======
+import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
+import PrivateRoutes from "./PrivateRoutes";
+// asjdfoiajsdf
+>>>>>>> 518104c2e022c32657b960667573e2879fb3def1
 const router = createBrowserRouter([
   {
     path: "/",
@@ -66,7 +72,7 @@ const router = createBrowserRouter([
       },
       {
         path: "satings",
-        element: <Sating/>,
+        element: <Sating />,
       },
       ,
       {

@@ -37,10 +37,21 @@ const formDataSlice = createSlice({
         },
         addOption(state, action) {
             const question = state.questions.find(q => q.id === action.payload.id)
-            state.questions.find(q => q.id === action.payload.id).options.push(`option/candidate ${question.options.length + 1}`)
+            state.questions.find(q => q.id === action.payload.id).options.push({
+                id: `xyz${Math.floor(100000 + Math.random() * 900000)}`,
+                option: `option/candidate ${question.options.length + 1}`,
+                votes: 0
+            })
+        },
+        updateOption(state, action) {
+            const id = action.payload.id
+            const option = action.payload.option;
+            const optionId = action.payload.optionId;
+
+            state.questions.find(q => q.id === id).options.find(o => o.id === optionId).option = option
         },
         deleteOption(state, action) {
-            state.questions.find(q => q.id === action.payload.id).options = state.questions.find(q => q.id === action.payload.id).options.filter(op => op !== action.payload.option)
+            state.questions.find(q => q.id === action.payload.id).options = state.questions.find(q => q.id === action.payload.id).options.filter(op => op.id !== action.payload.optionId)
         },
         addQuestionTitle(state, action) {
             state.questions.find(q => q.id === action.payload.id).questionTitle = action.payload.questionTitle
@@ -98,6 +109,7 @@ export const {
     addFirstPage,
     addQuestion,
     addOption,
+    updateOption,
     deleteOption,
     addQuestionTitle,
     addChoosedOptions,
