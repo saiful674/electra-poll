@@ -25,6 +25,26 @@ const Overview = () => {
     const selectedBallotAccess = overviewStates.ballotAccess
     const adminResultAccess = overviewStates.adminResultAccess
     const voterResultAccess = overviewStates.voterResultAccess
+
+    // default date value
+    function formatDateToInputValue(dateString) {
+        // Parse the date
+        const date = new Date(dateString);
+
+        // Extract the year, month, day, hours, and minutes
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+
+        // Return the formatted string
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    console.log(formatDateToInputValue(formData.startDate));
+
+    const status = formData.status
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -41,39 +61,43 @@ const Overview = () => {
     const onSubmit = data => {
         setDateError('')
         if (user) {
-            let payload = {
-                title: data.title,
-                autoDate: selectedTime === 'option1' ? Math.floor(data.autoDate) : '',
-                startDate: selectedTime === 'option2' ? data.startDate : '',
-                endDate: selectedTime === 'option2' ? data.endDate : '',
-                voteType: selectedVoteType,
-                ballotAccess: selectedBallotAccess,
-                adminResultAccess,
-                voterResultAccess,
-                adminEmail: data.adminEmail,
-                organization: data.organization,
-                email: user?.email
-            };
-            if (!payload.autoDate) {
-                const date1 = new Date(payload.startDate);
-                const date2 = new Date(payload.endDate);
+            if (status === 'pending') {
+                let payload = {
+                    title: data.title,
+                    autoDate: selectedTime === 'option1' ? Math.floor(data.autoDate) : '',
+                    startDate: selectedTime === 'option2' ? data.startDate : '',
+                    endDate: selectedTime === 'option2' ? data.endDate : '',
+                    voteType: selectedVoteType,
+                    ballotAccess: selectedBallotAccess,
+                    adminResultAccess,
+                    voterResultAccess,
+                    adminEmail: data.adminEmail,
+                    organization: data.organization,
+                    email: user?.email
+                };
+                if (!payload.autoDate) {
+                    const date1 = new Date(payload.startDate);
+                    const date2 = new Date(payload.endDate);
 
-                if (date1 > date2) {
-                    setDateError('end date cannot be before start date')
-                    window.scrollTo(0, 0);
-                    return
-                }
-            }
-            dispatch(addFirstPage(payload))
-            axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
-                .then(res => {
-                    console.log(res.data);
-                    if (res.data) {
-                        dispatch(next());
+                    if (date1 > date2) {
+                        setDateError('end date cannot be before start date')
+                        window.scrollTo(0, 0);
+                        return
                     }
-                })
-
-
+                }
+                dispatch(addFirstPage(payload))
+                axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data) {
+                            dispatch(next());
+                        }
+                    })
+            }
+            else {
+                console.log('not pending');
+                dispatch(next())
+            }
         }
     }
 
@@ -106,9 +130,9 @@ const Overview = () => {
                 <div className='bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600'>
                     <ul className='list-decimal ps-6'>
                         {errors.title && <li>Election Title can't be blank</li>}
-                        {errors.autoDate.type === "required" && <li>Please select in how many minutes the elction will end</li>}
-                        {errors.autoDate.type === "min" && <li>Auto ending time cannot be less than 3 minutes</li>}
-                        {errors.autoDate.type === "max" && <li>Auto ending time cannot be more than 60 minutes</li>}
+                        {errors.autoDate?.type === "required" && <li>Please select in how many minutes the elction will end</li>}
+                        {errors.autoDate?.type === "min" && <li>Auto ending time cannot be less than 3 minutes</li>}
+                        {errors.autoDate?.type === "max" && <li>Auto ending time cannot be more than 60 minutes</li>}
                         {errors.startDate && <li>Please add starting date and time</li>}
                         {errors.endDate && <li>Please add ending date and time</li>}
                         {dateError && <li>end date cannot be before start date</li>}
@@ -122,7 +146,7 @@ const Overview = () => {
                     <label className="label">
                         <span className="text-lg font-semibold">Election Title <span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input {...register("title", { required: true })} placeholder="election title" type='text'
+                    <input disabled={status !== 'pending'} {...register("title", { required: status === 'pending' })} placeholder="election title" type='text'
                         defaultValue={formData.title || ''} className="my-input focus:outline-green-400" />
                 </div>
 
@@ -134,16 +158,18 @@ const Overview = () => {
                     <div>
                         <label className='block mb-4 cursor-pointer'>
                             <input
+                                disabled={status !== 'pending'}
                                 type="radio"
                                 defaultValue="option1"
                                 className='transform scale-150 me-3'
                                 checked={selectedTime === 'option1' || formData.autoDate || selectedTime === ''}
                                 onChange={(e) => handleselectedTime(e.target.value)}
                             />
-                            manually start and end after <input disabled={selectedTime === 'option2'} {...register('autoDate', { required: selectedTime === 'option1', min: 3, max: 60 })} defaultValue={formData.autoDate || 10} className='border h-10 px-2 ms-4 w-14' type='number'></input> minutes
+                            manually start and end after <input disabled={selectedTime === 'option2'} {...register('autoDate', { required: selectedTime === 'option1' && status === 'pending', min: 3, max: 60 })} defaultValue={formData.autoDate || 10} className='border h-10 px-2 ms-4 w-14' type='number'></input> minutes
                         </label>
                         <label>
                             <input
+                                disabled={status !== 'pending'}
                                 type="radio"
                                 defaultValue="option2"
                                 className='transform scale-150 me-3 mb-3'
@@ -158,12 +184,12 @@ const Overview = () => {
                             <label className="pb-1">
                                 <span className="text-md font-semibold">starting time</span>
                             </label>
-                            <input disabled={selectedTime === 'option1' || formData.autoDate} {...register("startDate", { required: selectedTime === 'option2' })} placeholder="Photo URL" type='datetime-local' defaultValue={formData.startDate || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("startDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.startDate) || ''} className="my-input ms-5 focus:outline-green-400" />
 
                             <label className="pb-1">
                                 <span className="text-md font-semibold">ending time</span>
                             </label>
-                            <input disabled={selectedTime === 'option1' || formData.autoDate} {...register("endDate", { required: selectedTime === 'option2' })} placeholder="Photo URL" type='datetime-local' defaultValue={formData.endDate || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (formData.autoDate) || (status !== 'pending')} {...register("endDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.endDate) || ''} className="my-input ms-5 focus:outline-green-400" />
                         </>
                     }
                 </div>
@@ -173,7 +199,7 @@ const Overview = () => {
                     <label className="label">
                         <span className="text-lg font-semibold">Organization<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input {...register("organization", { required: true })} placeholder="Organization Name" type='text'
+                    <input disabled={status !== 'pending'} {...register("organization", { required: status === "pending" })} placeholder="Organization Name" type='text'
                         defaultValue={'abcd'} className="my-input focus:outline-green-400" />
                 </div>
 
@@ -183,7 +209,7 @@ const Overview = () => {
                         <span className="text-lg font-semibold">Primary email as orginizar <span className='text-red-400'>&#9998;</span></span>
                         <p className='text-sm'>voters can contact this email for any inquery or help</p>
                     </label>
-                    <input {...register("adminEmail", { required: true })} placeholder="primary email" type='text'
+                    <input disabled={status !== 'pending'} {...register("adminEmail", { required: status === 'pending' })} placeholder="primary email" type='text'
                         defaultValue={'codeCreafter@gmail.com'} className="my-input focus:outline-green-400" />
                 </div>
 
@@ -197,6 +223,7 @@ const Overview = () => {
 
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="test"
                             className={`transform scale-150 me-3`}
@@ -208,6 +235,7 @@ const Overview = () => {
                     </label>
                     <label>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="live"
                             className='transform scale-150 me-3'
@@ -226,6 +254,7 @@ const Overview = () => {
                     </label>
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="high"
                             className={`transform scale-150 me-3`}
@@ -237,6 +266,7 @@ const Overview = () => {
                     </label>
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="medium"
                             className={`transform scale-150 me-3`}
@@ -248,6 +278,7 @@ const Overview = () => {
                     </label>
                     <label>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="low"
                             className='transform scale-150 me-3'
@@ -268,6 +299,7 @@ const Overview = () => {
 
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="anytime"
                             className={`transform scale-150 me-3`}
@@ -278,6 +310,7 @@ const Overview = () => {
                     </label>
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="after"
                             className={`transform scale-150 me-3`}
@@ -300,7 +333,7 @@ const Overview = () => {
                             value="anytime"
                             className={`transform scale-150 me-3`}
                             checked={voterResultAccess === 'anytime'}
-                            disabled={adminResultAccess !== 'anytime'}
+                            disabled={adminResultAccess !== 'anytime' || status !== 'pending'}
                             onChange={(e) => dispatch(setVoterResultAccess(e.target.value))}
                         />
                         Anytime after the vote starts
@@ -310,6 +343,7 @@ const Overview = () => {
                             type="radio"
                             value="after"
                             className={`transform scale-150 me-3`}
+                            disabled={status !== 'pending'}
                             checked={voterResultAccess === 'after'}
                             onChange={(e) => dispatch(setVoterResultAccess(e.target.value))}
                         />
@@ -317,6 +351,7 @@ const Overview = () => {
                     </label>
                     <label className='pb-3'>
                         <input
+                            disabled={status !== 'pending'}
                             type="radio"
                             value="none"
                             className={`transform scale-150 me-3`}
