@@ -27,7 +27,7 @@ const Voters = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setEmailErrors(false)
-        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
+        axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {
@@ -84,7 +84,7 @@ const Voters = () => {
                                                             message: "Invalid email address"
                                                         }
                                                     })}
-                                                    autocomplete="off"
+                                                    autoComplete="off"
                                                     type="text"
                                                     className={errors[`voterEmail${row.id}`] ? 'bg-red-300 w-full px-2' : 'bg-gray-200 w-full'}
                                                     defaultValue={row.email}

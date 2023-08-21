@@ -18,7 +18,7 @@ const ElectionCard = ({ election, refetch }) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`https://electra-poll-server.vercel.app/remove-election/${_id}`)
+                axios.patch(`http://localhost:5000/remove-election/${_id}`)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.deletedCount) {

@@ -30,7 +30,7 @@ const ChatBot = () => {
 
             // welcome message request
             if (!storedChatHistory && chatHistory.length === 0) {
-                axios.post('https://electra-poll-server.vercel.app/send-message', { message: 'Welcome Message' })
+                axios.post('http://localhost:5000/send-message', { message: 'Welcome Message' })
                     .then(response => {
                         const botResponse = response.data.response;
                         setChatHistory([...chatHistory, { text: botResponse, sender: 'bot' }]);
@@ -77,7 +77,7 @@ const ChatBot = () => {
 
         try {
             setIsLoading(true);
-            const response = await axios.post('https://electra-poll-server.vercel.app/send-message', { message: inputMessage });
+            const response = await axios.post('http://localhost:5000/send-message', { message: inputMessage });
             const botResponse = response.data.response;
             setChatHistory([...chatHistory, newUserMessage, { text: botResponse, sender: 'bot' }]);
         } catch (error) {
@@ -157,7 +157,7 @@ const ChatBot = () => {
                     <button
                         className={`bg-green-500 text-white p-2 rounded-full shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-200 ${bounceTime ? 'animate-bounce-once' : ''
                             }`}
-                        onClick={() =>toggleChat()}
+                        onClick={() => toggleChat()}
                     >
                         <AiOutlineMessage className='h-6 w-6' />
                     </button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFirstPage, next, setInitalState } from '../../../redux/slices/FormDataSlice';
@@ -12,6 +12,9 @@ const Overview = () => {
 
     const params = useParams()
     const id = params.id
+
+    const [dateError, setDateError] = useState('')
+    console.log(dateError);
 
     const { user } = useContext(AuthContext)
     console.log(user?.email);
@@ -34,7 +37,9 @@ const Overview = () => {
     }, [formData]);
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+    console.log(errors);
     const onSubmit = data => {
+        setDateError('')
         if (user) {
             let payload = {
                 title: data.title,
@@ -49,8 +54,18 @@ const Overview = () => {
                 organization: data.organization,
                 email: user?.email
             };
+            if (!payload.autoDate) {
+                const date1 = new Date(payload.startDate);
+                const date2 = new Date(payload.endDate);
+
+                if (date1 > date2) {
+                    setDateError('end date cannot be before start date')
+                    window.scrollTo(0, 0);
+                    return
+                }
+            }
             dispatch(addFirstPage(payload))
-            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
+            axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
@@ -87,13 +102,16 @@ const Overview = () => {
         <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
             <h1 className='text-2xl font-bold pb-3'>Vote Details</h1>
             {/* errors */}
-            {Object.keys(errors).length !== 0 &&
+            {(Object.keys(errors).length !== 0 || dateError) &&
                 <div className='bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600'>
                     <ul className='list-decimal ps-6'>
                         {errors.title && <li>Election Title can't be blank</li>}
-                        {errors.autoDate && <li>Please select in how many minutes the elction will end</li>}
+                        {errors.autoDate.type === "required" && <li>Please select in how many minutes the elction will end</li>}
+                        {errors.autoDate.type === "min" && <li>Auto ending time cannot be less than 3 minutes</li>}
+                        {errors.autoDate.type === "max" && <li>Auto ending time cannot be more than 60 minutes</li>}
                         {errors.startDate && <li>Please add starting date and time</li>}
                         {errors.endDate && <li>Please add ending date and time</li>}
+                        {dateError && <li>end date cannot be before start date</li>}
                     </ul>
                 </div>
             }

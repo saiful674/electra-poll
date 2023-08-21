@@ -11,7 +11,7 @@ const Voters = () => {
     const { user } = useContext(AuthContext)
 
     const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`https://electra-poll-server.vercel.app/voters/${user?.email}`)
+        const res = await fetch(`http://localhost:5000/voters/${user?.email}`)
         return await res.json();
     })
     console.log({ data, userEmail: user?.email })
@@ -27,7 +27,7 @@ const Voters = () => {
 
 
 
-        axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
+        axios.post(`http://localhost:5000/add-voters`, voterInfo)
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
@@ -56,7 +56,7 @@ const Voters = () => {
             confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://electra-poll-server.vercel.app/voters/${id}`)
+                axios.delete(`http://localhost:5000/voters/${id}`)
                     .then(data => {
                         if (data.status === 200) {
                             Swal.fire({
