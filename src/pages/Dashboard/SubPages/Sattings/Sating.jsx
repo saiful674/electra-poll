@@ -5,52 +5,52 @@ import getMyInfo from '../../../../Hooks/getMyInfo';
 import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
 import { imageUpload } from '../../../../Hooks/ImageUploade';
 import axios from 'axios';
-import { useState } from 'react';
 // import Swal from 'sweetalert2';
 const Sating = () => {
-    const { user, updateUserProfile } = useContext(AuthContext);
-    const [myInfo] = getMyInfo();
+    const { user,updateUserProfile } = useContext(AuthContext);
+    console.log(user)
+   const [myInfo,] = getMyInfo()
+   console.log(myInfo)
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const displayName = form.displayName.value;
+    const organizationName = form.organizationName.value;
+    const membershipSize = form.membershipSize.value;
+    const fileInput = form.file;
 
-    const [loading, setLoading] = useState(false);
+    let uploadedImage; // Declare uploadedImage in the outer scope
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const displayName = form.displayName.value;
-        const organizationName = form.organizationName.value;
-        const membershipSize = form.membershipSize.value;
-        const fileInput = form.file;
-
-        setLoading(true);
-
-        try {
-            const uploadedImage = await imageUpload(fileInput.files[0]);
+    imageUpload(fileInput.files[0])
+        .then((imageResponse) => {
+            uploadedImage = imageResponse; // Assign the imageResponse to uploadedImage
             console.log(uploadedImage);
 
-            await updateUserProfile(displayName, uploadedImage.data.display_url);
-
+         updateUserProfile(displayName, uploadedImage.data.display_url)
+         .then(()=>{
             const userData = {
                 name: displayName,
-                uploadedImage: uploadedImage.data.display_url,
+                uploadedImage: uploadedImage.data.display_url, // Use uploadedImage here
                 organizationName,
                 membershipSize,
-            };
-
-            const response = await axios.patch(`http://localhost:5000/users/${user?.email}`, userData, {
+            }
+         axios.patch(`http://localhost:5000/users/${user?.email}`, userData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+            })
+            .then((response) => {
+                const data = response.data;
+                console.log(data);
+                console.log('Profile information updated successfully');
+            })
+            .catch((error) => {
+                console.error('An error occurred:', error);
             });
+         })
+        })
 
-            const data = response.data;
-            console.log(data);
-            console.log('Profile information updated successfully');
-        } catch (error) {
-            console.error('An error occurred:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+};
 
 
     return (
