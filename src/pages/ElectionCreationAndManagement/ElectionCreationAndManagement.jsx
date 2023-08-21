@@ -16,11 +16,12 @@ const ElectionCreationAndManagement = () => {
   const { data: elections = [], refetch, isLoading } = useQuery({
     queryKey: ['elections', user],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/elections/${user?.email}`)
+      const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
       return res.data
     }
   })
 
+  console.log(elections);
 
   const handleAddElection = () => {
     const electionData = {
@@ -52,10 +53,10 @@ const ElectionCreationAndManagement = () => {
       status: 'pending'
     }
     if (user) {
-      axios.post('https://electra-poll-server.vercel.app/add-election', electionData)
+      axios.post('http://localhost:5000/add-election', electionData)
         .then(res => {
           const id = res.data.insertedId
-          axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
+          axios.get(`http://localhost:5000/election/${id}`)
             .then(res => {
               console.log(res.data, id);
               navigate(`/election/${id}`)
@@ -77,13 +78,15 @@ const ElectionCreationAndManagement = () => {
       </div>
       <div className='my-container mt-10 mb-10'>
         {
-          elections?.length !== 0 ? <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
+          isLoading ? <LoadingSpinner></LoadingSpinner> : elections.length === 0 ? <p className='text-2xl text-center py-10 text-gray-400'>You have no election.</p>
+            :
+            <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
 
-            {
-              elections?.map(election => <ElectionCard key={election._id} refetch={refetch} election={election}></ElectionCard>)
-            }
+              {
+                elections?.map(election => <ElectionCard key={election._id} refetch={refetch} election={election}></ElectionCard>)
+              }
 
-          </div> : <LoadingSpinner></LoadingSpinner>
+            </div>
         }
       </div>
     </>
