@@ -7,6 +7,7 @@ import { setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, set
 import { AuthContext } from '../../../Providers/AuthProvider';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { formatDateToInputValue } from '../../../Hooks/convertDate';
 
 const Overview = () => {
 
@@ -26,21 +27,6 @@ const Overview = () => {
     const adminResultAccess = overviewStates.adminResultAccess
     const voterResultAccess = overviewStates.voterResultAccess
 
-    // default date value
-    function formatDateToInputValue(dateString) {
-        // Parse the date
-        const date = new Date(dateString);
-
-        // Extract the year, month, day, hours, and minutes
-        const year = date.getUTCFullYear();
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(date.getUTCDate()).padStart(2, '0');
-        const hours = String(date.getUTCHours()).padStart(2, '0');
-        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-
-        // Return the formatted string
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    }
 
     console.log(formatDateToInputValue(formData.startDate));
 
