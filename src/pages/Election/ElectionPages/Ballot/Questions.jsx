@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption, updateOption } from '../../../../redux/slices/FormDataSlice';
 import { FaTrash } from 'react-icons/fa';
 
 const Questions = ({ question, questionSubmit, handleSubmit, register, errors }) => {
 
+    const formData = useSelector(s => s.formData)
+    const status = formData.status;
     const dispatch = useDispatch()
     const id = question.id
 
@@ -28,7 +30,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                     <label className="label">
                         <span className="text-lg font-semibold">Question or Position<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input {...register(`questionTitle${id}`, { required: true })} onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="election title" type='text'
+                    <input disabled={status !== 'pending'} {...register(`questionTitle${id}`, { required: true })} onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="election title" type='text'
                         defaultValue={question?.questionTitle} className="my-input focus:outline-green-400" />
                 </div>
 
@@ -38,7 +40,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                     <label className="label">
                         <span className="text-lg font-semibold">Vacancy<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input onChange={(e) => dispatch(addVacancy({ id, vacancy: Math.floor(e.target.value) }))} placeholder="question or option" type='number'
+                    <input disabled={status !== 'pending'} onChange={(e) => dispatch(addVacancy({ id, vacancy: Math.floor(e.target.value) }))} placeholder="question or option" type='number'
                         defaultValue={question?.vacancy} className=" appearance-none border rounded w-16 text-center py-2 px-3 text-gray-700 leading-tight focus:outline-green-400" />
                 </div>
 
@@ -52,6 +54,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                         <label className='block cursor-pointer'>
                             <input
                                 type="radio"
+                                disabled={status !== 'pending'}
                                 defaultValue="candidate"
                                 className='transform scale-150 me-3'
                                 checked={question?.voterChoose === 'candidate'}
@@ -61,6 +64,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                         </label>
                         <label>
                             <input
+                                disabled={status !== 'pending'}
                                 type="radio"
                                 defaultValue="option"
                                 className='transform scale-150 me-3'
@@ -75,7 +79,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
 
                 {/* set candidates or options */}
                 <div className="form-control bg-white p-2">
-                    <label className="">
+                    <label disabled={status !== 'pending'} className="">
                         <span className="text-lg font-semibold">set candidates or options<span className='text-red-400'>&#9998;</span></span>
                         <div className='bg-red-100 border-l-4 mb-2 flex items-center text-lg p-3 border-red-600'>
                             <p className="text-md block">Voters will choose from these options</p>
@@ -87,20 +91,20 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                             {
                                 question.options?.map((o, i) => <div className='flex w-full items-center gap-3' key={i}>
                                     <p>{i + 1}.</p>
-                                    <input onChange={(e) => dispatch(updateOption({ id: question.id, option: e.target.value, optionId: o.id }))} defaultValue={o.option} className='my-input' type='text'></input>
+                                    <input disabled={status !== 'pending'} onChange={(e) => dispatch(updateOption({ id: question.id, option: e.target.value, optionId: o.id }))} defaultValue={o.option} className='my-input' type='text'></input>
                                     <button onClick={() => dispatch(deleteOption({ id: question.id, optionId: o.id }))} type='button'><FaTrash className='text-red-500'></FaTrash></button>
                                 </div>)
                             }
                         </div>
-                        <button type='button' className='bg-gray-200 mt-3 px-3 py-1 mb-2' onClick={() => dispatch(addOption({ id: question.id }))}>Add Option +</button>
+                        <button disabled={status !== 'pending'} type='button' className='bg-gray-200 mt-3 px-3 py-1 mb-2' onClick={() => dispatch(addOption({ id: question.id }))}>Add Option +</button>
                     </div>
                     <div className='flex items-center text-lg mt-3 gap-2'>
                         <p>Voters can choose</p>
-                        <input onChange={(e) => dispatch(addChoosedOptions({ id, choosedOptions: Math.floor(e.target.value) }))} defaultValue={question?.choosedOptions} type="number" className='appearance-none border rounded w-16 text-center py-2 px-3 text-gray-700 leading-tight focus:outline-green-400' />
+                        <input disabled={status !== 'pending'} onChange={(e) => dispatch(addChoosedOptions({ id, choosedOptions: Math.floor(e.target.value) }))} defaultValue={question?.choosedOptions} type="number" className='appearance-none border rounded w-16 text-center py-2 px-3 text-gray-700 leading-tight focus:outline-green-400' />
                         <p>options</p>
                     </div>
                 </div>
-                <button type='submit'>save</button>
+                <button disabled={status !== 'pending'} type='submit'>save</button>
             </form>
         </div>
     );
