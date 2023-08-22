@@ -25,7 +25,7 @@ const Registration = () => {
 
     try {
       const result = await createUser(email, password);
-      const loggedUser = result.user;
+      const loggedUser = result;
       console.log(loggedUser)
 
       const uploadedImage = await imageUpload(file[0]);
