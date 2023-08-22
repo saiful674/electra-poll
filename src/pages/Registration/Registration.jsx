@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import moment from 'moment-timezone'; 
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router-dom';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
@@ -6,7 +7,7 @@ import { FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { FcAddImage } from 'react-icons/fc';
 import { imageUpload } from '../../Hooks/ImageUploade';
 
@@ -16,8 +17,27 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [selectedTimezone, setSelectedTimezone] = useState('');
+  const [selectedTimeFormat, setSelectedTimeFormat] = useState('');
 
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+
+  const timezones = moment.tz.names();
+
+  const handleTimezoneChange = (timezone) => {
+    setSelectedTimezone(timezone);
+    const utcOffset = getUtcOffset(timezone);
+    setSelectedTimeFormat(utcOffset);
+  };
+
+  const getUtcOffset = (timezone) => {
+    const offsetMinutes = moment.tz(timezone).utcOffset();
+    const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
+    const offsetMinutesPart = Math.abs(offsetMinutes % 60);
+    const offsetSign = offsetMinutes < 0 ? "-" : "+";
+
+    return `UTC${offsetSign}${offsetHours}`;
+  };
 
 
   const onSubmit = async (data) => {
@@ -36,6 +56,8 @@ const Registration = () => {
         uploadedImage: uploadedImage.data.display_url,
         organizationName,
         membershipSize,
+        timezone: `${selectedTimezone} ${getUtcOffset(selectedTimezone)}`,
+        timeFormat: selectedTimeFormat,
 
       };
       console.log(savedUser)
@@ -170,6 +192,28 @@ const Registration = () => {
               <p className="text-red-500 text-xs mt-1">Membership Size  is required</p>
             )}
           </div>
+             {/* {time format} */}
+         
+             <div className="mb-6">
+            <label className="label">
+              <span className="label-text font-bold">Timezone</span>
+            </label>
+            <select
+              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200 focus:shadow-outline focus:out"
+              onChange={(e) => handleTimezoneChange(e.target.value)}
+              value={selectedTimezone}
+            >
+              <option value="">Select a timezone</option>
+              {timezones.map((timezone, index) => (
+                <option key={index} value={timezone}>
+                  {timezone}
+                </option>
+              ))}
+            </select>
+            {selectedTimeFormat && (
+              <p>Your preferred time format: {selectedTimeFormat}</p>
+            )}
+          </div>
           <div className="mb-6">
             <label className="flex items-center">
               <input
@@ -184,6 +228,7 @@ const Registration = () => {
               <p className="text-red-500 text-xs mt-1">You must agree to the Terms of Service</p>
             )}
           </div>
+       
           <div className="flex items-center justify-between">
 
             <button type='submit'> <ButtonPrimary type="submit"> Registration</ButtonPrimary></button>

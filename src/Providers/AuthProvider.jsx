@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -48,7 +49,11 @@ const AuthProviders = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-
+  // passwordReset
+  const passwordReset = (email) => {
+    setLoading(true)
+    return sendPasswordResetEmail(auth, email)
+}
 
   // ovserver
   useEffect(() => {
@@ -84,6 +89,7 @@ const AuthProviders = ({ children }) => {
     logout,
     signInGoogle,
     updateUserProfile,
+    passwordReset
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
