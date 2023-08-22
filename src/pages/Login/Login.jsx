@@ -9,9 +9,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { toast } from 'react-hot-toast';
 const Login = () => {
-  const { signIn, signInGoogle } = useContext(AuthContext);
+  const { signIn} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
   const from = location.state?.from?.pathname || "/";
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
@@ -29,7 +30,7 @@ const Login = () => {
           toast.error(err.message);
         });
     }
-    const [showPassword, setShowPassword] = useState(false);
+  
     return (
         <div className="flex justify-center items-center h-screen">
       <div className="w-full md:w-[440px]">
@@ -66,7 +67,7 @@ const Login = () => {
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <FaRegEyeSlash /> : <AiOutlineEye />}
+              {showPassword ?  <AiOutlineEye /> :<FaRegEyeSlash />}
             </span>
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>

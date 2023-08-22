@@ -6,15 +6,12 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../../firebase";
-import { getASecureRandomPassword } from "../Hooks/getASecureRandomPassword";
 const auth = getAuth(app);
 export const AuthContext = createContext(null);
-const newPassword = getASecureRandomPassword();
 const Provider = new GoogleAuthProvider();
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -44,6 +41,8 @@ const AuthProviders = ({ children }) => {
         console.log(error);
       })
   }
+
+
   // Login
   const signIn = (email, password) => {
     setLoading(true);
@@ -74,11 +73,6 @@ const AuthProviders = ({ children }) => {
     return signOut(auth);
   };
 
-  const PasswordUpdate = () => {
-    setLoading(true);
-    return updatePassword(user, newPassword)
-  }
-
 
 
   const authInfo = {
@@ -89,8 +83,7 @@ const AuthProviders = ({ children }) => {
     signIn,
     logout,
     signInGoogle,
-    PasswordUpdate,
-    updateUserProfile
+    updateUserProfile,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
