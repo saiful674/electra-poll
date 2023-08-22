@@ -37,18 +37,19 @@ const Confirmation = () => {
                         });
                     }
 
-                    axios.patch(`http://localhost:5000/election/${formData._id}`, { status: formData.autoDate ? 'published' : 'ongoing', voterEmails: voters })
+                    axios.patch(`http://localhost:5000/election/${formData._id}`, { autoDate: formData.autoDate, status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters })
                         .then(res => {
                             console.log(res.data);
                             if (res.data) {
-                                Swal.fire(
-                                    'congratulation!',
-                                    'Your Vote has been published.',
-                                    'success'
-                                )
-                                navigate('/dashboard/election-correction')
                             }
                         })
+                    Swal.fire(
+                        'congratulation!',
+                        'Your Vote has been published.',
+                        'success'
+                    )
+
+                    navigate('/dashboard/election-correction')
                 }
             })
         }
