@@ -16,7 +16,9 @@ const Main = () => {
     return (
         <div className="overflow-x-hidden">
             <Navbar></Navbar>
+            <div className=' min-h-[calc(100vh-484px)]'>
             <Outlet></Outlet>
+            </div>
             <Footer></Footer>
             <ScrollRestoration></ScrollRestoration>
         </div>

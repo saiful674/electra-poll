@@ -22,7 +22,7 @@ const ElectionResult = () => {
             })
     }, [id])
 
-    console.log(electionData)
+    
     if(isLoading){
         return LoadingSpinner
     }

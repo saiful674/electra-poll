@@ -122,7 +122,7 @@ const Sidebar = () => {
                                     }
                                 >
                                     <HiMiniCog6Tooth className='w-5 h-5' />
-                                    <span className='mx-4 font-medium'>Satings</span>
+                                    <span className='mx-4 font-medium'>Profile</span>
                                 </NavLink>
                                 <div className="divider  mt-8 font-semibold ">Quick Action</div>
                                 <NavLink

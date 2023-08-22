@@ -4,7 +4,7 @@ import { GiVote } from 'react-icons/gi';
 import { HiUserGroup } from 'react-icons/hi2';
 
 const ResultOverview = ({ electionData }) => {
-    console.log({len: electionData})
+    
     return (
         <div className='mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-2 gap-6'>
             <div className='h-36 bg-gradient-to-l from-blue-500 to-blue-700 rounded shadow p-4 flex justify-center items-center gap-6'>

@@ -7,12 +7,14 @@ import { setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, set
 import { AuthContext } from '../../../Providers/AuthProvider';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { formatDateToInputValue } from '../../../Hooks/convertDate';
 
 const Overview = () => {
 
     const params = useParams()
     const id = params.id
 
+    const [isdisabled, setDisabled] = useState(false)
     const [dateError, setDateError] = useState('')
     console.log(dateError);
 
@@ -26,21 +28,6 @@ const Overview = () => {
     const adminResultAccess = overviewStates.adminResultAccess
     const voterResultAccess = overviewStates.voterResultAccess
 
-    // default date value
-    function formatDateToInputValue(dateString) {
-        // Parse the date
-        const date = new Date(dateString);
-
-        // Extract the year, month, day, hours, and minutes
-        const year = date.getUTCFullYear();
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(date.getUTCDate()).padStart(2, '0');
-        const hours = String(date.getUTCHours()).padStart(2, '0');
-        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-
-        // Return the formatted string
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-    }
 
     console.log(formatDateToInputValue(formData.startDate));
 
@@ -59,6 +46,7 @@ const Overview = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     console.log(errors);
     const onSubmit = data => {
+        setDisabled(true)
         setDateError('')
         if (user) {
             if (status === 'pending') {
@@ -90,12 +78,13 @@ const Overview = () => {
                     .then(res => {
                         console.log(res.data);
                         if (res.data) {
+                            setDisabled(false)
                             dispatch(next());
                         }
                     })
             }
             else {
-                console.log('not pending');
+                setDisabled(false)
                 dispatch(next())
             }
         }
@@ -363,7 +352,7 @@ const Overview = () => {
                 </div>
 
                 <div className='pt-5 flex justify-end'>
-                    <button type='submit' className='button-next'>Next</button>
+                    <button disabled={isdisabled} type='submit' className='button-next'>Next</button>
                 </div>
             </form >
         </div >
