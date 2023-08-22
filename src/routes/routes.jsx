@@ -2,17 +2,19 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import AboutPage from "../pages/AboutPage/AboutPage";
+import Blog from "../pages/Blog/Blog";
 import Contact from "../pages/Contact/Contact";
+import ElectionResult from "../pages/Dashboard/SubPages/ElectionResult/ElectionResult";
 import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
+import Result from "../pages/Dashboard/SubPages/Result/Result";
 import Sating from "../pages/Dashboard/SubPages/Sattings/Sating";
 import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
 import Election from "../pages/Election/Election";
+import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
 import Home from "../pages/HomePage/Home/Home";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
-import Blog from "../pages/Blog/Blog";
-import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 import PrivateRoutes from "./PrivateRoutes";
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: "satings",
         element: <Sating />,
+      },
+      {
+        path: "result",
+        element: <Result />,
+      },
+      {
+        path: "election-result/:id",
+        element: <ElectionResult />,
       },
       ,
       {

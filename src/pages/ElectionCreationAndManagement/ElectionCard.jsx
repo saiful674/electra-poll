@@ -1,13 +1,12 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaTrash } from 'react-icons/fa'
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { formatDateToInputValue } from '../../Hooks/convertDate';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 
-const ElectionCard = ({ election, refetch }) => {
+const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
 
     const [timeLeft, setTimeLeft] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
@@ -91,9 +90,16 @@ const ElectionCard = ({ election, refetch }) => {
                     <p>Voters: {voterEmails.length}</p>
                 )}
             </div>
-            <div onClick={handleElectionDelete} className='flex justify-end items-center gap-1 text-red-400'>
-                <p className='text-xl'>Delete</p><FaTrash></FaTrash>
-            </div>
+            {
+                isUseForResultPage ?
+                    <Link to={`/dashboard/election-result/${_id}`} className='text-right'>
+                        <ButtonPrimary>View Result</ButtonPrimary>
+                    </Link>
+                    :
+                    <div onClick={handleElectionDelete} className='flex justify-end items-center gap-1 text-red-400'>
+                        <p className='text-xl'>Delete</p><FaTrash></FaTrash>
+                    </div>
+            }
         </div>
     );
 };
