@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaTrash } from 'react-icons/fa'
 import axios from 'axios';
+import React from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 
-const ElectionCard = ({ election, refetch }) => {
+const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     const { _id, title, status, startDate, autoDate, endDate, organization, voteType, voterEmails } = election;
 
     const handleElectionDelete = () => {
@@ -59,9 +60,16 @@ const ElectionCard = ({ election, refetch }) => {
                     <p className='text-xl text-gray-500'>Voters: {voterEmails.length}</p>
                 )}
             </div>
-            <div onClick={handleElectionDelete} className='flex justify-end items-center gap-1 text-red-400'>
-                <p className='text-xl'>Delete</p><FaTrash></FaTrash>
-            </div>
+            {
+                isUseForResultPage ?
+                    <Link to={`/dashboard/election-result/${_id}`} className='text-right'>
+                        <ButtonPrimary>View Result</ButtonPrimary>
+                    </Link>
+                    :
+                    <div onClick={handleElectionDelete} className='flex justify-end items-center gap-1 text-red-400'>
+                        <p className='text-xl'>Delete</p><FaTrash></FaTrash>
+                    </div>
+            }
         </div>
     );
 };
