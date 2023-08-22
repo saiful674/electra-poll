@@ -12,18 +12,25 @@ const Notice = () => {
     const [isdisabled, setDisabled] = useState(false)
     const formData = useSelector(s => s.formData)
     const noticeData = formData.notice
+    const { status } = formData
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         setDisabled(true)
-        axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
-            .then(res => {
-                console.log(res.data);
-                if (res.data) {
-                    setDisabled(false)
-                    dispatch(next());
-                }
-            })
+        if (status === 'pending') {
+            axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data) {
+                        setDisabled(false)
+                        dispatch(next());
+                    }
+                })
+        }
+        else {
+            setDisabled(false)
+            dispatch(next())
+        }
     }
 
     return (
@@ -37,6 +44,7 @@ const Notice = () => {
                     <label className='flex gap-4'>
                         <input
                             type="checkbox"
+                            disabled={status !== 'pending'}
                             checked={noticeData.emailNotice}
                             className={`transform scale-150`}
                             onChange={() => dispatch(setEmailNotice())}
@@ -46,6 +54,7 @@ const Notice = () => {
                     {noticeData.emailNotice && <label className='flex ps-6 gap-4'>
                         <input
                             type="checkbox"
+                            disabled={status !== 'pending'}
                             checked={noticeData.useName}
                             className={`transform scale-150`}
                             onChange={() => dispatch(setUseName())}
@@ -60,7 +69,7 @@ const Notice = () => {
                         <h1 className='text-xl font-bold pb-3'>Email Templete</h1>
                         <lebel className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
                             <p>Subject:</p>
-                            <input onChange={(e) => dispatch(setEmailSubject(e.target.value))} defaultValue={formData.emailSubject || 'Vote Now: {company name} {election title}'} className='w-full p-1' type="text" />
+                            <input disabled={status !== 'pending'} onChange={(e) => dispatch(setEmailSubject(e.target.value))} defaultValue={formData.emailSubject || 'Vote Now: {company name} {election title}'} className='w-full p-1' type="text" />
                         </lebel>
                         <div className='bg-white p-3 mb-1'>
                             <p>You are cordially invited to cast your vote in the upcoming {formData?.organization} - {formData.title} election.</p>
@@ -70,7 +79,7 @@ const Notice = () => {
                             <br />
                             <p>Should you have any queries or wish to share feedback regarding the election, or if you prefer not to receive subsequent voting notifications, please contact Mr. Mahmud Khan at <a className='text-green-400 underline' href={formData?.adminEmail}>{formData?.adminEmail}</a></p>
                         </div>
-                        <textarea defaultValue={formData?.emailInfo} onChange={(e) => dispatch(setEmailInfo(e.target.value))} placeholder='add any other information here' className='h-30 p-3 w-full'></textarea>
+                        <textarea disabled={status !== 'pending'} defaultValue={formData?.emailInfo} onChange={(e) => dispatch(setEmailInfo(e.target.value))} placeholder='add any other information here' className='h-30 p-3 w-full'></textarea>
                         <p className='bg-white p-3'>Thank you for your participation.</p>
                     </div>
                 </>}
@@ -78,7 +87,6 @@ const Notice = () => {
                 <div className='pt-5 flex justify-between'>
                     <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
                     <button disabled={isdisabled} type='submit' className='button-next'>Next</button>
-
                 </div>
             </form>
         </div>
