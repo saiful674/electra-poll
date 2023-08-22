@@ -86,7 +86,12 @@ const formDataSlice = createSlice({
             state.voterEmails.find(email => email.id === action.payload.id).email = action.payload.email;
         },
         addVoterRow(state) {
-            state.voterEmails.push({ id: `${state.organization}//${Math.floor(100000000 + Math.random() * 900000000)}`, email: '' });
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+#@%$^&';
+            let voterId = '';
+            for (let i = 0; i < 20; i++) {
+                voterId += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            state.voterEmails.push({ id: voterId, email: '' });
         },
         removeVoterEmail(state, action) {
             const idToRemove = action.payload;
