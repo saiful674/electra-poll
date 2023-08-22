@@ -14,6 +14,7 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import Blog from "../pages/Blog/Blog";
 import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 import PrivateRoutes from "./PrivateRoutes";
+import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login></Login>,
+      },
+      {
+       path:'forget-password',
+          element:<ForgetPassword></ForgetPassword>
       },
       {
         path: "registration",
