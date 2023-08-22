@@ -16,7 +16,7 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
         if (startDate && endDate) {
             const updateTimer = () => {
                 const now = new Date().getTime();
-                const distance = new Date(endDate) - now;
+                const distance = new Date(endDate) - new Date();
 
                 if (distance <= 0) {
                     clearInterval(intervalId);
@@ -78,7 +78,7 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
                     Status: {status} | {voteType} Vote
                 </p>
                 <p>
-                    Voting Ends in: <span className={new Date(endDate) - new Date() <= 3 ? 'text-red-400' : 'text-green-500'}>{timeLeft}</span>
+                    Voting Ends in: <span className={new Date(endDate) - new Date() <= 3 * 60 * 1000 ? 'text-red-400' : 'text-green-500'}>{timeLeft}</span>
                 </p>
                 <p >
                     Start: {startDate && formatDateToInputValue(startDate)}
