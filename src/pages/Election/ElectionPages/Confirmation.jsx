@@ -41,14 +41,15 @@ const Confirmation = () => {
                         .then(res => {
                             console.log(res.data);
                             if (res.data) {
-                                Swal.fire(
-                                    'congratulation!',
-                                    'Your Vote has been published.',
-                                    'success'
-                                )
-                                navigate('/dashboard/election-correction')
                             }
                         })
+                    Swal.fire(
+                        'congratulation!',
+                        'Your Vote has been published.',
+                        'success'
+                    )
+
+                    navigate('/dashboard/election-correction')
                 }
             })
         }
