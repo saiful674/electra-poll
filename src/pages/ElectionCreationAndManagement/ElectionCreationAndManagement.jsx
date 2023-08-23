@@ -16,7 +16,7 @@ const ElectionCreationAndManagement = () => {
 
   console.log(user?.email);
   const { data: elections = [], refetch, isLoading } = useQuery({
-    queryKey: ['elections', user],
+    queryKey: ['elections', user,activeStatus],
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
@@ -68,18 +68,12 @@ const ElectionCreationAndManagement = () => {
     }
   }
 
-  const tabs = [
-    { label: 'Published' },
-    { label: 'Pending' },
-    { label: 'Ongoing' },
-    { label: 'Completed' },
-  ];
 
   const handleTabClick = (status) => {
     setActiveStatus(status);
     // You can perform additional actions here when a tab is clicked
-    refetch()
   };
+  console.log(activeStatus);
   
   return (
     <>
