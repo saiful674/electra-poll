@@ -15,6 +15,8 @@ import Blog from "../pages/Blog/Blog";
 import ElectionCreationAndManagement from "../pages/ElectionCreationandManagement/ElectionCreationandManagement";
 import PrivateRoutes from "./PrivateRoutes";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
+import VotingResults from "../pages/SocialSharing/VotingResults";
+import YourComponent from "../pages/SocialSharing/YourComponent";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact></Contact>,
       },
+      {
+        path: 'VotingResults',
+        element: <VotingResults></VotingResults>
+      },
+      {
+        path:'YourComponent',
+        element:<YourComponent></YourComponent>
+      }
     ],
   },
   {
