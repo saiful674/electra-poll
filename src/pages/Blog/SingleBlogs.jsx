@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import { useParams } from "react-router-dom";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const SingleBlogs = () => {
   const { id } = useParams();
@@ -12,7 +13,9 @@ const SingleBlogs = () => {
       return res.data;
     },
   });
-  console.log(blog);
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   return (
     <div className="mt-16">
       <div
