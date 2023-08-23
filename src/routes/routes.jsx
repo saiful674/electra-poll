@@ -15,16 +15,9 @@ import Home from "../pages/HomePage/Home/Home";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
-<<<<<<< HEAD
-import Blog from "../pages/Blog/Blog";
-import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
-import PrivateRoutes from "./PrivateRoutes";
-
-=======
 import PrivateRoutes from "./PrivateRoutes";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 // asjdfoiajsdf
->>>>>>> 6a4d825e9806da1447b1d3737fc90cd9d990d829
 const router = createBrowserRouter([
   {
     path: "/",
