@@ -16,6 +16,7 @@ import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
+import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -51,11 +52,19 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact></Contact>,
       },
+      {
+        path: "termsAndCondition",
+        element: <TermsAndCondition></TermsAndCondition>,
+      },
     ],
   },
   {
     path: "dashboard",
-    element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
