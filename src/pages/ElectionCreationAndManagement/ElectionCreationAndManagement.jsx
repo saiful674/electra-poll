@@ -40,7 +40,7 @@ const ElectionCreationAndManagement = () => {
         vacancy: 1,
         options: [{
           id: `xyz${Math.floor(100000 + Math.random() * 900000)}`,
-          option: `option/candidate 1}`,
+          option: `option/candidate 1`,
           votes: 0
         }],
         choosedOptions: 1

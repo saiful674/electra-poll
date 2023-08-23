@@ -6,6 +6,7 @@ import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);

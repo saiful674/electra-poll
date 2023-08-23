@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AiOutlineBars } from 'react-icons/ai'
+import { BiSolidContact } from 'react-icons/bi'
 import { BsFillHouseAddFill } from 'react-icons/bs'
+import { CgWebsite } from "react-icons/cg"
 import { FaBlog, FaHome, FaUsers } from 'react-icons/fa'
 import { HiMiniCog6Tooth } from 'react-icons/hi2'
-import { CgWebsite } from "react-icons/cg";
 import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import logo from '../../../assets/logo-white.png'
 import { AuthContext } from '../../../Providers/AuthProvider'
-import { useContext } from 'react'
-import { BiSolidContact } from 'react-icons/bi'
+import logo from '../../../assets/logo-white.png'
 
 const Sidebar = () => {
     const navigate = useNavigate()
@@ -91,6 +90,18 @@ const Sidebar = () => {
                                     <span className='mx-4 font-medium'>Elections</span>
                                 </NavLink>
                                 <NavLink
+                                    to='/dashboard/result'
+                                    onClick={handleToggle}
+                                    className={({ isActive }) =>
+                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
+                                        }`
+                                    }
+                                >
+                                    <MdBallot className='w-5 h-5' />
+
+                                    <span className='mx-4 font-medium'>Result</span>
+                                </NavLink>
+                                <NavLink
                                     to='/dashboard/voters'
                                     onClick={handleToggle}
                                     className={({ isActive }) =>
@@ -111,7 +122,7 @@ const Sidebar = () => {
                                     }
                                 >
                                     <HiMiniCog6Tooth className='w-5 h-5' />
-                                    <span className='mx-4 font-medium'>Satings</span>
+                                    <span className='mx-4 font-medium'>Profile</span>
                                 </NavLink>
                                 <div className="divider  mt-8 font-semibold ">Quick Action</div>
                                 <NavLink
