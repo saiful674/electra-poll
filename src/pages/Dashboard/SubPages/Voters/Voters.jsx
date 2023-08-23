@@ -10,42 +10,49 @@ import LoadingSpinner from '../../../shared/LoadingSpinner';
 const Voters = () => {
     const { user } = useContext(AuthContext)
 
-    const { data: data = [], refetch, isLoading } = useQuery(['voters'], async () => {
-        const res = await fetch(`http://localhost:5000/voters/${user?.email}`)
-        return await res.json();
+    const { data: data = [], refetch, isLoading } = useQuery(['voters', user], async () => {
+        const res = await axios.get(`http://localhost:5000/voters/${user?.email}`)
+        return res.data
     })
-    console.log({ data, userEmail: user?.email })
+    const voters = data?.voters
 
     // add voter function
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
         event.preventDefault()
         const form = event.target;
         const voterName = form.voterName.value;
         const voterEmail = form.email.value;
         const voterInfo = { email: user.email, voter: { voterName, voterEmail } }
-        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalCloseBtn = document.getElementById('my_modal_5');
 
 
 
         axios.post(`http://localhost:5000/add-voters`, voterInfo)
             .then(data => {
-                if (data.status === 200) {
+                console.log(data);
+                if (data.data.modifiedCount >= 0) {
                     Swal.fire({
                         icon: 'success',
                         title: `You added ${voterName} as a voter`,
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    modalCloseBtn.click()
                     refetch()
                 }
+                else if (data.data.exist) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Voter already exists',
+                    })
+                }
             })
+        modalCloseBtn.close()
         form.reset()
     }
 
     // voter remove function
-    const handleRemoveVoter = (id) => {
-        console.log(id)
+    const handleRemoveVoter = (voterEmail) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -56,7 +63,7 @@ const Voters = () => {
             confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/voters/${id}`)
+                axios.patch(`http://localhost:5000/voters/${data?._id}`, { voterEmail })
                     .then(data => {
                         if (data.status === 200) {
                             Swal.fire({
@@ -84,7 +91,7 @@ const Voters = () => {
 
             {/* whwn voter is zero/empty */}
             {
-                data.length === 0 && <div className='flex flex-col h-[calc(100vh-135px)] justify-center items-center space-y-2'>
+                voters?.length === 0 && <div className='flex flex-col h-[calc(100vh-135px)] justify-center items-center space-y-2'>
                     <div className='flex gap-3 items-center'>
                         <FaUsers className='w-10 h-10' />
                         <h6 className='text-xl font-medium'> Add Voters</h6>
@@ -97,7 +104,7 @@ const Voters = () => {
             }
 
             {/* when voter data length is more then 0 */}
-            {data.length > 0 &&
+            {voters?.length > 0 &&
                 <>
                     <div className='text-right'>
                         <button onClick={() => window.my_modal_5.showModal()}>
@@ -118,11 +125,11 @@ const Voters = () => {
                             <tbody>
                                 {/* row 1 */}
 
-                                {data.map((voterInfo, index) => <tr key={index} className="bg-base-200">
+                                {voters?.map((voterInfo, index) => <tr key={index} className="bg-base-200">
                                     <th>{index + 1}</th>
-                                    <td>{voterInfo.voter.voterName}</td>
-                                    <td>{voterInfo.voter.voterEmail}</td>
-                                    <td><button onClick={() => handleRemoveVoter(voterInfo._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> Remove</button></td>
+                                    <td>{voterInfo.voterName}</td>
+                                    <td>{voterInfo.voterEmail}</td>
+                                    <td><button onClick={() => handleRemoveVoter(voterInfo.voterEmail)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> Remove</button></td>
                                 </tr>)}
                             </tbody>
                         </table>
