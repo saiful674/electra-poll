@@ -16,6 +16,10 @@ const Overview = () => {
     const { user } = useContext(AuthContext)
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [errors])
+
     const [isdisabled, setDisabled] = useState(false)
     const [dateError, setDateError] = useState('')
     const [selectedTimezone, setSelectedTimezone] = useState(formData.timeArea || '');
@@ -104,6 +108,7 @@ const Overview = () => {
                     <ul className='list-decimal ps-6'>
                         {errors.title && <li>Election Title can't be blank</li>}
                         {errors.autoDate?.type === "required" && <li>Please select in how many minutes the elction will end</li>}
+                        {errors.timeZone?.type === "required" && <li>Please select the time zone</li>}
                         {errors.autoDate?.type === "min" && <li>Auto ending time cannot be less than 3 minutes</li>}
                         {errors.autoDate?.type === "max" && <li>Auto ending time cannot be more than 60 minutes</li>}
                         {errors.startDate && <li>Please add starting date and time</li>}
@@ -159,12 +164,12 @@ const Overview = () => {
                             <label className="pb-1">
                                 <span className="text-md font-semibold">starting time</span>
                             </label>
-                            <input disabled={(selectedTime === 'option1') || (status !== 'pending')} {...register("startDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.startDate) || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (status !== 'pending')} {...register("startDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.startDate, formData.timeZone) || ''} className="my-input ms-5 focus:outline-green-400" />
 
                             <label className="pb-1">
                                 <span className="text-md font-semibold">ending time</span>
                             </label>
-                            <input disabled={(selectedTime === 'option1') || (status !== 'pending')} {...register("endDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.endDate) || ''} className="my-input ms-5 focus:outline-green-400" />
+                            <input disabled={(selectedTime === 'option1') || (status !== 'pending')} {...register("endDate", { required: selectedTime === 'option2' && status === 'pending' })} placeholder="Photo URL" type='datetime-local' defaultValue={formatDateToInputValue(formData.endDate, formData.timeZone) || ''} className="my-input ms-5 focus:outline-green-400" />
                         </>
                     }
                 </div>

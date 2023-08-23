@@ -59,7 +59,8 @@ const ElectionCreationAndManagement = () => {
       ballotAccess: 'high',
       adminResultAccess: 'after',
       voterResultAccess: 'after',
-      timeZone: ''
+      timeZone: '',
+      timeArea: ''
     }
     if (user) {
       axios.post('http://localhost:5000/add-election', electionData)

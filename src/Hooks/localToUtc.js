@@ -1,23 +1,33 @@
-export function toUTCDateString(dateStringUTC, timezoneString) {
+export function toUTCDateString(dateStringLocal, timezoneString) {
+    // Parse the local date string into a Date object
+    const dateObject = new Date(dateStringLocal);
 
-    console.log(dateStringUTC, timezoneString);
-    // Parse the UTC date string into a Date object
-    const dateObject = new Date(dateStringUTC);
+    // Convert the date object to its UTC representation
+    const utcDate = new Date(
+        dateObject.getUTCFullYear(),
+        dateObject.getUTCMonth(),
+        dateObject.getUTCDate(),
+        dateObject.getUTCHours(),
+        dateObject.getUTCMinutes(),
+        dateObject.getUTCSeconds()
+    );
 
     // Extract the offset from the timezone string (e.g., "UTC+4" becomes 4)
     const offset = parseInt(timezoneString.replace("UTC", ""), 10);
 
-    // Adjust the date object by the offset (in hours)
-    dateObject.setHours(dateObject.getHours() + offset);
+    // Adjust the UTC date by the offset (in hours)
+    utcDate.setHours(utcDate.getHours() + offset);
 
-    // Format the adjusted date into the desired UTC format
-    const year = dateObject.getUTCFullYear();
-    const month = String(dateObject.getUTCMonth() + 1).padStart(2, '0'); // months are 0-indexed
-    const day = String(dateObject.getUTCDate()).padStart(2, '0');
-    const hours = String(dateObject.getUTCHours()).padStart(2, '0');
-    const minutes = String(dateObject.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(dateObject.getUTCSeconds()).padStart(2, '0');
+    // Extract the components from the adjusted date
+    const year = utcDate.getUTCFullYear();
+    const month = String(utcDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(utcDate.getUTCDate()).padStart(2, '0');
+    const hours = String(utcDate.getUTCHours()).padStart(2, '0');
+    const minutes = String(utcDate.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(utcDate.getUTCSeconds()).padStart(2, '0');
 
+    // Format and return the adjusted date string
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
 }
+
 

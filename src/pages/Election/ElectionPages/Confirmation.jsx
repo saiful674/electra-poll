@@ -41,7 +41,9 @@ const Confirmation = () => {
                     if (selectedTime === 'option1') {
                         const newStartDate = createNewDate(formData.timeZone)
                         const dateObject = new Date(newStartDate);
-                        const newEndDate = dateObject.setMinutes(dateObject.getMinutes() + formData.endDate);
+
+                        const newEndDate = new Date(dateObject.getTime());
+                        newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
 
                         axios.patch(`http://localhost:5000/election/${formData._id}`, {
                             autoDate: formData.autoDate,

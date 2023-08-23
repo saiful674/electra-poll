@@ -1,6 +1,6 @@
 export function createNewDate(utc) {
     // Given a timeZone string like "UTC+4"
-    const timeZone = "UTC+4";
+    const timeZone = utc;
 
     // 1. Parse the time zone offset from the string
     const offset = parseInt(timeZone.replace("UTC", ""), 10); // Extracts the "+4" and converts to an integer
