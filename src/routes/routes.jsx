@@ -18,6 +18,7 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
+import SingleBlogs from "../pages/Blog/SingleBlogs";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "singleBlog/:id",
+        element: <SingleBlogs></SingleBlogs>,
       },
       {
         path: "election/:id",
