@@ -91,7 +91,7 @@ const Voters = () => {
 
             {/* whwn voter is zero/empty */}
             {
-                voters?.length === 0 && <div className='flex flex-col h-[calc(100vh-135px)] justify-center items-center space-y-2'>
+                (voters?.length === 0 || data.length === 0) && <div className='flex flex-col h-[calc(100vh-135px)] justify-center items-center space-y-2'>
                     <div className='flex gap-3 items-center'>
                         <FaUsers className='w-10 h-10' />
                         <h6 className='text-xl font-medium'> Add Voters</h6>

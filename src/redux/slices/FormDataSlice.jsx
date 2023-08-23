@@ -9,6 +9,22 @@ const formDataSlice = createSlice({
     name: 'form-data',
     initialState,
     reducers: {
+        // ===overview page actions=====
+        setSelectedTime(state, action) {
+            state.selectedTime = action.payload
+        },
+        setVoteType(state, action) {
+            state.voteType = action.payload
+        },
+        setBallotAcces(state, action) {
+            state.ballotAccess = action.payload
+        },
+        setAdminResultAccess(state, action) {
+            state.adminResultAccess = action.payload
+        },
+        setVoterResultAccess(state, action) {
+            state.voterResultAccess = action.payload
+        },
         setInitalState(state, action) {
             Object.assign(state, action.payload);
         },
@@ -25,7 +41,11 @@ const formDataSlice = createSlice({
             state.adminEmail = pl.adminEmail;
             state.organization = pl.organization;
             state.email = pl.email;
+            state.timeZone = pl.timeZone;
+            state.timeArea = pl.timeArea
         },
+
+        // second page
         addQuestion(state) {
             state.questions.push({
                 id: `xyz${Math.floor(10000 + Math.random() * 90000)}`,
@@ -129,7 +149,11 @@ export const {
     removeVoterEmail,
     setEmailValid,
     next,
-    previous
+    previous, setSelectedTime,
+    setVoteType,
+    setBallotAcces,
+    setAdminResultAccess,
+    setVoterResultAccess
 } = formDataSlice.actions
 
 export const formDataReducer = formDataSlice.reducer
