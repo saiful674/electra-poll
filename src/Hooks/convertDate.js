@@ -1,9 +1,22 @@
+import getMyInfo from "./getMyInfo";
+
 export function formatDateToInputValue(dateString) {
+
+    const newUser = getMyInfo();
+    const timeZone = newUser[0][0]?.timeFormat;
+
+    // Extract the offset value from the timeZone string (e.g., "+6" from "UTC+6")
+    const offset = parseInt(timeZone?.replace('UTC', ''), 10);
+    console.log(offset);
+
     // Parse the UTC date string
     const utcDate = new Date(dateString);
 
-    // Convert the UTC date to the local date
-    const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() / 60000);
+    // Apply the offset to the UTC time
+    let localDate = new Date(utcDate.getTime() + offset * 60 * 60 * 1000);
+    if (timeZone?.includes('+')) {
+        localDate = new Date(utcDate.getTime() + offset * 60 * 60 * 1000);
+    }
 
     // Extract the year, month, day, hours, and minutes
     const year = localDate.getFullYear();
@@ -15,3 +28,4 @@ export function formatDateToInputValue(dateString) {
     // Return the formatted string
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
+
