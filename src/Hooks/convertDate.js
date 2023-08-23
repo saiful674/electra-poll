@@ -15,7 +15,7 @@ export function formatDateToInputValue(dateString) {
     // Apply the offset to the UTC time
     let localDate = new Date(utcDate.getTime() + offset * 60 * 60 * 1000);
     if (timeZone?.includes('+')) {
-        localDate = new Date(utcDate.getTime() - offset * 60 * 60 * 1000);
+        localDate = new Date(utcDate.getTime() + offset * 60 * 60 * 1000);
     }
 
     // Extract the year, month, day, hours, and minutes
