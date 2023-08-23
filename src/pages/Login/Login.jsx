@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 import { useState } from 'react';
-import { FaEye, FaEyeSlash, FaRegEyeSlash } from 'react-icons/fa';
+import {  FaRegEyeSlash } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
@@ -23,11 +23,16 @@ const Login = () => {
       signIn(email, password)
         .then((res) => {
           const loggedUser = res?.user;
+          console.log(loggedUser)
           toast.success("Login successfully");
           navigate(from, { replace: true });
         })
         .catch((err) => {
-          toast.error(err.message);
+          if (err.code === 'auth/wrong-password') {
+            toast.error('Please enter your correct current password.');
+          } else {
+            toast.error('An error occurred while updating the password.');
+          }
         });
     }
   
@@ -72,6 +77,9 @@ const Login = () => {
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
             )}
+            <label className="label">
+            <Link to='/forget-password' className="label-text-alt link link-hover">Forgot password?</Link>
+          </label>
           </div>
           <div className="flex items-center justify-center">
            <button type="submit"> <ButtonPrimary > Login</ButtonPrimary></button>

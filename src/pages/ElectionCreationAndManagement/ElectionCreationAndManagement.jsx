@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/Deshboard/UserName/UserName';
@@ -7,21 +7,24 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import ElectionCard from './ElectionCard';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
+import CustomTabs from './CustomTabs';
 
 const ElectionCreationAndManagement = () => {
-
+  const [activeStatus, setActiveStatus] = useState('pending');
   const navigate = useNavigate()
   const { user } = useContext(AuthContext);
 
+  console.log(user?.email);
   const { data: elections = [], refetch, isLoading } = useQuery({
-    queryKey: ['elections', user],
+    queryKey: ['elections', user,activeStatus],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/elections/${user?.email}`)
+      const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
     }
   })
 
   console.log(elections);
+
 
   const handleAddElection = () => {
     const electionData = {
@@ -66,6 +69,12 @@ const ElectionCreationAndManagement = () => {
   }
 
 
+  const handleTabClick = (status) => {
+    setActiveStatus(status);
+    // You can perform additional actions here when a tab is clicked
+  };
+  console.log(activeStatus);
+  
   return (
     <>
       <UserName></UserName>
@@ -77,6 +86,9 @@ const ElectionCreationAndManagement = () => {
         </div>
       </div>
       <div className='my-container mt-10 mb-10'>
+      <CustomTabs  handleTabClick={handleTabClick} activeStatus={activeStatus} />
+
+
         {
           isLoading ? <LoadingSpinner></LoadingSpinner> : elections.length === 0 ? <p className='text-2xl text-center py-10 text-gray-400'>You have no election.</p>
             :

@@ -17,6 +17,7 @@ import Registration from "../pages/Registration/Registration";
 import ErrorPage from "../pages/shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
+import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login></Login>,
+      },
+      {
+        path: "forget-password",
+        element: <ForgetPassword></ForgetPassword>,
       },
       {
         path: "registration",
