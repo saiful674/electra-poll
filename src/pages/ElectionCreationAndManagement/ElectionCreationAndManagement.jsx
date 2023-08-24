@@ -16,7 +16,7 @@ const ElectionCreationAndManagement = () => {
 
   console.log(user?.email);
   const { data: elections = [], refetch, isLoading } = useQuery({
-    queryKey: ['elections', user,activeStatus],
+    queryKey: ['elections', user, activeStatus],
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
@@ -53,7 +53,14 @@ const ElectionCreationAndManagement = () => {
       emailSubject: 'Vote Now:',
       emailInfo: '',
       voterEmails: [],
-      status: 'pending'
+      status: 'pending',
+      selectedTime: 'option2',
+      voteType: 'test',
+      ballotAccess: 'high',
+      adminResultAccess: 'after',
+      voterResultAccess: 'after',
+      timeZone: '',
+      timeArea: ''
     }
     if (user) {
       axios.post('http://localhost:5000/add-election', electionData)
@@ -74,7 +81,7 @@ const ElectionCreationAndManagement = () => {
     // You can perform additional actions here when a tab is clicked
   };
   console.log(activeStatus);
-  
+
   return (
     <>
       <UserName></UserName>
@@ -86,7 +93,7 @@ const ElectionCreationAndManagement = () => {
         </div>
       </div>
       <div className='my-container mt-10 mb-10'>
-      <CustomTabs  handleTabClick={handleTabClick} activeStatus={activeStatus} />
+        <CustomTabs handleTabClick={handleTabClick} activeStatus={activeStatus} />
 
 
         {

@@ -10,10 +10,10 @@ const getMyInfo = () => {
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/users/${user?.email}`)
       const data = res.data
-      console.log(data)
       return data
     }
   })
+  console.log(myInfo);
   return [myInfo, refetch]
 }
 export default getMyInfo;

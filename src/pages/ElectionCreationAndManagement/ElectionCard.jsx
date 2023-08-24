@@ -6,12 +6,11 @@ import Swal from 'sweetalert2';
 import { formatDateToInputValue } from '../../Hooks/convertDate';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 
-const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
+const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
 
     const [timeLeft, setTimeLeft] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
-    const { _id, title, status, startDate, autoDate, endDate, organization, voteType, voterEmails } = election;
-    
+    const { _id, title, status, startDate, timeZone, autoDate, endDate, organization, voteType, voterEmails } = election;
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -82,10 +81,10 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
                     Voting Ends in: <span className={new Date(endDate) - new Date() <= 3 * 60 * 1000 ? 'text-red-400' : 'text-green-500'}>{timeLeft}</span>
                 </p>
                 <p >
-                    Start: {startDate && formatDateToInputValue(startDate)}
+                    Start: {startDate && formatDateToInputValue(startDate, timeZone)}
                 </p>
                 <p >
-                    End: {endDate && formatDateToInputValue(endDate)}
+                    End: {endDate && formatDateToInputValue(endDate, timeZone)}
                 </p>
                 {voterEmails && (
                     <p>Voters: {voterEmails.length}</p>
