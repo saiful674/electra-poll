@@ -207,9 +207,7 @@ const Overview = () => {
                             </option>
                         ))}
                     </select>
-                    {selectedTimezone && (
-                        <p>Your preferred time format: {selectedTimezone}</p>
-                    )}
+                    <p className='text-sm text-red-500'>select your timezone carefully. The voting time will be realvent to the selected time zone, not their local time.</p>
                 </div>
 
 

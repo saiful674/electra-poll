@@ -43,6 +43,31 @@ const formDataSlice = createSlice({
             state.email = pl.email;
             state.timeZone = pl.timeZone;
             state.timeArea = pl.timeArea
+
+            if (pl.ballotAccess !== 'high') {
+                state.voterEmails = state.voterEmails.map(voter => {
+                    return {
+                        ...voter,
+                        accessKey: '',
+                        password: ''
+                    }
+                })
+            }
+            else {
+                const accessCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                state.voterEmails = state.voterEmails.map(voter => {
+                    let accessKey = '';
+                    for (let i = 0; i < 25; i++) {
+                        accessKey += accessCharacters.charAt(Math.floor(Math.random() * accessCharacters.length));
+                    }
+                    const password = state.ballotAccess === 'high' ? Math.floor(Math.random() * 900000) + 100000 : '';
+                    return {
+                        ...voter,
+                        accessKey,
+                        password
+                    }
+                })
+            }
         },
 
         // second page
@@ -102,16 +127,44 @@ const formDataSlice = createSlice({
         setEmailInfo(state, action) {
             state.emailInfo = action.payload
         },
+
+        // =======voters page actions==========
         updateVoterEmail(state, action) {
             state.voterEmails.find(email => email.id === action.payload.id).email = action.payload.email;
         },
         addVoterRow(state) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+#@%$^&';
+            const accessCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let voterId = '';
             for (let i = 0; i < 20; i++) {
                 voterId += characters.charAt(Math.floor(Math.random() * characters.length));
             }
-            state.voterEmails.push({ id: voterId, email: '' });
+
+            let accessKey = '';
+            let password = state.ballotAccess === 'high' ? Math.floor(Math.random() * 900000) + 100000 : '';
+            if (state.ballotAccess === 'high') {
+                for (let i = 0; i < 25; i++) {
+                    accessKey += accessCharacters.charAt(Math.floor(Math.random() * accessCharacters.length));
+                }
+            }
+            else if (state.ballotAccess === 'medium') {
+                accessKey = state.voterEmails[0].accessKey
+                password = state.voterEmails[0].password
+            }
+            state.voterEmails.push({ id: voterId, email: '', accessKey, password });
+        },
+
+        updateAccessKey(state, action) {
+            const accessKey = action.payload
+            state.voterEmails = state.voterEmails.map(voter => {
+                return { ...voter, accessKey: accessKey };
+            });
+        },
+        updateVotePassword(state, action) {
+            const password = action.payload
+            state.voterEmails = state.voterEmails.map(voter => {
+                return { ...voter, password: Math.floor(password) }
+            })
         },
         removeVoterEmail(state, action) {
             const idToRemove = action.payload;
@@ -120,6 +173,8 @@ const formDataSlice = createSlice({
         setEmailValid(state, action) {
             state.emailsValid = action.payload
         },
+
+
         next(state) {
             state.page++
         },
@@ -153,7 +208,9 @@ export const {
     setVoteType,
     setBallotAcces,
     setAdminResultAccess,
-    setVoterResultAccess
+    setVoterResultAccess,
+    updateAccessKey,
+    updateVotePassword
 } = formDataSlice.actions
 
 export const formDataReducer = formDataSlice.reducer

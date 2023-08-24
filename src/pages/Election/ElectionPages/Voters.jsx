@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addVoterRow, removeVoterEmail, setEmailValid, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
+import { addVoterRow, removeVoterEmail, setEmailValid, updateAccessKey, updateVotePassword, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
@@ -11,7 +11,7 @@ const Voters = () => {
     const dispatch = useDispatch();
     const [emailErrors, setEmailErrors] = useState(false)
     const formData = useSelector(state => state.formData);
-    const { voterEmails, emailsValid, ballotAccess, status } = formData
+    const { voterEmails, emailsValid, status, ballotAccess } = formData
 
 
     useEffect(() => {
@@ -57,8 +57,9 @@ const Voters = () => {
         dispatch(setEmailValid(false))
     }
 
+
     return (
-        <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
+        <div className='w-full bg-gray-50 p-3 lg:p-10'>
             <h1 className='text-2xl font-bold pb-3'>Add Voters</h1>
             {(Object.keys(errors).length !== 0) &&
                 <div className='bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600'>
@@ -77,31 +78,65 @@ const Voters = () => {
                                     <label className="label">
                                         <span className="text-lg font-semibold">Voter Access Key<span className='text-red-400'>&#9998;</span></span>
                                     </label>
-                                    <input disabled={status !== 'pending'} {...register("accessKey", { required: status === 'pending' })} placeholder="add access key for voters" type='text'
-                                        defaultValue={formData.voterAccessKey || ''} className="my-input focus:outline-green-400" />
+                                    <input
+                                        maxLength={20}
+                                        onInput={(e) => {
+                                            dispatch(updateAccessKey(e.target.value))
+                                            dispatch(setEmailValid(false))
+                                        }}
+                                        disabled={status !== 'pending'}
+                                        {...register("accessKey", {
+                                            required: status === 'pending',
+                                            minLength: { value: 10 }
+                                        })}
+                                        placeholder="add access key for voters"
+                                        type='text'
+                                        defaultValue={formData.voterAccessKey || ''}
+                                        className="my-input focus:outline-green-400" />
+                                    {errors.accessKey && <p className='text-red-400'>Access key should be atleast 10 charecters</p>}
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="text-lg font-semibold">Voter Password<span className='text-red-400'>&#9998;</span></span>
                                     </label>
-                                    <input disabled={status !== 'pending'} {...register("password", { required: status === 'pending' })} placeholder="add password for voters" type='text'
-                                        defaultValue={formData.voterAccessPassword || ''} className="my-input focus:outline-green-400" />
+                                    <input
+                                        onInput={(e) => {
+                                            dispatch(updateVotePassword(e.target.value))
+                                            dispatch(setEmailValid(false))
+                                        }}
+                                        disabled={status !== 'pending'}
+                                        {...register("password", {
+                                            required: status === 'pending',
+                                            minLength: { value: 6 }
+                                        })}
+                                        placeholder="add password for voters"
+                                        type='number'
+                                        defaultValue={formData.voterAccessPassword || ''}
+                                        className="my-input focus:outline-green-400" />
+                                    {errors.password && <p className='text-red-400'>Password should be atleast 6 charecters</p>}
                                 </div>
                             </div>
                         }
                         <button disabled={status !== 'pending'} type='button' className='bg-gray-200 px-3 py-1 rounded-md' onClick={() => dispatch(addVoterRow())}>Add Row</button>
-                        <div className='overflow-y-auto max-h-96'>
-                            <table className='w-full mt-4'>
+                        <div className='overflow-y-auto max-h-96 overflow-x-auto'>
+                            <table className='w-full mt-4 table text-center'>
                                 <thead>
-                                    <tr>
+                                    <tr className='text-lg'>
                                         <th>ID</th>
                                         <th>Email</th>
+                                        {
+                                            ballotAccess !== 'low' && <>
+                                                <th>AccessKey</th>
+                                                <th>Password</th>
+                                            </>
+                                        }
+                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='p-0'>
                                     {voterEmails.map((row, index) => (
                                         <tr key={row.id}>
-                                            <td>{index + 1}</td>
+                                            <td className='w-12'>{index + 1}</td>
                                             <td className='w-full flex gap-1 my-1'>
                                                 <div className='w-full'>
                                                     <input
@@ -115,11 +150,23 @@ const Voters = () => {
                                                         })}
                                                         autoComplete="off"
                                                         type="text"
-                                                        className={errors[`voterEmail${row.id}`] ? 'bg-red-300 w-full px-2' : 'bg-gray-200 w-full'}
+                                                        className={errors[`voterEmail${row.id}`] ? 'bg-red-300 h-8 w-full px-2' : 'bg-gray-200 h-8 w-full'}
                                                         defaultValue={row.email}
                                                         onChange={e => handleUpdateEmail(row.id, e.target.value)}
                                                     />
                                                 </div>
+                                            </td>
+                                            {
+                                                ballotAccess !== 'low' && <>
+                                                    <td>
+                                                        <p>{row.accessKey}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{row.password}</p>
+                                                    </td>
+                                                </>
+                                            }
+                                            <td>
                                                 <button type='button'>
                                                     <FaTrash onClick={() => handleRemove(row.id)} className='inline'></FaTrash>
                                                 </button>
