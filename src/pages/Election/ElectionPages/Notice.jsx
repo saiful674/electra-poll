@@ -67,10 +67,10 @@ const Notice = () => {
                 {noticeData.emailNotice && <>
                     <div className='bg-gray-200 p-3'>
                         <h1 className='text-xl font-bold pb-3'>Email Templete</h1>
-                        <lebel className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
+                        <label className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
                             <p>Subject:</p>
                             <input disabled={status !== 'pending'} onChange={(e) => dispatch(setEmailSubject(e.target.value))} defaultValue={formData.emailSubject || 'Vote Now: {company name} {election title}'} className='w-full p-1' type="text" />
-                        </lebel>
+                        </label>
                         <div className='bg-white p-3 mb-1'>
                             <p>You are cordially invited to cast your vote in the upcoming {formData?.organization} - {formData.title} election.</p>
                             <br />

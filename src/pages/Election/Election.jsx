@@ -14,7 +14,6 @@ const Election = () => {
 
     const params = useParams()
     const id = params.id
-    console.log(id);
     const dispatch = useDispatch()
 
     const pageNum = useSelector(state => state.formData.page)
