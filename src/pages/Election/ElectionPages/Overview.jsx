@@ -22,8 +22,7 @@ const Overview = () => {
 
     const [isdisabled, setDisabled] = useState(false)
     const [dateError, setDateError] = useState('')
-    const [selectedTimezone, setSelectedTimezone] = useState(formData.timeArea || '');
-    const [selectedTimeFormat, setSelectedTimeFormat] = useState(formData.timeZone || '');
+    const [selectedTimezone, setSelectedTimezone] = useState(formData.timeZone || '');
 
 
     const selectedTime = formData.selectedTime
@@ -51,8 +50,7 @@ const Overview = () => {
                     adminEmail: data.adminEmail,
                     organization: data.organization,
                     email: user?.email,
-                    timeZone: selectedTimeFormat,
-                    timeArea: selectedTimezone
+                    timeZone: selectedTimezone,
                 };
                 if (!payload.autoDate) {
                     const date1 = new Date(payload.startDate);
@@ -81,22 +79,38 @@ const Overview = () => {
         }
     }
 
-    const timezones = moment.tz.names();
+    const timezones = (() => {
+        const positiveOffsets = [];
+        const negativeOffsets = [];
+
+        moment.tz.names().forEach((name) => {
+            const offsetInMinutes = moment.tz(name).utcOffset();
+            const hours = Math.floor(Math.abs(offsetInMinutes) / 60);
+            const offsetSign = offsetInMinutes < 0 ? "-" : "+";
+            const formattedOffset = `UTC${offsetSign}${hours}`;
+
+            if (offsetInMinutes >= 0 && positiveOffsets.indexOf(formattedOffset) === -1) {
+                positiveOffsets.push(formattedOffset);
+            } else if (offsetInMinutes < 0 && negativeOffsets.indexOf(formattedOffset) === -1) {
+                negativeOffsets.push(formattedOffset);
+            }
+        });
+
+        positiveOffsets.sort((a, b) => {
+            return parseInt(a.replace('UTC', ''), 10) - parseInt(b.replace('UTC', ''), 10);
+        });
+
+        negativeOffsets.sort((a, b) => {
+            return parseInt(b.replace('UTC', ''), 10) - parseInt(a.replace('UTC', ''), 10);
+        });
+
+        return [...positiveOffsets, ...negativeOffsets];
+    })();
+
+
 
     const handleTimezoneChange = (timezone) => {
-        console.log(timezone);
-        setSelectedTimezone(timezone);
-        const utcOffset = getUtcOffset(timezone);
-        setSelectedTimeFormat(utcOffset);
-    };
-
-    const getUtcOffset = (timezone) => {
-        const offsetMinutes = moment.tz(timezone).utcOffset();
-        const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
-        const offsetMinutesPart = Math.abs(offsetMinutes % 60);
-        const offsetSign = offsetMinutes < 0 ? "-" : "+";
-
-        return `UTC${offsetSign}${offsetHours}`;
+        setSelectedTimezone(timezone)
     };
 
     return (
@@ -104,7 +118,7 @@ const Overview = () => {
             <h1 className='text-2xl font-bold pb-3'>Vote Details</h1>
             {/* errors */}
             {(Object.keys(errors).length !== 0 || dateError) &&
-                <div className='bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600'>
+                <div className='bg-red-100 border-l-4 min-h-20 flex items-center text-lg border-red-600'>
                     <ul className='list-decimal ps-6'>
                         {errors.title && <li>Election Title can't be blank</li>}
                         {errors.autoDate?.type === "required" && <li>Please select in how many minutes the elction will end</li>}
@@ -183,7 +197,7 @@ const Overview = () => {
                     <select
                         {...register('timeZone', { required: true })}
                         className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200 focus:shadow-outline focus:out"
-                        defaultValue={formData.timeArea}
+                        defaultValue={formData.timeZone}
                         onChange={(e) => handleTimezoneChange(e.target.value)}
                     >
                         <option value="">Select a timezone</option>
@@ -193,8 +207,8 @@ const Overview = () => {
                             </option>
                         ))}
                     </select>
-                    {selectedTimeFormat && (
-                        <p>Your preferred time format: {selectedTimeFormat}</p>
+                    {selectedTimezone && (
+                        <p>Your preferred time format: {selectedTimezone}</p>
                     )}
                 </div>
 
