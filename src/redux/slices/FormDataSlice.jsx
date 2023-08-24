@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
-
 const initialState = {
 
 }
@@ -9,6 +7,7 @@ const formDataSlice = createSlice({
     name: 'form-data',
     initialState,
     reducers: {
+
         // ===overview page actions=====
         setSelectedTime(state, action) {
             state.selectedTime = action.payload
@@ -70,7 +69,7 @@ const formDataSlice = createSlice({
             }
         },
 
-        // second page
+        // ======ballot page Actions=========
         addQuestion(state) {
             state.questions.push({
                 id: `xyz${Math.floor(10000 + Math.random() * 90000)}`,
@@ -115,6 +114,9 @@ const formDataSlice = createSlice({
                 state.questions.find(q => q.id === action.payload.id).choosedOptions = state.questions.find(q => q.id === action.payload.id).options.length
             }
         },
+
+
+        // ========notice page actions============
         setEmailNotice(state) {
             state.notice.emailNotice = !(state.notice.emailNotice)
         },
@@ -132,16 +134,20 @@ const formDataSlice = createSlice({
         updateVoterEmail(state, action) {
             state.voterEmails.find(email => email.id === action.payload.id).email = action.payload.email;
         },
-        addVoterRow(state) {
+        addVoterRow(state, action) {
+            let voterId = '';
+            let email = action?.payload || '';
+            let accessKey = '';
+            let password = state.ballotAccess === 'high' ? Math.floor(Math.random() * 900000) + 100000 : '';
+
+
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+#@%$^&';
             const accessCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let voterId = '';
+
             for (let i = 0; i < 20; i++) {
                 voterId += characters.charAt(Math.floor(Math.random() * characters.length));
             }
 
-            let accessKey = '';
-            let password = state.ballotAccess === 'high' ? Math.floor(Math.random() * 900000) + 100000 : '';
             if (state.ballotAccess === 'high') {
                 for (let i = 0; i < 25; i++) {
                     accessKey += accessCharacters.charAt(Math.floor(Math.random() * accessCharacters.length));
@@ -151,7 +157,7 @@ const formDataSlice = createSlice({
                 accessKey = state.voterEmails[0].accessKey
                 password = state.voterEmails[0].password
             }
-            state.voterEmails.push({ id: voterId, email: '', accessKey, password });
+            state.voterEmails.push({ id: voterId, email, accessKey, password });
         },
 
         updateAccessKey(state, action) {

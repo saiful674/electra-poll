@@ -157,7 +157,7 @@ const Overview = () => {
                                 checked={selectedTime === 'option1'}
                                 onChange={(e) => dispatch(setSelectedTime(e.target.value))}
                             />
-                            manually start and end after
+                            automatically start and end after
                             <input disabled={selectedTime === 'option2'} {...register('autoDate', { required: selectedTime === 'option1' && status === 'pending', min: 3, max: 60 })} defaultValue={formData.autoDate || 10} className='border h-10 px-2 ms-4 w-14' type='number'></input>
                             minutes
                         </label>
