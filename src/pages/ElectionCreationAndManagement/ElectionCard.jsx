@@ -69,7 +69,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
         <div className='border flex justify-between flex-col cursor-pointer rounded-2xl shadow-md p-4 mb-4 '>
             <div className='space-y-2 text-xl text-gray-500'>
                 {
-                    title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
+                    title ? <Link to={status == "published" ?`/vote/${_id}`:`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
                         {title}
                     </Link> : <Link to={`/election/${_id}`} className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</Link>
                 }
@@ -100,6 +100,12 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
                         <p className='text-xl'>Delete</p><FaTrash></FaTrash>
                     </div>
             }
+
+<Link to={`/dashboard/election-result/${_id}`} className='text-right'>
+                        <ButtonPrimary>Share election </ButtonPrimary>
+                    </Link>
+
+            
         </div>
     );
 };
