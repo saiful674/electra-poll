@@ -8,11 +8,15 @@ import ElectionCard from './ElectionCard';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
 import CustomTabs from './CustomTabs';
+import { useDispatch } from 'react-redux';
+import { addVoterRow } from '../../redux/slices/FormDataSlice';
 
 const ElectionCreationAndManagement = () => {
   const [activeStatus, setActiveStatus] = useState('pending');
   const navigate = useNavigate()
   const { user } = useContext(AuthContext);
+
+  const dispatch = useDispatch()
 
   console.log(user?.email);
   const { data: elections = [], refetch, isLoading } = useQuery({
@@ -27,6 +31,11 @@ const ElectionCreationAndManagement = () => {
 
 
   const handleAddElection = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+#@%$^&';
+    let voterId = '';
+    for (let i = 0; i < 20; i++) {
+      voterId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
     const electionData = {
       title: '',
       email: user?.email,
@@ -52,7 +61,7 @@ const ElectionCreationAndManagement = () => {
       },
       emailSubject: 'Vote Now:',
       emailInfo: '',
-      voterEmails: [],
+      voterEmails: [{ id: voterId, email: '', accessKey: '', password: '' }],
       status: 'pending',
       selectedTime: 'option2',
       voteType: 'test',

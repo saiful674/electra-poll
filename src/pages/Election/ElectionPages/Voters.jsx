@@ -11,7 +11,7 @@ const Voters = () => {
     const dispatch = useDispatch();
     const [emailErrors, setEmailErrors] = useState(false)
     const formData = useSelector(state => state.formData);
-    const { voterEmails, emailsValid, status, ballotAccess } = formData
+    const { _id, email, voterEmails, emailsValid, status, ballotAccess } = formData
 
 
     useEffect(() => {
@@ -57,6 +57,17 @@ const Voters = () => {
         dispatch(setEmailValid(false))
     }
 
+    const handleAddSavedVoters = () => {
+        axios.get(`http://localhost:5000/voters/${email}`)
+            .then(res => {
+                console.log(res.data);
+                const voters = res.data.voters
+                for (let voter of voters) {
+                    dispatch(addVoterRow(voter.voterEmail))
+                }
+            })
+    }
+
 
     return (
         <div className='w-full bg-gray-50 p-3 lg:p-10'>
@@ -91,7 +102,7 @@ const Voters = () => {
                                         })}
                                         placeholder="add access key for voters"
                                         type='text'
-                                        defaultValue={formData.voterAccessKey || ''}
+                                        defaultValue={formData.voterEmails[0]?.accessKey || ''}
                                         className="my-input focus:outline-green-400" />
                                     {errors.accessKey && <p className='text-red-400'>Access key should be atleast 10 charecters</p>}
                                 </div>
@@ -111,13 +122,20 @@ const Voters = () => {
                                         })}
                                         placeholder="add password for voters"
                                         type='number'
-                                        defaultValue={formData.voterAccessPassword || ''}
+                                        defaultValue={formData.voterEmails[0]?.password || ''}
                                         className="my-input focus:outline-green-400" />
                                     {errors.password && <p className='text-red-400'>Password should be atleast 6 charecters</p>}
                                 </div>
                             </div>
                         }
-                        <button disabled={status !== 'pending'} type='button' className='bg-gray-200 px-3 py-1 rounded-md' onClick={() => dispatch(addVoterRow())}>Add Row</button>
+
+
+                        <div className='space-x-4'>
+                            <button disabled={status !== 'pending'} type='button' className='bg-gray-500 text-white px-3 py-1 rounded-md' onClick={() => dispatch(addVoterRow())}>Add Row</button>
+                            <button disabled={status !== 'pending'} type='button' className='bg-gray-500 text-white px-3 py-1 rounded-md' onClick={handleAddSavedVoters}>Add Saved Voters</button>
+                        </div>
+
+
                         <div className='overflow-y-auto max-h-96 overflow-x-auto'>
                             <table className='w-full mt-4 table text-center'>
                                 <thead>
