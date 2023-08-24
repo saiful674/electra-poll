@@ -30,7 +30,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                     <label className="label">
                         <span className="text-lg font-semibold">Question or Position<span className='text-red-400'>&#9998;</span></span>
                     </label>
-                    <input disabled={status !== 'pending'} {...register(`questionTitle${id}`, { required: status === 'pending' })} onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="election title" type='text'
+                    <input disabled={status !== 'pending'} {...register(`questionTitle${id}`, { required: status === 'pending' })} onChange={(e) => dispatch(addQuestionTitle({ id, questionTitle: e.target.value }))} placeholder="Question or Position" type='text'
                         defaultValue={question?.questionTitle} className="my-input focus:outline-green-400" />
                 </div>
 

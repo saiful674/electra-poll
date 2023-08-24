@@ -60,7 +60,6 @@ const ElectionCreationAndManagement = () => {
       adminResultAccess: 'after',
       voterResultAccess: 'after',
       timeZone: '',
-      timeArea: ''
     }
     if (user) {
       axios.post('http://localhost:5000/add-election', electionData)
@@ -92,7 +91,7 @@ const ElectionCreationAndManagement = () => {
           <button onClick={handleAddElection}><BsPlusSquare className='text-6xl  md:text-7xl text-white' /></button>
         </div>
       </div>
-      <div className='my-container mt-10 mb-10'>
+      <div className='my-container mt-10 mb-10 min-h-[60vh]'>
         <CustomTabs handleTabClick={handleTabClick} activeStatus={activeStatus} />
 
 
