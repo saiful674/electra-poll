@@ -1,31 +1,49 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
+import { map } from "leaflet";
 
 const Vote = () => {
   const params = useParams();
   const id = params.id;
   const { control, handleSubmit } = useForm();
+  const [election,setElection]=useState(null)
+
+
 
   useEffect(() => {
     axios.get(`http://localhost:5000/election/${id}`).then((res) => {
-      console.log(res.data);
+      setElection(res.data);
     });
   }, []);
 
-  const options = [
-    { id: 1, label: "Option 1" },
-    { id: 2, label: "Option 2" },
-    { id: 3, label: "Option 3" },
-  ];
+  const options = election && election?.questions[0].options
 
   const onSubmit = (data) => {
     console.log("Selected Option:", data);
-    // You can perform further actions here, like sending data to the server
+    console.log(options);
+    const voted= options.filter((option) =>option.id==data.option)
+    
+    if (voted) {
+      voted[0].votes++
+    }
+    console.log(voted)
+    console.log(election.questions);
+
+axios.put(`http://localhost:5000/election-vote-update/${id}`,{
+  value:election.questions
+}).then((res)=>{
+console.log(res.data);
+})
+
+
+
+
   };
+
 
   return (
     <div className="mt-24 my-container">
@@ -43,7 +61,7 @@ const Vote = () => {
                   <label className="block text-gray-700 font-bold mb-2">
                     Choose an option:
                   </label>
-                  {options.map((option) => (
+                  {election && options.map((option) => (
                     <label
                       key={option.id}
                       className="flex items-center space-x-2 cursor-pointer"
@@ -62,7 +80,8 @@ const Vote = () => {
                         )}
                         rules={{ required: "Select an option" }}
                       />
-                      <span>{option.label}</span>
+                      <span>{option.option
+}</span>
                     </label>
                   ))}
                 </div>
