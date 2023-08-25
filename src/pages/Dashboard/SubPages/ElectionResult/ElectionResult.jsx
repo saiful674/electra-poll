@@ -12,7 +12,7 @@ const ElectionResult = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/election/${id}`)
+        axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
                 setElectionData(res.data)
                 setIsLoading(false)
