@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { next, previous } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Voters = () => {
     const dispatch = useDispatch();
     const [emailErrors, setEmailErrors] = useState(false)
     const formData = useSelector(state => state.formData);
-    const { _id, email, voterEmails, emailsValid, status, ballotAccess } = formData
-
+    const { _id, email, voteType, voterEmails, emailsValid, status, ballotAccess } = formData
 
     useEffect(() => {
         if (voterEmails.length === 0) {
@@ -47,25 +47,54 @@ const Voters = () => {
         }
     }
 
+    const handleAddVoter = () => {
+        if (voteType === 'test' && voterEmails.length >= 5) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot add more than 5 voters in test vote!',
+            })
+        }
+        else {
+            dispatch(addVoterRow())
+        }
+    }
+
     const handleRemove = (id) => {
         dispatch(removeVoterEmail(id));
         reset();
     };
 
     const handleUpdateEmail = (id, email) => {
+        const existingEmail = voterEmails.find(voter => voter.email === email)
+        if (existingEmail) {
+            setEmailErrors('duplicate email')
+            duplicateEmails.push(existingEmail.email)
+            return
+        }
         dispatch(updateVoterEmail({ id, email }))
         dispatch(setEmailValid(false))
     }
 
+
     const handleAddSavedVoters = () => {
-        axios.get(`http://localhost:5000/voters/${email}`)
-            .then(res => {
-                console.log(res.data);
-                const voters = res.data.voters
-                for (let voter of voters) {
-                    dispatch(addVoterRow(voter.voterEmail))
-                }
+        if (voteType === 'test') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot add saved voters in test vote!',
             })
+        }
+        else {
+            axios.get(`http://localhost:5000/voters/${email}`)
+                .then(res => {
+                    console.log(res.data);
+                    const voters = res.data.voters
+                    for (let voter of voters) {
+                        dispatch(addVoterRow(voter.voterEmail))
+                    }
+                })
+        }
     }
 
 
@@ -131,7 +160,7 @@ const Voters = () => {
 
 
                         <div className='space-x-4'>
-                            <button disabled={status !== 'pending'} type='button' className='bg-gray-500 text-white px-3 py-1 rounded-md' onClick={() => dispatch(addVoterRow())}>Add Row</button>
+                            <button disabled={status !== 'pending'} type='button' className='bg-gray-500 text-white px-3 py-1 rounded-md' onClick={handleAddVoter}>Add Row</button>
                             <button disabled={status !== 'pending'} type='button' className='bg-gray-500 text-white px-3 py-1 rounded-md' onClick={handleAddSavedVoters}>Add Saved Voters</button>
                         </div>
 
@@ -197,7 +226,7 @@ const Voters = () => {
                     </div>
                     <div className='text-center'>
                         {
-                            emailErrors && <p className='text-red-400'>Please solve the invalid email addresses.</p>
+                            emailErrors && <p className='text-red-400'>{emailErrors}</p>
                         }
                     </div>
                     <div className='flex justify-center'>
