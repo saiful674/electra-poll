@@ -8,7 +8,7 @@ const getMyInfo = () => {
     queryKey: ['elections', user?.email],
     enabled: !loading,
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/users/${user?.email}`)
+      const res = await axios.get(`https://electra-poll-server.vercel.app/users/${user?.email}`)
       const data = res.data
       return data
     }

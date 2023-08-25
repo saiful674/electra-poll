@@ -11,7 +11,7 @@ const Vote = () => {
   const { control, handleSubmit } = useForm();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/election/${id}`).then((res) => {
+    axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
       console.log(res.data);
     });
   }, []);
@@ -67,17 +67,17 @@ const Vote = () => {
                   ))}
                 </div>
                 <div className=" flex justify-between ">
-         <div className="space-x-4">
-         <button type="submit"> <ButtonPrimary > Vote</ButtonPrimary></button>
-          <button type="button" className="btn btn-active rounded-md">Show results</button>
-         </div>
-          <button type="button" className=" btn bg-blue-200 rounded-md ">Share</button>
-        </div>
+                  <div className="space-x-4">
+                    <button type="submit"> <ButtonPrimary > Vote</ButtonPrimary></button>
+                    <button type="button" className="btn btn-active rounded-md">Show results</button>
+                  </div>
+                  <button type="button" className=" btn bg-blue-200 rounded-md ">Share</button>
+                </div>
               </form>
             </div>
           </div>
         </div>
-     
+
       </div>
     </div>
   );

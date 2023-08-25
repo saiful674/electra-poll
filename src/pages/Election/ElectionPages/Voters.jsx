@@ -27,7 +27,7 @@ const Voters = () => {
         const voterAccessPassword = data.password;
 
         if (status === 'pending') {
-            axios.patch(`http://localhost:5000/election/${formData._id}`, { ...formData, voterAccessKey, voterAccessPassword })
+            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, { ...formData, voterAccessKey, voterAccessPassword })
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
@@ -86,7 +86,7 @@ const Voters = () => {
             })
         }
         else {
-            axios.get(`http://localhost:5000/voters/${email}`)
+            axios.get(`https://electra-poll-server.vercel.app/voters/${email}`)
                 .then(res => {
                     console.log(res.data);
                     const voters = res.data.voters

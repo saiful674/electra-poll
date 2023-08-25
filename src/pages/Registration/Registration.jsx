@@ -72,7 +72,7 @@ const Registration = () => {
         timeFormat: selectedTimeFormat,
       };
       console.log(savedUser);
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch("https://electra-poll-server.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",

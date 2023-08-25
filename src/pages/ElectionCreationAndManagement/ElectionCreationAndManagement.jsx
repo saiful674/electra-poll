@@ -22,7 +22,7 @@ const ElectionCreationAndManagement = () => {
   const { data: elections = [], refetch, isLoading } = useQuery({
     queryKey: ['elections', user, activeStatus],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
+      const res = await axios.get(`https://electra-poll-server.vercel.app/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
     }
   })
@@ -71,10 +71,10 @@ const ElectionCreationAndManagement = () => {
       timeZone: '',
     }
     if (user) {
-      axios.post('http://localhost:5000/add-election', electionData)
+      axios.post('https://electra-poll-server.vercel.app/add-election', electionData)
         .then(res => {
           const id = res.data.insertedId
-          axios.get(`http://localhost:5000/election/${id}`)
+          axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
               console.log(res.data, id);
               navigate(`/election/${id}`)
