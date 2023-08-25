@@ -7,6 +7,10 @@ const formDataSlice = createSlice({
     name: 'form-data',
     initialState,
     reducers: {
+        // sets initial state
+        setInitalState(state, action) {
+            Object.assign(state, action.payload);
+        },
 
         // ===overview page actions=====
         setSelectedTime(state, action) {
@@ -23,9 +27,6 @@ const formDataSlice = createSlice({
         },
         setVoterResultAccess(state, action) {
             state.voterResultAccess = action.payload
-        },
-        setInitalState(state, action) {
-            Object.assign(state, action.payload);
         },
         addFirstPage(state, action) {
             const pl = action.payload
