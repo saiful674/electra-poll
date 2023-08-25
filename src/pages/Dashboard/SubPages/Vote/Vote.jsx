@@ -1,8 +1,7 @@
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 
 const Vote = () => {
@@ -11,7 +10,7 @@ const Vote = () => {
   const { control, handleSubmit } = useForm();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/election/${id}`).then((res) => {
+    axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
       console.log(res.data);
     });
   }, []);

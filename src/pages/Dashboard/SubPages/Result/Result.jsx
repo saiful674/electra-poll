@@ -18,7 +18,7 @@ const Result = () => {
     const { data: elections = [], refetch, isLoading } = useQuery({
         queryKey: ['elections', user],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/all-elections/${user?.email}`)
+            const res = await axios.get(`https://electra-poll-server.vercel.app/all-elections/${user?.email}`)
             return res.data
         }
     })

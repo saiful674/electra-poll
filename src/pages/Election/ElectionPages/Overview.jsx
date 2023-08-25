@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFirstPage, next, setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, setVoterResultAccess } from '../../../redux/slices/FormDataSlice';
-import { useContext } from 'react'
-import { AuthContext } from '../../../Providers/AuthProvider';
-import axios from 'axios';
 import { formatDateToInputValue } from '../../../Hooks/convertDate';
-import moment from 'moment';
 import { toUTCDateString } from '../../../Hooks/localToUtc';
+import { AuthContext } from '../../../Providers/AuthProvider';
+import { addFirstPage, next, setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, setVoterResultAccess } from '../../../redux/slices/FormDataSlice';
 
 const Overview = () => {
 
@@ -63,7 +62,7 @@ const Overview = () => {
                     }
                 }
                 dispatch(addFirstPage(payload))
-                axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
+                axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
                     .then(res => {
                         console.log(res.data);
                         if (res.data) {
