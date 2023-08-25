@@ -1,11 +1,8 @@
 import axios from "axios";
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { useEffect } from "react";
-=======
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
->>>>>>> d6d95b687df4fd49bdef21cd359225bca9994a82
 import { useParams } from "react-router-dom";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 import { map } from "leaflet";
@@ -19,13 +16,8 @@ const Vote = () => {
 
 
   useEffect(() => {
-<<<<<<< HEAD
     axios.get(`http://localhost:5000/election/${id}`).then((res) => {
       setElection(res.data);
-=======
-    axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
-      console.log(res.data);
->>>>>>> d6d95b687df4fd49bdef21cd359225bca9994a82
     });
   }, []);
 
