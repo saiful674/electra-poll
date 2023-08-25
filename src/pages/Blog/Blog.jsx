@@ -1,11 +1,9 @@
-import PageBanner from "../../components/PageBanner/PageBanner";
-import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
-import PrimaryBlog from "./PrimaryBlog";
+import { useEffect, useState } from "react";
+import PageBanner from "../../components/PageBanner/PageBanner";
 import PopularCard from "./PopularCard";
+import PrimaryBlog from "./PrimaryBlog";
 import RecentCard from "./RecentCard";
 
 function Blog() {
@@ -19,7 +17,7 @@ function Blog() {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/blogs`);
+      const res = await axios.get(`https://electra-poll-server.vercel.app/blogs`);
       return res.data;
     },
   });

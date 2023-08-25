@@ -1,15 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
-import UserName from '../../components/Deshboard/UserName/UserName';
-import axios from 'axios';
-import { AuthContext } from '../../Providers/AuthProvider';
-import ElectionCard from './ElectionCard';
-import LoadingSpinner from '../shared/LoadingSpinner';
-import { useQuery } from '@tanstack/react-query';
-import CustomTabs from './CustomTabs';
 import { useDispatch } from 'react-redux';
-import { addVoterRow } from '../../redux/slices/FormDataSlice';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
+import UserName from '../../components/Deshboard/UserName/UserName';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import CustomTabs from './CustomTabs';
+import ElectionCard from './ElectionCard';
 
 const ElectionCreationAndManagement = () => {
   const [activeStatus, setActiveStatus] = useState('pending');
@@ -22,7 +21,7 @@ const ElectionCreationAndManagement = () => {
   const { data: elections = [], refetch, isLoading } = useQuery({
     queryKey: ['elections', user, activeStatus],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
+      const res = await axios.get(`https://electra-poll-server.vercel.app/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
     }
   })
@@ -71,10 +70,10 @@ const ElectionCreationAndManagement = () => {
       timeZone: '',
     }
     if (user) {
-      axios.post('http://localhost:5000/add-election', electionData)
+      axios.post('https://electra-poll-server.vercel.app/add-election', electionData)
         .then(res => {
           const id = res.data.insertedId
-          axios.get(`http://localhost:5000/election/${id}`)
+          axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
               console.log(res.data, id);
               navigate(`/election/${id}`)

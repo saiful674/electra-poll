@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addVoterRow, removeVoterEmail, setEmailValid, updateAccessKey, updateVotePassword, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { FaTrash } from 'react-icons/fa';
-import { next, previous } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaTrash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import { addVoterRow, next, previous, removeVoterEmail, setEmailValid, updateAccessKey, updateVotePassword, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
 
 const Voters = () => {
     const dispatch = useDispatch();
@@ -27,7 +25,7 @@ const Voters = () => {
         const voterAccessPassword = data.password;
 
         if (status === 'pending') {
-            axios.patch(`http://localhost:5000/election/${formData._id}`, { ...formData, voterAccessKey, voterAccessPassword })
+            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, { ...formData, voterAccessKey, voterAccessPassword })
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
@@ -86,7 +84,7 @@ const Voters = () => {
             })
         }
         else {
-            axios.get(`http://localhost:5000/voters/${email}`)
+            axios.get(`https://electra-poll-server.vercel.app/voters/${email}`)
                 .then(res => {
                     console.log(res.data);
                     const voters = res.data.voters
