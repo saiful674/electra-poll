@@ -1,10 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { next, previous } from '../../../redux/slices/FormDataSlice';
-import { useForm } from 'react-hook-form';
-import { setEmailInfo, setEmailNotice, setEmailSubject, setUseName } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { next, previous, setEmailInfo, setEmailNotice, setEmailSubject, setUseName } from '../../../redux/slices/FormDataSlice';
 
 const Notice = () => {
 
@@ -18,7 +16,7 @@ const Notice = () => {
     const onSubmit = data => {
         setDisabled(true)
         if (status === 'pending') {
-            axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
+            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
@@ -67,10 +65,10 @@ const Notice = () => {
                 {noticeData.emailNotice && <>
                     <div className='bg-gray-200 p-3'>
                         <h1 className='text-xl font-bold pb-3'>Email Templete</h1>
-                        <lebel className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
+                        <label className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
                             <p>Subject:</p>
                             <input disabled={status !== 'pending'} onChange={(e) => dispatch(setEmailSubject(e.target.value))} defaultValue={formData.emailSubject || 'Vote Now: {company name} {election title}'} className='w-full p-1' type="text" />
-                        </lebel>
+                        </label>
                         <div className='bg-white p-3 mb-1'>
                             <p>You are cordially invited to cast your vote in the upcoming {formData?.organization} - {formData.title} election.</p>
                             <br />

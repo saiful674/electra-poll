@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFirstPage, next, setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, setVoterResultAccess } from '../../../redux/slices/FormDataSlice';
-import { useContext } from 'react'
-import { AuthContext } from '../../../Providers/AuthProvider';
-import axios from 'axios';
 import { formatDateToInputValue } from '../../../Hooks/convertDate';
-import moment from 'moment';
 import { toUTCDateString } from '../../../Hooks/localToUtc';
+import { AuthContext } from '../../../Providers/AuthProvider';
+import { addFirstPage, next, setAdminResultAccess, setBallotAcces, setSelectedTime, setVoteType, setVoterResultAccess } from '../../../redux/slices/FormDataSlice';
 
 const Overview = () => {
 
@@ -63,7 +62,7 @@ const Overview = () => {
                     }
                 }
                 dispatch(addFirstPage(payload))
-                axios.patch(`http://localhost:5000/election/${formData._id}`, payload)
+                axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
                     .then(res => {
                         console.log(res.data);
                         if (res.data) {
@@ -157,7 +156,7 @@ const Overview = () => {
                                 checked={selectedTime === 'option1'}
                                 onChange={(e) => dispatch(setSelectedTime(e.target.value))}
                             />
-                            manually start and end after
+                            automatically start and end after
                             <input disabled={selectedTime === 'option2'} {...register('autoDate', { required: selectedTime === 'option1' && status === 'pending', min: 3, max: 60 })} defaultValue={formData.autoDate || 10} className='border h-10 px-2 ms-4 w-14' type='number'></input>
                             minutes
                         </label>
@@ -207,9 +206,7 @@ const Overview = () => {
                             </option>
                         ))}
                     </select>
-                    {selectedTimezone && (
-                        <p>Your preferred time format: {selectedTimezone}</p>
-                    )}
+                    <p className='text-sm text-red-500'>select your timezone carefully. The voting time will be realvent to the selected time zone, not their local time.</p>
                 </div>
 
 

@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import Overview from './ElectionPages/Overview';
-import Notice from './ElectionPages/Notice';
-import Confirmation from './ElectionPages/Confirmation';
 import { ScrollRestoration, useParams } from 'react-router-dom';
-import Ballot from './ElectionPages/Ballot/Ballot';
-import Voters from './ElectionPages/Voters';
-import axios from 'axios';
 import { setInitalState } from '../../redux/slices/FormDataSlice';
+import Ballot from './ElectionPages/Ballot/Ballot';
+import Confirmation from './ElectionPages/Confirmation';
+import Notice from './ElectionPages/Notice';
+import Overview from './ElectionPages/Overview';
+import Voters from './ElectionPages/Voters';
 
 const Election = () => {
 
     const params = useParams()
     const id = params.id
-    console.log(id);
     const dispatch = useDispatch()
 
     const pageNum = useSelector(state => state.formData.page)
@@ -26,7 +25,7 @@ const Election = () => {
     }, [pageNum]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/election/${id}`)
+        axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
                 console.log(res.data);
                 dispatch(setInitalState(res.data))

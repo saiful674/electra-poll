@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../../../Providers/AuthProvider';
-import { FcAddImage } from "react-icons/fc";
-import getMyInfo from '../../../../Hooks/getMyInfo';
-import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
-import { imageUpload } from '../../../../Hooks/ImageUploade';
 import axios from 'axios';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import { FcAddImage } from "react-icons/fc";
+import { imageUpload } from '../../../../Hooks/ImageUploade';
+import getMyInfo from '../../../../Hooks/getMyInfo';
+import { AuthContext } from '../../../../Providers/AuthProvider';
+import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
 // import Swal from 'sweetalert2';
 const UpdateProfileInfo = () => {
     const { user,updateUserProfile } = useContext(AuthContext);
@@ -35,7 +35,7 @@ const UpdateProfileInfo = () => {
                 organizationName,
                 membershipSize,
             }
-         axios.patch(`http://localhost:5000/users/${user?.email}`, userData, {
+         axios.patch(`https://electra-poll-server.vercel.app/users/${user?.email}`, userData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
