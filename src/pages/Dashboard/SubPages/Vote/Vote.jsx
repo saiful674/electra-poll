@@ -34,11 +34,15 @@ const Vote = () => {
     console.log(voted)
     console.log(election.questions);
 
-    axios.put(`https://electra-poll-server.vercel.app/election-vote-update/${id}`, {
+    axios.put(`http://localhost:5000/election-vote-update/${id}`, {
       value: election.questions
     }).then((res) => {
       console.log(res.data);
     })
+
+
+
+
   };
 
 

@@ -101,9 +101,9 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
                     </div>
             }
 
-            <Link to={`/dashboard/election-result/${_id}`} className='text-right'>
+            {/* <Link className='text-right'>
                 <ButtonPrimary>Share election </ButtonPrimary>
-            </Link>
+            </Link> */}
 
 
         </div>

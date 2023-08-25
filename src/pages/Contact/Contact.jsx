@@ -43,8 +43,8 @@ const Contact = () => {
                     title: 'Your message has been sent successfully',
                     showConfirmButton: false,
                     timer: 1500
-                  })
-                  
+                })
+
             })
             .catch((error) => {
                 console.error('Error sending email:', error);

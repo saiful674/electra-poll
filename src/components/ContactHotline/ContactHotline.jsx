@@ -7,7 +7,7 @@ import { BsHeadset } from 'react-icons/bs';
 const ContactHotline = () => {
     return (
         <div className="main-container mt-4">
-            <section className=" contact-bg2 mt-20  overflow-hidden">
+            <section className="contact-bg2 mt-20  overflow-hidden">
                 <div className=" w-full h-full bg-slate-600 bg-opacity-60 text-center ">
                     <div className=" flex flex-col z-10 items-center justify-center h-full ">
                         <p className='text-slate-300 md:text-xl md:font-bold mb-2 mt-4'>24/7 Hotline: Your Lifeline to Assistance</p>

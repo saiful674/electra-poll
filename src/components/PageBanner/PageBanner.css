@@ -13,6 +13,7 @@
     background-size: cover;
     background-position: center;
     height: 70vh;
+    background-attachment: fixed;
   }
 .create-bg3 {
     position: relative;
