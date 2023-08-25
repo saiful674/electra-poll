@@ -1,7 +1,7 @@
-import axios from "axios"
-import { AuthContext } from "../Providers/AuthProvider";
-import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
 const getMyInfo = () => {
   const { user, loading } = useContext(AuthContext);
   const { data: myInfo = [], refetch } = useQuery({

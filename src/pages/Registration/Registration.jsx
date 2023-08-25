@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
 import moment from "moment-timezone";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { AiOutlineEye } from "react-icons/ai";
-import { useState } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import { AiOutlineEye } from "react-icons/ai";
+import { FaRegEyeSlash } from "react-icons/fa";
 import { FcAddImage } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
 import { imageUpload } from "../../Hooks/ImageUploade";
+import { AuthContext } from "../../Providers/AuthProvider";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 
 const Registration = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);

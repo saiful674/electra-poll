@@ -1,10 +1,9 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { next, previous } from '../../../../redux/slices/FormDataSlice';
-import { addQuestion } from '../../../../redux/slices/FormDataSlice';
+import { addQuestion, next, previous } from '../../../../redux/slices/FormDataSlice';
 import Questions from './Questions';
-import axios from 'axios';
 
 const Ballot = () => {
 

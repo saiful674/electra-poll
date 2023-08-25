@@ -1,15 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
-import UserName from '../../components/Deshboard/UserName/UserName';
-import axios from 'axios';
-import { AuthContext } from '../../Providers/AuthProvider';
-import ElectionCard from './ElectionCard';
-import LoadingSpinner from '../shared/LoadingSpinner';
-import { useQuery } from '@tanstack/react-query';
-import CustomTabs from './CustomTabs';
 import { useDispatch } from 'react-redux';
-import { addVoterRow } from '../../redux/slices/FormDataSlice';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
+import UserName from '../../components/Deshboard/UserName/UserName';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import CustomTabs from './CustomTabs';
+import ElectionCard from './ElectionCard';
 
 const ElectionCreationAndManagement = () => {
   const [activeStatus, setActiveStatus] = useState('pending');

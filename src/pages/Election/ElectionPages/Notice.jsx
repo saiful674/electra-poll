@@ -1,10 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { next, previous } from '../../../redux/slices/FormDataSlice';
-import { useForm } from 'react-hook-form';
-import { setEmailInfo, setEmailNotice, setEmailSubject, setUseName } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { next, previous, setEmailInfo, setEmailNotice, setEmailSubject, setUseName } from '../../../redux/slices/FormDataSlice';
 
 const Notice = () => {
 

@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addVoterRow, removeVoterEmail, setEmailValid, updateAccessKey, updateVotePassword, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { FaTrash } from 'react-icons/fa';
-import { next, previous } from '../../../redux/slices/FormDataSlice';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaTrash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import { addVoterRow, next, previous, removeVoterEmail, setEmailValid, updateAccessKey, updateVotePassword, updateVoterEmail } from '../../../redux/slices/FormDataSlice';
 
 const Voters = () => {
     const dispatch = useDispatch();

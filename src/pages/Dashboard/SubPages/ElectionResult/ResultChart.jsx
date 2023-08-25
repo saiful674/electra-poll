@@ -9,11 +9,11 @@ const ResultChart = ({ questionData }) => {
 
 
   return (
-    <div className="w-full grid md:grid-cols-2 gap-5">
+    <div className="w-full grid md:grid-cols-2 gap-5 rounded">
       <div className="mt-10 space-y-2">
         <h5 className="text-xl font-semibold">Options/Candidates:</h5>
         {
-          data.map((entry, index) => <p key={index}>{index + 1}. {entry.name} ({entry.value})</p>)
+          data.map((entry, index) => <p className="font-medium" key={index}>{index + 1}. {entry.name} ({entry.value})</p>)
         }
       </div>
       {/* chart  */}
