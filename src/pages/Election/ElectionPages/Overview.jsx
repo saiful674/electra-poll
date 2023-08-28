@@ -40,8 +40,8 @@ const Overview = () => {
                 let payload = {
                     title: data.title,
                     autoDate: selectedTime === 'option1' ? Math.floor(data.autoDate) : '',
-                    startDate: selectedTime === 'option2' ? toUTCDateString(data.startDate, selectedTimeFormat) : '',
-                    endDate: selectedTime === 'option2' ? toUTCDateString(data.endDate, selectedTimeFormat) : '',
+                    startDate: selectedTime === 'option2' ? toUTCDateString(data.startDate, selectedTimezone) : '',
+                    endDate: selectedTime === 'option2' ? toUTCDateString(data.endDate, selectedTimezone) : '',
                     voteType: selectedVoteType,
                     ballotAccess: selectedBallotAccess,
                     adminResultAccess,

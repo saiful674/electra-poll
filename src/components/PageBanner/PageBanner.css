@@ -5,6 +5,7 @@
     background-size: cover;
     background-position: center;
     height: 50vh;
+
   }
 .contact-bg2 {
     position: relative;
@@ -13,6 +14,7 @@
     background-size: cover;
     background-position: center;
     height: 70vh;
+    background-attachment: fixed;
   }
 .create-bg3 {
     position: relative;
