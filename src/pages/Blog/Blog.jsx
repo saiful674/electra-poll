@@ -1,7 +1,38 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import PageBanner from "../../components/PageBanner/PageBanner";
-import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import PopularCard from "./PopularCard";
+import PrimaryBlog from "./PrimaryBlog";
+import RecentCard from "./RecentCard";
 
 function Blog() {
+  const [primaryBlog, setPrimaryBlog] = useState({});
+  const [popularBlogs, setPopularBlogs] = useState([]);
+  const [recentBlogs, setRecentBlogs] = useState([]);
+  const {
+    data: blogs = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: async () => {
+      const res = await axios.get(`https://electra-poll-server.vercel.app/blogs`);
+      return res.data;
+    },
+  });
+  useEffect(() => {
+    const prBlog = blogs && blogs.find((p) => p.status === "primary");
+    const popuBlogs = blogs && blogs.filter((po) => po.status === "popular");
+    const recent = blogs && blogs.filter((re) => re.status === "recent");
+
+    if (prBlog) {
+      setPrimaryBlog(prBlog);
+    }
+    setPopularBlogs(popuBlogs);
+    setRecentBlogs(recent);
+  }, [blogs]);
+
   return (
     <div>
       <PageBanner title={"Blog"} pageRoute={"Blog"}></PageBanner>
@@ -9,89 +40,16 @@ function Blog() {
         <div className="pt-14 xl:px-0 px-4">
           <div className="w-full lg:flex">
             <div className="lg:w-1/2">
-              <img
-                src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog1.png"
-                className="w-full"
-              />
-              <div className="mt-8 lg:mb-0 mb-8">
-                <h1 className="f-m-m text-2xl font-semibold leading-7">
-                  Beautiful Italy, Travel Blog
-                </h1>
-                <p className="text-base f-m-m leading-loose mt-2">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. It has survived not only five centuries.
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.
-                </p>
-                <div className="mt-6">
-                  <ButtonPrimary>Red more</ButtonPrimary>
-                </div>
-              </div>
+              <PrimaryBlog blog={primaryBlog}></PrimaryBlog>
             </div>
             <div className="lg:w-1/2 lg:ml-8">
               <h2 className="mb-6 text-2xl color-green font-semibold">
                 Popular Blogs
               </h2>
-              <div className="lg:flex items-start mb-8">
-                <img
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog2.png"
-                  className="w-full"
-                />
-                <div className="lg:ml-6">
-                  <h1 className="f-m-m text-2xl font-semibold leading-7 lg:mt-0 mt-8">
-                    A Broken Backpack
-                  </h1>
-                  <p className="text-base f-m-m leading-loose mt-2">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. It has survived not only five
-                    centuries. Lorem Ipsum is simply dummy text of the printing
-                    and typesetting industry.
-                  </p>
-                  <div className="mt-4">
-                    <ButtonPrimary>Red more</ButtonPrimary>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:flex items-start mb-8">
-                <img
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog3.png"
-                  className="w-full"
-                />
-                <div className="lg:ml-6">
-                  <h1 className="f-m-m text-2xl font-semibold leading-7 lg:mt-0 mt-8">
-                    My life’s a Movie
-                  </h1>
-                  <p className="text-base f-m-m leading-loose mt-2">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. It has survived not only five
-                    centuries. Lorem Ipsum is simply dummy text of the printing
-                    and typesetting industry.
-                  </p>
-                  <div className="mt-4">
-                    <ButtonPrimary>Red more</ButtonPrimary>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:flex items-start mb-8">
-                <img
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog4.png"
-                  className="w-full"
-                />
-                <div className="lg:ml-6">
-                  <h1 className="f-m-m text-2xl font-semibold leading-7 lg:mt-0 mt-8">
-                    Lilii’s Travel Plans
-                  </h1>
-                  <p className="text-base f-m-m leading-loose mt-2">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. It has survived not only five
-                    centuries. Lorem Ipsum is simply dummy text of the printing
-                    and typesetting industry.
-                  </p>
-                  <div className="mt-4">
-                    <ButtonPrimary>Red more</ButtonPrimary>
-                  </div>
-                </div>
-              </div>
+              {popularBlogs &&
+                popularBlogs.map((blog) => (
+                  <PopularCard blog={blog}></PopularCard>
+                ))}
             </div>
           </div>
           <div>
@@ -99,63 +57,10 @@ function Blog() {
               Recent Blogs
             </h2>
             <div className="grid mb-10 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className="max-w-sm  rounded overflow-hidden shadow-lg">
-                <img
-                  className="w-full h-[250px]"
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog4.png"
-                  alt="Mountain"
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">Mountain</div>
-                  <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-                    exercitationem praesentium nihil.
-                  </p>
-                </div>
-
-                <div className="text-right px-3 py-2">
-                  <ButtonPrimary>Red more</ButtonPrimary>
-                </div>
-              </div>
-              <div className="max-w-sm  rounded overflow-hidden shadow-lg">
-                <img
-                  className="w-full h-[250px]"
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog4.png"
-                  alt="Mountain"
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">Mountain</div>
-                  <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-                    exercitationem praesentium nihil.
-                  </p>
-                </div>
-
-                <div className="text-right px-3 py-2">
-                  <ButtonPrimary>Red more</ButtonPrimary>
-                </div>
-              </div>
-              <div className="max-w-sm  rounded overflow-hidden shadow-lg">
-                <img
-                  className="w-full h-[250px]"
-                  src="https://cdn.tuk.dev/assets/components/111220/blg-17/blog4.png"
-                  alt="Mountain"
-                />
-                <div className="px-6 py-4">
-                  <div className="font-bold text-xl mb-2">Mountain</div>
-                  <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-                    exercitationem praesentium nihil.
-                  </p>
-                </div>
-
-                <div className="text-right px-3 py-2">
-                  <ButtonPrimary>Red more</ButtonPrimary>
-                </div>
-              </div>
+              {recentBlogs &&
+                recentBlogs.map((reBlog) => (
+                  <RecentCard blog={reBlog}></RecentCard>
+                ))}
             </div>
           </div>
         </div>

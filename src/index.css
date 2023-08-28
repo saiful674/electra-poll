@@ -125,3 +125,9 @@ npm run :-moz-drag-over
 .animate-bounce-once {
   animation: bounce 1s 1;
 }
+
+
+/* ==========table collum padding======== */
+.table :where(td){
+  padding: 0 10px !important;
+}

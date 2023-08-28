@@ -6,11 +6,11 @@ import Swal from 'sweetalert2';
 import { formatDateToInputValue } from '../../Hooks/convertDate';
 import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary';
 
-const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
+const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
 
     const [timeLeft, setTimeLeft] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
-    const { _id, title, status, startDate, autoDate, endDate, organization, voteType, voterEmails } = election;
+    const { _id, title, status, startDate, timeZone, autoDate, endDate, organization, voteType, voterEmails } = election;
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -49,7 +49,7 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/remove-election/${_id}`)
+                axios.patch(`https://electra-poll-server.vercel.app/remove-election/${_id}`)
                     .then(res => {
                         console.log(res.data);
                         if (res.data.deletedCount) {
@@ -69,7 +69,7 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
         <div className='border flex justify-between flex-col cursor-pointer rounded-2xl shadow-md p-4 mb-4 '>
             <div className='space-y-2 text-xl text-gray-500'>
                 {
-                    title ? <Link to={`/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
+                    title ? <Link to={status == "ongoing" ? `/vote/${_id}` : `/election/${_id}`} className='text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase'>
                         {title}
                     </Link> : <Link to={`/election/${_id}`} className=' text-xl font-semibold mb-2 block hover:underline  hover:text-red-500  uppercase'>Please create your election title</Link>
                 }
@@ -81,10 +81,10 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
                     Voting Ends in: <span className={new Date(endDate) - new Date() <= 3 * 60 * 1000 ? 'text-red-400' : 'text-green-500'}>{timeLeft}</span>
                 </p>
                 <p >
-                    Start: {startDate && formatDateToInputValue(startDate)}
+                    Start: {startDate && formatDateToInputValue(startDate, timeZone)}
                 </p>
                 <p >
-                    End: {endDate && formatDateToInputValue(endDate)}
+                    End: {endDate && formatDateToInputValue(endDate, timeZone)}
                 </p>
                 {voterEmails && (
                     <p>Voters: {voterEmails.length}</p>
@@ -100,6 +100,12 @@ const ElectionCard = ({ election, refetch , isUseForResultPage}) => {
                         <p className='text-xl'>Delete</p><FaTrash></FaTrash>
                     </div>
             }
+
+            {/* <Link className='text-right'>
+                <ButtonPrimary>Share election </ButtonPrimary>
+            </Link> */}
+
+
         </div>
     );
 };

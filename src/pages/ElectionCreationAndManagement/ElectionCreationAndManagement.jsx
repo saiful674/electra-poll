@@ -1,24 +1,27 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { BsPlusSquare } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import UserName from '../../components/Deshboard/UserName/UserName';
-import axios from 'axios';
 import { AuthContext } from '../../Providers/AuthProvider';
-import ElectionCard from './ElectionCard';
+import UserName from '../../components/Deshboard/UserName/UserName';
 import LoadingSpinner from '../shared/LoadingSpinner';
-import { useQuery } from '@tanstack/react-query';
 import CustomTabs from './CustomTabs';
+import ElectionCard from './ElectionCard';
 
 const ElectionCreationAndManagement = () => {
   const [activeStatus, setActiveStatus] = useState('pending');
   const navigate = useNavigate()
   const { user } = useContext(AuthContext);
 
+  const dispatch = useDispatch()
+
   console.log(user?.email);
   const { data: elections = [], refetch, isLoading } = useQuery({
-    queryKey: ['elections', user,activeStatus],
+    queryKey: ['elections', user, activeStatus],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`)
+      const res = await axios.get(`https://electra-poll-server.vercel.app/elections/?email=${user?.email}&status=${activeStatus}`)
       return res.data
     }
   })
@@ -27,6 +30,11 @@ const ElectionCreationAndManagement = () => {
 
 
   const handleAddElection = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+#@%$^&';
+    let voterId = '';
+    for (let i = 0; i < 20; i++) {
+      voterId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
     const electionData = {
       title: '',
       email: user?.email,
@@ -52,14 +60,20 @@ const ElectionCreationAndManagement = () => {
       },
       emailSubject: 'Vote Now:',
       emailInfo: '',
-      voterEmails: [],
-      status: 'pending'
+      voterEmails: [{ id: voterId, email: '', accessKey: '', password: '' }],
+      status: 'pending',
+      selectedTime: 'option2',
+      voteType: 'test',
+      ballotAccess: 'high',
+      adminResultAccess: 'after',
+      voterResultAccess: 'after',
+      timeZone: '',
     }
     if (user) {
-      axios.post('http://localhost:5000/add-election', electionData)
+      axios.post('https://electra-poll-server.vercel.app/add-election', electionData)
         .then(res => {
           const id = res.data.insertedId
-          axios.get(`http://localhost:5000/election/${id}`)
+          axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
             .then(res => {
               console.log(res.data, id);
               navigate(`/election/${id}`)
@@ -74,7 +88,7 @@ const ElectionCreationAndManagement = () => {
     // You can perform additional actions here when a tab is clicked
   };
   console.log(activeStatus);
-  
+
   return (
     <>
       <UserName></UserName>
@@ -85,8 +99,8 @@ const ElectionCreationAndManagement = () => {
           <button onClick={handleAddElection}><BsPlusSquare className='text-6xl  md:text-7xl text-white' /></button>
         </div>
       </div>
-      <div className='my-container mt-10 mb-10'>
-      <CustomTabs  handleTabClick={handleTabClick} activeStatus={activeStatus} />
+      <div className='my-container mt-10 mb-10 min-h-[60vh]'>
+        <CustomTabs handleTabClick={handleTabClick} activeStatus={activeStatus} />
 
 
         {

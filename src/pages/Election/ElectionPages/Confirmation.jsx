@@ -1,16 +1,17 @@
+import axios from 'axios';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { previous } from '../../../redux/slices/FormDataSlice';
-import Swal from 'sweetalert2';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { createNewDate } from '../../../Hooks/createNewDate';
+import { previous } from '../../../redux/slices/FormDataSlice';
 
 const Confirmation = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const formData = useSelector(s => s.formData)
-    const { title, autoDate, startDate, endDate, questions, voterEmails, ballotAccess, status } = formData
+    const { title, selectedTime, autoDate, startDate, endDate, questions, voterEmails, ballotAccess, status } = formData
 
     const handeConfirmation = () => {
         if (status === 'pending') {
@@ -37,12 +38,38 @@ const Confirmation = () => {
                         });
                     }
 
-                    axios.patch(`http://localhost:5000/election/${formData._id}`, { autoDate: formData.autoDate, status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters })
-                        .then(res => {
-                            console.log(res.data);
-                            if (res.data) {
-                            }
+                    if (selectedTime === 'option1') {
+                        const newStartDate = createNewDate(formData.timeZone)
+                        const dateObject = new Date(newStartDate);
+
+                        const newEndDate = new Date(dateObject.getTime());
+                        newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
+
+                        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+                            autoDate: formData.autoDate,
+                            status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters,
+                            startDate: newStartDate,
+                            endDate: newEndDate
                         })
+                            .then(res => {
+                                console.log(res.data);
+                                if (res.data) {
+                                }
+                            })
+                    }
+
+                    else {
+                        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+                            autoDate: formData.autoDate,
+                            status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters,
+                        })
+                            .then(res => {
+                                console.log(res.data);
+                                if (res.data) {
+                                }
+                            })
+                    }
+
                     Swal.fire(
                         'congratulation!',
                         'Your Vote has been published.',

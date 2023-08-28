@@ -18,8 +18,8 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
-import VotingResults from "../pages/SocialSharing/VotingResults";
-import YourComponent from "../pages/SocialSharing/YourComponent";
+import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
+import SingleBlogs from "../pages/Blog/SingleBlogs";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -40,8 +40,16 @@ const router = createBrowserRouter([
         element: <Blog></Blog>,
       },
       {
+        path: "singleBlog/:id",
+        element: <SingleBlogs></SingleBlogs>,
+      },
+      {
         path: "election/:id",
         element: <Election></Election>,
+      },
+      {
+        path: "vote/:id",
+        element: <Vote></Vote>,
       },
       {
         path: "login",
