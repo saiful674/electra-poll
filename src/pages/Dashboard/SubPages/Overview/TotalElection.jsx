@@ -1,7 +1,7 @@
 import React from 'react';
-import { HiUserGroup } from 'react-icons/hi2';
-import { GiVote } from "react-icons/gi";
 import { BsQuestionOctagonFill } from 'react-icons/bs';
+import { GiVote } from "react-icons/gi";
+import { HiUserGroup } from 'react-icons/hi2';
 import getElection from '../../../../Hooks/getElection';
 const TotalElection = () => {
     const [elections,] = getElection()

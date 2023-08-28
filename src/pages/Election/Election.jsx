@@ -19,6 +19,7 @@ const Election = () => {
 
     const pageNum = useSelector(state => state.formData.page)
     const formData = useSelector(s => s.formData)
+    const { status } = formData
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -38,9 +39,14 @@ const Election = () => {
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 0 ? `text-green-400` : ''}`}>Overview <FaLongArrowAltRight /></span>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 1 ? `text-green-400` : ''}`}>Ballot<FaLongArrowAltRight /></span>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 2 ? `text-green-400` : ''}`}>Notice<FaLongArrowAltRight /></span>
-                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 3 ? `text-green-400` : ''}`}>Security<FaLongArrowAltRight /></span>
+                <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 3 ? `text-green-400` : ''}`}>Voters<FaLongArrowAltRight /></span>
                 <span className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 4 ? `text-green-400` : ''}`}>Confirmation<FaLongArrowAltRight /></span>
             </div>
+            {
+                status !== 'pending' && <div className='bg-red-100 justify-center mt-5 border-l-4 min-h-16 flex items-center text-lg border-red-600'>
+                    <p>Can't changed election details after it has been published</p>
+                </div>
+            }
             <div className='mt-10 flex justify-center'>
                 {pageNum === 0 && <Overview></Overview>}
                 {pageNum === 1 && <Ballot></Ballot>}

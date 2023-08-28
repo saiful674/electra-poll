@@ -21,16 +21,22 @@ const Ballot = () => {
     console.log(ballots);
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+    console.log(errors);
     const onSubmit = data => {
         setDisabled(true)
-        axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
-            .then(res => {
-                console.log(res.data);
-                if (res.data) {
-                    setDisabled(false)
-                    dispatch(next());
-                }
-            })
+        if (status === 'pending') {
+            axios.patch(`http://localhost:5000/election/${formData._id}`, formData)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data) {
+                        setDisabled(false)
+                        dispatch(next());
+                    }
+                })
+        }
+        else {
+            dispatch(next())
+        }
     }
 
     const questionSubmit = data => {

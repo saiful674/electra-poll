@@ -10,33 +10,52 @@ const Confirmation = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const formData = useSelector(s => s.formData)
-    const { title, autoDate, startDate, endDate, questions } = formData
+    const { title, autoDate, startDate, endDate, questions, voterEmails, ballotAccess, status } = formData
 
     const handeConfirmation = () => {
-        Swal.fire({
-            title: 'Have you checked all the information?',
-            text: "You won't be able to update a ballot after publishing!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Publish it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/election/${formData._id}`, { status: formData.autoDate ? 'published' : 'ongoing' })
-                    .then(res => {
-                        console.log(res.data);
-                        if (res.data) {
-                            Swal.fire(
-                                'congratulation!',
-                                'Your Vote has been published.',
-                                'success'
-                            )
-                            navigate('/dashboard/election-correction')
-                        }
-                    })
-            }
-        })
+        if (status === 'pending') {
+            Swal.fire({
+                title: 'Have you checked all the information?',
+                text: "You won't be able to update a ballot after publishing!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Publish it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let voters = []
+                    if (ballotAccess === 'high') {
+                        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                        voters = voterEmails.map(voter => {
+                            let accessKey = '';
+                            for (let i = 0; i < 16; i++) {
+                                accessKey += characters.charAt(Math.floor(Math.random() * characters.length));
+                            }
+                            const password = Math.floor(Math.random() * 900000) + 100000;
+                            return { ...voter, accessKey, password };
+                        });
+                    }
+
+                    axios.patch(`http://localhost:5000/election/${formData._id}`, { autoDate: formData.autoDate, status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters })
+                        .then(res => {
+                            console.log(res.data);
+                            if (res.data) {
+                            }
+                        })
+                    Swal.fire(
+                        'congratulation!',
+                        'Your Vote has been published.',
+                        'success'
+                    )
+
+                    navigate('/dashboard/election-correction')
+                }
+            })
+        }
+        else {
+            navigate('/dashboard/election-correction')
+        }
     }
 
     return (
@@ -62,7 +81,6 @@ const Confirmation = () => {
             </div>
             <div className='pt-5 flex justify-between'>
                 <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
-                <button type='button' className='bg-gray-400 px-4 rounded-md text-white'>Save</button>
                 <button onClick={handeConfirmation} type='button' className='button-next'>Publish</button>
             </div>
         </div>
