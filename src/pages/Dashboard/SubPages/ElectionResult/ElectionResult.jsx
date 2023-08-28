@@ -25,7 +25,7 @@ const ElectionResult = () => {
 
     const handleDownloadClick = async () => {
         try {
-            const response = await fetch('http://localhost:5173/download-election-data');
+            const response = await fetch('https://electra-poll-server.vercel.app/download-election-data');
             const blob = await response.blob();
 
             // Create a blob URL and simulate download
