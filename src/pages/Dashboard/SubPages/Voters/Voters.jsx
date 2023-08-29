@@ -50,7 +50,7 @@ const Voters = () => {
         modalCloseBtn.close()
         form.reset()
     }
-
+   
     // voter remove function
     const handleRemoveVoter = (voterEmail) => {
         Swal.fire({

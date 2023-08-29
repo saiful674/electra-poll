@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../../../Providers/AuthProvider';
+import { AuthContext } from '../../../../Providers/AuthProvider';
 
-const UserName = () => {
-  const {user} = useContext(AuthContext)
+const AdminUserName = () => {
+  const { user } = useContext(AuthContext)
+  console.log('user ifi',user)
   return (
     <div className='bg-gray-100 mb-4 py-3 px-4 border-b-2 sm:flex flex items-center gap-4'>
       <div className="avatar">
@@ -12,10 +13,10 @@ const UserName = () => {
       </div>
       <div>
         <h3 className='text-xl font-bold'>{user?.displayName}</h3>
-        <p className='font-semibold'> Welcome to the dashboard</p>
+        <p className='font-semibold'> Welcome to the admin dashboard</p>
       </div>
     </div>
   );
 };
 
-export default UserName;
+export default AdminUserName;

@@ -11,7 +11,7 @@ const UpdateProfileInfo = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
     console.log(user)
     const [myInfo,] = getMyInfo()
-    console.log(myInfo)
+    console.log(myInfo.email)
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -121,7 +121,7 @@ const UpdateProfileInfo = () => {
                                     className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
                                     type="text"
                                     // value={myInfo[0]?.organizationName}
-                                    placeholder={myInfo[0]?.organizationName}
+                                    placeholder={myInfo.organizationName}
                                 />
                             </div>
                             <div className="mb-4">
@@ -133,7 +133,7 @@ const UpdateProfileInfo = () => {
                                     className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
                                     type="number"
                                     // value={myInfo[0]?.membershipSize}
-                                    placeholder={myInfo[0]?.membershipSize}
+                                    placeholder={myInfo?.membershipSize}
                                 />
                             </div>
                             <button className='block w-full' >

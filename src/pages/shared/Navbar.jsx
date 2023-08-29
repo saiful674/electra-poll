@@ -7,9 +7,14 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import useAdmin from "../../Hooks/useAdmin";
+import getMyInfo from "../../Hooks/getMyInfo";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const [myInfo,] = getMyInfo()
+  const role = myInfo.role
+  console.log(role)
   const handleLogOut = () => {
     logout()
       .then(toast.success("logout successfully"))
@@ -70,17 +75,25 @@ const Navbar = () => {
           >
             Blog
           </NavLink>
-          <NavLink
+     {  user && role === 'user'  &&  <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/election-correction"
           >
             Election
           </NavLink>
-          {user && <NavLink
+
+     }
+          {user && role === 'user'  && <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/overview"
           >
             Dashboard
+          </NavLink>}
+          {user && role === 'admin'  &&  <NavLink
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/adminDashboard/adminHome"
+          >
+          Admin Dashboard
           </NavLink>}
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
