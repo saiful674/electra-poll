@@ -9,7 +9,7 @@ const CustomTabs = ({ handleTabClick, activeStatus }) => {
         className={`tab tab-lg tab-lifted ${activeStatus === 'pending' ? 'tab-active' : ''}`}
         onClick={() => handleTabClick('pending')}
       >
-        Pending
+        Draft
       </a>
       <a
         className={`tab tab-lg tab-lifted ${activeStatus === 'published' ? 'tab-active' : ''}`}
