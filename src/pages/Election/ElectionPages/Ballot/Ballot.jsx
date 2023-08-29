@@ -50,7 +50,7 @@ const Ballot = () => {
   const questionSubmit = (data) => {};
 
   return (
-    <div className="lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10">
+    <div className="lg:w-[70%] w-full bg-gray-50 lg:p-10">
       <h1 className="text-2xl font-bold pb-3">Create Ballot</h1>
       <div className="bg-red-100 border-l-4 mb-5 flex items-center text-lg p-3 border-red-600">
         <p>

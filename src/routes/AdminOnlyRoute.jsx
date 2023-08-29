@@ -6,11 +6,11 @@ import { AuthContext } from '../Providers/AuthProvider';
 import getMyInfo from '../Hooks/getMyInfo';
 
 const AdminOlyRouts = ({ children }) => {
-    const { user, loading } =useContext(AuthContext)
-    const [myInfo,] = getMyInfo()
+    const { user, loading } = useContext(AuthContext)
+    const { myInfo } = getMyInfo()
     const role = myInfo.role
     const location = useLocation()
-    if (loading ) {
+    if (loading) {
         return <LoadingSpinner />
     }
     if (user && role === 'admin') {

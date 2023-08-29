@@ -4,8 +4,12 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 const getMyInfo = () => {
   const { user, loading } = useContext(AuthContext);
-  const { data: myInfo = [], refetch } = useQuery({
-    queryKey: ["elections", user?.email],
+  const {
+    data: myInfo = [],
+    refetch,
+    isLoading: userLoading,
+  } = useQuery({
+    queryKey: ["myInfo", user],
     enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/users/${user?.email}`);
@@ -13,7 +17,7 @@ const getMyInfo = () => {
       return data;
     },
   });
-  console.log(myInfo, user?.email);
-  return [myInfo, refetch];
+  console.log(myInfo);
+  return { myInfo, refetch, userLoading };
 };
 export default getMyInfo;
