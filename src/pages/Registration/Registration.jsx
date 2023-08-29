@@ -69,6 +69,7 @@ const Registration = () => {
         membershipSize,
         timezone: `${selectedTimezone} ${getUtcOffset(selectedTimezone)}`,
         timeFormat: selectedTimeFormat,
+        role: 'user'
       };
       console.log(savedUser);
       const response = await fetch(

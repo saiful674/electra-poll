@@ -21,6 +21,10 @@ import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
 import PostBlog from "../pages/Dashboard/SubPages/PostBlog/PostBlog";
+import AdminDashboardLayout from "../layout/AdminDashboardLayout";
+import AdminHome from "../pages/AdminDashboard/SubPage/AdminHome/AdminHome";
+import UserManagement from "../pages/AdminDashboard/SubPage/UserManagement/UserManagement";
+
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -113,6 +117,25 @@ const router = createBrowserRouter([
         element: (
           <ElectionCreationAndManagement></ElectionCreationAndManagement>
         ),
+      },
+    ],
+  },
+  {
+    path: "adminDashboard",
+    element: (
+      <PrivateRoutes>
+        <AdminDashboardLayout></AdminDashboardLayout>
+      </PrivateRoutes>
+    ),
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "adminHome",
+        element: <AdminHome />,
+      },
+      {
+        path: "userManagement",
+        element: <UserManagement></UserManagement>,
       },
     ],
   },
