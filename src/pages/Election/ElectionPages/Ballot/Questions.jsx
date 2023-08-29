@@ -13,7 +13,7 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
 
     return (
         <div className='flex justify-center items-center border-4 border-green-400'>
-            <form onSubmit={handleSubmit(questionSubmit)} className='bg-gray-200 w-full p-5 space-y-6'>
+            <form onSubmit={handleSubmit(questionSubmit)} className='bg-gray-200 w-full p-2 lg:p-5 space-y-6'>
 
                 {/* handle errors */}
                 {

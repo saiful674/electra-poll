@@ -10,7 +10,7 @@ import ButtonPrimary from '../../../../components/ButtonPrimary/ButtonPrimary';
 const UpdateProfileInfo = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
     console.log(user)
-    const [myInfo,] = getMyInfo()
+    const { myInfo } = getMyInfo()
     console.log(myInfo.email)
     const handleSubmit = (e) => {
         e.preventDefault();
