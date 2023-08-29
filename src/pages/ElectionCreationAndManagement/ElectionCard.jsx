@@ -64,9 +64,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(
-            `https://electra-poll-server.vercel.app/remove-election/${_id}`
-          )
+          .patch(`http://localhost:5000/remove-election/${_id}`)
           .then((res) => {
             console.log(res.data);
             if (res.data.deletedCount) {

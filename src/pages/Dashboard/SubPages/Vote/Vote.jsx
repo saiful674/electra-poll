@@ -12,11 +12,9 @@ const Vote = () => {
   const [election, setElection] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`https://electra-poll-server.vercel.app/election/${id}`)
-      .then((res) => {
-        setElection(res.data);
-      });
+    axios.get(`http://localhost:5000/election/${id}`).then((res) => {
+      setElection(res.data);
+    });
   }, []);
 
   console.log(election);
@@ -35,12 +33,9 @@ const Vote = () => {
     console.log(election.questions);
 
     axios
-      .put(
-        `https://electra-poll-server.vercel.app/election-vote-update/${id}`,
-        {
-          value: election.questions,
-        }
-      )
+      .put(`http://localhost:5000/election-vote-update/${id}`, {
+        value: election.questions,
+      })
       .then((res) => {
         console.log(res.data);
       });

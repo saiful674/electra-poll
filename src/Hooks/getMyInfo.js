@@ -13,7 +13,7 @@ const getMyInfo = () => {
       return data;
     },
   });
-  console.log(myInfo);
+  console.log(myInfo, user?.email);
   return [myInfo, refetch];
 };
 export default getMyInfo;

@@ -17,9 +17,7 @@ function Blog() {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://electra-poll-server.vercel.app/blogs`
-      );
+      const res = await axios.get(`http://localhost:5000/blogs`);
       return res.data;
     },
   });

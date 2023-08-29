@@ -26,7 +26,7 @@ const ElectionCreationAndManagement = () => {
     queryKey: ["elections", user, activeStatus],
     queryFn: async () => {
       const res = await axios.get(
-        `https://electra-poll-server.vercel.app/elections/?email=${user?.email}&status=${activeStatus}`
+        `http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`
       );
       return res.data;
     },
@@ -83,18 +83,13 @@ const ElectionCreationAndManagement = () => {
     };
     if (user) {
       axios
-        .post(
-          "https://electra-poll-server.vercel.app/add-election",
-          electionData
-        )
+        .post("http://localhost:5000/add-election", electionData)
         .then((res) => {
           const id = res.data.insertedId;
-          axios
-            .get(`https://electra-poll-server.vercel.app/election/${id}`)
-            .then((res) => {
-              console.log(res.data, id);
-              navigate(`/election/${id}`);
-            });
+          axios.get(`http://localhost:5000/election/${id}`).then((res) => {
+            console.log(res.data, id);
+            navigate(`/election/${id}`);
+          });
         });
     }
   };

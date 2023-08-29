@@ -58,16 +58,13 @@ const Confirmation = () => {
             newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
 
             axios
-              .patch(
-                `https://electra-poll-server.vercel.app/election/${formData._id}`,
-                {
-                  autoDate: formData.autoDate,
-                  status: formData.autoDate ? "ongoing" : "published",
-                  voterEmails: voters,
-                  startDate: newStartDate,
-                  endDate: newEndDate,
-                }
-              )
+              .patch(`http://localhost:5000/election/${formData._id}`, {
+                autoDate: formData.autoDate,
+                status: formData.autoDate ? "ongoing" : "published",
+                voterEmails: voters,
+                startDate: newStartDate,
+                endDate: newEndDate,
+              })
               .then((res) => {
                 console.log(res.data);
                 if (res.data) {
@@ -75,14 +72,11 @@ const Confirmation = () => {
               });
           } else {
             axios
-              .patch(
-                `https://electra-poll-server.vercel.app/election/${formData._id}`,
-                {
-                  autoDate: formData.autoDate,
-                  status: formData.autoDate ? "ongoing" : "published",
-                  voterEmails: voters,
-                }
-              )
+              .patch(`http://localhost:5000/election/${formData._id}`, {
+                autoDate: formData.autoDate,
+                status: formData.autoDate ? "ongoing" : "published",
+                voterEmails: voters,
+              })
               .then((res) => {
                 console.log(res.data);
                 if (res.data) {
