@@ -12,8 +12,8 @@ import getMyInfo from "../../Hooks/getMyInfo";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [myInfo,] = getMyInfo()
-  const role = myInfo.role
-  console.log(role)
+  console.log(myInfo) 
+  const role = myInfo?.role
   const handleLogOut = () => {
     logout()
       .then(toast.success("logout successfully"))
