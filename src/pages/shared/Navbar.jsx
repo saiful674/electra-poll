@@ -3,11 +3,10 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-import useAdmin from "../../Hooks/useAdmin";
 import getMyInfo from "../../Hooks/getMyInfo";
 
 const Navbar = () => {
@@ -93,7 +92,7 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/adminDashboard/adminHome"
           >
-          Admin Dashboard
+          Admin-Dashboard
           </NavLink>}
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
@@ -175,18 +174,26 @@ const Navbar = () => {
               >
                 About
               </NavLink>
-              <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/dashboard/election-correction"
-              >
-                Election
-              </NavLink>
-              {user && <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/dashboard/overview"
-              >
-                Dashboard
-              </NavLink>}
+              {  user && role === 'user'  &&  <NavLink
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/dashboard/election-correction"
+          >
+            Election
+          </NavLink>
+
+     }
+              {user && role === 'user'  && <NavLink
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/dashboard/overview"
+          >
+            Dashboard
+          </NavLink>}
+          {user && role === 'admin'  &&  <NavLink
+            className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            to="/adminDashboard/adminHome"
+          >
+          Admin-Dashboard
+          </NavLink>}
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/contact"

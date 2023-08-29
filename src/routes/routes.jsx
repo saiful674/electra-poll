@@ -23,6 +23,7 @@ import SingleBlogs from "../pages/Blog/SingleBlogs";
 import AdminDashboardLayout from "../layout/AdminDashboardLayout";
 import AdminHome from "../pages/AdminDashboard/SubPage/AdminHome/AdminHome";
 import UserManagement from "../pages/AdminDashboard/SubPage/UserManagement/UserManagement";
+import AdminOlyRouts from "./AdminOnlyRoute";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -117,7 +118,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'adminDashboard',
-    element: <PrivateRoutes><AdminDashboardLayout></AdminDashboardLayout></PrivateRoutes>,
+    element: <AdminOlyRouts><AdminDashboardLayout></AdminDashboardLayout></AdminOlyRouts>,
     errorElement: <ErrorPage></ErrorPage>,
     children:[
       {
