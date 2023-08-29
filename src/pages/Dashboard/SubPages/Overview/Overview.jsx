@@ -1,11 +1,12 @@
 import React from 'react';
 import UserName from '../../../../components/Deshboard/UserName/UserName';
-import TotalElection from './TotalElection';
+
 import UpcomingAndRecentElection from './UpcomingAndRecentElection ';
 import UserVotingHistory from './userVotingHistory';
 import CommunityEngagement from './CommunityEngagement';
 import ImportantNotice from './ImportantNotice';
 import PersonalizedRecommendations from './PersonalizedRecommendations';
+import TotalElection from './TotalElection';
 
 const Overview = () => {
  
