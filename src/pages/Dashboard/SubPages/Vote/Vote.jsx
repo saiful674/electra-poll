@@ -9,7 +9,7 @@ const Vote = () => {
   const params = useParams();
   const id = params.id;
   const { control, handleSubmit } = useForm();
-  const [election,setElection]=useState(null)
+  const [election, setElection] = useState(null)
 
 
 
@@ -19,24 +19,26 @@ const Vote = () => {
     });
   }, []);
 
+  console.log(election);
+
   const options = election && election?.questions[0].options
 
   const onSubmit = (data) => {
     console.log("Selected Option:", data);
     console.log(options);
-    const voted= options.filter((option) =>option.id==data.option)
-    
+    const voted = options.filter((option) => option.id == data.option)
+
     if (voted) {
       voted[0].votes++
     }
     console.log(voted)
     console.log(election.questions);
 
-axios.put(`https://electra-poll-server.vercel.app/election-vote-update/${id}`,{
-  value:election.questions
-}).then((res)=>{
-console.log(res.data);
-})
+    axios.put(`http://localhost:5000/election-vote-update/${id}`, {
+      value: election.questions
+    }).then((res) => {
+      console.log(res.data);
+    })
 
 
 
@@ -49,7 +51,7 @@ console.log(res.data);
       <div className="mx-auto px-4 border-t-[3px] rounded-md border-t-green-400 border w-4/6">
         {/* section title */}
         <div className="mt-3 space-y-0">
-          <h1 className="text-3xl font-bold ">Who is Best</h1>
+          <h1 className="text-3xl font-bold ">{election?.title}</h1>
           <p className="text-sm">by maruf ahmed·8 minutes ago</p>
         </div>
         <div className="my-7">
@@ -80,22 +82,22 @@ console.log(res.data);
                         rules={{ required: "Select an option" }}
                       />
                       <span>{option.option
-}</span>
+                      }</span>
                     </label>
                   ))}
                 </div>
                 <div className=" flex justify-between ">
-         <div className="space-x-4">
-         <button type="submit"> <ButtonPrimary > Vote</ButtonPrimary></button>
-          <button type="button" className="btn btn-active rounded-md">Show results</button>
-         </div>
-          <button type="button" className=" btn bg-blue-200 rounded-md ">Share</button>
-        </div>
+                  <div className="space-x-4">
+                    <button type="submit"> <ButtonPrimary >Vote</ButtonPrimary></button>
+                    <button type="button" className="btn btn-active rounded-md">Show results</button>
+                  </div>
+                  <button type="button" className=" btn bg-blue-200 rounded-md ">Share</button>
+                </div>
               </form>
             </div>
           </div>
         </div>
-     
+
       </div>
     </div>
   );
