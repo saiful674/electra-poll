@@ -20,6 +20,7 @@ import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndC
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
+import PostBlog from "../pages/Dashboard/SubPages/PostBlog/PostBlog";
 // asjdfoiajsdf
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "termsAndCondition",
         element: <TermsAndCondition></TermsAndCondition>,
+      },
+      {
+        path: "postBlog",
+        element: <PostBlog></PostBlog>,
       },
     ],
   },

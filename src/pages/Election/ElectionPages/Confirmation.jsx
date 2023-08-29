@@ -1,117 +1,175 @@
-import axios from 'axios';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { createNewDate } from '../../../Hooks/createNewDate';
-import { previous } from '../../../redux/slices/FormDataSlice';
+import axios from "axios";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { createNewDate } from "../../../Hooks/createNewDate";
+import { previous } from "../../../redux/slices/FormDataSlice";
 
 const Confirmation = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const formData = useSelector((s) => s.formData);
+  const {
+    title,
+    selectedTime,
+    autoDate,
+    startDate,
+    endDate,
+    questions,
+    voterEmails,
+    ballotAccess,
+    status,
+  } = formData;
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const formData = useSelector(s => s.formData)
-    const { title, selectedTime, autoDate, startDate, endDate, questions, voterEmails, ballotAccess, status } = formData
+  const handeConfirmation = () => {
+    if (status === "pending") {
+      Swal.fire({
+        title: "Have you checked all the information?",
+        text: "You won't be able to update a ballot after publishing!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Publish it",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let voters = [];
+          if (ballotAccess === "high") {
+            const characters =
+              "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            voters = voterEmails.map((voter) => {
+              let accessKey = "";
+              for (let i = 0; i < 16; i++) {
+                accessKey += characters.charAt(
+                  Math.floor(Math.random() * characters.length)
+                );
+              }
+              const password = Math.floor(Math.random() * 900000) + 100000;
+              return { ...voter, accessKey, password };
+            });
+          }
 
-    const handeConfirmation = () => {
-        if (status === 'pending') {
-            Swal.fire({
-                title: 'Have you checked all the information?',
-                text: "You won't be able to update a ballot after publishing!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Publish it'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let voters = []
-                    if (ballotAccess === 'high') {
-                        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                        voters = voterEmails.map(voter => {
-                            let accessKey = '';
-                            for (let i = 0; i < 16; i++) {
-                                accessKey += characters.charAt(Math.floor(Math.random() * characters.length));
-                            }
-                            const password = Math.floor(Math.random() * 900000) + 100000;
-                            return { ...voter, accessKey, password };
-                        });
-                    }
+          if (selectedTime === "option1") {
+            const newStartDate = createNewDate(formData.timeZone);
+            const dateObject = new Date(newStartDate);
 
-                    if (selectedTime === 'option1') {
-                        const newStartDate = createNewDate(formData.timeZone)
-                        const dateObject = new Date(newStartDate);
+            const newEndDate = new Date(dateObject.getTime());
+            newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
 
-                        const newEndDate = new Date(dateObject.getTime());
-                        newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
-
-                        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
-                            autoDate: formData.autoDate,
-                            status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters,
-                            startDate: newStartDate,
-                            endDate: newEndDate
-                        })
-                            .then(res => {
-                                console.log(res.data);
-                                if (res.data) {
-                                }
-                            })
-                    }
-
-                    else {
-                        axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
-                            autoDate: formData.autoDate,
-                            status: formData.autoDate ? 'ongoing' : 'published', voterEmails: voters,
-                        })
-                            .then(res => {
-                                console.log(res.data);
-                                if (res.data) {
-                                }
-                            })
-                    }
-
-                    Swal.fire(
-                        'congratulation!',
-                        'Your Vote has been published.',
-                        'success'
-                    )
-
-                    navigate('/dashboard/election-correction')
+            axios
+              .patch(
+                `https://electra-poll-server.vercel.app/election/${formData._id}`,
+                {
+                  autoDate: formData.autoDate,
+                  status: formData.autoDate ? "ongoing" : "published",
+                  voterEmails: voters,
+                  startDate: newStartDate,
+                  endDate: newEndDate,
                 }
-            })
-        }
-        else {
-            navigate('/dashboard/election-correction')
-        }
-    }
+              )
+              .then((res) => {
+                console.log(res.data);
+                if (res.data) {
+                }
+              });
+          } else {
+            axios
+              .patch(
+                `https://electra-poll-server.vercel.app/election/${formData._id}`,
+                {
+                  autoDate: formData.autoDate,
+                  status: formData.autoDate ? "ongoing" : "published",
+                  voterEmails: voters,
+                }
+              )
+              .then((res) => {
+                console.log(res.data);
+                if (res.data) {
+                }
+              });
+          }
 
-    return (
-        <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
-            <h1 className='text-2xl font-bold pb-3'>Confirm and Puplish vote</h1>
-            <div className='text-xl space-y-2'>
-                <p><span className='font-semibold'>Election Title:</span> {title}</p>
-                {autoDate && <p><span className='font-semibold'>Election time: </span>After pulishing election will end in {autoDate} minutes.</p>}
-                {startDate && <p><span className='font-semibold'>Election Starting time: </span>Voting will start on {startDate}</p>}
-                {endDate && <p><span className='font-semibold'>Election Starting time: </span>Voting will end on {endDate}</p>}
-                <div>
-                    <span className='font-semibold'>Ballot(s):</span>
-                    {questions.map(q => <div key={q.id} className='bg-gray-200 rounded-md w-full space-y-2 p-4'>
-                        <h2>{q.questionTitle}</h2>
-                        <p>Please choose {q.choosedOptions} {q.voterChoose} for below option.</p>
-                        {
-                            q.options.map((o, i) => <div key={o}>
-                                <p className='py-2 px-3 bg-white'>{i + 1}.{o.option}</p>
-                            </div>)
-                        }
-                    </div>)}
+          Swal.fire(
+            "congratulation!",
+            "Your Vote has been published.",
+            "success"
+          );
+
+          navigate("/dashboard/election-correction");
+        }
+      });
+    } else {
+      navigate("/dashboard/election-correction");
+    }
+  };
+
+  return (
+    <div className="lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10">
+      <h1 className="text-2xl font-bold pb-3">Confirm and Puplish vote</h1>
+      <div className="text-xl space-y-2">
+        <p>
+          <span className="font-semibold">Election Title:</span> {title}
+        </p>
+        {autoDate && (
+          <p>
+            <span className="font-semibold">Election time: </span>After
+            pulishing election will end in {autoDate} minutes.
+          </p>
+        )}
+        {startDate && (
+          <p>
+            <span className="font-semibold">Election Starting time: </span>
+            Voting will start on {startDate}
+          </p>
+        )}
+        {endDate && (
+          <p>
+            <span className="font-semibold">Election Starting time: </span>
+            Voting will end on {endDate}
+          </p>
+        )}
+        <div>
+          <span className="font-semibold">Ballot(s):</span>
+          {questions.map((q) => (
+            <div
+              key={q.id}
+              className="bg-gray-200 rounded-md w-full space-y-2 p-4"
+            >
+              <h2>{q.questionTitle}</h2>
+              <p>
+                Please choose {q.choosedOptions} {q.voterChoose} for below
+                option.
+              </p>
+              {q.options.map((o, i) => (
+                <div key={o}>
+                  <p className="py-2 px-3 bg-white">
+                    {i + 1}.{o.option}
+                  </p>
                 </div>
+              ))}
             </div>
-            <div className='pt-5 flex justify-between'>
-                <button onClick={() => dispatch(previous())} type='button' className='button-pre'>Back</button>
-                <button onClick={handeConfirmation} type='button' className='button-next'>Publish</button>
-            </div>
+          ))}
         </div>
-    );
+      </div>
+      <div className="pt-5 flex justify-between">
+        <button
+          onClick={() => dispatch(previous())}
+          type="button"
+          className="button-pre"
+        >
+          Back
+        </button>
+        <button
+          onClick={handeConfirmation}
+          type="button"
+          className="button-next"
+        >
+          Publish
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Confirmation;
