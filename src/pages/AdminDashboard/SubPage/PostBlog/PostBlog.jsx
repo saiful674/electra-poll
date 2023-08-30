@@ -14,6 +14,7 @@ const PostBlog = () => {
 
   const onSubmit = (data) => {
     data.status = "recent";
+    data.comments = [];
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
       axios

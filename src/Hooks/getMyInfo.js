@@ -17,7 +17,7 @@ const getMyInfo = () => {
       return data;
     },
   });
-  console.log(myInfo);
+
   return { myInfo, refetch, userLoading };
 };
 export default getMyInfo;
