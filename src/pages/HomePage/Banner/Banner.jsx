@@ -11,11 +11,20 @@ import "swiper/css/pagination";
 
 import { Autoplay } from "swiper/modules";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
+import { useEffect } from "react";
+import Aos from "aos";
 
 const Banner = () => {
+
+    useEffect(() => {
+        Aos.init({
+            duration: 800
+        })
+    }, [])
+
     return (
         <div className="bg-green-50 mb-10">
-            <div className='my-container h-auto lg:h-[100vh] grid py-5 lg:py-0 gap-10 my-16 lg:my-0 lg:grid-cols-2 items-center'>
+            <div className='my-container h-auto lg:h-[100vh] grid py-5 lg:py-0 gap-10 my-12 lg:my-0 lg:grid-cols-2 items-center'>
                 <Swiper
                     slidesPerView={1}
                     autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -47,7 +56,7 @@ const Banner = () => {
                     </SwiperSlide>
                 </Swiper>
                 <div className='order-1 lg:order-2 banner-img'>
-                    <img className='w-full h-full' src={bannerImg} alt="" />
+                    <img className='w-full lg:w-full h-full md:w-[75%] md:mx-auto' src={bannerImg} alt="" />
                 </div>
             </div>
         </div>
