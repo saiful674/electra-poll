@@ -1,6 +1,7 @@
 import ChatBot from "../../../components/ChatBot/ChatBot";
 import About from "../About/About";
 import Banner from "../Banner/Banner";
+import BlogHome from "../BlogHome/BlogHome";
 import Company from "../Company/Company";
 import ContactUs from "../ContactUs/ContactUs";
 import Faq from "../Faq/Faq";
@@ -18,6 +19,7 @@ const Home = () => {
       <Faq></Faq>
       <Testimonial></Testimonial>
       <Company />
+      <BlogHome></BlogHome>
 
       <ChatBot />
       {/* <ContactUs></ContactUs> */}
