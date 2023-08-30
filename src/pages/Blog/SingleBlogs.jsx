@@ -9,7 +9,7 @@ const SingleBlogs = () => {
   const { data: blog = {}, isLoading } = useQuery({
     queryKey: ["blog"],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/blog/${id}`);
+      const res = await axios.get(`http://localhost:5000/blog/${id}`);
       return res.data;
     },
   });
