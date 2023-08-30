@@ -51,7 +51,7 @@ const PostBlog = () => {
               id="title"
               name="title"
               type="text"
-              placeholder="Enter title"
+              placeholder="Enter Blog title"
               {...register("title", { required: true })}
             />
             {errors.title && (
@@ -71,7 +71,7 @@ const PostBlog = () => {
               }`}
               id="content"
               name="content"
-              placeholder="Enter content"
+              placeholder="Your Blog content"
               {...register("content", { required: true })}
             />
             {errors.content && (

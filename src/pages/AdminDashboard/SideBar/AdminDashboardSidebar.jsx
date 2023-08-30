@@ -9,6 +9,7 @@ import { MdBallot } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo-white.png";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import { TfiWrite } from "react-icons/tfi";
 
 const AdminDashboardSidebar = () => {
   const navigate = useNavigate();
@@ -105,7 +106,7 @@ const AdminDashboardSidebar = () => {
                     }`
                   }
                 >
-                  <FaUsers className="w-5 h-5" />
+                  <TfiWrite className="w-5 h-5" />
 
                   <span className="mx-4 font-medium">Post Blog</span>
                 </NavLink>
