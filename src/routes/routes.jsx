@@ -20,11 +20,12 @@ import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndC
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
-import PostBlog from "../pages/Dashboard/SubPages/PostBlog/PostBlog";
+
 import AdminDashboardLayout from "../layout/AdminDashboardLayout";
 import AdminHome from "../pages/AdminDashboard/SubPage/AdminHome/AdminHome";
 import UserManagement from "../pages/AdminDashboard/SubPage/UserManagement/UserManagement";
 import AdminOlyRouts from "./AdminOnlyRoute";
+import PostBlog from "../pages/AdminDashboard/SubPage/PostBlog/PostBlog";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -76,10 +77,6 @@ const router = createBrowserRouter([
       {
         path: "termsAndCondition",
         element: <TermsAndCondition></TermsAndCondition>,
-      },
-      {
-        path: "postBlog",
-        element: <PostBlog></PostBlog>,
       },
     ],
   },
@@ -137,6 +134,10 @@ const router = createBrowserRouter([
       {
         path: "userManagement",
         element: <UserManagement></UserManagement>,
+      },
+      {
+        path: "postBlog",
+        element: <PostBlog></PostBlog>,
       },
     ],
   },

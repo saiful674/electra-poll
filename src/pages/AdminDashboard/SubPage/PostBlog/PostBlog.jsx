@@ -1,8 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { imageUpload } from "../../../../Hooks/ImageUploade";
+
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { imageUpload } from "../../../../Hooks/ImageUploade";
 
 const PostBlog = () => {
   const {
@@ -31,7 +32,7 @@ const PostBlog = () => {
   };
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
