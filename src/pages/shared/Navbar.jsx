@@ -82,7 +82,7 @@ const Navbar = () => {
           </NavLink>
 
           }
-          {user && role === 'user' && <NavLink
+          {user &&  <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/overview"
           >
