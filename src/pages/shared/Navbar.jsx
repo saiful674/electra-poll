@@ -1,4 +1,4 @@
-import Aos from "aos";
+
 import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import getMyInfo from "../../Hooks/getMyInfo";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+
   const { myInfo } = getMyInfo()
   const role = myInfo.role
   const handleLogOut = () => {
@@ -81,18 +82,13 @@ const Navbar = () => {
           </NavLink>
 
           }
-          {user && role === 'user' && <NavLink
+          {user && <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/dashboard/overview"
           >
             Dashboard
           </NavLink>}
-          {user && role === 'admin' && <NavLink
-            className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/adminDashboard/adminHome"
-          >
-            Admin-Dashboard
-          </NavLink>}
+
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/contact"
@@ -181,17 +177,11 @@ const Navbar = () => {
               </NavLink>
 
               }
-              {user && role === 'user' && <NavLink
+              {user && <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/overview"
               >
                 Dashboard
-              </NavLink>}
-              {user && role === 'admin' && <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/adminDashboard/adminHome"
-              >
-                Admin-Dashboard
               </NavLink>}
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}

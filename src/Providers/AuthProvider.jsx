@@ -21,14 +21,7 @@ const AuthProviders = ({ children }) => {
     //registration
 
     const createUser = (email, password) => {
-        setLoading(true)
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                setLoading(false)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        return createUserWithEmailAndPassword(auth, email, password)
     }
     const updateUserProfile = (name, photo) => {
         setLoading(true)

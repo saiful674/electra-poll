@@ -1,107 +1,147 @@
+import React, { useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-// import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
+import LoadingSpinner from "../../../shared/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
 
 const Vote = () => {
   const params = useParams();
   const id = params.id;
-  const { control, handleSubmit } = useForm();
-  const [election, setElection] = useState(null);
 
-  useEffect(() => {
-    axios.get(`http://localhost:5000/election/${id}`).then((res) => {
-      setElection(res.data);
-    });
-  }, []);
+  const {
+    data: electionArray = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["election", id],
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:5000/election/${id}`);
+      return res.data;
+    },
+  });
 
-  console.log(election);
+  console.log(electionArray);
 
-  const options = election && election?.questions[0].options;
+  // const initialQuestionsArray = [
+  //   {
+  //     id: "xyz55519",
+  //     voterChoose: "option",
+  //     vacancy: 1,
+  //     options: [
+  //       { id: "xyz747rf056", option: "Winter", votes: 0 },
+  //       { id: "xyz74ff7057", option: "Summer", votes: 0 },
+  //       { id: "xyz74ffwe7057", option: "Summer", votes: 0 },
+  //       { id: "xyz74fft7057", option: "Summer", votes: 0 },
+  //     ],
+  //     choosedOptions: 1,
+  //   },
+  //   {
+  //     id: "xyz55520",
+  //     voterChoose: "option",
+  //     vacancy: 1,
+  //     options: [
+  //       { id: "xyz747g056", option: "Winter", votes: 0 },
+  //       { id: "xyz7470b57", option: "Summer", votes: 0 },
+  //       { id: "xyz74h70b57", option: "Summer", votes: 0 },
+  //       { id: "xyz7h470b57", option: "Summer", votes: 0 },
+  //     ],
+  //     choosedOptions: 1,
+  //   },
+  //   {
+  //     id: "xyz55521",
+  //     voterChoose: "option",
+  //     vacancy: 1,
+  //     options: [
+  //       { id: "xyz747df057", option: "Summer", votes: 0 },
+  //       { id: "xyz74s7r056", option: "Winter", votes: 0 },
+  //       { id: "xyz74s70ere56", option: "Winter", votes: 0 },
+  //       { id: "xyz74s705h6", option: "Winter", votes: 0 },
+  //     ],
+  //     choosedOptions: 1,
+  //   },
+  //   // Add more question objects here if needed
+  // ];
 
-  const onSubmit = (data) => {
-    console.log("Selected Option:", data);
-    console.log(options);
-    const voted = options.filter((option) => option.id == data.option);
+  const [questionsArray, setQuestionsArray] = useState(
+    electionArray?.questions
+  );
+  const [voteCount, setVoteCount] = useState(0);
 
-    if (voted) {
-      voted[0].votes++;
+  const handleVote = (questionIndex, optionIndex) => {
+    const updatedQuestionsArray = [...questionsArray];
+    const selectedOption =
+      updatedQuestionsArray[questionIndex].options[optionIndex];
+
+    if (selectedOption.votes > 0) {
+      selectedOption.votes -= 1;
+    } else {
+      if (updatedQuestionsArray[questionIndex].choosedOptions > 0) {
+        // Only update if there are available choosedOptions
+        selectedOption.votes += 1;
+      }
     }
-    console.log(voted);
-    console.log(election.questions);
 
-    axios
-      .put(`http://localhost:5000/election-vote-update/${id}`, {
-        value: election.questions,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    setQuestionsArray(updatedQuestionsArray);
   };
+
+  const handleChooseOptions = (questionIndex, selectedOptions) => {
+    const updatedQuestionsArray = [...questionsArray];
+    updatedQuestionsArray[questionIndex].choosedOptions = selectedOptions;
+    setQuestionsArray(updatedQuestionsArray);
+  };
+
+  // console.log(questionsArray);
+
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <div className="mt-24 my-container">
       <div className="mx-auto px-4 border-t-[3px] rounded-md border-t-green-400 border w-4/6">
-        {/* section title */}
-        <div className="mt-3 space-y-0">
-          <h1 className="text-3xl font-bold ">{election?.title}</h1>
-          <p className="text-sm">by maruf ahmed·8 minutes ago</p>
-        </div>
-        <div className="my-7">
-          <div className="flex flex-col">
-            <div>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-bold mb-2">
-                    Choose an option:
-                  </label>
-                  {election &&
-                    options.map((option) => (
-                      <label
-                        key={option.id}
-                        className="flex items-center space-x-2 cursor-pointer"
-                      >
-                        <Controller
-                          name="option"
-                          control={control}
-                          defaultValue=""
-                          render={({ field }) => (
-                            <input
-                              {...field}
-                              type="radio"
-                              value={option.id}
-                              className="form-radio"
-                            />
-                          )}
-                          rules={{ required: "Select an option" }}
-                        />
-                        <span>{option.option}</span>
-                      </label>
-                    ))}
-                </div>
-                <div className=" flex justify-between ">
-                  <div className="space-x-4">
-                    <button type="submit">
-                      {" "}
-                      <ButtonPrimary>Vote</ButtonPrimary>
-                    </button>
-                    <button type="button" className="btn btn-active rounded-md">
-                      Show results
-                    </button>
+        {questionsArray?.map((question, questionIndex) => (
+          <div key={question.id} className="my-5">
+            <h3>Question {questionIndex + 1}</h3>
+            <p className="my-1">Choose {question.choosedOptions} option(s)</p>
+
+            {question?.options && question?.options.length > 0 ? (
+              <>
+                {question?.options?.map((option, optionIndex) => (
+                  <div key={option.id}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        className="mr-2"
+                        checked={option.votes > 0}
+                        onChange={() => handleVote(questionIndex, optionIndex)}
+                        disabled={
+                          question.options.filter((opt) => opt.votes > 0)
+                            .length >= question.choosedOptions &&
+                          option.votes === 0
+                        }
+                      />
+                      {option.option} - Votes: {option.votes}
+                    </label>
                   </div>
-                  <button
-                    type="button"
-                    className=" btn bg-blue-200 rounded-md "
-                  >
-                    Share
-                  </button>
-                </div>
-              </form>
-            </div>
+                ))}
+              </>
+            ) : (
+              <div className="bg-green-500 p-5">
+                <p>No Vote available</p>
+              </div>
+            )}
+
+            <button
+              onClick={() =>
+                handleChooseOptions(questionIndex, question.choosedOptions + 1)
+              }
+            >
+              Increase Options
+            </button>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

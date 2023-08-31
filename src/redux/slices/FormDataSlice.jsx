@@ -76,7 +76,13 @@ const formDataSlice = createSlice({
                 id: `xyz${Math.floor(10000 + Math.random() * 90000)}`,
                 voterChoose: 'candidate',
                 vacancy: 1,
-                options: ['option/candidate 1'],
+                options: [
+                    {
+                        id: `xyz${Math.floor(100000 + Math.random() * 900000)}`,
+                        option: `option/candidate 1`,
+                        votes: 0,
+                    },
+                ],
                 choosedOptions: 1
             })
         },
