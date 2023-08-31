@@ -96,7 +96,7 @@ const Vote = () => {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Oops...",
+            title: "Oops.....",
             text: "You already submit your vote. Don't try again",
           });
           navigate(`/dashboard/election-correction`);
