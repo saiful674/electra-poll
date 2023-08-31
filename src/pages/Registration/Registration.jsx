@@ -132,10 +132,10 @@ const Registration = () => {
             >
               {showPassword ? <AiOutlineEye /> : <FaRegEyeSlash />}
             </span>
-            {errors.password.type === 'required' && (
+            {errors.password && errors.password.type === 'required' && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
             )}
-            {errors.password.type === 'minLength' && (
+            {errors.password && errors.password.type === 'minLength' && (
               <p className="text-red-500 text-xs mt-1">Password should be at least 6 charecters</p>
             )}
           </div>

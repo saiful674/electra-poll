@@ -13,7 +13,11 @@ const PostBlog = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    const { content } = data
+    const splitContent = content.split(/\n+/)
+    console.log(splitContent);
     data.status = "recent";
+    data.content = splitContent
     data.comments = [];
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
@@ -35,7 +39,7 @@ const PostBlog = () => {
     <div>
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-white min-h-screen w-full shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="mb-4">
@@ -46,9 +50,8 @@ const PostBlog = () => {
               Title
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.title ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.title ? "border-red-500" : ""
+                }`}
               id="title"
               name="title"
               type="text"
@@ -67,9 +70,8 @@ const PostBlog = () => {
               Content
             </label>
             <textarea
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32 ${
-                errors.content ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none h-[350px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.content ? "border-red-500" : ""
+                }`}
               id="content"
               name="content"
               placeholder="Your Blog content"
@@ -87,9 +89,8 @@ const PostBlog = () => {
               Image
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.image ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.image ? "border-red-500" : ""
+                }`}
               id="image"
               name="image"
               type="file"
@@ -99,9 +100,9 @@ const PostBlog = () => {
               <p className="text-red-500 text-xs italic">Image is required</p>
             )}
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex justify-end">
             <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-green-500  hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
               style={{ backgroundColor: "#00E05A" }}
             >
