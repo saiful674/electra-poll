@@ -148,7 +148,7 @@ const UserManagement = () => {
                   <td>
                     {us.role === 'admin' ? <button disabled className="btn btn-success text-sm btn-sm normal-case">Admin</button> : <button onClick={() => handleMakeAdmin(us)} className="btn btn-success text-sm btn-sm normal-case">Admin</button>}
                   </td>
-                                    <td><button onClick={() => handleRemoveVoter(us?._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> Remove</button></td>
+                                    <td>{us?.role === 'admin' ? <button disabled className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> </button>: <button onClick={() => handleRemoveVoter(us?._id)} className='btn btn-error text-sm btn-sm normal-case'><FaTrashAlt className='h-3 w-3' /> </button>}</td>
                                 </tr>)}
                             </tbody>
                         </table>
