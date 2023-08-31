@@ -16,7 +16,7 @@ const PrivateRoutes = ({ children }) => {
     );
   }
 
-  else if (user && role === 'user') {
+  else if (user ) {
     return children;
   }
 
