@@ -13,7 +13,11 @@ const PostBlog = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    const { content } = data
+    const splitContent = content.split(/\n+/)
+    console.log(splitContent);
     data.status = "recent";
+    data.content = splitContent
     data.comments = [];
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
@@ -46,9 +50,8 @@ const PostBlog = () => {
               Title
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.title ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.title ? "border-red-500" : ""
+                }`}
               id="title"
               name="title"
               type="text"
@@ -67,9 +70,8 @@ const PostBlog = () => {
               Content
             </label>
             <textarea
-              className={`shadow appearance-none h-[350px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.content ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none h-[350px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.content ? "border-red-500" : ""
+                }`}
               id="content"
               name="content"
               placeholder="Your Blog content"
@@ -87,9 +89,8 @@ const PostBlog = () => {
               Image
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.image ? "border-red-500" : ""
-              }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.image ? "border-red-500" : ""
+                }`}
               id="image"
               name="image"
               type="file"

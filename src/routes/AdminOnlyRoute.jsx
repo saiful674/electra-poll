@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import getMyInfo from "../Hooks/getMyInfo";
 
-const AdminOlyRouts = ({ children }) => {
+const AdminOnlyRouts = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const { myInfo, userLoading } = getMyInfo();
   const role = myInfo.role;
@@ -18,4 +18,4 @@ const AdminOlyRouts = ({ children }) => {
   return <Navigate state={{ from: location }} to="/login"></Navigate>;
 };
 
-export default AdminOlyRouts;
+export default AdminOnlyRouts;
