@@ -9,20 +9,23 @@ import { useQuery } from "@tanstack/react-query";
 const Vote = () => {
   const params = useParams();
   const id = params.id;
+  const [questionsArray, setQuestionsArray] = useState([]);
+  const [voteCount, setVoteCount] = useState(0);
 
-  const {
-    data: electionArray = [],
-    refetch,
-    isLoading,
-  } = useQuery({
+  const { data: electionArray = [], isLoading } = useQuery({
     queryKey: ["election", id],
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/election/${id}`);
+      setQuestionsArray(res.data.questions);
       return res.data;
     },
   });
 
-  console.log(electionArray);
+  // if (isLoading) return "Loading...";
+
+  // if (isError) return console.log(error.message);
+
+  // console.log(electionArray);
 
   // const initialQuestionsArray = [
   //   {
@@ -49,25 +52,8 @@ const Vote = () => {
   //     ],
   //     choosedOptions: 1,
   //   },
-  //   {
-  //     id: "xyz55521",
-  //     voterChoose: "option",
-  //     vacancy: 1,
-  //     options: [
-  //       { id: "xyz747df057", option: "Summer", votes: 0 },
-  //       { id: "xyz74s7r056", option: "Winter", votes: 0 },
-  //       { id: "xyz74s70ere56", option: "Winter", votes: 0 },
-  //       { id: "xyz74s705h6", option: "Winter", votes: 0 },
-  //     ],
-  //     choosedOptions: 1,
-  //   },
   //   // Add more question objects here if needed
   // ];
-
-  const [questionsArray, setQuestionsArray] = useState(
-    electionArray?.questions
-  );
-  const [voteCount, setVoteCount] = useState(0);
 
   const handleVote = (questionIndex, optionIndex) => {
     const updatedQuestionsArray = [...questionsArray];
@@ -92,23 +78,27 @@ const Vote = () => {
     setQuestionsArray(updatedQuestionsArray);
   };
 
+  // const handlePostVote = () => {
+  //   console.log(questionsArray);
+  // };
+
   // console.log(questionsArray);
 
-  // if (isLoading) {
-  //   return <LoadingSpinner />;
-  // }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="mt-24 my-container">
+    <div className="mt-24 mb-5 my-container">
       <div className="mx-auto px-4 border-t-[3px] rounded-md border-t-green-400 border w-4/6">
-        {questionsArray?.map((question, questionIndex) => (
-          <div key={question.id} className="my-5">
-            <h3>Question {questionIndex + 1}</h3>
-            <p className="my-1">Choose {question.choosedOptions} option(s)</p>
+        {questionsArray && questionsArray.length > 0 ? (
+          <>
+            {questionsArray?.map((question, questionIndex) => (
+              <div key={question.id} className="my-5">
+                <h3>Question {questionIndex + 1}</h3>
+                <p className="my-1">
+                  Choose {question.choosedOptions} option(s)
+                </p>
 
-            {question?.options && question?.options.length > 0 ? (
-              <>
-                {question?.options?.map((option, optionIndex) => (
+                {question.options.map((option, optionIndex) => (
                   <div key={option.id}>
                     <label>
                       <input
@@ -126,22 +116,30 @@ const Vote = () => {
                     </label>
                   </div>
                 ))}
-              </>
-            ) : (
-              <div className="bg-green-500 p-5">
-                <p>No Vote available</p>
-              </div>
-            )}
 
-            <button
-              onClick={() =>
-                handleChooseOptions(questionIndex, question.choosedOptions + 1)
-              }
-            >
-              Increase Options
-            </button>
-          </div>
-        ))}
+                <button
+                  className="border border-indigo-600 px-1 my-2 rounded-md disabled:cursor-not-allowed"
+                  onClick={() =>
+                    handleChooseOptions(
+                      questionIndex,
+                      question.choosedOptions + 1
+                    )
+                  }
+                  disabled={question.options.length === question.choosedOptions}
+                >
+                  Increase Options
+                </button>
+              </div>
+            ))}
+            {/* <div onClick={handlePostVote}>
+              <ButtonPrimary children={"Submit"} />
+            </div> */}
+          </>
+        ) : (
+          <p className="p-3 text-xl font-bold text-center">
+            No voter data found
+          </p>
+        )}
       </div>
     </div>
   );
