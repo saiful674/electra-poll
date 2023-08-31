@@ -88,9 +88,16 @@ const Vote = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "You successfully give vote",
+            title: "You successfully submit your vote",
             showConfirmButton: false,
             timer: 1500,
+          });
+          navigate(`/dashboard/election-correction`);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You already submit your vote. Don't try again",
           });
           navigate(`/dashboard/election-correction`);
         }
