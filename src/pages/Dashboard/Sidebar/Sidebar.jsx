@@ -9,26 +9,30 @@ import { MdBallot } from 'react-icons/md'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../Providers/AuthProvider'
 import logo from '../../../assets/logo-white.png'
+import getMyInfo from '../../../Hooks/getMyInfo'
 
 const Sidebar = () => {
     const navigate = useNavigate()
     const [toggle, setToggle] = useState(false)
     const user = true;
-    const {  logout } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const [isActive, setActive] = useState('false')
     const toggleHandler = event => {
         setToggle(event.target.checked)
     }
+
+    const { myInfo } = getMyInfo()
+    const role = myInfo.role
     // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
     }
     const handleLogOut = () => {
         logout()
-          .then(toast.success("logout successfully"))
-          .catch((err) => console.log(err));
-      };
-    
+            .then(toast.success("logout successfully"))
+            .catch((err) => console.log(err));
+    };
+
     return (
         <>
             {/* Small Screen Navbar */}
@@ -64,55 +68,104 @@ const Sidebar = () => {
                     <div className='flex flex-col justify-between flex-1 mt-6 text-white '>
                         <nav>
                             <>
-                                {/* Menu Links */}
-                                <NavLink
-                                    to='/dashboard/overview'
-                                    onClick={handleToggle}
-                                    className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950' : ''
-                                        }`
-                                    }
-                                >
-                                    <BsFillHouseAddFill className='w-5 h-5' />
+                                {/* =========routes for users========= */}
+                                {
+                                    role === 'user' && <>
+                                        {/* Menu Links */}
+                                        <NavLink
+                                            to='/dashboard/overview'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950' : ''
+                                                }`
+                                            }
+                                        >
+                                            <BsFillHouseAddFill className='w-5 h-5' />
 
-                                    <span className='mx-4 font-medium'>Overview</span>
-                                </NavLink>
-                                <NavLink
-                                    to='/dashboard/election-correction'
-                                    onClick={handleToggle}
-                                    className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
-                                        }`
-                                    }
-                                >
-                                    <MdBallot className='w-5 h-5' />
+                                            <span className='mx-4 font-medium'>Overview</span>
+                                        </NavLink>
+                                        <NavLink
+                                            to='/dashboard/election-correction'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <MdBallot className='w-5 h-5' />
 
-                                    <span className='mx-4 font-medium'>Elections</span>
-                                </NavLink>
-                                <NavLink
-                                    to='/dashboard/result'
-                                    onClick={handleToggle}
-                                    className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
-                                        }`
-                                    }
-                                >
-                                    <MdBallot className='w-5 h-5' />
+                                            <span className='mx-4 font-medium'>Elections</span>
+                                        </NavLink>
+                                        <NavLink
+                                            to='/dashboard/result'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <MdBallot className='w-5 h-5' />
 
-                                    <span className='mx-4 font-medium'>Result</span>
-                                </NavLink>
-                                <NavLink
-                                    to='/dashboard/voters'
-                                    onClick={handleToggle}
-                                    className={({ isActive }) =>
-                                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
-                                        }`
-                                    }
-                                >
-                                    <FaUsers className='w-5 h-5' />
+                                            <span className='mx-4 font-medium'>Result</span>
+                                        </NavLink>
+                                        <NavLink
+                                            to='/dashboard/voters'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <FaUsers className='w-5 h-5' />
 
-                                    <span className='mx-4 font-medium'>Voters</span>
-                                </NavLink>
+                                            <span className='mx-4 font-medium'>Voters</span>
+                                        </NavLink>
+                                    </>
+                                }
+
+
+                                {/* ==========routes for admins=========== */}
+                                {
+                                    role === 'admin' && <>
+                                        <NavLink
+                                            to='/dashboard/adminHome'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <FaUsers className='w-5 h-5' />
+
+                                            <span className='mx-4 font-medium'>Home</span>
+                                        </NavLink>
+                                        <NavLink
+                                            to='/dashboard/userManagement'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <FaUsers className='w-5 h-5' />
+
+                                            <span className='mx-4 font-medium'>Manage Users</span>
+                                        </NavLink>
+                                        <NavLink
+                                            to='/dashboard/postBlog'
+                                            onClick={handleToggle}
+                                            className={({ isActive }) =>
+                                                `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? 'bg-teal-950 ' : ''
+                                                }`
+                                            }
+                                        >
+                                            <FaUsers className='w-5 h-5' />
+
+                                            <span className='mx-4 font-medium'>Post Blogs</span>
+                                        </NavLink>
+                                    </>
+                                }
+
                                 <NavLink
                                     to='/dashboard/satings'
                                     onClick={handleToggle}
@@ -158,7 +211,7 @@ const Sidebar = () => {
                                     <FaBlog className='w-5 h-5' />
                                     <span className='mx-4 font-medium'>Blog</span>
                                 </NavLink>
-                                   
+
                                 <NavLink
                                     to='/contact'
                                     onClick={handleToggle}
@@ -170,15 +223,15 @@ const Sidebar = () => {
                                     <BiSolidContact className='w-5 h-5' />
                                     <span className='mx-4 font-medium'>Contact</span>
                                 </NavLink>
-                                   
+
                             </>
 
                         </nav>
                     </div>
                 </div>
                 <button className="my-btn-sec" onClick={handleLogOut}>
-              LogOUT
-            </button>
+                    LogOUT
+                </button>
             </div>
         </>
     )

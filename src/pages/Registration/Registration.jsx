@@ -9,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { imageUpload } from "../../Hooks/ImageUploade";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import axios from "axios";
+import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -16,8 +18,7 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [selectedTimezone, setSelectedTimezone] = useState("");
-  const [selectedTimeFormat, setSelectedTimeFormat] = useState("");
+
 
   const {
     register,
@@ -27,24 +28,8 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
-  const timezones = moment.tz.names();
 
-  const handleTimezoneChange = (timezone) => {
-    setSelectedTimezone(timezone);
-    const utcOffset = getUtcOffset(timezone);
-    setSelectedTimeFormat(utcOffset);
-  };
-
-  const getUtcOffset = (timezone) => {
-    const offsetMinutes = moment.tz(timezone).utcOffset();
-    const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
-    const offsetMinutesPart = Math.abs(offsetMinutes % 60);
-    const offsetSign = offsetMinutes < 0 ? "-" : "+";
-
-    return `UTC${offsetSign}${offsetHours}`;
-  };
-
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const {
       username,
       email,
@@ -54,45 +39,47 @@ const Registration = () => {
       membershipSize,
     } = data;
 
-    try {
-      const result = await createUser(email, password);
-      const loggedUser = result;
-      console.log(loggedUser);
+    createUser(email, password)
+      .then(res => {
+        if (res.user) {
+          imageUpload(file[0])
+            .then(imgRes => {
+              updateProfile(res.user, {
+                displayName: username,
+                photoURL: imgRes?.data?.display_url
+              })
+                .then(() => {
+                  const savedUser = {
+                    name: username,
+                    email: email,
+                    uploadedImage: imgRes?.data?.display_url,
+                    organizationName,
+                    membershipSize,
+                    role: "user",
+                  };
 
-      const uploadedImage = await imageUpload(file[0]);
-      await updateUserProfile(username, uploadedImage.data.display_url);
-      const savedUser = {
-        name: username,
-        email: email,
-        uploadedImage: uploadedImage.data.display_url,
-        organizationName,
-        membershipSize,
-        timezone: `${selectedTimezone} ${getUtcOffset(selectedTimezone)}`,
-        timeFormat: selectedTimeFormat,
-        role: "user",
-      };
-      console.log(savedUser);
-      const response = await fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(savedUser),
-      });
+                  axios.post("http://localhost:5000/users", savedUser)
+                    .then(responseData => {
+                      console.log(responseData);
+                      if (responseData.data.insertedId) {
+                        toast.success(`Hello! ${email}! Welcome`);
+                        reset();
+                        navigate("/");
+                      } else {
+                        toast.error("Already User");
+                      }
+                    })
+                })
+            })
+        }
+      })
+      .catch(error => {
+        if (error.message.includes('email-already-in-use')) {
+          console.log('includes');
+          toast.error("User already exists. Try logging in");
+        }
+      })
 
-      const responseData = await response.json();
-
-      if (responseData.insertedId) {
-        toast.success(`Hello! ${email}! Welcome`);
-        reset();
-        navigate("/");
-      } else {
-        toast.error("Already User");
-      }
-    } catch (error) {
-      console.log(error);
-      // Handle error here
-    }
   };
 
   return (
@@ -145,8 +132,11 @@ const Registration = () => {
             >
               {showPassword ? <AiOutlineEye /> : <FaRegEyeSlash />}
             </span>
-            {errors.password && (
+            {errors.password.type === 'required' && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
+            )}
+            {errors.password.type === 'minLength' && (
+              <p className="text-red-500 text-xs mt-1">Password should be at least 6 charecters</p>
             )}
           </div>
           <div className="mb-6 relative">
@@ -172,7 +162,7 @@ const Registration = () => {
           <div className="mb-6">
             <input
               style={{ display: "none" }}
-              {...register("file", { required: true })}
+              {...register("file")}
               name="file"
               type="file"
               id="file"
@@ -184,9 +174,6 @@ const Registration = () => {
               <FcAddImage className="text-5xl" />
               <span className="opacity-50">Add your image</span>
             </label>
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">Image is required</p>
-            )}
           </div>
           <label className="label">
             <span className="label-text font-bold">Organization Details</span>
@@ -219,28 +206,7 @@ const Registration = () => {
               </p>
             )}
           </div>
-          {/* {time format} */}
 
-          <div className="mb-6">
-            <label className="label">
-              <span className="label-text font-bold">Timezone</span>
-            </label>
-            <select
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-green-200 focus:shadow-outline focus:out"
-              onChange={(e) => handleTimezoneChange(e.target.value)}
-              value={selectedTimezone}
-            >
-              <option value="">Select a timezone</option>
-              {timezones.map((timezone, index) => (
-                <option key={index} value={timezone}>
-                  {timezone}
-                </option>
-              ))}
-            </select>
-            {selectedTimeFormat && (
-              <p>Your preferred time format: {selectedTimeFormat}</p>
-            )}
-          </div>
           <div className="mb-6">
             <label className="flex items-center">
               <input
