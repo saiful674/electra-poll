@@ -69,10 +69,10 @@ const Registration = () => {
         membershipSize,
         timezone: `${selectedTimezone} ${getUtcOffset(selectedTimezone)}`,
         timeFormat: selectedTimeFormat,
-        role: 'user'
+        role: "user",
       };
       console.log(savedUser);
-      const response = await fetch("https://electra-poll-server.vercel.app/users", {
+      const response = await fetch("http://localhost:5000/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",

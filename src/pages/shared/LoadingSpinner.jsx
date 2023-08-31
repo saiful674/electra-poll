@@ -7,9 +7,10 @@ const LoadingSpinner = () => {
                 strokeColor="#00E05A"
                 strokeWidth="5"
                 animationDuration="0.85"
-                width="96"
+                width="50"
                 visible={true}
             />
+            <h1 className="ps-2 text-lg text-green-500">loading please wait</h1>
         </div>
     );
 };

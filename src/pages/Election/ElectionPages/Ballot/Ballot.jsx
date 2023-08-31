@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addQuestion, next, previous } from '../../../../redux/slices/FormDataSlice';
 import Questions from './Questions';
+import Swal from 'sweetalert2';
 
 const Ballot = () => {
 
@@ -22,6 +23,14 @@ const Ballot = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     console.log(errors);
     const onSubmit = data => {
+        if (questions.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'add at least one question',
+            })
+            return
+        }
         setDisabled(true)
         if (status === 'pending') {
             axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
