@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const Vote = () => {
   const params = useParams();
   const id = params.id;
   const [questionsArray, setQuestionsArray] = useState([]);
   const [voteCount, setVoteCount] = useState(0);
+  const navigate = useNavigate();
 
   const { data: electionArray = [], isLoading } = useQuery({
     queryKey: ["election", id],
@@ -20,10 +22,6 @@ const Vote = () => {
       return res.data;
     },
   });
-
-  // if (isLoading) return "Loading...";
-
-  // if (isError) return console.log(error.message);
 
   // console.log(electionArray);
 
@@ -78,11 +76,26 @@ const Vote = () => {
     setQuestionsArray(updatedQuestionsArray);
   };
 
-  // const handlePostVote = () => {
-  //   console.log(questionsArray);
-  // };
-
-  // console.log(questionsArray);
+  const handlePostVote = () => {
+    axios
+      .put(`http://localhost:5000/election-vote-update/${id}`, {
+        value: questionsArray,
+      })
+      .then((res) => {
+        console.log(res.data);
+        // Update the state with modified data
+        if (res.data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "You successfully give vote",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate(`/dashboard/election-correction`);
+        }
+      });
+  };
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -112,28 +125,15 @@ const Vote = () => {
                           option.votes === 0
                         }
                       />
-                      {option.option} - Votes: {option.votes}
+                      {option.option}
                     </label>
                   </div>
                 ))}
-
-                <button
-                  className="border border-indigo-600 px-1 my-2 rounded-md disabled:cursor-not-allowed"
-                  onClick={() =>
-                    handleChooseOptions(
-                      questionIndex,
-                      question.choosedOptions + 1
-                    )
-                  }
-                  disabled={question.options.length === question.choosedOptions}
-                >
-                  Increase Options
-                </button>
               </div>
             ))}
-            {/* <div onClick={handlePostVote}>
-              <ButtonPrimary children={"Submit"} />
-            </div> */}
+            <div className="my-5" onClick={handlePostVote}>
+              <ButtonPrimary type="button"> Submit</ButtonPrimary>
+            </div>
           </>
         ) : (
           <p className="p-3 text-xl font-bold text-center">
@@ -146,3 +146,15 @@ const Vote = () => {
 };
 
 export default Vote;
+
+{
+  /* <button
+  className="border border-indigo-600 px-1 my-2 rounded-md disabled:cursor-not-allowed"
+  onClick={() =>
+    handleChooseOptions(questionIndex, question.choosedOptions + 1)
+  }
+  disabled={question.options.length === question.choosedOptions}
+>
+  Increase Options
+</button>; */
+}
