@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addQuestion, next, previous } from '../../../../redux/slices/FormDataSlice';
 import Questions from './Questions';
+import Swal from 'sweetalert2';
 
 const Ballot = () => {
 
@@ -22,6 +23,14 @@ const Ballot = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     console.log(errors);
     const onSubmit = data => {
+        if (questions.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'add at least one question',
+            })
+            return
+        }
         setDisabled(true)
         if (status === 'pending') {
             axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
@@ -42,7 +51,7 @@ const Ballot = () => {
     }
 
     return (
-        <div className='lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10'>
+        <div className='lg:w-[70%] w-full bg-gray-50 lg:p-10'>
             <h1 className='text-2xl font-bold pb-3'>Create Ballot</h1>
             <div className='bg-red-100 border-l-4 mb-5 flex items-center text-lg p-3 border-red-600'>
                 <p>Add one or Multiple questions. These questions can have multiple answers. Voters will chose one or multiple answers. Be sure to properly customize each question. You can always come back and edit them later.</p>

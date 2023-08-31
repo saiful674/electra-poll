@@ -6,22 +6,17 @@ import getMyInfo from "../Hooks/getMyInfo";
 
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  console.log(user);
-  const [myInfo,] = getMyInfo()
-  const role = myInfo.role
-  const location = useLocation();
-  if (loading) {
-    return (
-      <LoadingSpinner></LoadingSpinner>
-    );
-  }
+  const { myInfo, userLoading } = getMyInfo();
+  const role = myInfo.role;
 
-  else if (user && role === 'user' ) {
+  const location = useLocation();
+  if (loading || userLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  } else if (user && role === "user") {
     return children;
   }
 
   return <Navigate state={{ from: location }} to="/login"></Navigate>;
-
 };
 
 export default PrivateRoutes;

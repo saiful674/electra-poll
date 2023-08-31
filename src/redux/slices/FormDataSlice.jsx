@@ -80,6 +80,12 @@ const formDataSlice = createSlice({
                 choosedOptions: 1
             })
         },
+
+        removeQuestion(state, action) {
+            const id = action.payload
+            state.questions = state.questions.filter(q => q.id !== id)
+        },
+
         addOption(state, action) {
             const question = state.questions.find(q => q.id === action.payload.id)
             state.questions.find(q => q.id === action.payload.id).options.push({
@@ -194,7 +200,9 @@ const formDataSlice = createSlice({
 export const {
     setInitalState,
     addFirstPage,
+
     addQuestion,
+    removeQuestion,
     addOption,
     updateOption,
     deleteOption,

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption, updateOption } from '../../../../redux/slices/FormDataSlice';
+import { addChoosedOptions, addOption, addQuestionTitle, addVacancy, addVoterChoose, deleteOption, removeQuestion, updateOption } from '../../../../redux/slices/FormDataSlice';
 import { FaTrash } from 'react-icons/fa';
 
 const Questions = ({ question, questionSubmit, handleSubmit, register, errors }) => {
@@ -11,13 +10,22 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
     const dispatch = useDispatch()
     const id = question.id
 
+    const handleRemoveQuestion = () => {
+        dispatch(removeQuestion(id))
+    }
+
     return (
         <div className='flex justify-center items-center border-4 border-green-400'>
-            <form onSubmit={handleSubmit(questionSubmit)} className='bg-gray-200 w-full p-5 space-y-6'>
-
+            <form onSubmit={handleSubmit(questionSubmit)} className='bg-gray-200 w-full p-2 lg:p-5 space-y-6'>
+                <button onClick={handleRemoveQuestion} type='button' className='flex justify-end w-full'>
+                    <div className='flex ms-auto bg-red-500 text-white rounded-md items-center px-3 py-1'>
+                        <p className='ms-auto'>remove question</p>
+                        <FaTrash></FaTrash>
+                    </div>
+                </button>
                 {/* handle errors */}
                 {
-                    errors && <div className='bg-red-100 border-l-4 mb-2 flex items-center text-lg p-3 border-red-600'>
+                    Object.keys(errors).length !== 0 && <div className='bg-red-100 border-l-4 mb-2 flex items-center text-lg p-3 border-red-600'>
                         <ul className='list-decimal ps-6'>
                             {errors[`questionTitle${id}`] && <li>Please add question or position.</li>}
                         </ul>
@@ -104,7 +112,6 @@ const Questions = ({ question, questionSubmit, handleSubmit, register, errors })
                         <p>options</p>
                     </div>
                 </div>
-                <button disabled={status !== 'pending'} type='submit'>save</button>
             </form>
         </div>
     );

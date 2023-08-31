@@ -17,7 +17,7 @@ function Blog() {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/blogs`);
+      const res = await axios.get(`http://localhost:5000/blogs`);
       return res.data;
     },
   });
@@ -26,9 +26,8 @@ function Blog() {
     const popuBlogs = blogs && blogs.filter((po) => po.status === "popular");
     const recent = blogs && blogs.filter((re) => re.status === "recent");
 
-    if (prBlog) {
-      setPrimaryBlog(prBlog);
-    }
+    setPrimaryBlog(prBlog);
+
     setPopularBlogs(popuBlogs);
     setRecentBlogs(recent);
   }, [blogs]);
@@ -40,7 +39,10 @@ function Blog() {
         <div className="pt-14 xl:px-0 px-4">
           <div className="w-full lg:flex">
             <div className="lg:w-1/2">
-              <PrimaryBlog blog={primaryBlog}></PrimaryBlog>
+              <PrimaryBlog
+                key={primaryBlog?._id}
+                blog={primaryBlog}
+              ></PrimaryBlog>
             </div>
             <div className="lg:w-1/2 lg:ml-8">
               <h2 className="mb-6 text-2xl color-green font-semibold">
@@ -48,7 +50,7 @@ function Blog() {
               </h2>
               {popularBlogs &&
                 popularBlogs.map((blog) => (
-                  <PopularCard blog={blog}></PopularCard>
+                  <PopularCard key={blog._id} blog={blog}></PopularCard>
                 ))}
             </div>
           </div>
@@ -59,7 +61,7 @@ function Blog() {
             <div className="grid mb-10 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {recentBlogs &&
                 recentBlogs.map((reBlog) => (
-                  <RecentCard blog={reBlog}></RecentCard>
+                  <RecentCard key={reBlog._id} blog={reBlog}></RecentCard>
                 ))}
             </div>
           </div>

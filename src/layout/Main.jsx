@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import Footer from "../pages/shared/Footer";
 import Navbar from "../pages/shared/Navbar";
+import { TypeAnimation } from 'react-type-animation';
 
 const Main = () => {
+
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -13,11 +15,12 @@ const Main = () => {
         })
     }, [])
 
+
     return (
-        <div className="overflow-x-hidden">
+        <div className={`overflow-x-hidden`}>
             <Navbar></Navbar>
             <div className=' min-h-[calc(100vh-484px)]'>
-            <Outlet></Outlet>
+                <Outlet></Outlet>
             </div>
             <Footer></Footer>
             <ScrollRestoration></ScrollRestoration>
