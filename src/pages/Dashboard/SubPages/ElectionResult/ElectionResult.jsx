@@ -27,7 +27,7 @@ const ElectionResult = () => {
   const handleDownloadClick = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/download-election-data/${id}`
+        `https://electra-poll-server.vercel.app/download-election-data/${id}`
       );
       const blob = await response.blob();
 
@@ -49,9 +49,9 @@ const ElectionResult = () => {
     return LoadingSpinner;
   }
   return (
-    <div>
+    <div className="mb-10"> 
       <h1 className="text-4xl text-center font-bold">Election Result</h1>
-      <div className="flex justify-between ">
+      <div className="md:flex justify-between ">
         <h2 className="text-2xl font-bold my-5">
           Election Title:{" "}
           <span className=" text-green-400">{electionData.title}</span>
