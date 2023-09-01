@@ -1,14 +1,14 @@
 import AdminUserName from './AdminUserName';
 
 const AdminHome = () => {
- 
-  
+
+
     return (
         <div >
-            
-        <AdminUserName />
-         
-         
+
+            <AdminUserName />
+
+
         </div>
     );
 };
