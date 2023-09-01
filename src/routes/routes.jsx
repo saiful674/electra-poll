@@ -20,12 +20,10 @@ import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndC
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
-
-import AdminDashboardLayout from "../layout/AdminDashboardLayout";
-import AdminHome from "../pages/AdminDashboard/SubPage/AdminHome/AdminHome";
-import UserManagement from "../pages/AdminDashboard/SubPage/UserManagement/UserManagement";
-import AdminOlyRouts from "./AdminOnlyRoute";
-import PostBlog from "../pages/AdminDashboard/SubPage/PostBlog/PostBlog";
+import AdminOnlyRouts from "./AdminOnlyRoute"
+import AdminHome from "../pages/Dashboard/adminPages/AdminHome/AdminHome";
+import UserManagement from "../pages/Dashboard/adminPages/UserManagement/UserManagement";
+import PostBlog from "../pages/Dashboard/adminPages/PostBlog/PostBlog";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -116,28 +114,19 @@ const router = createBrowserRouter([
           <ElectionCreationAndManagement></ElectionCreationAndManagement>
         ),
       },
-    ],
-  },
-  {
-    path: "adminDashboard",
-    element: (
-      <AdminOlyRouts>
-        <AdminDashboardLayout></AdminDashboardLayout>
-      </AdminOlyRouts>
-    ),
-    errorElement: <ErrorPage></ErrorPage>,
-    children: [
+
+      // ============admin routes=================
       {
         path: "adminHome",
-        element: <AdminHome />,
+        element: <AdminOnlyRouts><AdminHome /></AdminOnlyRouts>,
       },
       {
         path: "userManagement",
-        element: <UserManagement></UserManagement>,
+        element: <AdminOnlyRouts><UserManagement></UserManagement></AdminOnlyRouts>,
       },
       {
-        path: "postBlog",
-        element: <PostBlog></PostBlog>,
+        path: "PostBlog",
+        element: <AdminOnlyRouts><PostBlog></PostBlog></AdminOnlyRouts>
       },
     ],
   },

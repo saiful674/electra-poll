@@ -12,7 +12,7 @@ const PrivateRoutes = ({ children }) => {
   const location = useLocation();
   if (loading || userLoading) {
     return <LoadingSpinner></LoadingSpinner>;
-  } else if (user && role === "user") {
+  } else if (user) {
     return children;
   }
 
