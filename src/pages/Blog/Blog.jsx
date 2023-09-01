@@ -21,16 +21,17 @@ function Blog() {
       return res.data;
     },
   });
+
   useEffect(() => {
     const prBlog = blogs && blogs.find((p) => p.status === "primary");
     const popuBlogs = blogs && blogs.filter((po) => po.status === "popular");
     const recent = blogs && blogs.filter((re) => re.status === "recent");
 
     setPrimaryBlog(prBlog);
-
     setPopularBlogs(popuBlogs);
     setRecentBlogs(recent);
   }, [blogs]);
+  console.log(primaryBlog);
 
   return (
     <div>

@@ -24,10 +24,10 @@ const ElectionResult = () => {
       });
   }, [id]);
 
-  const handleDownloadClick = async () => {
+  const handleDownloadClick = async (id) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/download-election-data"
+        `http://localhost:5000/download-election-data/${id}`
       );
       const blob = await response.blob();
 
@@ -56,7 +56,7 @@ const ElectionResult = () => {
           Election Title:{" "}
           <span className=" text-green-400">{electionData.title}</span>
         </h2>
-        <button onClick={handleDownloadClick} className="mb-5">
+        <button onClick={()=>handleDownloadClick(id)} className="mb-5">
           <ButtonPrimary>Dwonload Result</ButtonPrimary>
         </button>
       </div>
