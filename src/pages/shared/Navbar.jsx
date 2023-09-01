@@ -1,13 +1,12 @@
 
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FaUserCircle } from "react-icons/fa";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../Providers/AuthProvider";
-import { FaUserCircle } from "react-icons/fa";
-import { toast } from "react-hot-toast";
 import getMyInfo from "../../Hooks/getMyInfo";
+import { AuthContext } from "../../Providers/AuthProvider";
+import ButtonSecondary from "../../components/ButtonSecondary/ButtonSecondary";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -111,8 +110,8 @@ const Navbar = () => {
           )}
 
           {user ? (
-            <button className="my-btn-sec" onClick={handleLogOut}>
-              LogOUT
+            <button onClick={handleLogOut}>
+              <ButtonSecondary>Log out</ButtonSecondary>
             </button>
           ) : (
             <NavLink
