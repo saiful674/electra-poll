@@ -27,7 +27,7 @@ const Result = () => {
       return res.data;
     },
   });
-
+console.log(elections)
   const publishedElections = elections.filter(
     (election) => election.status === PUBLISHED
   );
