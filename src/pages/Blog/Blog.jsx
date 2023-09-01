@@ -31,6 +31,7 @@ function Blog() {
     setPopularBlogs(popuBlogs);
     setRecentBlogs(recent);
   }, [blogs]);
+  console.log(primaryBlog);
 
   return (
     <div>

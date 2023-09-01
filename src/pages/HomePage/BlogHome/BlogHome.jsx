@@ -13,7 +13,7 @@ const BlogHome = () => {
       return data;
     },
   });
-  console.log(recentBlog);
+
   return (
     <div className="my-container">
       <SectionTitle

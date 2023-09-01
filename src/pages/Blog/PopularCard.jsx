@@ -14,7 +14,7 @@ const PopularCard = ({ blog }) => {
           {blog?.title}
         </h1>
         <p className="text-base f-m-m leading-loose mt-2">
-          {blog?.content.slice(0, 150)}....
+          {blog.content && blog?.content[0].slice(0, 150)}....
           <span className="text-green-400 ml-4 ">
             <Link to={`/singleBlog/${blog?._id}`}>Read More</Link>
           </span>

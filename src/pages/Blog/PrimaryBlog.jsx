@@ -11,7 +11,7 @@ const PrimaryBlog = ({ blog }) => {
           {blog?.title}
         </h1>
         <p className="text-base f-m-m leading-loose mt-2">
-          {blog?.content?.slice(0, 200)}
+          {blog.content && blog?.content[0]?.slice(0, 150)}
         </p>
         <div className="mt-6">
           <Link to={`/singleBlog/${blog?._id}`}>
