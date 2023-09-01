@@ -85,10 +85,12 @@ const SingleBlogs = () => {
           {blog?.title}
         </h2>
         <div className="my-4">
-          <p className="text-lg">{blog?.content}</p>
+          {blog.content &&
+            blog?.content.map((b) => <p className="text-lg mb-1">{b}</p>)}
+          {/* <p className="text-lg">{blog?.content}</p> */}
         </div>
         <div className="flex justify-end my-5">
-          {blog?.comments.length > 0 && (
+          {blog?.comments?.length > 0 && (
             <div>
               <h4 className="text-2xl font-semibold">
                 Here you can see all comments

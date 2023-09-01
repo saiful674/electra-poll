@@ -8,7 +8,9 @@ const RecentCard = ({ blog }) => {
       <img className="w-full h-[250px]" src={blog?.image} alt="Mountain" />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{blog?.title}</div>
-        <p className="text-gray-700 text-base">{blog?.content.slice(0, 150)}</p>
+        <p className="text-gray-700 text-base">
+          {blog?.content[0].slice(0, 150)}
+        </p>
       </div>
 
       <div className="text-right  px-3 py-2">
