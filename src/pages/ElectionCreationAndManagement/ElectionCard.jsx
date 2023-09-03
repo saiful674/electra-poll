@@ -24,9 +24,18 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
 
   useEffect(() => {
     if (startDate && endDate) {
+      // Get the viewer's local timezone offset in hours.
+      const localOffset = new Date().getTimezoneOffset() / 60;
+
       const updateTimer = () => {
-        const now = new Date().getTime();
-        const distance = new Date(endDate) - new Date();
+        // 1. Get the current time in the viewer's local timezone (in milliseconds).
+        const nowLocalMs = new Date().getTime();
+
+        // 2. Adjust the `endDate` to the viewer's local timezone.
+        const endAdjustedMs = new Date(endDate).getTime() + localOffset * 60 * 60 * 1000;
+
+        // Calculate the remaining time in milliseconds.
+        const distance = endAdjustedMs - nowLocalMs;
 
         if (distance <= 0) {
           clearInterval(intervalId);
@@ -51,6 +60,8 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
       return () => clearInterval(id); // Clear the interval when component unmounts
     }
   }, [startDate, endDate]);
+
+
 
   const handleElectionDelete = () => {
     Swal.fire({

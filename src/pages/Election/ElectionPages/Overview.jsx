@@ -467,9 +467,8 @@ const Overview = () => {
           </label>
 
           <label
-            className={`pb-3 ${
-              adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
-            }`}
+            className={`pb-3 ${adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
+              }`}
           >
             <input
               type="radio"
