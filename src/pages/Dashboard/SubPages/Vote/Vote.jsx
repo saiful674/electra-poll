@@ -11,8 +11,6 @@ const Vote = () => {
   const params = useParams();
   const id = params.id;
   const [questionsArray, setQuestionsArray] = useState([]);
-  const [voteCount, setVoteCount] = useState(0);
-  const navigate = useNavigate();
 
   const { data: electionArray = [], isLoading } = useQuery({
     queryKey: ["election", id],
@@ -22,86 +20,12 @@ const Vote = () => {
       return res.data;
     },
   });
+  console.log(questionsArray)
 
-  // console.log(electionArray);
+  const { control, handleSubmit } = useForm();
 
-  // const initialQuestionsArray = [
-  //   {
-  //     id: "xyz55519",
-  //     voterChoose: "option",
-  //     vacancy: 1,
-  //     options: [
-  //       { id: "xyz747rf056", option: "Winter", votes: 0 },
-  //       { id: "xyz74ff7057", option: "Summer", votes: 0 },
-  //       { id: "xyz74ffwe7057", option: "Summer", votes: 0 },
-  //       { id: "xyz74fft7057", option: "Summer", votes: 0 },
-  //     ],
-  //     choosedOptions: 1,
-  //   },
-  //   {
-  //     id: "xyz55520",
-  //     voterChoose: "option",
-  //     vacancy: 1,
-  //     options: [
-  //       { id: "xyz747g056", option: "Winter", votes: 0 },
-  //       { id: "xyz7470b57", option: "Summer", votes: 0 },
-  //       { id: "xyz74h70b57", option: "Summer", votes: 0 },
-  //       { id: "xyz7h470b57", option: "Summer", votes: 0 },
-  //     ],
-  //     choosedOptions: 1,
-  //   },
-  //   // Add more question objects here if needed
-  // ];
-
-  const handleVote = (questionIndex, optionIndex) => {
-    const updatedQuestionsArray = [...questionsArray];
-    const selectedOption =
-      updatedQuestionsArray[questionIndex].options[optionIndex];
-
-    if (selectedOption.votes > 0) {
-      selectedOption.votes -= 1;
-    } else {
-      if (updatedQuestionsArray[questionIndex].choosedOptions > 0) {
-        // Only update if there are available choosedOptions
-        selectedOption.votes += 1;
-      }
-    }
-
-    setQuestionsArray(updatedQuestionsArray);
-  };
-
-  const handleChooseOptions = (questionIndex, selectedOptions) => {
-    const updatedQuestionsArray = [...questionsArray];
-    updatedQuestionsArray[questionIndex].choosedOptions = selectedOptions;
-    setQuestionsArray(updatedQuestionsArray);
-  };
-
-  const handlePostVote = () => {
-    axios
-      .put(`http://localhost:5000/election-vote-update/${id}`, {
-        value: questionsArray,
-      })
-      .then((res) => {
-        console.log(res.data);
-        // Update the state with modified data
-        if (res.data.modifiedCount > 0) {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "You successfully submit your vote",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate(`/dashboard/election-correction`);
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "You already submit your vote. Don't try again",
-          });
-          navigate(`/dashboard/election-correction`);
-        }
-      });
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -109,59 +33,35 @@ const Vote = () => {
   return (
     <div className="mt-24 mb-5 my-container">
       <div className="mx-auto px-4 border-t-[3px] rounded-md border-t-green-400 border w-4/6">
-        {questionsArray && questionsArray.length > 0 ? (
-          <>
-            {questionsArray?.map((question, questionIndex) => (
-              <div key={question.id} className="my-5">
-                <h3>Question {questionIndex + 1}</h3>
-                <p className="my-1">
-                  Choose {question.choosedOptions} option(s)
-                </p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {questionsArray?.map((question, questionIndex) => (
+            <div key={question.id} className="my-5">
+              <h3 className="font-bold">Q{questionIndex + 1} {question.questionTitle} </h3>
+              <p className="my-1">Choose {question.choosedOptions} </p>
 
-                {question.options.map((option, optionIndex) => (
-                  <div key={option.id}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        className="mr-2"
-                        checked={option.votes > 0}
-                        onChange={() => handleVote(questionIndex, optionIndex)}
-                        disabled={
-                          question.options.filter((opt) => opt.votes > 0)
-                            .length >= question.choosedOptions &&
-                          option.votes === 0
-                        }
-                      />
-                      {option.option}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            ))}
-            <div className="my-5" onClick={handlePostVote}>
-              <ButtonPrimary type="button"> Submit</ButtonPrimary>
+              {question.options.map((option, optionIndex) => (
+                <div key={option.id}>
+                  <label>
+                    <Controller
+                      name={option.id}
+                      control={control}
+                      defaultValue={false}
+                      render={({ field }) => (
+                        <input type="checkbox" {...field} />
+                      )}
+                    />
+                    {option.option}
+                  </label>
+                </div>
+              ))}
             </div>
-          </>
-        ) : (
-          <p className="p-3 text-xl font-bold text-center">
-            No voter data found
-          </p>
-        )}
+          ))}
+
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );
 };
 
 export default Vote;
-
-{
-  /* <button
-  className="border border-indigo-600 px-1 my-2 rounded-md disabled:cursor-not-allowed"
-  onClick={() =>
-    handleChooseOptions(questionIndex, question.choosedOptions + 1)
-  }
-  disabled={question.options.length === question.choosedOptions}
->
-  Increase Options
-</button>; */
-}
