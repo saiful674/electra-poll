@@ -327,7 +327,7 @@ const Overview = () => {
             {...register("adminEmail", { required: status === "pending" })}
             placeholder="primary email"
             type="text"
-            defaultValue={"codeCreafter@gmail.com"}
+            defaultValue={user?.email}
             className="my-input focus:outline-green-400"
           />
         </div>
@@ -467,9 +467,8 @@ const Overview = () => {
           </label>
 
           <label
-            className={`pb-3 ${
-              adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
-            }`}
+            className={`pb-3 ${adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
+              }`}
           >
             <input
               type="radio"

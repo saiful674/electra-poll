@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import {
   setEmailSubject,
   setUseName,
 } from "../../../redux/slices/FormDataSlice";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Notice = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Notice = () => {
   const formData = useSelector((s) => s.formData);
   const noticeData = formData.notice;
   const { status } = formData;
+  const { user } = useContext(AuthContext)
 
   const {
     register,
@@ -110,12 +112,12 @@ const Notice = () => {
                   Should you have any queries or wish to share feedback
                   regarding the election, or if you prefer not to receive
                   subsequent voting notifications, please contact Mr. Mahmud
-                  Khan at{" "}
+                  Khan at
                   <a
-                    className="text-green-400 underline"
-                    href={formData?.adminEmail}
+                    className="text-green-400 underline ps-2"
+                    href={user?.email}
                   >
-                    {formData?.adminEmail}
+                    {user?.email}
                   </a>
                 </p>
               </div>

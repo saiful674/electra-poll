@@ -8,13 +8,11 @@ import Swal from 'sweetalert2';
 
 const Ballot = () => {
 
-    const formData = useSelector(s => s.formData)
-    const questions = formData.questions
-
     const [isdisabled, setDisabled] = useState(false)
     const ballotData = useSelector(s => s.ballot)
     const ballots = ballotData.ballots
-    const status = formData.status
+    const formData = useSelector(s => s.formData)
+    const { status, questions, page } = formData
 
     const dispatch = useDispatch()
 
@@ -33,7 +31,10 @@ const Ballot = () => {
         }
         setDisabled(true)
         if (status === 'pending') {
-            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
+            axios.patch(`http://localhost:5000/election/${formData._id}`, {
+                page: 2,
+                questions
+            })
                 .then(res => {
                     console.log(res.data);
                     if (res.data) {
