@@ -78,6 +78,19 @@ npm run :-moz-drag-over
   background-color: #00e05a !important;
 }
 
+.custom-scrollbar-2::-webkit-scrollbar {
+  width: 0.4em; /* Adjust as needed */
+  @apply bg-teal-900
+}
+
+.custom-scrollbar-2::-webkit-scrollbar-thumb {
+  @apply bg-teal-900 rounded-lg
+}
+
+.custom-scrollbar-2:hover::-webkit-scrollbar-thumb {
+  @apply bg-teal-950
+}
+
 /* Add this to your CSS file */
 .dot-pulse {
   display: flex;

@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { formatDateToInputValue } from "../../Hooks/convertDate";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import useElectionTimer from "../../Hooks/useElectionTimer";
 
 const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
-  const [timeLeft, setTimeLeft] = useState(null);
-  const [intervalId, setIntervalId] = useState(null);
+
   const {
     _id,
     title,
@@ -22,45 +22,8 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     voterEmails,
   } = election;
 
-  useEffect(() => {
-    if (startDate && endDate) {
-      // Get the viewer's local timezone offset in hours.
-      const localOffset = new Date().getTimezoneOffset() / 60;
-
-      const updateTimer = () => {
-        // 1. Get the current time in the viewer's local timezone (in milliseconds).
-        const nowLocalMs = new Date().getTime();
-
-        // 2. Adjust the `endDate` to the viewer's local timezone.
-        const endAdjustedMs = new Date(endDate).getTime() + localOffset * 60 * 60 * 1000;
-
-        // Calculate the remaining time in milliseconds.
-        const distance = endAdjustedMs - nowLocalMs;
-
-        if (distance <= 0) {
-          clearInterval(intervalId);
-          setTimeLeft("Election Ended!");
-        } else {
-          const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-          );
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
-        }
-      };
-
-      updateTimer(); // To initialize immediately
-      const id = setInterval(updateTimer, 1000);
-      setIntervalId(id);
-
-      return () => clearInterval(id); // Clear the interval when component unmounts
-    }
-  }, [startDate, endDate]);
-
+  const { timeLeft, timeDifference } = useElectionTimer(endDate)
+  console.log(timeDifference);
 
 
   const handleElectionDelete = () => {
@@ -96,7 +59,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
       <div className="space-y-2 text-xl text-gray-500">
         {title ? (
           <Link
-            to={status == "ongoing" ? `/vote/${_id}` : `/election/${_id}`}
+            to={`/election/${_id}`}
             className="text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase"
           >
             {title}
@@ -117,12 +80,12 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
           Voting Ends in:{" "}
           <span
             className={
-              new Date(endDate) - new Date() <= 3 * 60 * 1000
+              timeDifference <= 3
                 ? "text-red-400"
                 : "text-green-500"
             }
           >
-            {timeLeft}
+            {timeLeft || 'election ended'}
           </span>
         </p>
         <p>Start: {startDate && formatDateToInputValue(startDate, timeZone)}</p>

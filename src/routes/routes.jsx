@@ -18,12 +18,12 @@ import ErrorPage from "../pages/shared/ErrorPage";
 import PrivateRoutes from "./PrivateRoutes";
 import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
-import Vote from "../pages/Dashboard/SubPages/Vote/Vote";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
 import AdminOnlyRouts from "./AdminOnlyRoute"
 import AdminHome from "../pages/Dashboard/adminPages/AdminHome/AdminHome";
 import UserManagement from "../pages/Dashboard/adminPages/UserManagement/UserManagement";
 import PostBlog from "../pages/Dashboard/adminPages/PostBlog/PostBlog";
+import VoteAccess from "../pages/Dashboard/SubPages/Vote/VoteAccess";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -53,10 +53,6 @@ const router = createBrowserRouter([
         element: <Election></Election>,
       },
       {
-        path: "vote/:id",
-        element: <Vote></Vote>,
-      },
-      {
         path: "login",
         element: <Login></Login>,
       },
@@ -76,6 +72,12 @@ const router = createBrowserRouter([
         path: "termsAndCondition",
         element: <TermsAndCondition></TermsAndCondition>,
       },
+
+      // ============voting ui paths============
+      {
+        path: "vote",
+        element: <VoteAccess></VoteAccess>
+      }
     ],
   },
   {
