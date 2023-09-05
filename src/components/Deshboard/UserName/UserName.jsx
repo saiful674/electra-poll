@@ -14,6 +14,7 @@ const UserName = () => {
         <h3 className='text-xl font-bold'>{user?.displayName}</h3>
         <p className='font-semibold'> Welcome to the dashboard</p>
       </div>
+      
     </div>
   );
 };
