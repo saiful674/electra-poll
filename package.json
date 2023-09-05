@@ -41,6 +41,7 @@
     "react-tabbordion": "^1.0.6",
     "react-type-animation": "^3.1.0",
     "recharts": "^2.7.3",
+    "socket.io-client": "^4.7.2",
     "sweetalert2": "^11.7.23",
     "swiper": "^10.1.0",
     "tesseract.js": "^4.1.1"
