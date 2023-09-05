@@ -85,7 +85,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
       <div className="space-y-2 text-xl text-gray-500">
         {title ? (
           <Link
-            to={status == "published" ? `/vote/${_id}` : `/election/${_id}`}
+            to={status == "ongoing" ? `/vote/${_id}` : `/election/${_id}`}
             className="text-xl font-semibold mb-2 block hover:underline hover:text-red-500  uppercase"
           >
             {title}
