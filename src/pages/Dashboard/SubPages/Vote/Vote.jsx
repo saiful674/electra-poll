@@ -7,9 +7,8 @@ import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-const Vote = () => {
+const Vote = ({ election }) => {
   const params = useParams();
-  const id = params.id;
   const [questionsArray, setQuestionsArray] = useState([]);
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
@@ -21,7 +20,7 @@ const Vote = () => {
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/election/${id}`);
       setQuestionsArray(res.data.questions);
-      
+
       return res.data;
     },
   });
@@ -55,28 +54,28 @@ const Vote = () => {
   const handleOptionChange = (questionIndex, optionId) => {
     const updatedCheckedOptions = { ...checkedOptions };
     const question = questionsArray[questionIndex];  // Fetch the question using the passed index
-    
+
     if (updatedCheckedOptions[questionIndex] === undefined) {
-        updatedCheckedOptions[questionIndex] = [];
+      updatedCheckedOptions[questionIndex] = [];
     }
 
     const currentlyCheckedOptions = updatedCheckedOptions[questionIndex];
 
     // If the option is already checked, uncheck it
     if (currentlyCheckedOptions.includes(optionId)) {
-        updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(id => id !== optionId);
+      updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(id => id !== optionId);
     } else {
-        // If the maximum number of selections is reached, uncheck the first one
-        if (currentlyCheckedOptions.length >= question.choosedOptions) {
-            currentlyCheckedOptions.shift(); // Remove the first/earliest option
-        }
-        
-        // Add the new option
-        currentlyCheckedOptions.push(optionId);
+      // If the maximum number of selections is reached, uncheck the first one
+      if (currentlyCheckedOptions.length >= question.choosedOptions) {
+        currentlyCheckedOptions.shift(); // Remove the first/earliest option
+      }
+
+      // Add the new option
+      currentlyCheckedOptions.push(optionId);
     }
-    
+
     setCheckedOptions(updatedCheckedOptions);
-};
+  };
 
 
 
@@ -92,21 +91,21 @@ const Vote = () => {
   const onSubmit = (data) => {
     const updatedQuestionsArray = [...questionsArray];
 
-    updatedQuestionsArray.forEach((question,questionIndex) => {
+    updatedQuestionsArray.forEach((question, questionIndex) => {
 
-question.options.forEach((option, optionIndex) => {
-  // console.log(option.id);
-  if (data[option.id]) {
-    const originalOption = questionsArray[questionIndex].options.find(
-      (originalOption) => originalOption.id === option.id
-    );
-    if (originalOption) {
-      originalOption.votes += 1;
-    }
-  
-  
-  }
-})
+      question.options.forEach((option, optionIndex) => {
+        // console.log(option.id);
+        if (data[option.id]) {
+          const originalOption = questionsArray[questionIndex].options.find(
+            (originalOption) => originalOption.id === option.id
+          );
+          if (originalOption) {
+            originalOption.votes += 1;
+          }
+
+
+        }
+      })
     })
     console.log(updatedQuestionsArray);
 
@@ -135,13 +134,13 @@ question.options.forEach((option, optionIndex) => {
           navigate(`/dashboard/election-correction`);
         }
       });
-    
+
   };
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="mt-24 mb-5 my-container">
+    <div className="mb-5 w-screen">
       <div className="mx-auto px-4 border-t-[3px] rounded-md border-t-green-400 border w-4/6">
         <form onSubmit={handleSubmit(onSubmit)}>
           {questionsArray?.map((question, questionIndex) => (
@@ -150,35 +149,35 @@ question.options.forEach((option, optionIndex) => {
                 Q{questionIndex + 1} {question.questionTitle}{" "}
               </h3>
               <p className="my-1">Choose {question.choosedOptions} </p>
-                     
+
               {question.options.map((option, optionIndex) => (
                 <div key={option.id}>
                   <label>
-                    <Controller 
-                      name={option.id}                     
+                    <Controller
+                      name={option.id}
                       control={control}
                       defaultValue={false}
                       render={({ field }) => (
-                        <input 
-                        onInput={() => handleOptionChange(questionIndex, option.id)}
-                        checked={
-                          checkedOptions[questionIndex]?.includes(option.id) ||
-                          false
-                        }
-                        
-                        // disabled={
-                        //   checkedOptions[questionIndex]?.length ===
-                        //   question.choosedOptions
-                        // }
-                        type="checkbox" {...field} />
+                        <input
+                          onInput={() => handleOptionChange(questionIndex, option.id)}
+                          checked={
+                            checkedOptions[questionIndex]?.includes(option.id) ||
+                            false
+                          }
+
+                          // disabled={
+                          //   checkedOptions[questionIndex]?.length ===
+                          //   question.choosedOptions
+                          // }
+                          type="checkbox" {...field} />
                       )}
                     />
                     {option.option}
                   </label>
-                  
+
                 </div>
               ))}
-              
+
             </div>
           ))}
 
