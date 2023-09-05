@@ -34,21 +34,6 @@ const Confirmation = () => {
         confirmButtonText: "Yes, Publish it",
       }).then((result) => {
         if (result.isConfirmed) {
-          let voters = [];
-          if (ballotAccess === "high") {
-            const characters =
-              "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            voters = voterEmails.map((voter) => {
-              let accessKey = "";
-              for (let i = 0; i < 16; i++) {
-                accessKey += characters.charAt(
-                  Math.floor(Math.random() * characters.length)
-                );
-              }
-              const password = Math.floor(Math.random() * 900000) + 100000;
-              return { ...voter, accessKey, password };
-            });
-          }
 
           if (selectedTime === "option1") {
             const newStartDate = createNewDate(formData.timeZone);
@@ -61,9 +46,10 @@ const Confirmation = () => {
               .patch(`http://localhost:5000/election/${formData._id}`, {
                 autoDate: formData.autoDate,
                 status: formData.autoDate ? "ongoing" : "published",
-                voterEmails: voters,
+                voterEmails,
                 startDate: newStartDate,
                 endDate: newEndDate,
+                page: 4
               })
               .then((res) => {
                 console.log(res.data);
@@ -75,7 +61,8 @@ const Confirmation = () => {
               .patch(`http://localhost:5000/election/${formData._id}`, {
                 autoDate: formData.autoDate,
                 status: formData.autoDate ? "ongoing" : "published",
-                voterEmails: voters,
+                voterEmails,
+                page: 4
               })
               .then((res) => {
                 console.log(res.data);

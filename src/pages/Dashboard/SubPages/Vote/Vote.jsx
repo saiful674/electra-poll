@@ -21,6 +21,7 @@ const Vote = () => {
     queryFn: async () => {
       const res = await axios.get(`http://localhost:5000/election/${id}`);
       setQuestionsArray(res.data.questions);
+      
       return res.data;
     },
   });

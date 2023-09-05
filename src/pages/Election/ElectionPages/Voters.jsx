@@ -45,7 +45,7 @@ const Voters = () => {
   const onSubmit = (data) => {
     setEmailErrors(false);
     const voterAccessKey = data.accessKey;
-    const voterAccessPassword = data.password;
+    const voterAccessPassword = Math.floor(data.password)
 
     if (status === "pending") {
       axios
