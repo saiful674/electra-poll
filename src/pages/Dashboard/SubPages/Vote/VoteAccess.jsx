@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useElectionTimer from '../../../../Hooks/useElectionTimer';
+import { formatDateToInputValue } from '../../../../Hooks/convertDate';
+import Vote from './Vote';
 
 const VoteAccess = () => {
     const [queries] = useSearchParams()
@@ -32,6 +34,8 @@ const VoteAccess = () => {
             return res.data
         }
     })
+
+    const { title, startDate, endDate, timeZone } = election
 
 
     // ========election start timer======
@@ -67,7 +71,6 @@ const VoteAccess = () => {
             })
     }
 
-    console.log(timeLeft);
     if (!isVoter) {
         return (
             <div className='min-h-[80vh] pt-20 my-container justify-center flex items-center'>
@@ -127,23 +130,28 @@ const VoteAccess = () => {
 
     else {
         return (
-            <div className='min-h-[70vh] mt-20 my-container'>
-                {election && election.status === 'completed' && <div className='flex flex-col gap-10 justify-center items-center h-[60vh]'>
-                    <h1 className='text-red-500 text-3xl'>Election ended</h1>
-                    {election.voterResultAccess === 'after' && <button className='button-next'>See Result</button>}
-                </div>}
-                {
-                    election?.status === 'published' && <div>
+            <div className='min-h-[70vh] mt-24 my-container'>
+                <div className='flex flex-col gap-4 justify-center items-center h-[60vh]'>
+                    <h1 className='text-3xl'>Election: {title}</h1>
+                    <p className='text-xl'>Start Date: {startDate && formatDateToInputValue(startDate, timeZone)}</p>
+                    <p className='text-xl'>End Date: {endDate && formatDateToInputValue(endDate, timeZone)}</p>
+                    {election && election.status === 'completed' && <div >
+                        <h1 className='text-red-500 text-3xl'>Election ended</h1>
+                        {election.voterResultAccess === 'after' && <button className='button-next'>See Result</button>}
+                    </div>}
 
-                    </div>
-                }
+                    {election && election.status === 'published' && <div>
+                        <p className='text-2xl'>Election Starts in: <span className={timeDifference <= 3 ? 'text-red-500' : 'text-green-500'}>
+                            {timeLeft}
+                        </span>
+                        </p>
+                    </div>}
 
-                {election && election.status === 'published' && <div className='flex flex-col gap-10 justify-center items-center h-[60vh]'>
-                    <p className='text-2xl'>Election Starts in: <span className={timeDifference <= 3 ? 'text-red-500' : 'text-green-500'}>
-                        {timeLeft}
-                    </span>
-                    </p>
-                </div>}
+                    {election && election.status === 'ongoing' && <div>
+                        <Vote election={election}></Vote>
+                    </div>}
+                </div>
+
             </div>
         )
     }
