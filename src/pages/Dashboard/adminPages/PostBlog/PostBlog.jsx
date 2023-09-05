@@ -21,6 +21,7 @@ const PostBlog = () => {
     data.status = "recent";
     data.content = splitContent;
     data.comments = [];
+    data.date = new Date().toISOString();
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
       axios

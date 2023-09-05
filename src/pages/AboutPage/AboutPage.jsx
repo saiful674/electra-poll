@@ -170,8 +170,9 @@ const AboutPage = () => {
               Founded
             </p>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              Founded in 1850, our company has a rich history of innovation and
+              excellence, shaping industries and driving progress for over a
+              century..
             </p>
           </div>
           <div>
@@ -179,8 +180,9 @@ const AboutPage = () => {
               50M monthly election
             </p>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              50M Monthly Election: A Global Display of Democracy's Power,
+              Influence, and Choices Shaping Our Future - A Snapshot in 24
+              Words.
             </p>
           </div>
           <div className="sm:block hidden">
@@ -188,8 +190,8 @@ const AboutPage = () => {
               400k User
             </p>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              400k Users Celebrate Our Community's Growth, Making It Stronger
+              and More Vibrant Than Ever Before. Thank You for Your Support!
             </p>
           </div>
         </div>
@@ -243,8 +245,8 @@ const AboutPage = () => {
               400k User
             </p>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+              400k Users Celebrate Our Community's Growth, Making It Stronger
+              and More Vibrant Than Ever Before. Thank You for Your Support!
             </p>
           </div>
         </div>
@@ -255,22 +257,17 @@ const AboutPage = () => {
               Our Mission
             </h2>
             <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum.In the first place we have granted to
-              God, and by this our present charter confirmed for us and our
-              heirs forever that the English Church shall be free, and shall
-              have her rights entire, and her liberties inviolate; and we will
-              that it be thus observed; which is apparent from
+              Our mission is to electrify the electoral process. Through our
+              projects, we empower organizations to conduct efficient and
+              transparent elections, fostering democracy and informed
+              decision-making.
             </p>
             <p className="font-normal text-base leading-6 text-gray-600 w-full lg:w-10/12 xl:w-9/12 mt-10">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum.In the first place we have granted to
-              God, and by this our present charter confirmed for us and our
-              heirs forever that the English Church shall be free, and shall
-              have her rights entire, and her liberties inviolate; and we will
-              that it be thus observed; which is apparent from
+              The goal of the ElectraPoll project is to develop an electronic
+              voting system that is reliable, secure, and user-friendly for
+              organizational use. The system will be used to conduct internal
+              elections, polls, and decision-making processes in a transparent
+              and efficient manner.
             </p>
           </div>
           <div className="w-full lg:w-6/12">
@@ -313,9 +310,8 @@ const AboutPage = () => {
                     Team
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
+                    Teamwork Makes the Dream Work: Collaborate, Communicate, and
+                    Succeed Together for a Stronger, More Successful Tomorrow.
                   </p>
                 </div>
               </div>
@@ -365,9 +361,9 @@ const AboutPage = () => {
                     Board
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
+                    Board of Directors: Steering Corporate Strategy, Ensuring
+                    Accountability, and Fostering Innovation for Sustainable
+                    Growth in a Dynamic Business Landscape.
                   </p>
                 </div>
               </div>
@@ -402,9 +398,8 @@ const AboutPage = () => {
                     Press
                   </p>
                   <p className="mt-2 font-normal text-base leading-6 text-gray-600">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout.
+                    Pressing Forward: The Power of Words in a Changing World - A
+                    Journey of Discovery, Connection, and Impact Through Press
                   </p>
                 </div>
               </div>
@@ -416,8 +411,9 @@ const AboutPage = () => {
           <div className="mb-10  text-center">
             <h3 className="text-3xl font-semibold">Our Team member</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. In, ipsa
-              dicta?
+              Our team members collaborate, innovate, and achieve success
+              together, forging strong bonds while driving our organization
+              toward excellence and growth
             </p>
           </div>
 
