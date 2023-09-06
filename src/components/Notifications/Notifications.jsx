@@ -47,24 +47,25 @@ const Notifications = () => {
                 }
             })
     }
-
     const convertDate = date => {
         const givenDate = new Date(date);
-        // Set the time to midnight for the given date
-        givenDate.setHours(0, 0, 0, 0);
 
+        // Get current date and time
         const today = new Date();
-        // Set the time to midnight for today's date
+
+        // Adjust with local offset to make it UTC
+        today.setTime(today.getTime() - (today.getTimezoneOffset() * 60 * 1000));
+
+        // Set the time to midnight for the adjusted date
         today.setHours(0, 0, 0, 0);
 
         // Calculate the difference in milliseconds
         const differenceInMilliseconds = givenDate - today;
 
-        // Convert milliseconds to days
-        const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+        // Convert milliseconds to minutes
+        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
 
-        return Math.abs(differenceInDays)  // This will print the difference in days
-
+        return Math.abs(Math.round(differenceInMinutes));  // This will return the absolute difference in minutes
     }
 
     return (
@@ -90,7 +91,9 @@ const Notifications = () => {
                                         <li key={index} className={`${notification.isRead ? 'text-gray-500' : 'font-semibold'} p-1 hover:bg-gray-200 duration-300 flex  items-center justify-between gap-4`}>
                                             <div>
                                                 <Link onClick={() => handleReadNotification(notification)}>{notification.message.slice(0, 70)}...</Link>
-                                                <p className='text-gray-400'>{convertDate(notification.timestamp) === 0 ? 'today' : convertDate(notification.timestamp) + ' days ago'}</p>
+
+                                                <p className='text-gray-400'>{convertDate(notification.timestamp) <= 60 ? Math.floor(convertDate(notification.timestamp)) + ' minutes ago' : convertDate(notification.timestamp) <= 48 * 60 ? Math.floor(convertDate(notification.timestamp) / 60) + ' hours ago' : Math.floor(convertDate(notification.timestamp) / 60 / 24) + ' days ago'}</p>
+
                                             </div>
                                             <button className='flex items-center gap-2' onClick={() => handleRemoveNotification(notification._id)}>
                                                 {!notification.isRead && <div className='h-2 w-2 rounded-full bg-green-500'></div>}
