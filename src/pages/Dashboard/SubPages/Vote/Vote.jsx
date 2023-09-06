@@ -7,54 +7,17 @@ import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-const Vote = ({ election }) => {
+const Vote = ({ election, email }) => {
+  const emailToFind = email
   const params = useParams();
-  const id = election._id
-  const [questionsArray, setQuestionsArray] = useState([]);
+  const [questionsArray, setQuestionsArray] = useState(election.questions);
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
 
 
-
-  const { data: electionArray = [], isLoading } = useQuery({
-    queryKey: ["election", id],
-    queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/election/${id}`);
-      setQuestionsArray(res.data.questions);
-
-      return res.data;
-    },
-  });
-  // console.log(questionsArray);
-
-
-
-  // const handleOptionChange = (questionIndex, optionId) => {
-
-  //   console.log(questionIndex, optionId);
-  //   const updatedCheckedOptions = { ...checkedOptions };
-
-  //   if (updatedCheckedOptions[questionIndex] === undefined) {
-  //     updatedCheckedOptions[questionIndex] = [];
-  //   }
-
-  //   if (updatedCheckedOptions[questionIndex].includes(optionId)) {
-  //     // Uncheck the option
-  //     updatedCheckedOptions[questionIndex] = updatedCheckedOptions[questionIndex].filter(
-  //       (id) => id !== optionId
-  //     );
-  //   } else {
-  //     // Check the option
-  //     updatedCheckedOptions[questionIndex].push(optionId);
-  //   }
-
-  //   setCheckedOptions(updatedCheckedOptions);
-  // };
-
-
   const handleOptionChange = (questionIndex, optionId) => {
     const updatedCheckedOptions = { ...checkedOptions };
-    const question = questionsArray[questionIndex];  // Fetch the question using the passed index
+    const question = questionsArray[questionIndex]; // Fetch the question using the passed index
 
     if (updatedCheckedOptions[questionIndex] === undefined) {
       updatedCheckedOptions[questionIndex] = [];
@@ -64,7 +27,9 @@ const Vote = ({ election }) => {
 
     // If the option is already checked, uncheck it
     if (currentlyCheckedOptions.includes(optionId)) {
-      updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(id => id !== optionId);
+      updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(
+        (id) => id !== optionId
+      );
     } else {
       // If the maximum number of selections is reached, uncheck the first one
       if (currentlyCheckedOptions.length >= question.choosedOptions) {
@@ -79,23 +44,17 @@ const Vote = ({ election }) => {
   };
 
 
+  console.log(election);
 
-
-
-
-
-
-
-
+  const { voterEmails } = election
+  console.log(voterEmails);
+  // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
-
   const onSubmit = (data) => {
+
     const updatedQuestionsArray = [...questionsArray];
-
     updatedQuestionsArray.forEach((question, questionIndex) => {
-
       question.options.forEach((option, optionIndex) => {
-        // console.log(option.id);
         if (data[option.id]) {
           const originalOption = questionsArray[questionIndex].options.find(
             (originalOption) => originalOption.id === option.id
@@ -103,16 +62,25 @@ const Vote = ({ election }) => {
           if (originalOption) {
             originalOption.votes += 1;
           }
-
-
         }
-      })
-    })
+      });
+    });
     console.log(updatedQuestionsArray);
+    console.log(election);
+    const foundVoter = voterEmails.find((voter) => voter.email === emailToFind);
+
+    if (foundVoter) {
+      foundVoter.voted = true;
+      console.log('Updated voterEmails array:', voterEmails);
+    } else {
+      console.log('Email not found in the array.');
+    }
 
     axios
-      .put(`http://localhost:5000/election-vote-update/${id}`, {
+      .put(`http://localhost:5000/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
+        voterEmails,
+
       })
       .then((res) => {
         console.log(res.data);
@@ -135,10 +103,9 @@ const Vote = ({ election }) => {
           navigate(`/dashboard/election-correction`);
         }
       });
-
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (!election) return <LoadingSpinner />;
 
   return (
     <div className="mb-5 w-screen">
@@ -160,25 +127,23 @@ const Vote = ({ election }) => {
                       defaultValue={false}
                       render={({ field }) => (
                         <input
-                          onInput={() => handleOptionChange(questionIndex, option.id)}
-                          checked={
-                            checkedOptions[questionIndex]?.includes(option.id) ||
-                            false
+                          onInput={() =>
+                            handleOptionChange(questionIndex, option.id)
                           }
-
-                          // disabled={
-                          //   checkedOptions[questionIndex]?.length ===
-                          //   question.choosedOptions
-                          // }
-                          type="checkbox" {...field} />
+                          checked={
+                            checkedOptions[questionIndex]?.includes(
+                              option.id
+                            ) || false
+                          }
+                          type="checkbox"
+                          {...field}
+                        />
                       )}
                     />
                     {option.option}
                   </label>
-
                 </div>
               ))}
-
             </div>
           ))}
 
