@@ -7,7 +7,7 @@ import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-const Vote = ({ election ,email }) => {
+const Vote = ({ election, email }) => {
   const emailToFind = email
   const params = useParams();
   const [questionsArray, setQuestionsArray] = useState(election.questions);
@@ -44,11 +44,11 @@ const Vote = ({ election ,email }) => {
   };
 
 
-    console.log(election);
+  console.log(election);
 
-    const {voterEmails}=election
-    console.log(voterEmails);
-// on submit form function //////////////////////////////////////////////////////////////
+  const { voterEmails } = election
+  console.log(voterEmails);
+  // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
 
@@ -69,18 +69,18 @@ const Vote = ({ election ,email }) => {
     console.log(election);
     const foundVoter = voterEmails.find((voter) => voter.email === emailToFind);
 
-if (foundVoter) {
-  foundVoter.voted = true;
-  console.log('Updated voterEmails array:', voterEmails);
-} else {
-  console.log('Email not found in the array.');
-}
+    if (foundVoter) {
+      foundVoter.voted = true;
+      console.log('Updated voterEmails array:', voterEmails);
+    } else {
+      console.log('Email not found in the array.');
+    }
 
     axios
       .put(`http://localhost:5000/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
         voterEmails,
-        
+
       })
       .then((res) => {
         console.log(res.data);

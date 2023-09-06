@@ -21,8 +21,8 @@ const Notifications = () => {
         const res = await axios.get(`http://localhost:5000/notifications/${user?.email}`);
         return res.data;
     });
-    const unreadNotification = notifications.filter(notification=> notification.isRead === false)
-    
+    const unreadNotification = notifications.filter(notification => notification.isRead === false)
+
 
     // Function to toggle the dropdown
     const toggleDropdown = () => {
@@ -32,11 +32,11 @@ const Notifications = () => {
     const handleReadNotification = (notification) => {
         navigation(notification.contentURL)
         axios.patch(`http://localhost:5000/notifications/${notification._id}`)
-        .then(res => {
-            if(res.data.acknowledged){
-                refetch()
-            }
-        })
+            .then(res => {
+                if (res.data.acknowledged) {
+                    refetch()
+                }
+            })
     }
     const handleRemoveNotification = (id) => {
         console.log(id)
@@ -47,6 +47,26 @@ const Notifications = () => {
                 }
             })
     }
+
+    const convertDate = date => {
+        const givenDate = new Date(date);
+        // Set the time to midnight for the given date
+        givenDate.setHours(0, 0, 0, 0);
+
+        const today = new Date();
+        // Set the time to midnight for today's date
+        today.setHours(0, 0, 0, 0);
+
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = givenDate - today;
+
+        // Convert milliseconds to days
+        const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+        return Math.abs(differenceInDays)  // This will print the difference in days
+
+    }
+
     return (
         <div className="relative inline-block">
 
@@ -57,9 +77,9 @@ const Notifications = () => {
                 </div>
             </button>
             {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 h-96 overflow-y-auto bg-white border rounded shadow-lg z-50 custom-scrollbar">
-                    <div className="p-2">
-                        <div className='flex justify-between items-center'>
+                <div className="absolute right-0 mt-2 lg:w-96 w-[90vw] h-[70vh] overflow-y-auto bg-white border rounded-lg shadow-lg z-50 custom-scrollbar">
+                    <div className="p-4">
+                        <div className='flex pb-3 justify-between items-center'>
                             <h3 className="text-lg font-semibold">Notifications</h3>
                             <span onClick={toggleDropdown} className='cursor-pointer'><AiOutlineCloseCircle className='text-error h-5 w-5 group-hover:text-white duration-300 active:scale-125 hover:scale-125' /> </span>
                         </div>
@@ -67,9 +87,13 @@ const Notifications = () => {
                             {
                                 notifications.length === 0 ? <li>You have no notifications</li>
                                     : notifications.map((notification, index) => (
-                                        <li key={index} className={`${notification.isRead? '' : 'bg-gray-100' } p-1 hover:bg-gray-200 duration-300 flex  items-center justify-between gap-4`}>
-                                            <Link onClick={()=>handleReadNotification(notification)}>{notification.message}</Link>
-                                            <button onClick={() => handleRemoveNotification(notification._id)}>
+                                        <li key={index} className={`${notification.isRead ? 'text-gray-500' : 'font-semibold'} p-1 hover:bg-gray-200 duration-300 flex  items-center justify-between gap-4`}>
+                                            <div>
+                                                <Link onClick={() => handleReadNotification(notification)}>{notification.message.slice(0, 70)}...</Link>
+                                                <p className='text-gray-400'>{convertDate(notification.timestamp) === 0 ? 'today' : convertDate(notification.timestamp) + ' days ago'}</p>
+                                            </div>
+                                            <button className='flex items-center gap-2' onClick={() => handleRemoveNotification(notification._id)}>
+                                                {!notification.isRead && <div className='h-2 w-2 rounded-full bg-green-500'></div>}
                                                 <BsTrashFill className='h-4 w-4 text-error' />
                                             </button>
                                         </li>
