@@ -130,8 +130,8 @@ const VoteAccess = () => {
 
     else {
         return (
-            <div className='min-h-[70vh] mt-24 my-container'>
-                <div className='flex flex-col gap-4 justify-center items-center h-[60vh]'>
+            <div className=' mt-24 my-container'>
+                <div className='flex flex-col gap-4 justify-center items-center '>
                     <h1 className='text-3xl'>Election: {title}</h1>
                     <p className='text-xl'>Start Date: {startDate && formatDateToInputValue(startDate, timeZone)}</p>
                     <p className='text-xl'>End Date: {endDate && formatDateToInputValue(endDate, timeZone)}</p>
@@ -148,7 +148,7 @@ const VoteAccess = () => {
                     </div>}
 
                     {election && election.status === 'ongoing' && <div>
-                        <Vote election={election}></Vote>
+                        <Vote email={email} election={election}></Vote>
                     </div>}
                 </div>
 
