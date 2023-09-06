@@ -6,9 +6,6 @@ import PrimaryBlog from "./PrimaryBlog";
 import RcCard from "./RcCard";
 
 function Blog() {
-  const [primaryBlog, setPrimaryBlog] = useState({});
-  const [popularBlogs, setPopularBlogs] = useState([]);
-  const [recentBlogs, setRecentBlogs] = useState([]);
   const {
     data: blogs = [],
     refetch,
@@ -21,15 +18,6 @@ function Blog() {
     },
   });
 
-  useEffect(() => {
-    const prBlog = blogs && blogs.find((p) => p.status === "primary");
-    const popuBlogs = blogs && blogs.filter((po) => po.status === "popular");
-    const recent = blogs && blogs.filter((re) => re.status === "recent");
-
-    setPrimaryBlog(prBlog);
-    setPopularBlogs(popuBlogs);
-    setRecentBlogs(recent);
-  }, [blogs]);
 
   return (
     <div>

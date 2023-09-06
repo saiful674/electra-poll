@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 const Vote = ({ election }) => {
   const params = useParams();
+  const id = election._id
   const [questionsArray, setQuestionsArray] = useState([]);
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
