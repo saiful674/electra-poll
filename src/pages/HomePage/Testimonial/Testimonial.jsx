@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import TestimonialCard from "./TestimonialCard";
+import "swiper/css";
 
 // Import Swiper styles
 import "swiper/css";
