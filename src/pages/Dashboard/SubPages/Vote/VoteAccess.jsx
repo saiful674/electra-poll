@@ -15,10 +15,11 @@ const VoteAccess = () => {
     const id = queries.get('id')
     const [isVoter, setIsVoter] = useState(sessionStorage.getItem('isVoter') === 'true' ? true : false || false)
 
+    console.log(email, id);
 
     // ====checks if query email is in the voterEmails list===
     const { data: voterCheck, isLoading } = useQuery({
-        queryKey: ['voterCheck', id],
+        queryKey: ['voterCheck', id, email],
         queryFn: async () => {
             const res = await axios.get(`http://localhost:5000/election-voterCheck?email=${email}&&id=${id}`)
             return res.data
