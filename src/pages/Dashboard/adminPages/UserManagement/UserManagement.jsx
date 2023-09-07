@@ -5,9 +5,9 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import UserName from '../../../../components/Deshboard/UserName/UserName';
-import LoadingSpinner from '../../../shared/LoadingSpinner';
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
+import AdminUserName from '../AdminHome/AdminUserName';
 const UserManagement = () => {
   const { user } = useContext(AuthContext)
 
@@ -126,6 +126,7 @@ const UserManagement = () => {
               <tbody>
                 {/* row 1 */}
 
+<<<<<<< HEAD
                 {users?.map((us, index) => <tr key={index} className="bg-base-200">
                   <th>{index + 1}</th>
                   <th>   <div className="avatar">
@@ -138,6 +139,60 @@ const UserManagement = () => {
                   <td>{us?.organizationName}</td>
                   <td>{us?.role}</td>
                   <td>
+=======
+    }
+
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
+    return (
+        <div>
+            <AdminUserName></AdminUserName>
+
+
+            {/* whwn voter is zero/empty */}
+            {
+                (users?.length === 0 || data.length === 0) && <div className='flex flex-col h-[calc(100vh-135px)] justify-center items-center space-y-2'>
+                    <p>No user available right now</p>
+                </div>
+            }
+
+         {/* when voter data length is more then 0 */}
+         {users?.length > 0 &&
+                <>
+                    
+                    <div className="overflow-x-auto mt-5">
+                        <table className="table table-zebra-zebra">
+                            {/* head */}
+                            <thead>
+                                <tr>
+                                    <th className='bg-teal-900 text-white'>#</th>
+                                    <th className='bg-teal-900 text-white'>User Image</th>
+                                    <th className='bg-teal-900 text-white'>User Name</th>
+                                    <th className='bg-teal-900 text-white'>USer Email</th>
+                                    <th className='bg-teal-900 text-white'>Organization Name</th>
+                                    <th className='bg-teal-900 text-white'>role</th>
+            <th className='bg-teal-900 text-white'>MakeUer</th>
+            <th className='bg-teal-900 text-white'>MakeAdmin</th>
+            <th className='bg-teal-900 text-white'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* row 1 */}
+
+                                {users?.map((us, index) => <tr key={index} className="bg-base-200">
+                                    <th>{index + 1}</th>
+                                    <th>   <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img src={us?.uploadedImage} alt="Avatar Tailwind CSS Component" />
+                      </div>
+                    </div></th>
+                                    <td>{us?.name}</td>
+                                    <td>{us?.email}</td>
+                                    <td>{us?.organizationName}</td>
+                                    <td>{us?.role}</td>
+                                    <td>
+>>>>>>> 94af5f4f94a84272d805115bc2c374feaea1b01b
                     {us.role === 'user' ? <button disabled className="btn btn-success text-sm btn-sm normal-case">user</button> :
                       <button onClick={() => handleMakeUser(us)} className="btn btn-success  text-sm btn-sm normal-case">user</button>
                     }

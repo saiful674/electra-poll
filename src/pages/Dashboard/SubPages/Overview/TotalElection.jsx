@@ -5,7 +5,11 @@ import { HiUserGroup } from 'react-icons/hi2';
 import getElection from '../../../../Hooks/getElection';
 const TotalElection = () => {
   const [elections,] = getElection()
+<<<<<<< HEAD
 
+=======
+  console.log('anis',elections)
+>>>>>>> 94af5f4f94a84272d805115bc2c374feaea1b01b
 
   let totalVoterEmailsArraysLength = 0;
 
