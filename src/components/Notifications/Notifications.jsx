@@ -50,14 +50,8 @@ const Notifications = () => {
     const convertDate = date => {
         const givenDate = new Date(date);
 
-        // Get current date and time
+        // Get the current UTC date and time
         const today = new Date();
-
-        // Adjust with local offset to make it UTC
-        today.setTime(today.getTime() - (today.getTimezoneOffset() * 60 * 1000));
-
-        // Set the time to midnight for the adjusted date
-        today.setHours(0, 0, 0, 0);
 
         // Calculate the difference in milliseconds
         const differenceInMilliseconds = givenDate - today;
@@ -65,8 +59,10 @@ const Notifications = () => {
         // Convert milliseconds to minutes
         const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
 
+        console.log(Math.abs(Math.round(differenceInMinutes)));// This will return the absolute difference in minutes
         return Math.abs(Math.round(differenceInMinutes));  // This will return the absolute difference in minutes
     }
+
 
     return (
         <div className="relative inline-block">
