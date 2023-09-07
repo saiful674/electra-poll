@@ -16,10 +16,9 @@ const Ballot = () => {
 
     const dispatch = useDispatch()
 
-    console.log(ballots);
 
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
-    console.log(errors);
+
     const onSubmit = data => {
         if (questions.length === 0) {
             Swal.fire({
@@ -31,12 +30,12 @@ const Ballot = () => {
         }
         setDisabled(true)
         if (status === 'pending') {
-            axios.patch(`http://localhost:5000/election/${formData._id}`, {
+            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
                 page: 2,
                 questions
             })
                 .then(res => {
-                    console.log(res.data);
+
                     if (res.data) {
                         setDisabled(false)
                         dispatch(next());

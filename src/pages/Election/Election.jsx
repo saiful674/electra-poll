@@ -24,8 +24,7 @@ const Election = () => {
   }, [pageNum]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/election/${id}`).then((res) => {
-      console.log(res.data);
+    axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
       dispatch(setInitalState(res.data));
     });
   }, []);

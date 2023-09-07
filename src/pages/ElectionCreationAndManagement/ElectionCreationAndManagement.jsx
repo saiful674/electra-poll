@@ -17,7 +17,6 @@ const ElectionCreationAndManagement = () => {
 
   const dispatch = useDispatch();
 
-  console.log(user?.email);
   const {
     data: elections = [],
     refetch,
@@ -26,13 +25,12 @@ const ElectionCreationAndManagement = () => {
     queryKey: ["elections", user, activeStatus],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/elections/?email=${user?.email}&status=${activeStatus}`
+        `https://electra-poll-server.vercel.app/elections/?email=${user?.email}&status=${activeStatus}`
       );
       return res.data;
     },
   });
 
-  console.log(elections);
 
   const handleAddElection = () => {
     const characters =
@@ -83,11 +81,10 @@ const ElectionCreationAndManagement = () => {
     };
     if (user) {
       axios
-        .post("http://localhost:5000/add-election", electionData)
+        .post("https://electra-poll-server.vercel.app/add-election", electionData)
         .then((res) => {
           const id = res.data.insertedId;
-          axios.get(`http://localhost:5000/election/${id}`).then((res) => {
-            console.log(res.data, id);
+          axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
             navigate(`/election/${id}`);
           });
         });
@@ -98,7 +95,7 @@ const ElectionCreationAndManagement = () => {
     setActiveStatus(status);
     // You can perform additional actions here when a tab is clicked
   };
-  console.log(activeStatus);
+
 
   return (
     <>

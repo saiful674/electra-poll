@@ -29,7 +29,7 @@ const ChatBot = () => {
       // welcome message request
       if (!storedChatHistory && chatHistory.length === 0) {
         axios
-          .post("http://localhost:5000/send-message", {
+          .post("https://electra-poll-server.vercel.app/send-message", {
             message: "Welcome Message",
           })
           .then((response) => {
@@ -77,7 +77,7 @@ const ChatBot = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:5000/send-message", {
+      const response = await axios.post("https://electra-poll-server.vercel.app/send-message", {
         message: inputMessage,
       });
       const botResponse = response.data.response;
@@ -102,9 +102,8 @@ const ChatBot = () => {
   return (
     <>
       <div
-        className={`fixed bottom-6 right-6 p-4 bg-green-100 border rounded-lg shadow-md w-[360px] z-50 h-fit ${
-          isChatOpen ? "" : "hidden"
-        }`}
+        className={`fixed bottom-6 right-6 p-4 bg-green-100 border rounded-lg shadow-md w-[360px] z-50 h-fit ${isChatOpen ? "" : "hidden"
+          }`}
       >
         <div className="flex justify-between mb-2">
           <div className="flex items-center gap-2">
@@ -129,11 +128,10 @@ const ChatBot = () => {
             {chatHistory.map((message, index) => (
               <div
                 key={index}
-                className={`p-2  ${
-                  message.sender === "user"
+                className={`p-2  ${message.sender === "user"
                     ? "bg-green-400 text-white"
                     : "bg-gray-200"
-                } rounded-lg mb-3`}
+                  } rounded-lg mb-3`}
               >
                 {message.text}
               </div>
@@ -173,9 +171,8 @@ const ChatBot = () => {
       {!isChatOpen && (
         <div className="fixed bottom-4 right-4 z-50">
           <button
-            className={`bg-green-500 text-white p-2 rounded-full shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-200 ${
-              bounceTime ? "animate-bounce-once" : ""
-            }`}
+            className={`bg-green-500 text-white p-2 rounded-full shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-200 ${bounceTime ? "animate-bounce-once" : ""
+              }`}
             onClick={() => toggleChat()}
           >
             <AiOutlineMessage className="h-6 w-6" />

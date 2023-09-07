@@ -9,9 +9,7 @@ import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 // import Swal from 'sweetalert2';
 const UpdateProfileInfo = () => {
   const { user, updateUserProfile } = useContext(AuthContext);
-  console.log(user);
   const { myInfo } = getMyInfo();
-  console.log(myInfo.email);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -24,7 +22,6 @@ const UpdateProfileInfo = () => {
 
     imageUpload(fileInput.files[0]).then((imageResponse) => {
       uploadedImage = imageResponse; // Assign the imageResponse to uploadedImage
-      console.log(uploadedImage);
 
       updateUserProfile(displayName, uploadedImage.data.display_url).then(
         () => {
@@ -35,16 +32,14 @@ const UpdateProfileInfo = () => {
             membershipSize,
           };
           axios
-            .patch(`http://localhost:5000/users/${user?.email}`, userData, {
+            .patch(`https://electra-poll-server.vercel.app/users/${user?.email}`, userData, {
               headers: {
                 "Content-Type": "application/json",
               },
             })
             .then((response) => {
               const data = response.data;
-              console.log(data);
               toast.success("Profile information updated successfully");
-              console.log("Profile information updated successfully");
             })
             .catch((error) => {
               console.error("An error occurred:", error);
@@ -119,7 +114,7 @@ const UpdateProfileInfo = () => {
                   type="email"
                   value={user?.email}
                   readOnly
-                  // placeholder={user?.email}
+                // placeholder={user?.email}
                 />
               </div>
               <div className="mb-4">

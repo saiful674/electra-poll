@@ -58,9 +58,8 @@ const Registration = () => {
                     role: "user",
                   };
 
-                  axios.post("http://localhost:5000/users", savedUser)
+                  axios.post("https://electra-poll-server.vercel.app/users", savedUser)
                     .then(responseData => {
-                      console.log(responseData);
                       if (responseData.data.insertedId) {
                         toast.success(`Hello! ${email}! Welcome`);
                         reset();
@@ -75,7 +74,6 @@ const Registration = () => {
       })
       .catch(error => {
         if (error.message.includes('email-already-in-use')) {
-          console.log('includes');
           toast.error("User already exists. Try logging in");
         }
       })
