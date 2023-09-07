@@ -22,12 +22,12 @@ const Result = () => {
     queryKey: ["elections", user],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/all-elections/${user?.email}`
+        `https://electra-poll-server.vercel.app/all-elections/${user?.email}`
       );
       return res.data;
     },
   });
-console.log(elections)
+
   const publishedElections = elections.filter(
     (election) => election.status === PUBLISHED
   );

@@ -23,7 +23,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
   } = election;
 
   const { timeLeft, timeDifference } = useElectionTimer(endDate)
-  console.log(timeDifference);
+
 
 
   const handleElectionDelete = () => {
@@ -38,9 +38,8 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:5000/remove-election/${_id}`)
+          .patch(`https://electra-poll-server.vercel.app/remove-election/${_id}`)
           .then((res) => {
-            console.log(res.data);
             if (res.data.deletedCount) {
               refetch();
               Swal.fire(
@@ -76,18 +75,20 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
         <p>
           Status: {status} | {voteType} Vote
         </p>
-        <p>
-          Voting Ends in:{" "}
-          <span
-            className={
-              timeDifference <= 3
-                ? "text-red-400"
-                : "text-green-500"
-            }
-          >
-            {timeLeft || 'election ended'}
-          </span>
-        </p>
+        {
+          startDate && endDate && <p>
+            Voting Ends in:{" "}
+            <span
+              className={
+                timeDifference <= 3
+                  ? "text-red-400"
+                  : "text-green-500"
+              }
+            >
+              {timeLeft || 'election ended'}
+            </span>
+          </p>
+        }
         <p>Start: {startDate && formatDateToInputValue(startDate, timeZone)}</p>
         <p>End: {endDate && formatDateToInputValue(endDate, timeZone)}</p>
         {voterEmails && <p>Voters: {voterEmails.length}</p>}

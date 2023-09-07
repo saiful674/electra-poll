@@ -46,7 +46,6 @@ const Overview = () => {
   const status = formData.status;
 
   const onSubmit = (data) => {
-    console.log(data);
     setDisabled(true);
     setDateError("");
     if (user) {
@@ -83,9 +82,8 @@ const Overview = () => {
         }
         dispatch(addFirstPage(payload));
         axios
-          .patch(`http://localhost:5000/election/${formData._id}`, payload)
+          .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
           .then((res) => {
-            console.log(res.data);
             if (res.data) {
               setDisabled(false);
               dispatch(next());

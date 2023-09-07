@@ -13,7 +13,7 @@ const ElectionResult = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/election/${id}`)
+      .get(`https://electra-poll-server.vercel.app/election/${id}`)
       .then((res) => {
         setElectionData(res.data);
         setIsLoading(false);
@@ -27,7 +27,7 @@ const ElectionResult = () => {
   const handleDownloadClick = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/download-election-data/${id}`
+        `https://electra-poll-server.vercel.app/download-election-data/${id}`
       );
       const blob = await response.blob();
 
@@ -48,17 +48,23 @@ const ElectionResult = () => {
   if (isLoading) {
     return LoadingSpinner;
   }
+  console.log({electionData})
   return (
     <div className="mb-10">
       <h1 className="text-4xl text-center font-bold">Election Result</h1>
-      <div className="md:flex justify-between ">
-        <h2 className="text-2xl font-bold my-5">
-          Election Title:{" "}
-          <span className=" text-green-400">{electionData.title}</span>
-        </h2>
-        <button onClick={() => handleDownloadClick(id)} className="mb-5">
-          <ButtonPrimary>Dwonload Result</ButtonPrimary>
-        </button>
+      <div className="bg-white p-5 rounded my-10">
+        <div className="md:flex justify-between">
+          <h2 className="text-2xl font-bold my-5">
+            Election Title:
+            <span className=" text-green-400"> {electionData.title}</span>
+          </h2>
+          <button onClick={() => handleDownloadClick(id)}>
+            <ButtonPrimary>Dwonload Result</ButtonPrimary>
+          </button>
+        </div>
+        <div>
+
+        </div>
       </div>
       <ResultOverview electionData={electionData} />
       {electionData.questions.map((question, index) => (

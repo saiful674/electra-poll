@@ -24,7 +24,7 @@ const SingleBlogs = () => {
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/blog/${id}`);
+      const res = await axios.get(`https://electra-poll-server.vercel.app/blog/${id}`);
       return res.data;
     },
   });
@@ -37,7 +37,6 @@ const SingleBlogs = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(user);
     data.username = user?.displayName;
     if (!user) {
       return Swal.fire({
@@ -56,9 +55,8 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`http://localhost:5000/comment/${blog?._id}`, data)
+      .post(`https://electra-poll-server.vercel.app/comment/${blog?._id}`, data)
       .then((res) => {
-        console.log(res);
         toast.success("Your comment successfully");
         refetch();
         reset();
@@ -88,7 +86,7 @@ const SingleBlogs = () => {
           </h2>
           <div className="my-4">
             {blog.content &&
-              blog?.content.map((b) => <p className="text-lg mb-1">{b}</p>)}
+              blog?.content.map((b, i) => <p key={i} className="text-lg mb-1">{b}</p>)}
             {/* <p className="text-lg">{blog?.content}</p> */}
           </div>
           <div className="flex justify-end my-5">

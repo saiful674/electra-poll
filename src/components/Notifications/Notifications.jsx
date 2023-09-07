@@ -18,11 +18,11 @@ const Notifications = () => {
         refetch,
         isLoading,
     } = useQuery(["notifications", user], async () => {
-        const res = await axios.get(`http://localhost:5000/notifications/${user?.email}`);
+        const res = await axios.get(`https://electra-poll-server.vercel.app/notifications/${user?.email}`);
         return res.data;
     });
-    const unreadNotification = notifications.filter(notification=> notification.isRead === false)
-    
+    const unreadNotification = notifications.filter(notification => notification.isRead === false)
+
 
     // Function to toggle the dropdown
     const toggleDropdown = () => {
@@ -31,24 +31,39 @@ const Notifications = () => {
 
     const handleReadNotification = (notification) => {
         navigation(notification.contentURL)
-        axios.patch(`http://localhost:5000/notifications/${notification._id}`)
-        .then(res => {
-            if(res.data.acknowledged){
-                refetch()
-            }
-        })
-    }
-    const handleRemoveNotification = (id) => {
-        console.log(id)
-        axios.delete(`http://localhost:5000/notifications/${id}`)
+        axios.patch(`https://electra-poll-server.vercel.app/notifications/${notification._id}`)
             .then(res => {
                 if (res.data.acknowledged) {
                     refetch()
                 }
             })
     }
+    const handleRemoveNotification = (id) => {
+
+        axios.delete(`https://electra-poll-server.vercel.app/notifications/${id}`)
+            .then(res => {
+                if (res.data.acknowledged) {
+                    refetch()
+                }
+            })
+    }
+    const convertDate = date => {
+        const givenDate = new Date(date);
+
+        // Get the current UTC date and time
+        const today = new Date();
+
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = givenDate - today;
+
+        // Convert milliseconds to minutes
+        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);// This will return the absolute difference in minutes
+        return Math.abs(Math.round(differenceInMinutes));  // This will return the absolute difference in minutes
+    }
+
+
     return (
-        <div className="relative inline-block">
+        <div className="">
 
             <button className="btn btn-ghost btn-circle" onClick={toggleDropdown}>
                 <div className="indicator">
@@ -57,9 +72,9 @@ const Notifications = () => {
                 </div>
             </button>
             {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 h-96 overflow-y-auto bg-white border rounded shadow-lg z-50 custom-scrollbar">
-                    <div className="p-2">
-                        <div className='flex justify-between items-center'>
+                <div className="absolute md:w-96 w-[95%] h-[70vh] right-1/2 translate-x-1/2 md:translate-x-0 md:right-5 object-cover  overflow-y-auto bg-white border rounded-lg shadow-lg z-50 custom-scrollbar">
+                    <div className="p-4">
+                        <div className='flex pb-3 justify-between items-center'>
                             <h3 className="text-lg font-semibold">Notifications</h3>
                             <span onClick={toggleDropdown} className='cursor-pointer'><AiOutlineCloseCircle className='text-error h-5 w-5 group-hover:text-white duration-300 active:scale-125 hover:scale-125' /> </span>
                         </div>
@@ -67,9 +82,15 @@ const Notifications = () => {
                             {
                                 notifications.length === 0 ? <li>You have no notifications</li>
                                     : notifications.map((notification, index) => (
-                                        <li key={index} className={`${notification.isRead? '' : 'bg-gray-100' } p-1 hover:bg-gray-200 duration-300 flex  items-center justify-between gap-4`}>
-                                            <Link onClick={()=>handleReadNotification(notification)}>{notification.message}</Link>
-                                            <button onClick={() => handleRemoveNotification(notification._id)}>
+                                        <li key={index} className={`${notification.isRead ? 'text-gray-500' : 'font-semibold'} p-1 hover:bg-gray-200 duration-300 flex  items-center justify-between gap-4`}>
+                                            <div>
+                                                <Link onClick={() => handleReadNotification(notification)}>{notification.message.slice(0, 70)}...</Link>
+
+                                                <p className='text-gray-400'>{convertDate(notification.timestamp) <= 60 ? Math.floor(convertDate(notification.timestamp)) + ' minutes ago' : convertDate(notification.timestamp) <= 48 * 60 ? Math.floor(convertDate(notification.timestamp) / 60) + ' hours ago' : Math.floor(convertDate(notification.timestamp) / 60 / 24) + ' days ago'}</p>
+
+                                            </div>
+                                            <button className='flex items-center gap-2' onClick={() => handleRemoveNotification(notification._id)}>
+                                                {!notification.isRead && <div className='h-2 w-2 rounded-full bg-green-500'></div>}
                                                 <BsTrashFill className='h-4 w-4 text-error' />
                                             </button>
                                         </li>

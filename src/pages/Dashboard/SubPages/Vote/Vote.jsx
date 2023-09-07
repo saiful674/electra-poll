@@ -7,12 +7,14 @@ import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-const Vote = ({ election ,email }) => {
+const Vote = ({ election, email }) => {
   const emailToFind = email
-  const params = useParams();
   const [questionsArray, setQuestionsArray] = useState(election.questions);
+  const [voting, setVoting] = useState(false)
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
+
+  const voter = election?.voterEmails?.find(voter => voter.email === email)
 
 
   const handleOptionChange = (questionIndex, optionId) => {
@@ -44,18 +46,22 @@ const Vote = ({ election ,email }) => {
   };
 
 
-    console.log(election);
 
-    const {voterEmails}=election
-    console.log(voterEmails);
-// on submit form function //////////////////////////////////////////////////////////////
+  const { voterEmails } = election
+  // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
 
+    setVoting(true)
+
     const updatedQuestionsArray = [...questionsArray];
+
     updatedQuestionsArray.forEach((question, questionIndex) => {
       question.options.forEach((option, optionIndex) => {
-        if (data[option.id]) {
+        // We need to check two things:
+        // 1. The option was actually selected by the user (data[option.id] is true)
+        // 2. The option is in the user's list of checked options
+        if (data[option.id] && checkedOptions[questionIndex]?.includes(option.id)) {
           const originalOption = questionsArray[questionIndex].options.find(
             (originalOption) => originalOption.id === option.id
           );
@@ -65,25 +71,22 @@ const Vote = ({ election ,email }) => {
         }
       });
     });
-    console.log(updatedQuestionsArray);
-    console.log(election);
+
     const foundVoter = voterEmails.find((voter) => voter.email === emailToFind);
 
-if (foundVoter) {
-  foundVoter.voted = true;
-  console.log('Updated voterEmails array:', voterEmails);
-} else {
-  console.log('Email not found in the array.');
-}
+    if (foundVoter) {
+      foundVoter.voted = true;
+    } else {
+      console.log('Email not found in the array.');
+    }
 
     axios
-      .put(`http://localhost:5000/election-vote-update/${election._id}`, {
+      .put(`https://electra-poll-server.vercel.app/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
         voterEmails,
-        
+
       })
       .then((res) => {
-        console.log(res.data);
         // Update the state with modified data
         if (res.data.modifiedCount > 0) {
           Swal.fire({
@@ -93,19 +96,26 @@ if (foundVoter) {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(`/dashboard/election-correction`);
+          setVoting(false)
+          navigate(`/`)
         } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "You already submit your vote. Don't try again",
           });
-          navigate(`/dashboard/election-correction`);
         }
       });
   };
 
   if (!election) return <LoadingSpinner />;
+
+  else if (voter?.voted === true) {
+    return <div className='min-h-[70vh] flex justify-center items-center flex-col gap-3'>
+      <p className='text-3xl text-green-500'>you already voted</p>
+      <button className='button-next'>see result</button>
+    </div>
+  }
 
   return (
     <div className="mb-5 w-screen">
@@ -147,7 +157,7 @@ if (foundVoter) {
             </div>
           ))}
 
-          <button type="submit">
+          <button disabled={voting || voter?.voted === true} className="disabled:opacity-40 pb-4" type="submit">
             {" "}
             <ButtonPrimary> Submit</ButtonPrimary>
           </button>
