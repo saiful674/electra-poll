@@ -69,7 +69,7 @@ const Notifications = () => {
     }
 
     return (
-        <div className="relative inline-block">
+        <div className="">
 
             <button className="btn btn-ghost btn-circle" onClick={toggleDropdown}>
                 <div className="indicator">
@@ -78,7 +78,7 @@ const Notifications = () => {
                 </div>
             </button>
             {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 lg:w-96 w-[90vw] h-[70vh] overflow-y-auto bg-white border rounded-lg shadow-lg z-50 custom-scrollbar">
+                <div className="absolute md:w-96 w-[95%] h-[70vh] right-1/2 translate-x-1/2 md:translate-x-0 md:right-5 object-cover  overflow-y-auto bg-white border rounded-lg shadow-lg z-50 custom-scrollbar">
                     <div className="p-4">
                         <div className='flex pb-3 justify-between items-center'>
                             <h3 className="text-lg font-semibold">Notifications</h3>
