@@ -9,7 +9,6 @@ import Swal from "sweetalert2";
 
 const Vote = ({ election, email }) => {
   const emailToFind = email
-  const params = useParams();
   const [questionsArray, setQuestionsArray] = useState(election.questions);
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
@@ -53,9 +52,13 @@ const Vote = ({ election, email }) => {
   const onSubmit = (data) => {
 
     const updatedQuestionsArray = [...questionsArray];
+
     updatedQuestionsArray.forEach((question, questionIndex) => {
       question.options.forEach((option, optionIndex) => {
-        if (data[option.id]) {
+        // We need to check two things:
+        // 1. The option was actually selected by the user (data[option.id] is true)
+        // 2. The option is in the user's list of checked options
+        if (data[option.id] && checkedOptions[questionIndex]?.includes(option.id)) {
           const originalOption = questionsArray[questionIndex].options.find(
             (originalOption) => originalOption.id === option.id
           );
@@ -100,7 +103,6 @@ const Vote = ({ election, email }) => {
             title: "Oops...",
             text: "You already submit your vote. Don't try again",
           });
-          navigate(`/dashboard/election-correction`);
         }
       });
   };
