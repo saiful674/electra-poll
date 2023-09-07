@@ -74,61 +74,71 @@ const VoteAccess = () => {
             })
     }
 
+    console.log(voterCheck);
+
     if (!isVoter) {
-        return (
-            <div className='min-h-[80vh] pt-20 my-container justify-center flex items-center'>
-                {!isLoading && voterCheck.error && <p className='text-red-500 text-center'>Election does't exist or administrator has removed the election</p>}
-                {voterCheck?.isVoter && !isVoter && <div className='w-full flex flex-col items-center'>
-                    <div className='pb-10 text-center'>
-                        <p>We have send you the access key and password in this <span className='text-green-400'>{email}</span> email.</p>
-                        <p className='pt-4'>For detailed information please contact the administrator at
-                            <a
-                                className="text-green-400 underline ps-2"
-                                href={`mailto:${voterCheck?.adminEmail}`}
-                            >
-                                {voterCheck?.adminEmail}
-                            </a>
-                        </p>
-                    </div>
-                    <form onSubmit={handleSubmit(onSubmit)} className='w-full lg:w-[40%]'>
-
-                        {/* =========access key========== */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="text-lg font-semibold">
-                                    Access Key <span className="text-red-400">&#9998;</span>
-                                </span>
-                            </label>
-                            <input
-                                {...register("accessKey", { required: true })}
-                                placeholder="Access key"
-                                type="text"
-                                className="my-input focus:outline-green-400"
-                            />
-                            {errors.accessKey && errors.password.type === 'required' && <p className='text-red-500'>Access key is required</p>}
-                        </div>
-
-                        {/* ========password========= */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="text-lg font-semibold">
-                                    Password<span className="text-red-400">&#9998;</span>
-                                </span>
-                            </label>
-                            <input
-                                {...register("password", { required: true })}
-                                placeholder="Password"
-                                type="text"
-                                className="my-input focus:outline-green-400"
-                            />
-                            {errors.password && errors.password.type === 'required' && <p className='text-red-500'>Password is required</p>}
-                        </div>
-                        <div className='flex justify-center mt-4'>
-                            <button type='submit' className='button-next'>Submit</button>
-                        </div>
-                    </form></div>}
+        if (voterCheck?.ballotAccess === 'low') {
+            refetchElection()
+            return <div className='min-h-[80vh] pt-20 my-container justify-center flex items-center'>
+                <Vote email={email} election={election}></Vote>
             </div>
-        );
+        }
+        else {
+            return (
+                <div className='min-h-[80vh] pt-20 my-container justify-center flex items-center'>
+                    {!isLoading && voterCheck.error && <p className='text-red-500 text-center'>Election does't exist or administrator has removed the election</p>}
+                    {voterCheck?.isVoter && !isVoter && <div className='w-full flex flex-col items-center'>
+                        <div className='pb-10 text-center'>
+                            <p>We have send you the access key and password in this <span className='text-green-400'>{email}</span> email.</p>
+                            <p className='pt-4'>For detailed information please contact the administrator at
+                                <a
+                                    className="text-green-400 underline ps-2"
+                                    href={`mailto:${voterCheck?.adminEmail}`}
+                                >
+                                    {voterCheck?.adminEmail}
+                                </a>
+                            </p>
+                        </div>
+                        <form onSubmit={handleSubmit(onSubmit)} className='w-full lg:w-[40%]'>
+
+                            {/* =========access key========== */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="text-lg font-semibold">
+                                        Access Key <span className="text-red-400">&#9998;</span>
+                                    </span>
+                                </label>
+                                <input
+                                    {...register("accessKey", { required: true })}
+                                    placeholder="Access key"
+                                    type="text"
+                                    className="my-input focus:outline-green-400"
+                                />
+                                {errors.accessKey && errors.password.type === 'required' && <p className='text-red-500'>Access key is required</p>}
+                            </div>
+
+                            {/* ========password========= */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="text-lg font-semibold">
+                                        Password<span className="text-red-400">&#9998;</span>
+                                    </span>
+                                </label>
+                                <input
+                                    {...register("password", { required: true })}
+                                    placeholder="Password"
+                                    type="text"
+                                    className="my-input focus:outline-green-400"
+                                />
+                                {errors.password && errors.password.type === 'required' && <p className='text-red-500'>Password is required</p>}
+                            </div>
+                            <div className='flex justify-center mt-4'>
+                                <button type='submit' className='button-next'>Submit</button>
+                            </div>
+                        </form></div>}
+                </div>
+            );
+        }
     }
 
     else if (voterCheck?.voter?.voted === true) {

@@ -10,8 +10,11 @@ import Swal from "sweetalert2";
 const Vote = ({ election, email }) => {
   const emailToFind = email
   const [questionsArray, setQuestionsArray] = useState(election.questions);
+  const [voting, setVoting] = useState(false)
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
+
+  const voter = election?.voterEmails?.find(voter => voter.email === email)
 
 
   const handleOptionChange = (questionIndex, optionId) => {
@@ -50,6 +53,8 @@ const Vote = ({ election, email }) => {
   // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
+
+    setVoting(true)
 
     const updatedQuestionsArray = [...questionsArray];
 
@@ -96,7 +101,8 @@ const Vote = ({ election, email }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(`/dashboard/election-correction`);
+          setVoting(false)
+          navigate(`/`)
         } else {
           Swal.fire({
             icon: "error",
@@ -108,6 +114,13 @@ const Vote = ({ election, email }) => {
   };
 
   if (!election) return <LoadingSpinner />;
+
+  else if (voter?.voted === true) {
+    return <div className='min-h-[70vh] flex justify-center items-center flex-col gap-3'>
+      <p className='text-3xl text-green-500'>you already voted</p>
+      <button className='button-next'>see result</button>
+    </div>
+  }
 
   return (
     <div className="mb-5 w-screen">
@@ -149,7 +162,7 @@ const Vote = ({ election, email }) => {
             </div>
           ))}
 
-          <button type="submit">
+          <button disabled={voting || voter?.voted === true} className="disabled:opacity-40 pb-4" type="submit">
             {" "}
             <ButtonPrimary> Submit</ButtonPrimary>
           </button>
