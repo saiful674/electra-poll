@@ -23,7 +23,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+
 
     const { email, password } = data;
     signIn(email, password)

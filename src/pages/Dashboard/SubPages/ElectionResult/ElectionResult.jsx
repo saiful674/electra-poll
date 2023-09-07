@@ -13,7 +13,7 @@ const ElectionResult = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/election/${id}`)
+      .get(`https://electra-poll-server.vercel.app/election/${id}`)
       .then((res) => {
         setElectionData(res.data);
         setIsLoading(false);
@@ -27,7 +27,7 @@ const ElectionResult = () => {
   const handleDownloadClick = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/download-election-data/${id}`
+        `https://electra-poll-server.vercel.app/download-election-data/${id}`
       );
       const blob = await response.blob();
 

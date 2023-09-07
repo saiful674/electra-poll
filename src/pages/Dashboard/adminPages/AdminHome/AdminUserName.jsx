@@ -3,7 +3,6 @@ import { AuthContext } from '../../../../Providers/AuthProvider';
 
 const AdminUserName = () => {
   const { user } = useContext(AuthContext)
-  console.log('user ifi',user)
   return (
     <div className='bg-gray-100 mb-4 py-3 px-4 border-b-2 sm:flex flex items-center gap-4'>
       <div className="avatar">

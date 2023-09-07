@@ -18,7 +18,7 @@ const Notifications = () => {
         refetch,
         isLoading,
     } = useQuery(["notifications", user], async () => {
-        const res = await axios.get(`http://localhost:5000/notifications/${user?.email}`);
+        const res = await axios.get(`https://electra-poll-server.vercel.app/notifications/${user?.email}`);
         return res.data;
     });
     const unreadNotification = notifications.filter(notification => notification.isRead === false)
@@ -31,7 +31,7 @@ const Notifications = () => {
 
     const handleReadNotification = (notification) => {
         navigation(notification.contentURL)
-        axios.patch(`http://localhost:5000/notifications/${notification._id}`)
+        axios.patch(`https://electra-poll-server.vercel.app/notifications/${notification._id}`)
             .then(res => {
                 if (res.data.acknowledged) {
                     refetch()
@@ -39,8 +39,8 @@ const Notifications = () => {
             })
     }
     const handleRemoveNotification = (id) => {
-        console.log(id)
-        axios.delete(`http://localhost:5000/notifications/${id}`)
+
+        axios.delete(`https://electra-poll-server.vercel.app/notifications/${id}`)
             .then(res => {
                 if (res.data.acknowledged) {
                     refetch()
@@ -57,9 +57,7 @@ const Notifications = () => {
         const differenceInMilliseconds = givenDate - today;
 
         // Convert milliseconds to minutes
-        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
-
-        console.log(Math.abs(Math.round(differenceInMinutes)));// This will return the absolute difference in minutes
+        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);// This will return the absolute difference in minutes
         return Math.abs(Math.round(differenceInMinutes));  // This will return the absolute difference in minutes
     }
 

@@ -425,8 +425,7 @@ const AboutPage = () => {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+
           >
             <SwiperSlide>
               <div className="card  hover:shadow-xl hover:bg-base-100 ">
