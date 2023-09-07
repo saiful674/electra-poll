@@ -3,9 +3,12 @@ import { render, screen } from "@testing-library/react";
 import ButtonPrimary from "./ButtonPrimary";
 
 describe("ButtonPrimary", () => {
-  it("renders children correctly", () => {
-    render(<ButtonPrimary>Click me</ButtonPrimary>);
+  test("renders the ButtonPrimary component with children", () => {
+    const buttonText = "Click Me"; // Replace with your desired button text
+    const { getByText } = render(<ButtonPrimary>{buttonText}</ButtonPrimary>);
 
-    const button = screen.getByText("Click me");
+    const button = getByText(buttonText);
+
+    expect(button).toBeInTheDocument();
   });
 });
