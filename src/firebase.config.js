@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCP8RWcn3TsVAF8whjUBxB0UmrSGzNN8FI",
-  authDomain: "electrapoll-64bc7.firebaseapp.com",
-  projectId: "electrapoll-64bc7",
-  storageBucket: "electrapoll-64bc7.appspot.com",
-  messagingSenderId: "337575435714",
-  appId: "1:337575435714:web:061313374da8bd523eca5b"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase

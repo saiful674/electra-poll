@@ -7,53 +7,19 @@ import LoadingSpinner from "../../../shared/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-const Vote = ({ election }) => {
-  const params = useParams();
-  const [questionsArray, setQuestionsArray] = useState([]);
+const Vote = ({ election, email }) => {
+  const emailToFind = email
+  const [questionsArray, setQuestionsArray] = useState(election.questions);
+  const [voting, setVoting] = useState(false)
   const navigate = useNavigate();
   const [checkedOptions, setCheckedOptions] = useState({});
 
-
-
-  const { data: electionArray = [], isLoading } = useQuery({
-    queryKey: ["election", id],
-    queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/election/${id}`);
-      setQuestionsArray(res.data.questions);
-
-      return res.data;
-    },
-  });
-  // console.log(questionsArray);
-
-
-
-  // const handleOptionChange = (questionIndex, optionId) => {
-
-  //   console.log(questionIndex, optionId);
-  //   const updatedCheckedOptions = { ...checkedOptions };
-
-  //   if (updatedCheckedOptions[questionIndex] === undefined) {
-  //     updatedCheckedOptions[questionIndex] = [];
-  //   }
-
-  //   if (updatedCheckedOptions[questionIndex].includes(optionId)) {
-  //     // Uncheck the option
-  //     updatedCheckedOptions[questionIndex] = updatedCheckedOptions[questionIndex].filter(
-  //       (id) => id !== optionId
-  //     );
-  //   } else {
-  //     // Check the option
-  //     updatedCheckedOptions[questionIndex].push(optionId);
-  //   }
-
-  //   setCheckedOptions(updatedCheckedOptions);
-  // };
+  const voter = election?.voterEmails?.find(voter => voter.email === email)
 
 
   const handleOptionChange = (questionIndex, optionId) => {
     const updatedCheckedOptions = { ...checkedOptions };
-    const question = questionsArray[questionIndex];  // Fetch the question using the passed index
+    const question = questionsArray[questionIndex]; // Fetch the question using the passed index
 
     if (updatedCheckedOptions[questionIndex] === undefined) {
       updatedCheckedOptions[questionIndex] = [];
@@ -63,7 +29,9 @@ const Vote = ({ election }) => {
 
     // If the option is already checked, uncheck it
     if (currentlyCheckedOptions.includes(optionId)) {
-      updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(id => id !== optionId);
+      updatedCheckedOptions[questionIndex] = currentlyCheckedOptions.filter(
+        (id) => id !== optionId
+      );
     } else {
       // If the maximum number of selections is reached, uncheck the first one
       if (currentlyCheckedOptions.length >= question.choosedOptions) {
@@ -78,40 +46,49 @@ const Vote = ({ election }) => {
   };
 
 
+  console.log(election);
 
-
-
-
-
-
-
-
+  const { voterEmails } = election
+  console.log(voterEmails);
+  // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
-
   const onSubmit = (data) => {
+
+    setVoting(true)
+
     const updatedQuestionsArray = [...questionsArray];
 
     updatedQuestionsArray.forEach((question, questionIndex) => {
-
       question.options.forEach((option, optionIndex) => {
-        // console.log(option.id);
-        if (data[option.id]) {
+        // We need to check two things:
+        // 1. The option was actually selected by the user (data[option.id] is true)
+        // 2. The option is in the user's list of checked options
+        if (data[option.id] && checkedOptions[questionIndex]?.includes(option.id)) {
           const originalOption = questionsArray[questionIndex].options.find(
             (originalOption) => originalOption.id === option.id
           );
           if (originalOption) {
             originalOption.votes += 1;
           }
-
-
         }
-      })
-    })
+      });
+    });
     console.log(updatedQuestionsArray);
+    console.log(election);
+    const foundVoter = voterEmails.find((voter) => voter.email === emailToFind);
+
+    if (foundVoter) {
+      foundVoter.voted = true;
+      console.log('Updated voterEmails array:', voterEmails);
+    } else {
+      console.log('Email not found in the array.');
+    }
 
     axios
-      .put(`http://localhost:5000/election-vote-update/${id}`, {
+      .put(`http://localhost:5000/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
+        voterEmails,
+
       })
       .then((res) => {
         console.log(res.data);
@@ -124,20 +101,26 @@ const Vote = ({ election }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate(`/dashboard/election-correction`);
+          setVoting(false)
+          navigate(`/`)
         } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "You already submit your vote. Don't try again",
           });
-          navigate(`/dashboard/election-correction`);
         }
       });
-
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (!election) return <LoadingSpinner />;
+
+  else if (voter?.voted === true) {
+    return <div className='min-h-[70vh] flex justify-center items-center flex-col gap-3'>
+      <p className='text-3xl text-green-500'>you already voted</p>
+      <button className='button-next'>see result</button>
+    </div>
+  }
 
   return (
     <div className="mb-5 w-screen">
@@ -159,29 +142,27 @@ const Vote = ({ election }) => {
                       defaultValue={false}
                       render={({ field }) => (
                         <input
-                          onInput={() => handleOptionChange(questionIndex, option.id)}
-                          checked={
-                            checkedOptions[questionIndex]?.includes(option.id) ||
-                            false
+                          onInput={() =>
+                            handleOptionChange(questionIndex, option.id)
                           }
-
-                          // disabled={
-                          //   checkedOptions[questionIndex]?.length ===
-                          //   question.choosedOptions
-                          // }
-                          type="checkbox" {...field} />
+                          checked={
+                            checkedOptions[questionIndex]?.includes(
+                              option.id
+                            ) || false
+                          }
+                          type="checkbox"
+                          {...field}
+                        />
                       )}
                     />
                     {option.option}
                   </label>
-
                 </div>
               ))}
-
             </div>
           ))}
 
-          <button type="submit">
+          <button disabled={voting || voter?.voted === true} className="disabled:opacity-40 pb-4" type="submit">
             {" "}
             <ButtonPrimary> Submit</ButtonPrimary>
           </button>

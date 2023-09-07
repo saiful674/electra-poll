@@ -88,7 +88,7 @@ const SingleBlogs = () => {
           </h2>
           <div className="my-4">
             {blog.content &&
-              blog?.content.map((b) => <p className="text-lg mb-1">{b}</p>)}
+              blog?.content.map((b, i) => <p key={i} className="text-lg mb-1">{b}</p>)}
             {/* <p className="text-lg">{blog?.content}</p> */}
           </div>
           <div className="flex justify-end my-5">

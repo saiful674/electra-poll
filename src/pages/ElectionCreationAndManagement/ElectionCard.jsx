@@ -76,18 +76,20 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
         <p>
           Status: {status} | {voteType} Vote
         </p>
-        <p>
-          Voting Ends in:{" "}
-          <span
-            className={
-              timeDifference <= 3
-                ? "text-red-400"
-                : "text-green-500"
-            }
-          >
-            {timeLeft || 'election ended'}
-          </span>
-        </p>
+        {
+          startDate && endDate && <p>
+            Voting Ends in:{" "}
+            <span
+              className={
+                timeDifference <= 3
+                  ? "text-red-400"
+                  : "text-green-500"
+              }
+            >
+              {timeLeft || 'election ended'}
+            </span>
+          </p>
+        }
         <p>Start: {startDate && formatDateToInputValue(startDate, timeZone)}</p>
         <p>End: {endDate && formatDateToInputValue(endDate, timeZone)}</p>
         {voterEmails && <p>Voters: {voterEmails.length}</p>}

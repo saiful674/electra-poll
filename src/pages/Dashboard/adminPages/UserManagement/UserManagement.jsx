@@ -3,11 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { FaTrashAlt} from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import UserName from '../../../../components/Deshboard/UserName/UserName';
-import LoadingSpinner from '../../../shared/LoadingSpinner';
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
+import AdminUserName from '../AdminHome/AdminUserName';
 const UserManagement = () => {
     const { user } = useContext(AuthContext)
 
@@ -96,7 +96,7 @@ const UserManagement = () => {
     }
     return (
         <div>
-            <UserName></UserName>
+            <AdminUserName></AdminUserName>
 
 
             {/* whwn voter is zero/empty */}
