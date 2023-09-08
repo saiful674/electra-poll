@@ -7,7 +7,7 @@ const ResultChart = ({ questionData }) => {
   }));
 
   const isAnyoneVoted = questionData.options.filter(option => option.votes > 0)
-  console.log(isAnyoneVoted);
+  
 
   const COLORS = ['#4CAF50', '#9C27B0', '#F44336', '#00BCD4', '#673AB7', '#FF6384', '#36A2EB', '#FFCE56', '#FF7043', '#90A4AE',];
 
