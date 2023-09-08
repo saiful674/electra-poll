@@ -7,7 +7,7 @@ export function formatDateToInputValue(dateString, timezone) {
     const hours = String(date.getUTCHours()).padStart(2, '0');
     const minutes = String(date.getUTCMinutes()).padStart(2, '0');
 
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${year}-${month}-${day}  ${hours}:${minutes}`;
 }
 
 
