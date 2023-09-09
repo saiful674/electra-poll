@@ -17,7 +17,6 @@ const PostBlog = () => {
   const onSubmit = (data) => {
     const { content } = data;
     const splitContent = content.split(/\n+/);
-    console.log(splitContent);
     data.status = "recent";
     data.content = splitContent;
     data.comments = [];
@@ -25,7 +24,7 @@ const PostBlog = () => {
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
       axios
-        .post("http://localhost:5000/blog", data)
+        .post("https://electra-poll-server.vercel.app/blog", data)
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Blog Post successfully");
@@ -37,12 +36,13 @@ const PostBlog = () => {
           console.log(err);
         });
     });
-
-    console.log(data);
   };
   return (
-    <div>
-      <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen">
+      <h2 className="text-3xl text-center font-semibold text-green-400 my-5">
+        Post your Blog
+      </h2>
+      <div className=" w-full flex items-center justify-center bg-gray-100">
         <form
           className="bg-white min-h-screen w-full shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
@@ -76,7 +76,7 @@ const PostBlog = () => {
               Content
             </label>
             <textarea
-              className={`shadow appearance-none h-[350px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              className={`shadow appearance-none h-[300px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 errors.content ? "border-red-500" : ""
               }`}
               id="content"

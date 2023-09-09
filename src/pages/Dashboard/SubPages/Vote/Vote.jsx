@@ -46,10 +46,8 @@ const Vote = ({ election, email }) => {
   };
 
 
-  console.log(election);
 
   const { voterEmails } = election
-  console.log(voterEmails);
   // on submit form function //////////////////////////////////////////////////////////////
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -73,25 +71,22 @@ const Vote = ({ election, email }) => {
         }
       });
     });
-    console.log(updatedQuestionsArray);
-    console.log(election);
+
     const foundVoter = voterEmails.find((voter) => voter.email === emailToFind);
 
     if (foundVoter) {
       foundVoter.voted = true;
-      console.log('Updated voterEmails array:', voterEmails);
     } else {
       console.log('Email not found in the array.');
     }
 
     axios
-      .put(`http://localhost:5000/election-vote-update/${election._id}`, {
+      .put(`https://electra-poll-server.vercel.app/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
         voterEmails,
 
       })
       .then((res) => {
-        console.log(res.data);
         // Update the state with modified data
         if (res.data.modifiedCount > 0) {
           Swal.fire({

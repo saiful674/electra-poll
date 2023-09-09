@@ -10,7 +10,7 @@ const BlogHome = () => {
   const { data: recentBlog = [], refetch } = useQuery({
     queryKey: ["recentBlog"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/recentBlog`);
+      const res = await axios.get(`https://electra-poll-server.vercel.app/recentBlog`);
       const data = res.data;
       return data;
     },
@@ -25,7 +25,7 @@ const BlogHome = () => {
       <div className="grid mt-20 mb-20 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {recentBlog &&
           recentBlog
-            .slice(0, 3)
+            ?.slice(0, 3)
             .map((blog) => (
               <RecentCard key={blog?._id} blog={blog}></RecentCard>
             ))}

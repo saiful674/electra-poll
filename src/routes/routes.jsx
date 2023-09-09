@@ -7,7 +7,6 @@ import Contact from "../pages/Contact/Contact";
 import ElectionResult from "../pages/Dashboard/SubPages/ElectionResult/ElectionResult";
 import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
 import Result from "../pages/Dashboard/SubPages/Result/Result";
-import Sating from "../pages/Dashboard/SubPages/Sattings/Sating";
 import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
 import Election from "../pages/Election/Election";
 import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
@@ -19,11 +18,13 @@ import PrivateRoutes from "./PrivateRoutes";
 import TermsAndCondition from "../pages/Registration/TermsAndCondition/TermsAndCondition";
 import ForgetPassword from "../components/ForgatePassword/ForgetPassword";
 import SingleBlogs from "../pages/Blog/SingleBlogs";
-import AdminOnlyRouts from "./AdminOnlyRoute"
+import AdminOnlyRouts from "./AdminOnlyRoute";
 import AdminHome from "../pages/Dashboard/adminPages/AdminHome/AdminHome";
 import UserManagement from "../pages/Dashboard/adminPages/UserManagement/UserManagement";
 import PostBlog from "../pages/Dashboard/adminPages/PostBlog/PostBlog";
 import VoteAccess from "../pages/Dashboard/SubPages/Vote/VoteAccess";
+import ManageBlogs from "../pages/Dashboard/adminPages/MangeBlogs/ManageBlogs";
+import Setting from "../pages/Dashboard/SubPages/Settings/Setting";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -76,8 +77,8 @@ const router = createBrowserRouter([
       // ============voting ui paths============
       {
         path: "vote",
-        element: <VoteAccess></VoteAccess>
-      }
+        element: <VoteAccess></VoteAccess>,
+      },
     ],
   },
   {
@@ -98,8 +99,8 @@ const router = createBrowserRouter([
         element: <Voters />,
       },
       {
-        path: "satings",
-        element: <Sating />,
+        path: "settings",
+        element: <Setting />,
       },
       {
         path: "result",
@@ -120,15 +121,35 @@ const router = createBrowserRouter([
       // ============admin routes=================
       {
         path: "adminHome",
-        element: <AdminOnlyRouts><AdminHome /></AdminOnlyRouts>,
+        element: (
+          <AdminOnlyRouts>
+            <AdminHome />
+          </AdminOnlyRouts>
+        ),
       },
       {
         path: "userManagement",
-        element: <AdminOnlyRouts><UserManagement></UserManagement></AdminOnlyRouts>,
+        element: (
+          <AdminOnlyRouts>
+            <UserManagement></UserManagement>
+          </AdminOnlyRouts>
+        ),
       },
       {
         path: "PostBlog",
-        element: <AdminOnlyRouts><PostBlog></PostBlog></AdminOnlyRouts>
+        element: (
+          <AdminOnlyRouts>
+            <PostBlog></PostBlog>
+          </AdminOnlyRouts>
+        ),
+      },
+      {
+        path: "ManageBlogs",
+        element: (
+          <AdminOnlyRouts>
+            <ManageBlogs></ManageBlogs>
+          </AdminOnlyRouts>
+        ),
       },
     ],
   },

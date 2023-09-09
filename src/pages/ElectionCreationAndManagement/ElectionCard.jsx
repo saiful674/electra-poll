@@ -23,9 +23,6 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
   } = election;
 
   const { timeLeft, timeDifference } = useElectionTimer(endDate)
-  // console.log(timeDifference);
-
-
   const handleElectionDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -38,9 +35,8 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:5000/remove-election/${_id}`)
+          .patch(`https://electra-poll-server.vercel.app/remove-election/${_id}`)
           .then((res) => {
-            console.log(res.data);
             if (res.data.deletedCount) {
               refetch();
               Swal.fire(
