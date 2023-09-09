@@ -190,7 +190,7 @@ const Sidebar = () => {
                 )}
 
                 <NavLink
-                  to="/dashboard/satings"
+                  to="/dashboard/settings"
                   onClick={handleToggle}
                   className={({ isActive }) =>
                     `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
