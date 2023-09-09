@@ -23,7 +23,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
   } = election;
 
   const { timeLeft, timeDifference } = useElectionTimer(endDate)
-  console.log(timeDifference);
+  // console.log(timeDifference);
 
 
   const handleElectionDelete = () => {
