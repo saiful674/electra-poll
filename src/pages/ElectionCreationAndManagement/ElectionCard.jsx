@@ -23,9 +23,6 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
   } = election;
 
   const { timeLeft, timeDifference } = useElectionTimer(endDate)
-
-
-
   const handleElectionDelete = () => {
     Swal.fire({
       title: "Are you sure?",
