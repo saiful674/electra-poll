@@ -116,7 +116,7 @@ const Testimonial = () => {
           breakpoints={{
             // When screen width is >= 1024px
             1024: {
-              slidesPerView: 3,
+              slidesPerView: 2,
             },
             // When screen width is >= 768px
             768: {

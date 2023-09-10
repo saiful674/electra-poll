@@ -6,7 +6,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 const TestimonialCard = ({ testimonial }) => {
   return (
     <div className="mb-10 my-5" data-aos="fade-left" data-aos-duration="800">
-      <div className="quote-box">
+      <div className="quote-box w-full">
         <div className="block-quote">
           <div className="quote">
             <p className="flex justify-between items-center mb-7">
