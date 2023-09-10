@@ -25,6 +25,7 @@ import PostBlog from "../pages/Dashboard/adminPages/PostBlog/PostBlog";
 import VoteAccess from "../pages/Dashboard/SubPages/Vote/VoteAccess";
 import ManageBlogs from "../pages/Dashboard/adminPages/MangeBlogs/ManageBlogs";
 import Setting from "../pages/Dashboard/SubPages/Settings/Setting";
+import UserReview from "../pages/Dashboard/SubPages/UserReview/UserReview";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: "voters",
         element: <Voters />,
+      },
+      {
+        path: "reviews",
+        element: <UserReview />,
       },
       {
         path: "settings",

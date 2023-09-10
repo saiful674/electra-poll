@@ -5,7 +5,7 @@ import { BsFillHouseAddFill } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaBlog, FaHome, FaUsers } from "react-icons/fa";
 import { HiMiniCog6Tooth } from "react-icons/hi2";
-import { MdBallot } from "react-icons/md";
+import { MdBallot, MdReviews } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import logo from "../../../assets/logo-white.png";
@@ -127,6 +127,20 @@ const Sidebar = () => {
                       <FaUsers className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Voters</span>
+                    </NavLink>
+
+                    <NavLink
+                      to="/dashboard/reviews"
+                      onClick={handleToggle}
+                      className={({ isActive }) =>
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
+                          isActive ? "bg-teal-950 " : ""
+                        }`
+                      }
+                    >
+                      <MdReviews className="w-5 h-5" />
+
+                      <span className="mx-4 font-medium">Review</span>
                     </NavLink>
                   </>
                 )}
