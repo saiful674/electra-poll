@@ -1,11 +1,10 @@
-import React from "react";
+import Aos from "aos";
+import React, { useEffect } from "react";
 import { FaChartPie, FaClipboardList, FaRocket } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
-import dashboardImage from "../../../assets/How-it-work/dashboard2.jpg";
+import dashboardImage from "../../../assets/How-it-work/dashboard2.png";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import Aos from "aos";
-import { useEffect } from "react";
 
 const HowItsWorks = () => {
 

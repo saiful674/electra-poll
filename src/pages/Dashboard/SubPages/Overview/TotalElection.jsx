@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsQuestionOctagonFill } from "react-icons/bs";
 import { GiVote } from "react-icons/gi";
 import { HiUserGroup } from "react-icons/hi2";
 import getElection from "../../../../Hooks/getElection";
-import { useState } from "react";
-import { useEffect } from "react";
 import { AuthContext } from "../../../../Providers/AuthProvider";
-import { useContext } from "react";
 const TotalElection = () => {
   const [elections] = getElection();
   console.log("anis", elections);
