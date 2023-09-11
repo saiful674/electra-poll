@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
@@ -11,8 +10,8 @@ import ButtonSecondary from "../../components/ButtonSecondary/ButtonSecondary";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
-  const { myInfo } = getMyInfo()
-  const role = myInfo.role
+  const { myInfo } = getMyInfo();
+  const role = myInfo.role;
   const handleLogOut = () => {
     logout()
       .then(toast.success("logout successfully"))
@@ -48,8 +47,9 @@ const Navbar = () => {
   return (
     <div
       data-aos="fade-down"
-      className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-30 top-0`}
+      className={`${visible ? "" : "hidden"} ${
+        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+      } fixed w-screen z-30 top-0`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -73,20 +73,24 @@ const Navbar = () => {
           >
             Blog
           </NavLink>
-          {user && role === 'user' && <NavLink
-            className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to="/dashboard/election-correction"
-          >
-            Election
-          </NavLink>
-
-          }
-          {user && <NavLink
-            className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            to={role === 'user' ? "/dashboard/overview" : "/dashboard/adminHome"}
-          >
-            Dashboard
-          </NavLink>}
+          {user && role === "user" && (
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/dashboard/election-correction"
+            >
+              Election
+            </NavLink>
+          )}
+          {user && (
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to={
+                role === "user" ? "/dashboard/overview" : "/dashboard/adminHome"
+              }
+            >
+              Dashboard
+            </NavLink>
+          )}
 
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
@@ -127,81 +131,91 @@ const Navbar = () => {
       {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-          } fixed w-screen z-10 top-0`}
+        className={`${visible ? "" : "hidden"} ${
+          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
           <button onClick={() => setIsOpen(true)}>
             <HiBars3BottomRight className="text-2xl"></HiBars3BottomRight>
           </button>
-          {isOpen && (
-            <ul className="absolute py-3 gap-2 rounded-md bg-white flex flex-col right-0 top-2 w-1/2 items-center">
-              <button
-                className="absolute right-2"
-                onClick={() => setIsOpen(false)}
-              >
-                <HiXMark className="text-xl"></HiXMark>
-              </button>
-              {user && (
-                <div
-                  className="w-8 mx-5 tooltip tooltip-left"
-                  data-tip={user.displayName}
-                >
-                  {user.photoURL ? (
-                    <img src={user.photoURL} alt="" className="rounded-full " />
-                  ) : (
-                    <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
-                  )}
-                </div>
-              )}
 
-              <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/"
+          <ul
+            className={`${
+              isOpen ? "-right-4" : "-right-96"
+            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
+          >
+            <button
+              className="absolute right-4"
+              onClick={() => setIsOpen(false)}
+            >
+              <HiXMark className="text-xl"></HiXMark>
+            </button>
+            {user && (
+              <div
+                className="w-8 mx-5 pt-10 tooltip tooltip-left"
+                data-tip={user.displayName}
               >
-                Home
-              </NavLink>
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" className="rounded-full " />
+                ) : (
+                  <FaUserCircle className=" text-4xl max-sm:text-2xl mx-3"></FaUserCircle>
+                )}
+              </div>
+            )}
+
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/about "
+            >
+              About
+            </NavLink>
+            {user && role === "user" && (
               <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/about "
-              >
-                About
-              </NavLink>
-              {user && role === 'user' && <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/election-correction"
               >
                 Election
               </NavLink>
-
-              }
-              {user && <NavLink
-                className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to={role === 'user' ? "/dashboard/overview" : "/dashboard/adminHome"}
-              >
-                Dashboard
-              </NavLink>}
+            )}
+            {user && (
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                to="/contact"
+                to={
+                  role === "user"
+                    ? "/dashboard/overview"
+                    : "/dashboard/adminHome"
+                }
               >
-                Contact
+                Dashboard
               </NavLink>
-              {user ? (
-                <button className="my-btn-sec" onClick={handleLogOut}>
-                  LogOUT
-                </button>
-              ) : (
-                <NavLink
-                  className={({ isActive }) => (isActive ? "text-green-400" : "")}
-                  to="/login"
-                >
-                  Login
-                </NavLink>
-              )}
-            </ul>
-          )}
+            )}
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/contact"
+            >
+              Contact
+            </NavLink>
+            {user ? (
+              <button className="my-btn-sec" onClick={handleLogOut}>
+                LogOUT
+              </button>
+            ) : (
+              <NavLink
+                className={({ isActive }) => (isActive ? "text-green-400" : "")}
+                to="/login"
+              >
+                Login
+              </NavLink>
+            )}
+          </ul>
         </div>
       </div>
     </div>

@@ -84,9 +84,7 @@ const Testimonial = () => {
   const { data: reviewsData = [], isLoading } = useQuery({
     queryKey: ["user-review"],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://electra-poll-server.vercel.app/user-review`
-      );
+      const res = await axios.get(`http://localhost:5000/user-review`);
       return res.data;
     },
   });
