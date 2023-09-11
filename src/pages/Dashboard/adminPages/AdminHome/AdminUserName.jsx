@@ -4,10 +4,7 @@ import Notifications from '../../../../components/Notifications/Notifications';
 
 const AdminUserName = () => {
   const { user } = useContext(AuthContext)
-<<<<<<< HEAD
-=======
   console.log('user ifi', user)
->>>>>>> 94af5f4f94a84272d805115bc2c374feaea1b01b
   return (
     <div className='bg-gray-100 mb-4 py-3 px-4 border-b-2 flex justify-between gap-4 items-center'>
      <div className=' sm:flex flex items-center gap-4'>
