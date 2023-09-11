@@ -144,7 +144,7 @@ const Navbar = () => {
           <ul
             className={`${
               isOpen ? "-right-4" : "-right-96"
-            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] items-center transition-all backdrop-blur-sm`}
+            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
           >
             <button
               className="absolute right-4"

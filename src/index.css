@@ -142,3 +142,8 @@ npm run :-moz-drag-over
 
 /* ==========table collum padding======== */
 
+/* ======= transition common========= */
+.my-transition{
+  transition: all ease-out 400ms;
+}
+
