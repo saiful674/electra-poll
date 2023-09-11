@@ -141,6 +141,4 @@ npm run :-moz-drag-over
 
 
 /* ==========table collum padding======== */
-.table :where(td){
-  padding: 0 10px !important;
-}
+
