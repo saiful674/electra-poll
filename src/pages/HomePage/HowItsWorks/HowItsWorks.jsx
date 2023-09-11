@@ -2,6 +2,7 @@ import Aos from "aos";
 import React, { useEffect } from "react";
 import { FaChartPie, FaClipboardList, FaRocket } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import dashboardImage from "../../../assets/How-it-work/dashboard2.png";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
@@ -98,7 +99,9 @@ const HowItsWorks = () => {
               </div>
             </div>
             <div className="mt-5">
+              <Link to='/dashboard/election-correction'>
               <ButtonPrimary>Create A Poll</ButtonPrimary>
+              </Link>
             </div>
           </div>
         </div>
