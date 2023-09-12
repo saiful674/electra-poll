@@ -8,7 +8,7 @@ import { imageUpload } from "../../../../Hooks/ImageUploade";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 
 const PostBlog = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -20,6 +20,7 @@ const PostBlog = () => {
     const { content } = data;
     const splitContent = content.split(/\n+/);
     data.status = "recent";
+    data.email = user?.email;
     data.content = splitContent;
     data.comments = [];
     data.email = user.email;
@@ -31,7 +32,7 @@ const PostBlog = () => {
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Blog Post successfully");
-            
+
             reset();
             <Navigate to={"/blog"}></Navigate>;
           }

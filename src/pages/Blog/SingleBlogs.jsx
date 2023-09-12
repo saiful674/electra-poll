@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -17,10 +13,17 @@ const SingleBlogs = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const [reply, setReply] = useState(null);
+  const [replyCollection, setReplyCollection] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [replyButton, setReplyButton] = useState(true);
+
   const {
     data: blog = {},
     isLoading,
-    refetch,
+    refetch: blogRefetch,
+    isError,
+    error,
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
@@ -28,6 +31,15 @@ const SingleBlogs = () => {
       return res.data;
     },
   });
+  console.log(isError);
+  console.log(error);
+  const handleReply = (commentId) => {
+    setReply(commentId);
+  };
+
+  const handleButton = () => {
+    setReplyButton(false);
+  };
 
   const {
     register,
@@ -36,6 +48,11 @@ const SingleBlogs = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_URL}/comment/${id}`).then((res) => {
+      setComments(res.data);
+    });
+  }, [id]);
   const onSubmit = (data) => {
     data.username = user?.displayName;
     if (!user) {
@@ -55,10 +72,12 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`http://localhost:5000/comment/${blog?._id}`, data)
+      .post(`${import.meta.env.VITE_URL}/comment?id=${blog?._id}`, data)
       .then((res) => {
-        toast.success("Your comment successfully");
-        refetch();
+        if (res.data.insertedId) {
+          blogRefetch({ force: true });
+          toast.success("Your comment successfully");
+        }
         reset();
       })
       .catch((err) => {
@@ -66,10 +85,37 @@ const SingleBlogs = () => {
       });
   };
 
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_URL}/reply/${id}`).then((res) => {
+      setReplyCollection(res.data);
+    });
+  }, [id]);
+
+  const submitComment = (e, comment) => {
+    e.preventDefault();
+    const form = e.target;
+    const replyData = {
+      reply: form.reply.value,
+      commentId: reply,
+      commentAuthor: comment?.username,
+      author: user?.displayName,
+      blogId: id,
+    };
+
+    axios
+      .post(`${import.meta.env.VITE_URL}/reply?id=${id}`, replyData)
+      .then((res) => {
+        if (res.data.insertedId) {
+          blogRefetch({ force: true });
+          toast.success("Your reply successfully");
+        }
+      });
+    form.reset();
+  };
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
-  }
-  else {
+  } else {
     return (
       <div className="mt-16">
         <div
@@ -86,19 +132,62 @@ const SingleBlogs = () => {
           </h2>
           <div className="my-4">
             {blog.content &&
-              blog?.content.map((b, i) => <p key={i} className="text-lg mb-1">{b}</p>)}
+              blog?.content.map((b, i) => (
+                <p key={i} className="text-lg mb-1">
+                  {b}
+                </p>
+              ))}
             {/* <p className="text-lg">{blog?.content}</p> */}
           </div>
           <div className="flex justify-end my-5">
-            {blog?.comments?.length > 0 && (
+            {comments?.length > 0 && (
               <div>
                 <h4 className="text-2xl font-semibold">
                   Here you can see all comments
                 </h4>
-                {blog?.comments.map((com, index) => (
+                {comments.map((com, index) => (
                   <div className="border my-2 p-2" key={index}>
-                    <p className="font-semibold">{com?.comment}</p>
-                    <p>{com?.username}</p>
+                    <p className="">
+                      {com?.username} ={">"}{" "}
+                      <span className="font-semibold">{com?.comment}</span>
+                    </p>
+
+                    <p className="ml-10">
+                      <span>
+                        Author: ={">"}{" "}
+                        {
+                          replyCollection.find((r) => r?.commentId === com?._id)
+                            ?.reply
+                        }
+                      </span>
+                    </p>
+                    {replyButton && (
+                      <button
+                        className="text-green-400"
+                        onClick={() => handleReply(com?._id)}
+                      >
+                        Reply
+                      </button>
+                    )}
+                    {reply === com?._id && (
+                      <div>
+                        <form onSubmit={(e) => submitComment(e, com)}>
+                          <input
+                            className="py-1 px-2"
+                            type="text"
+                            name="reply"
+                            id="reply"
+                            placeholder="type your reply"
+                          />
+                          <input
+                            onClick={handleButton}
+                            className="ml-2 border py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
+                            type="submit"
+                            value="comment"
+                          />
+                        </form>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -114,8 +203,9 @@ const SingleBlogs = () => {
                   Add your Valuable comment
                 </label>
                 <input
-                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.comment ? "border-red-500" : ""
-                    }`}
+                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    errors.comment ? "border-red-500" : ""
+                  }`}
                   id="comment"
                   name="comment"
                   type="text"
@@ -138,7 +228,7 @@ const SingleBlogs = () => {
         </div>
       </div>
     );
-  };
-}
+  }
+};
 
 export default SingleBlogs;
