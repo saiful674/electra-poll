@@ -7,23 +7,23 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import getMyInfo from "../../Hooks/getMyInfo";
+import moment from "moment/moment";
 
 const SingleBlogs = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const { myInfo } = getMyInfo();
   const location = useLocation();
   const navigate = useNavigate();
   const [reply, setReply] = useState(null);
-  const [replyCollection, setReplyCollection] = useState([]);
-  const [comments, setComments] = useState([]);
+  // const [replyCollection, setReplyCollection] = useState([]);
   const [replyButton, setReplyButton] = useState(true);
 
   const {
     data: blog = {},
     isLoading,
     refetch: blogRefetch,
-    isError,
-    error,
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
@@ -31,16 +31,11 @@ const SingleBlogs = () => {
       return res.data;
     },
   });
-  console.log(isError);
-  console.log(error);
+
   const handleReply = (commentId) => {
     setReply(commentId);
   };
-
-  const handleButton = () => {
-    setReplyButton(false);
-  };
-
+  console.log(myInfo);
   const {
     register,
     handleSubmit,
@@ -48,13 +43,18 @@ const SingleBlogs = () => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_URL}/comment/${id}`).then((res) => {
-      setComments(res.data);
-    });
-  }, [id]);
+  const { data: comments = [], refetch: commentRefetch } = useQuery({
+    queryKey: ["comments", id],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_URL}/comment/${id}`);
+      return res.data;
+    },
+  });
+
   const onSubmit = (data) => {
     data.username = user?.displayName;
+    data.photo = myInfo?.uploadedImage;
+    data.date = new Date();
     if (!user) {
       return Swal.fire({
         title: "Are you sure?",
@@ -75,7 +75,7 @@ const SingleBlogs = () => {
       .post(`${import.meta.env.VITE_URL}/comment?id=${blog?._id}`, data)
       .then((res) => {
         if (res.data.insertedId) {
-          blogRefetch({ force: true });
+          commentRefetch();
           toast.success("Your comment successfully");
         }
         reset();
@@ -85,11 +85,13 @@ const SingleBlogs = () => {
       });
   };
 
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_URL}/reply/${id}`).then((res) => {
-      setReplyCollection(res.data);
-    });
-  }, [id]);
+  const { data: replyCollection = [], refetch: replayRefetch } = useQuery({
+    queryKey: ["reply", id],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_URL}/reply/${id}`);
+      return res.data;
+    },
+  });
 
   const submitComment = (e, comment) => {
     e.preventDefault();
@@ -99,6 +101,8 @@ const SingleBlogs = () => {
       commentId: reply,
       commentAuthor: comment?.username,
       author: user?.displayName,
+      date: new Date(),
+      photo: myInfo?.uploadedImage,
       blogId: id,
     };
 
@@ -106,8 +110,9 @@ const SingleBlogs = () => {
       .post(`${import.meta.env.VITE_URL}/reply?id=${id}`, replyData)
       .then((res) => {
         if (res.data.insertedId) {
-          blogRefetch({ force: true });
+          replayRefetch();
           toast.success("Your reply successfully");
+          setReply(null);
         }
       });
     form.reset();
@@ -145,51 +150,84 @@ const SingleBlogs = () => {
                 <h4 className="text-2xl font-semibold">
                   Here you can see all comments
                 </h4>
-                {comments.map((com, index) => (
-                  <div className="border my-2 p-2" key={index}>
-                    <p className="">
-                      {com?.username} ={">"}{" "}
-                      <span className="font-semibold">{com?.comment}</span>
-                    </p>
 
-                    <p className="ml-10">
-                      <span>
-                        Author: ={">"}{" "}
-                        {
-                          replyCollection.find((r) => r?.commentId === com?._id)
-                            ?.reply
-                        }
-                      </span>
-                    </p>
-                    {replyButton && (
-                      <button
-                        className="text-green-400"
-                        onClick={() => handleReply(com?._id)}
-                      >
-                        Reply
-                      </button>
-                    )}
-                    {reply === com?._id && (
-                      <div>
-                        <form onSubmit={(e) => submitComment(e, com)}>
-                          <input
-                            className="py-1 px-2"
-                            type="text"
-                            name="reply"
-                            id="reply"
-                            placeholder="type your reply"
+                {comments.map((com, index) => {
+                  const getReply = replyCollection.find(
+                    (r) => r?.commentId === com?._id
+                  );
+                  return (
+                    <div className="border mt-6 my-2 p-2" key={index}>
+                      <div className="flex items-center gap-5">
+                        <div className="">
+                          <img
+                            className="w-10 h-10 rounded-full"
+                            src={com?.photo}
+                            alt={com?.username}
                           />
-                          <input
-                            onClick={handleButton}
-                            className="ml-2 border py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
-                            type="submit"
-                            value="comment"
-                          />
-                        </form>
+                        </div>
+                        <div>
+                          <p className="font-semibold">
+                            {com?.username}{" "}
+                            <span className="ml-5">
+                              {moment(com?.date).format("lll")}
+                            </span>
+                          </p>
+
+                          <p className="">{com?.comment}</p>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                ))}
+
+                      {getReply && (
+                        <div className="ml-10 mt-4 flex gap-5 items-start">
+                          <div>
+                            <img
+                              className="w-10 h-10 rounded-full"
+                              src={getReply?.photo}
+                              alt={getReply?.author}
+                            />
+                          </div>
+                          <div>
+                            <p className="font-semibold">
+                              {getReply?.author}{" "}
+                              <span className="ml-5">
+                                {moment(getReply?.date).format("lll")}
+                              </span>
+                            </p>
+
+                            <p className="">{getReply?.reply}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {myInfo?.role === "admin" && (
+                        <button
+                          className="text-green-400 ml-10"
+                          onClick={() => handleReply(com?._id)}
+                        >
+                          Reply
+                        </button>
+                      )}
+                      {reply === com?._id && (
+                        <div>
+                          <form onSubmit={(e) => submitComment(e, com)}>
+                            <input
+                              className="py-1 px-2"
+                              type="text"
+                              name="reply"
+                              id="reply"
+                              placeholder="type your reply"
+                            />
+                            <input
+                              className="ml-2 border py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
+                              type="submit"
+                              value="comment"
+                            />
+                          </form>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
