@@ -2,10 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import moment from "moment";
 import React from "react";
+import { useContext } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../../Providers/AuthProvider";
 
 const ManageBlogs = () => {
+  const { user } = useContext(AuthContext);
   const {
     data: blogs = [],
     refetch,
@@ -14,7 +17,7 @@ const ManageBlogs = () => {
     queryKey: ["blogs"],
     queryFn: async () => {
       const res = await axios.get(
-        `https://electra-poll-server.vercel.app/blogs`
+        `http://localhost:5000/getBlog?email=${user?.email}`
       );
       return res.data;
     },

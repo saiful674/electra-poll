@@ -1,13 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -17,6 +13,7 @@ const SingleBlogs = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const [reply, setReply] = useState(null);
   const {
     data: blog = {},
     isLoading,
@@ -24,10 +21,16 @@ const SingleBlogs = () => {
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/blog/${id}`);
+      const res = await axios.get(
+        `https://electra-poll-server.vercel.app/blog/${id}`
+      );
       return res.data;
     },
   });
+  const handleReply = (commentId) => {
+    setReply(commentId);
+    console.log(reply);
+  };
 
   const {
     register,
@@ -55,7 +58,7 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`http://localhost:5000/comment/${blog?._id}`, data)
+      .post(`http://localhost:5000/comment?id=${blog?._id}`, data)
       .then((res) => {
         toast.success("Your comment successfully");
         refetch();
@@ -66,10 +69,17 @@ const SingleBlogs = () => {
       });
   };
 
+  const { data: comments = {} } = useQuery({
+    queryKey: ["comments", id],
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:5000/comment/${blog?._id}`);
+      return res.data;
+    },
+  });
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
-  }
-  else {
+  } else {
     return (
       <div className="mt-16">
         <div
@@ -86,19 +96,29 @@ const SingleBlogs = () => {
           </h2>
           <div className="my-4">
             {blog.content &&
-              blog?.content.map((b, i) => <p key={i} className="text-lg mb-1">{b}</p>)}
+              blog?.content.map((b, i) => (
+                <p key={i} className="text-lg mb-1">
+                  {b}
+                </p>
+              ))}
             {/* <p className="text-lg">{blog?.content}</p> */}
           </div>
           <div className="flex justify-end my-5">
-            {blog?.comments?.length > 0 && (
+            {comments?.length > 0 && (
               <div>
                 <h4 className="text-2xl font-semibold">
                   Here you can see all comments
                 </h4>
-                {blog?.comments.map((com, index) => (
+                {comments.map((com, index) => (
                   <div className="border my-2 p-2" key={index}>
                     <p className="font-semibold">{com?.comment}</p>
                     <p>{com?.username}</p>
+                    <button
+                      className="text-green-400"
+                      onClick={() => handleReply(com?._id)}
+                    >
+                      Reply
+                    </button>
                   </div>
                 ))}
               </div>
@@ -114,8 +134,9 @@ const SingleBlogs = () => {
                   Add your Valuable comment
                 </label>
                 <input
-                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.comment ? "border-red-500" : ""
-                    }`}
+                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    errors.comment ? "border-red-500" : ""
+                  }`}
                   id="comment"
                   name="comment"
                   type="text"
@@ -138,7 +159,7 @@ const SingleBlogs = () => {
         </div>
       </div>
     );
-  };
-}
+  }
+};
 
 export default SingleBlogs;
