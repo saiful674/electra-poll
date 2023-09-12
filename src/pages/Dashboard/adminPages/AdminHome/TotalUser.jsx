@@ -16,7 +16,7 @@ const TotalUser = () => {
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/all-users`)
+    fetch(`${import.meta.env.VITE_URL}/all-users`)
       .then(res => res.json())
       .then(data => {
         setUsers(data)
@@ -25,7 +25,7 @@ const TotalUser = () => {
   }, [])
   useEffect(() => {
     setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/blogs`)
+    fetch(`${import.meta.env.VITE_URL}/blogs`)
       .then(res => res.json())
       .then(data => {
         setBlog(data)
@@ -34,7 +34,7 @@ const TotalUser = () => {
   }, [])
   useEffect(() => {
     setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/all-elections`)
+    fetch(`${import.meta.env.VITE_URL}/all-elections`)
       .then(res => res.json())
       .then(data => {
 

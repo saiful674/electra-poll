@@ -49,7 +49,7 @@ const Voters = () => {
 
     if (status === "pending") {
       axios
-        .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+        .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
           ...formData,
           voterAccessKey,
           voterAccessPassword,
@@ -106,7 +106,7 @@ const Voters = () => {
         text: "Cannot add saved voters in test vote!",
       });
     } else {
-      axios.get(`https://electra-poll-server.vercel.app/voters/${email}`).then((res) => {
+      axios.get(`${import.meta.env.VITE_URL}/voters/${email}`).then((res) => {
         const voters = res.data.voters;
         for (let voter of voters) {
           dispatch(addVoterRow(voter.voterEmail));

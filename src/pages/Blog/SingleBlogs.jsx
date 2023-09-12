@@ -24,7 +24,7 @@ const SingleBlogs = () => {
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/blog/${id}`);
+      const res = await axios.get(`${import.meta.env.VITE_URL}/blog/${id}`);
       return res.data;
     },
   });
@@ -55,7 +55,7 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`https://electra-poll-server.vercel.app/comment/${blog?._id}`, data)
+      .post(`${import.meta.env.VITE_URL}/comment/${blog?._id}`, data)
       .then((res) => {
         toast.success("Your comment successfully");
         refetch();

@@ -18,7 +18,7 @@ const Notifications = () => {
         refetch,
         isLoading,
     } = useQuery(["notifications", user], async () => {
-        const res = await axios.get(`https://electra-poll-server.vercel.app/notifications/${user?.email}`);
+        const res = await axios.get(`${import.meta.env.VITE_URL}/notifications/${user?.email}`);
         return res.data;
     });
     const unreadNotification = notifications.filter(notification => notification.isRead === false)
@@ -31,7 +31,7 @@ const Notifications = () => {
 
     const handleReadNotification = (notification) => {
         navigation(notification.contentURL)
-        axios.patch(`https://electra-poll-server.vercel.app/notifications/${notification._id}`)
+        axios.patch(`${import.meta.env.VITE_URL}/notifications/${notification._id}`)
             .then(res => {
                 if (res.data.acknowledged) {
                     refetch()
@@ -40,7 +40,7 @@ const Notifications = () => {
     }
     const handleRemoveNotification = (id) => {
 
-        axios.delete(`https://electra-poll-server.vercel.app/notifications/${id}`)
+        axios.delete(`${import.meta.env.VITE_URL}/notifications/${id}`)
             .then(res => {
                 if (res.data.acknowledged) {
                     refetch()

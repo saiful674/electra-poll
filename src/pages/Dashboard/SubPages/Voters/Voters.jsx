@@ -15,7 +15,7 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
-    const res = await axios.get(`https://electra-poll-server.vercel.app/voters/${user?.email}`);
+    const res = await axios.get(`${import.meta.env.VITE_URL}/voters/${user?.email}`);
     return res.data;
   });
   const voters = data?.voters;
@@ -29,7 +29,7 @@ const Voters = () => {
     const voterInfo = { email: user.email, voter: { voterName, voterEmail } };
     const modalCloseBtn = document.getElementById("my_modal_5");
 
-    axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo).then((data) => {
+    axios.post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo).then((data) => {
 
       if (data.data.modifiedCount >= 0) {
         Swal.fire({
@@ -64,7 +64,7 @@ const Voters = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`https://electra-poll-server.vercel.app/voters/${data?._id}`, {
+          .patch(`${import.meta.env.VITE_URL}/voters/${data?._id}`, {
             voterEmail,
           })
           .then((data) => {

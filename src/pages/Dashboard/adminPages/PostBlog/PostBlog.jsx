@@ -24,7 +24,7 @@ const PostBlog = () => {
     imageUpload(data.image[0]).then((imageResponse) => {
       data.image = imageResponse.data.display_url;
       axios
-        .post("https://electra-poll-server.vercel.app/blog", data)
+        .post(`${import.meta.env.VITE_URL}/blog`, data)
         .then((res) => {
           if (res.data.insertedId) {
             toast.success("Blog Post successfully");

@@ -19,7 +19,7 @@ const UserName = () => {
   // }
 
   const handleNotification = () => {
-    fetch.post('https://electra-poll-server.vercel.app/notifications')
+    fetch.post(`${import.meta.env.VITE_URL}/notifications`)
       .then(res => res.json())
       .then(data => {
 

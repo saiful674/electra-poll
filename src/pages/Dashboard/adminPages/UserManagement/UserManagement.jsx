@@ -5,7 +5,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
-import AdminUserName from "../AdminHome/AdminUserName";
+// import AdminUserName from "../AdminHome/AdminUserName";
+import UserName from "../../../../components/Deshboard/UserName/UserName";
 const UserManagement = () => {
   const { user } = useContext(AuthContext);
 
@@ -15,7 +16,7 @@ const UserManagement = () => {
     isLoading,
   } = useQuery(["users", user], async () => {
     const res = await axios.get(
-      `https://electra-poll-server.vercel.app/all-users`
+      `${import.meta.env.VITE_URL}/all-users`
     );
     return res.data;
   });
@@ -24,7 +25,7 @@ const UserManagement = () => {
   // /all-users/
 
   const handleMakeAdmin = (user) => {
-    fetch(`https://electra-poll-server.vercel.app/users/admin/${user._id}`, {
+    fetch(`${import.meta.env.VITE_URL}/users/admin/${user._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -42,7 +43,7 @@ const UserManagement = () => {
       });
   };
   const handleMakeUser = (user) => {
-    fetch(`https://electra-poll-server.vercel.app/users/user/${user._id}`, {
+    fetch(`${import.meta.env.VITE_URL}/users/user/${user._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -73,7 +74,7 @@ const UserManagement = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://electra-poll-server.vercel.app/all-users/${id}`)
+          .delete(`${import.meta.env.VITE_URL}/all-users/${id}`)
           .then((data) => {
             if (data.status === 200) {
               Swal.fire({
