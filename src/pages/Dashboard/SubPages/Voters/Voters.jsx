@@ -35,7 +35,7 @@ const Voters = () => {
     axios
       .post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
       .then((data) => {
-        if (data.data.modifiedCount >= 0) {
+        if (data.data.modifiedCount > 0) {
           Swal.fire({
             icon: "success",
             title: `You added ${voterName} as a voter`,
