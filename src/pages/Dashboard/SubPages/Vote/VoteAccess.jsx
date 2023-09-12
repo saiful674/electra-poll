@@ -20,7 +20,7 @@ const VoteAccess = () => {
     const { data: voterCheck, isLoading } = useQuery({
         queryKey: ['voterCheck', id, email],
         queryFn: async () => {
-            const res = await axios.get(`https://electra-poll-server.vercel.app/election-voterCheck?email=${email}&&id=${id}`)
+            const res = await axios.get(`${import.meta.env.VITE_URL}/election-voterCheck?email=${email}&&id=${id}`)
             return res.data
         }
     })
@@ -31,7 +31,7 @@ const VoteAccess = () => {
         queryKey: ['election', isVoter],
         enabled: isVoter || !voterCheck?.voter?.voted,
         queryFn: async () => {
-            const res = await axios.get(`https://electra-poll-server.vercel.app/election/${id}`)
+            const res = await axios.get(`${import.meta.env.VITE_URL}/election/${id}`)
             return res.data
         }
     })
@@ -51,7 +51,7 @@ const VoteAccess = () => {
 
     const onSubmit = (data) => {
         const { accessKey, password } = data
-        axios.patch(`https://electra-poll-server.vercel.app/election-access-password`, { accessKey, password: Math.floor(password), id, email })
+        axios.patch(`${import.meta.env.VITE_URL}/election-access-password`, { accessKey, password: Math.floor(password), id, email })
             .then(res => {
                 if (res.data.error !== true) {
                     refetchElection()

@@ -10,7 +10,7 @@ const BlogHome = () => {
   const { data: recentBlog = [], refetch } = useQuery({
     queryKey: ["recentBlog"],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/recentBlog`);
+      const res = await axios.get(`${import.meta.env.VITE_URL}/recentBlog`);
       const data = res.data;
       return data;
     },

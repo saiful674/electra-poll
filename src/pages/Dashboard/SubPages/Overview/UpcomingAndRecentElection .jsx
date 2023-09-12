@@ -16,7 +16,7 @@ const UpcomingAndRecentElection = () => {
     const [elections, setElections] = useState([])
     const [ongoingElection, setOngoingElection] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/election-by-published/${user?.email}`)
+        fetch(`${import.meta.env.VITE_URL}/election-by-published/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 console.log('election-by-published', data)
@@ -24,7 +24,7 @@ const UpcomingAndRecentElection = () => {
             })
     }, [])
     useEffect(() => {
-        fetch(`http://localhost:5000/election-by-ongoing/${user?.email}`)
+        fetch(`${import.meta.env.VITE_URL}/election-by-ongoing/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 console.log('election-by-ongoing', data)

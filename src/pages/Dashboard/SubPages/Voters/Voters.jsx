@@ -16,9 +16,13 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
+<<<<<<< HEAD
+    const res = await axios.get(`${import.meta.env.VITE_URL}/voters/${user?.email}`);
+=======
     const res = await axios.get(
       `https://electra-poll-server.vercel.app/voters/${user?.email}`
     );
+>>>>>>> 2a5b2ee8c317ae43c30cfe914e564039b00ffe8f
     return res.data;
   });
   const voters = data?.voters;
@@ -32,6 +36,26 @@ const Voters = () => {
     const voterInfo = { email: user.email, voter: { voterName, voterEmail } };
     const modalCloseBtn = document.getElementById("my_modal_5");
 
+<<<<<<< HEAD
+    axios.post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo).then((data) => {
+
+      if (data.data.modifiedCount >= 0) {
+        Swal.fire({
+          icon: "success",
+          title: `You added ${voterName} as a voter`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+      } else if (data.data.exist) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Voter already exists",
+        });
+      }
+    });
+=======
     axios
       .post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
       .then((data) => {
@@ -51,6 +75,7 @@ const Voters = () => {
           });
         }
       });
+>>>>>>> 2a5b2ee8c317ae43c30cfe914e564039b00ffe8f
     modalCloseBtn.close();
     form.reset();
   };
@@ -68,7 +93,7 @@ const Voters = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`https://electra-poll-server.vercel.app/voters/${data?._id}`, {
+          .patch(`${import.meta.env.VITE_URL}/voters/${data?._id}`, {
             voterEmail,
           })
           .then((data) => {

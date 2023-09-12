@@ -81,7 +81,7 @@ const Vote = ({ election, email }) => {
     }
 
     axios
-      .put(`https://electra-poll-server.vercel.app/election-vote-update/${election._id}`, {
+      .put(`${import.meta.env.VITE_URL}/election-vote-update/${election._id}`, {
         value: updatedQuestionsArray,
         voterEmails,
 

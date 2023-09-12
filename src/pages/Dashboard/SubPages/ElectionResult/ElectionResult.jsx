@@ -15,7 +15,7 @@ const ElectionResult = () => {
   const { email, ballotAccess, endDate, startDate, status, timeZone, voteType } = electionData
   useEffect(() => {
     axios
-      .get(`https://electra-poll-server.vercel.app/election/${id}`)
+      .get(`${import.meta.env.VITE_URL}/election/${id}`)
       .then((res) => {
         setElectionData(res.data);
         setIsLoading(false);
@@ -29,7 +29,7 @@ const ElectionResult = () => {
   const handleDownloadClick = async (id) => {
     try {
       const response = await fetch(
-        `https://electra-poll-server.vercel.app/download-election-data/${id}`
+        `${import.meta.env.VITE_URL}/download-election-data/${id}`
       );
       const blob = await response.blob();
 
