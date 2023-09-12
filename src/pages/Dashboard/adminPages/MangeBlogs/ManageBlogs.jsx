@@ -14,7 +14,7 @@ const ManageBlogs = () => {
     queryKey: ["blogs"],
     queryFn: async () => {
       const res = await axios.get(
-        `https://electra-poll-server.vercel.app/blogs`
+        `${import.meta.env.VITE_URL}/blogs`
       );
       return res.data;
     },
@@ -30,7 +30,7 @@ const ManageBlogs = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      axios.delete(`http://localhost:5000/blogDelete/${id}`).then((res) => {
+      axios.delete(`${import.meta.env.VITE_URL}/blogDelete/${id}`).then((res) => {
         if (result.isConfirmed) {
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }

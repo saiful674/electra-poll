@@ -9,10 +9,11 @@ import "swiper/css/grid";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import Aos from "aos";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Autoplay } from "swiper/modules";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
-import { useEffect } from "react";
-import Aos from "aos";
 
 const Banner = () => {
 
@@ -36,23 +37,23 @@ const Banner = () => {
                     <SwiperSlide className='space-y-3'>
                         <h1 className='text-4xl font-bold'>Your Vote, Your Voice, Our Commitment</h1>
                         <p>We are committed to providing a seamless and secure online voting experience. Empower your voice with us.</p>
-                        <button>
+                        <Link to='/about' className="block">
                             <ButtonPrimary>Learn More</ButtonPrimary>
-                        </button>
+                        </Link>
                     </SwiperSlide>
                     <SwiperSlide className="space-y-3">
                         <h1 className='text-4xl font-bold'>E-voting Made Easy</h1>
                         <p>Simplify your organization's voting process with our intuitive, secure, and reliable e-voting system. Easy voting is just a click away.</p>
-                        <button>
+                        <Link to='/about' className="block">
                             <ButtonPrimary>Learn More</ButtonPrimary>
-                        </button>
+                        </Link>
                     </SwiperSlide>
                     <SwiperSlide className='space-y-3'>
                         <h1 className='text-4xl font-bold'>Secure. Simple. Swift. Your Digital Ballot Box.</h1>
                         <p>We provide a reliable online voting platform that values your security, appreciates simplicity, and delivers swift results. Welcome to your digital ballot box.</p>
-                        <button>
+                        <Link to='/about' className="block">
                             <ButtonPrimary>Learn More</ButtonPrimary>
-                        </button>
+                        </Link>
                     </SwiperSlide>
                 </Swiper>
                 <div className='order-1 lg:order-2 banner-img'>

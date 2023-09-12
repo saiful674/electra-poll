@@ -58,7 +58,7 @@ const Registration = () => {
                     role: "user",
                   };
 
-                  axios.post("https://electra-poll-server.vercel.app/users", savedUser)
+                  axios.post(`${import.meta.env.VITE_URL}/users`, savedUser)
                     .then(responseData => {
                       if (responseData.data.insertedId) {
                         toast.success(`Hello! ${email}! Welcome`);

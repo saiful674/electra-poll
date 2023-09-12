@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import {
   useLocation,
   useNavigate,
   useParams,
 } from "react-router-dom";
-import LoadingSpinner from "../shared/LoadingSpinner";
-import { useForm } from "react-hook-form";
-import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
-import { toast } from "react-hot-toast";
+import { AuthContext } from "../../Providers/AuthProvider";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const SingleBlogs = () => {
   const { id } = useParams();
@@ -24,7 +24,7 @@ const SingleBlogs = () => {
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const res = await axios.get(`https://electra-poll-server.vercel.app/blog/${id}`);
+      const res = await axios.get(`${import.meta.env.VITE_URL}/blog/${id}`);
       return res.data;
     },
   });
@@ -55,7 +55,7 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`https://electra-poll-server.vercel.app/comment/${blog?._id}`, data)
+      .post(`http://localhost:5000/comment/${blog?._id}`, data)
       .then((res) => {
         toast.success("Your comment successfully");
         refetch();

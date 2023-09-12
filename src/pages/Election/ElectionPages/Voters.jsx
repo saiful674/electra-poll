@@ -52,14 +52,11 @@ const Voters = () => {
 
     if (status === "pending") {
       axios
-        .patch(
-          `https://electra-poll-server.vercel.app/election/${formData._id}`,
-          {
-            ...formData,
-            voterAccessKey,
-            voterAccessPassword,
-          }
-        )
+        .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
+          ...formData,
+          voterAccessKey,
+          voterAccessPassword,
+        })
         .then((res) => {
           if (res.data) {
           }
@@ -112,36 +109,12 @@ const Voters = () => {
         text: "Cannot add saved voters in test vote!",
       });
     } else {
-      axios
-        .get(`https://electra-poll-server.vercel.app/voters/${email}`)
-        .then((res) => {
-          const voters = res.data.voters;
-          for (let voter of voters) {
-            dispatch(addVoterRow(voter.voterEmail));
-          }
-        });
-    }
-  };
-
-  const handleExcelUpload = async (e) => {
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const inputData = await file.arrayBuffer();
-      const wb = read(inputData);
-      const ws = wb.Sheets[wb.SheetNames[0]];
-      const jsondata = utils.sheet_to_json(ws);
-      console.log(jsondata);
-      if (jsondata[0].Email) {
-        const voters = [];
-        jsondata.forEach((data) =>
-          voters.push({ voterName: data.Name, voterEmail: data.Email })
-        );
-        setVoterEmails(voters);
-      } else {
-        setVoterEmails({ error: true });
-      }
-    } else {
-      setVoterEmails([]);
+      axios.get(`${import.meta.env.VITE_URL}/voters/${email}`).then((res) => {
+        const voters = res.data.voters;
+        for (let voter of voters) {
+          dispatch(addVoterRow(voter.voterEmail));
+        }
+      });
     }
   };
 
