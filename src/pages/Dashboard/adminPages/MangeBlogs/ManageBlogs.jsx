@@ -16,9 +16,7 @@ const ManageBlogs = () => {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get(
-        `http://localhost:5000/getBlog?email=${user?.email}`
-      );
+      const res = await axios.get(`${import.meta.env.VITE_URL}/blogs`);
       return res.data;
     },
   });
@@ -33,12 +31,14 @@ const ManageBlogs = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      axios.delete(`http://localhost:5000/blogDelete/${id}`).then((res) => {
-        if (result.isConfirmed) {
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-        refetch();
-      });
+      axios
+        .delete(`${import.meta.env.VITE_URL}/blogDelete/${id}`)
+        .then((res) => {
+          if (result.isConfirmed) {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+          refetch();
+        });
     });
   };
   return (

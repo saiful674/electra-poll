@@ -6,6 +6,7 @@ import PersonalizedRecommendations from './PersonalizedRecommendations';
 import TotalElection from './TotalElection';
 import ElectionStatusPercentage from './ElectionStatusPercentage';
 import UserVotingHistory from './UserVotingHistory';
+import BallonDOrVoting from './BallonDOrVoting';
 
 const Overview = () => {
  
@@ -23,6 +24,7 @@ const Overview = () => {
         </div>
        <PersonalizedRecommendations></PersonalizedRecommendations>
             </div>
+            <BallonDOrVoting></BallonDOrVoting>
         </div>
     );
 };

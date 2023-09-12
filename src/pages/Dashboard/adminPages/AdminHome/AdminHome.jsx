@@ -12,7 +12,7 @@ const AdminHome = () => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         setLoading(true)
-        fetch('https://electra-poll-server.vercel.app/all-elections')
+        fetch(`${import.meta.env.VITE_URL}/all-elections`)
             .then(response => response.json())
             .then(data => {
                 setElectionData(data)
@@ -25,7 +25,7 @@ const AdminHome = () => {
     }, []);
     useEffect(() => {
         setLoading(true)
-        fetch(`https://electra-poll-server.vercel.app/blogs`)
+        fetch(`${import.meta.env.VITE_URL}/blogs`)
             .then(res => res.json())
             .then(data => {
                 setBlogData(data)

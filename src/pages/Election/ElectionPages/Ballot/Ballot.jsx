@@ -30,7 +30,7 @@ const Ballot = () => {
         }
         setDisabled(true)
         if (status === 'pending') {
-            axios.patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+            axios.patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
                 page: 2,
                 questions
             })

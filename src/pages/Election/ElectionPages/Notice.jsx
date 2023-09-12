@@ -31,7 +31,7 @@ const Notice = () => {
     setDisabled(true);
     if (status === "pending") {
       axios
-        .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, formData)
+        .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, formData)
         .then((res) => {
           if (res.data) {
             setDisabled(false);

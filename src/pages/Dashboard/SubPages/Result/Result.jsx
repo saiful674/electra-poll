@@ -22,7 +22,7 @@ const Result = () => {
     queryKey: ["elections", user],
     queryFn: async () => {
       const res = await axios.get(
-        `https://electra-poll-server.vercel.app/all-elections/${user?.email}`
+        `${import.meta.env.VITE_URL}/all-elections/${user?.email}`
       );
       return res.data;
     },

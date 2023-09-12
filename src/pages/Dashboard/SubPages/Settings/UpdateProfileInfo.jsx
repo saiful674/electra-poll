@@ -32,7 +32,7 @@ const UpdateProfileInfo = () => {
             membershipSize,
           };
           axios
-            .patch(`https://electra-poll-server.vercel.app/users/${user?.email}`, userData, {
+            .patch(`${import.meta.env.VITE_URL}/users/${user?.email}`, userData, {
               headers: {
                 "Content-Type": "application/json",
               },

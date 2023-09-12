@@ -29,7 +29,7 @@ const ChatBot = () => {
       // welcome message request
       if (!storedChatHistory && chatHistory.length === 0) {
         axios
-          .post("https://electra-poll-server.vercel.app/send-message", {
+          .post(`${import.meta.env.VITE_URL}/send-message`, {
             message: "Welcome Message",
           })
           .then((response) => {
@@ -77,7 +77,7 @@ const ChatBot = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("https://electra-poll-server.vercel.app/send-message", {
+      const response = await axios.post(`${import.meta.env.VITE_URL}/send-message`, {
         message: inputMessage,
       });
       const botResponse = response.data.response;
