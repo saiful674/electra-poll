@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import excelSS from "../../../assets/excelSS.png";
 import {
   addVoterRow,
   next,
@@ -14,11 +15,13 @@ import {
   updateVotePassword,
   updateVoterEmail,
 } from "../../../redux/slices/FormDataSlice";
+import { read, utils } from "xlsx";
 
 const Voters = () => {
   const dispatch = useDispatch();
   const [emailErrors, setEmailErrors] = useState(false);
   const formData = useSelector((state) => state.formData);
+  const [voterEmail, setVoterEmails] = useState([]);
   const {
     _id,
     email,
@@ -45,7 +48,7 @@ const Voters = () => {
   const onSubmit = (data) => {
     setEmailErrors(false);
     const voterAccessKey = data.accessKey;
-    const voterAccessPassword = Math.floor(data.password)
+    const voterAccessPassword = Math.floor(data.password);
 
     if (status === "pending") {
       axios
@@ -212,6 +215,13 @@ const Voters = () => {
               >
                 Add Saved Voters
               </button>
+              <button
+                className="bg-gray-500 text-white px-3 py-1 rounded-md"
+                type="button"
+                onClick={() => window.my_modal_3.showModal()}
+              >
+                Upload Voters
+              </button>
             </div>
 
             <div className="overflow-y-auto max-h-96 overflow-x-auto">
@@ -309,6 +319,60 @@ const Voters = () => {
           </button>
         </div>
       </div>
+
+      {/* voter excel modal */}
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box w-11/12 lg:w-3/5 max-w-5xl">
+          <h2 className="text-xl font-bold mb-5 text-center">Add Voter </h2>
+          <form method="dialog">
+            <button
+              id="modal-close-btn"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >
+              ✕
+            </button>
+          </form>
+          <form>
+            <div className="mt-5 text-center">
+              <div className="flex gap-3 flex-col items-center">
+                <h1 className="text-xl text-green-500">
+                  Make sure your excel file is in this format.
+                </h1>
+                <img src={excelSS} alt="" className="w-72 lg:w-full" />
+                <div className="flex flex-col">
+                  {!voterEmail.error && voterEmail.length > 0 ? (
+                    <h1 className="text-green-500">
+                      format is ok.able to upload
+                    </h1>
+                  ) : voterEmail.error ? (
+                    <h1 className="text-red-500">
+                      wrong format. make user you excel data is in right format.
+                    </h1>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  <label className="w-20 h-10 flex justify-center items-center bg-gray-400 rounded-md text-white cursor-pointer">
+                    upload
+                    <input
+                      onInput={(e) => handleExcelUpload(e)}
+                      type="file"
+                      accept=".xlsx, .xls"
+                      hidden
+                      id="file-input"
+                    />
+                  </label>
+                  <button type="button" className="button-next">
+                    Add Voters
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 };

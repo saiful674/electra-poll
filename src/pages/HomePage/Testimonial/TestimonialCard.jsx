@@ -1,27 +1,44 @@
-import { Rating } from "@smastrom/react-rating";
-import '@smastrom/react-rating/style.css';
 import React from "react";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
+import { FaQuoteLeft } from "react-icons/fa";
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div
-
-      className="text-center h-96 flex justify-center items-center mb-5  bg-gray-50 rounded-lg p-5 shadow-lg border-l"
-      data-aos="fade-left"
-      data-aos-duration="800"
-    >
-      <div>
-        <h3 className="text-xl font-semibold mb-2">{testimonial.user.name}</h3>
-        <p className="text-gray-600">{testimonial.user.occupation}</p>
-        <p className="mt-4 text-lg">{testimonial.content}</p>
-        <div className="mt-4 mx-auto text-center">
-          <Rating
-            style={{ maxWidth: 130, margin: "0 auto" }}
-            value={testimonial.rating}
-            readOnly
-          />
+    <div className="mb-10 my-5" data-aos="fade-left" data-aos-duration="800">
+      <div className="quote-box w-full">
+        <div className="block-quote">
+          <div className="quote">
+            <p className="flex justify-between items-center mb-7">
+              <span className="text-lg font-bold">{testimonial.title}</span>
+              <FaQuoteLeft className="text-indigo-500 bg-gray-200 p-2 h-8 w-8 rounded-full" />
+            </p>
+            <p className="text-base text-gray-500 mb-5 relative">
+              {testimonial.feedback.slice(0, 200)}
+            </p>
+            <Rating
+              style={{ maxWidth: 130, position: "absolute", bottom: 30 }}
+              value={testimonial.rating}
+              readOnly
+            />
+          </div>
         </div>
-        <p className="mt-2 text-gray-500">Date: {testimonial.date}</p>
+      </div>
+      <div className="flex items-center gap-5 mt-8 ml-14">
+        <div className="avatar">
+          <div className="w-12 rounded-full">
+            <img
+              src={
+                testimonial.image ||
+                "https://yt3.googleusercontent.com/ytc/AOPolaS1RQLO6XHgaiBWw3yvdodKk87YJ988pdoyN8lo7w=s900-c-k-c0x00ffffff-no-rj"
+              }
+            />
+          </div>
+        </div>
+        <div>
+          <h4 className="text-lg font-bold uppercase">{testimonial.name}</h4>
+          <span>{testimonial.organization || ""}</span>
+        </div>
       </div>
     </div>
   );

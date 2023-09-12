@@ -22,7 +22,7 @@
     "chart.js": "^4.3.3",
     "dialogflow": "^1.2.0",
     "emailjs-com": "^3.2.0",
-    "firebase": "^10.1.0",
+    "firebase": "^10.3.1",
     "leaflet": "^1.9.4",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
@@ -45,7 +45,8 @@
     "recharts": "^2.7.3",
     "sweetalert2": "^11.7.23",
     "swiper": "^10.1.0",
-    "tesseract.js": "^4.1.1"
+    "tesseract.js": "^4.1.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.22.15",
