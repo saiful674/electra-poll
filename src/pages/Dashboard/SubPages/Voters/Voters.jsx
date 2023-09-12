@@ -16,13 +16,7 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
-<<<<<<< HEAD
-    const res = await axios.get(`${import.meta.env.VITE_URL}/voters/${user?.email}`);
-=======
-    const res = await axios.get(
-      `https://electra-poll-server.vercel.app/voters/${user?.email}`
-    );
->>>>>>> 2a5b2ee8c317ae43c30cfe914e564039b00ffe8f
+    const res = await axios.get(`${import.meta.env.VITE_URL}/${user?.email}`);
     return res.data;
   });
   const voters = data?.voters;
@@ -36,28 +30,8 @@ const Voters = () => {
     const voterInfo = { email: user.email, voter: { voterName, voterEmail } };
     const modalCloseBtn = document.getElementById("my_modal_5");
 
-<<<<<<< HEAD
-    axios.post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo).then((data) => {
-
-      if (data.data.modifiedCount >= 0) {
-        Swal.fire({
-          icon: "success",
-          title: `You added ${voterName} as a voter`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-      } else if (data.data.exist) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Voter already exists",
-        });
-      }
-    });
-=======
     axios
-      .post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo)
+      .post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo)
       .then((data) => {
         if (data.data.modifiedCount >= 0) {
           Swal.fire({
@@ -75,7 +49,6 @@ const Voters = () => {
           });
         }
       });
->>>>>>> 2a5b2ee8c317ae43c30cfe914e564039b00ffe8f
     modalCloseBtn.close();
     form.reset();
   };

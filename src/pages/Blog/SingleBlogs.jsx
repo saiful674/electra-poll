@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -14,10 +14,16 @@ const SingleBlogs = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [reply, setReply] = useState(null);
+  const [replyCollection, setReplyCollection] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [replyButton, setReplyButton] = useState(true);
+
   const {
     data: blog = {},
     isLoading,
-    refetch,
+    refetch: blogRefetch,
+    isError,
+    error,
   } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
@@ -25,9 +31,14 @@ const SingleBlogs = () => {
       return res.data;
     },
   });
+  console.log(isError);
+  console.log(error);
   const handleReply = (commentId) => {
     setReply(commentId);
-    console.log(reply);
+  };
+
+  const handleButton = () => {
+    setReplyButton(false);
   };
 
   const {
@@ -37,6 +48,11 @@ const SingleBlogs = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_URL}/comment/${id}`).then((res) => {
+      setComments(res.data);
+    });
+  }, [id]);
   const onSubmit = (data) => {
     data.username = user?.displayName;
     if (!user) {
@@ -56,10 +72,12 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`http://localhost:5000/comment?id=${blog?._id}`, data)
+      .post(`${import.meta.env.VITE_URL}/comment?id=${blog?._id}`, data)
       .then((res) => {
-        toast.success("Your comment successfully");
-        refetch();
+        if (res.data.insertedId) {
+          blogRefetch({ force: true });
+          toast.success("Your comment successfully");
+        }
         reset();
       })
       .catch((err) => {
@@ -67,13 +85,33 @@ const SingleBlogs = () => {
       });
   };
 
-  const { data: comments = {} } = useQuery({
-    queryKey: ["comments", id],
-    queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/comment/${blog?._id}`);
-      return res.data;
-    },
-  });
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_URL}/reply/${id}`).then((res) => {
+      setReplyCollection(res.data);
+    });
+  }, [id]);
+
+  const submitComment = (e, comment) => {
+    e.preventDefault();
+    const form = e.target;
+    const replyData = {
+      reply: form.reply.value,
+      commentId: reply,
+      commentAuthor: comment?.username,
+      author: user?.displayName,
+      blogId: id,
+    };
+
+    axios
+      .post(`${import.meta.env.VITE_URL}/reply?id=${id}`, replyData)
+      .then((res) => {
+        if (res.data.insertedId) {
+          blogRefetch({ force: true });
+          toast.success("Your reply successfully");
+        }
+      });
+    form.reset();
+  };
 
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -109,14 +147,47 @@ const SingleBlogs = () => {
                 </h4>
                 {comments.map((com, index) => (
                   <div className="border my-2 p-2" key={index}>
-                    <p className="font-semibold">{com?.comment}</p>
-                    <p>{com?.username}</p>
-                    <button
-                      className="text-green-400"
-                      onClick={() => handleReply(com?._id)}
-                    >
-                      Reply
-                    </button>
+                    <p className="">
+                      {com?.username} ={">"}{" "}
+                      <span className="font-semibold">{com?.comment}</span>
+                    </p>
+
+                    <p className="ml-10">
+                      <span>
+                        Author: ={">"}{" "}
+                        {
+                          replyCollection.find((r) => r?.commentId === com?._id)
+                            ?.reply
+                        }
+                      </span>
+                    </p>
+                    {replyButton && (
+                      <button
+                        className="text-green-400"
+                        onClick={() => handleReply(com?._id)}
+                      >
+                        Reply
+                      </button>
+                    )}
+                    {reply === com?._id && (
+                      <div>
+                        <form onSubmit={(e) => submitComment(e, com)}>
+                          <input
+                            className="py-1 px-2"
+                            type="text"
+                            name="reply"
+                            id="reply"
+                            placeholder="type your reply"
+                          />
+                          <input
+                            onClick={handleButton}
+                            className="ml-2 border py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
+                            type="submit"
+                            value="comment"
+                          />
+                        </form>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

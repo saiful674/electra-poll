@@ -2,8 +2,9 @@ import React from "react";
 import { render, waitFor, screen } from "@testing-library/react";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Blog from "./Blog";
+
 import { MemoryRouter } from "react-router-dom";
+import Blog from "./Blog";
 
 // Mock axios.get to return some sample data
 jest.mock("axios");
