@@ -55,7 +55,7 @@ const SingleBlogs = () => {
     }
 
     axios
-      .post(`http://localhost:5000/comment/${blog?._id}`, data)
+      .post(`${import.meta.env.VITE_URL}/comment/${blog?._id}`, data)
       .then((res) => {
         toast.success("Your comment successfully");
         refetch();

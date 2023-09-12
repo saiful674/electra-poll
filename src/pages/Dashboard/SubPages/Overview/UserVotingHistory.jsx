@@ -18,7 +18,7 @@ const UserVotingHistory = () => {
     const [elections, setElections] = useState([]);
 
     useEffect(() => {
-      fetch(`http://localhost:5000/election-by-completed/${user?.email}`)
+      fetch(`${import.meta.env.VITE_URL}/election-by-completed/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           const filteredData = data.filter((election) =>

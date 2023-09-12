@@ -37,7 +37,7 @@ function ExcelToVoter({ closeModa4, refetch }) {
     const fileInputField = document.getElementById("file-input");
     if (voterEmails.length > 0 && !voterEmails.error) {
       axios
-        .patch(`http://localhost:5000/add-excel-voters`, {
+        .patch(`${import.meta.env.VITE_URL}/add-excel-voters`, {
           email: user.email,
           voterEmails,
         })
