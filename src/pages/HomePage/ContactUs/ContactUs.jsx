@@ -1,7 +1,7 @@
-import SectionTitle from '../../../components/SectionTitle/SectionTitle';
-import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
-import { useEffect } from 'react';
 import Aos from 'aos';
+import { useEffect } from 'react';
+import ButtonPrimary from '../../../components/ButtonPrimary/ButtonPrimary';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 const ContactUs = () => {
 
   useEffect(() => {
