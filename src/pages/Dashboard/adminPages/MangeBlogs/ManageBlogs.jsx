@@ -4,6 +4,7 @@ import moment from "moment";
 import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import AdminUserName from "../AdminHome/AdminUserName";
 
 const ManageBlogs = () => {
   const {
@@ -40,6 +41,7 @@ const ManageBlogs = () => {
   };
   return (
     <div>
+      <AdminUserName></AdminUserName>
       <div className="overflow-x-auto mt-5">
         <table className="table table-zebra-zebra">
           {/* head */}

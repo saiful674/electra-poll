@@ -1,10 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
 
 const CustomTabs = ({ handleTabClick, activeStatus }) => {
 
   return (
-    <div className="tabs">
+    <div className="tabs mb-4">
       <a
         className={`tab tab-lg tab-lifted ${activeStatus === 'pending' ? 'tab-active' : ''}`}
         onClick={() => handleTabClick('pending')}

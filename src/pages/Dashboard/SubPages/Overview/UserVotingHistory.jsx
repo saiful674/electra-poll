@@ -30,7 +30,7 @@ const UserVotingHistory = () => {
     return (
         <>
             <div className='bg-white p-8 mt-8 rounded shadow text-slate-700'>
-                <h2 className='text-3xl font-semibold mb-4 uppercase'>User's Voting History</h2>
+                <h2 className='text-2xl font-semibold mb-4 uppercase'>User's Voting History</h2>
                 <ResponsiveContainer width="100%" height={400}>
         <BarChart data={elections}>
           <CartesianGrid strokeDasharray="3 3" />

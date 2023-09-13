@@ -5,8 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
-// import AdminUserName from "../AdminHome/AdminUserName";
-import UserName from "../../../../components/Deshboard/UserName/UserName";
+import AdminUserName from "../AdminHome/AdminUserName";
 const UserManagement = () => {
   const { user } = useContext(AuthContext);
 
@@ -95,7 +94,7 @@ const UserManagement = () => {
   }
   return (
     <div>
-      <UserName></UserName>
+    <AdminUserName></AdminUserName>
 
       {/* whwn voter is zero/empty */}
       {(users?.length === 0 || data.length === 0) && (

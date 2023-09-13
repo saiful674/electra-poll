@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 import { imageUpload } from "../../../../Hooks/ImageUploade";
 import { AuthContext } from "../../../../Providers/AuthProvider";
+import AdminUserName from "../AdminHome/AdminUserName";
 
 const PostBlog = () => {
   const {user} = useContext(AuthContext);
@@ -43,6 +44,7 @@ const PostBlog = () => {
   };
   return (
     <div className="min-h-screen">
+      <AdminUserName></AdminUserName>
       <h2 className="text-3xl text-center font-semibold text-green-400 my-5">
         Post your Blog
       </h2>

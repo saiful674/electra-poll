@@ -26,7 +26,7 @@ const BlogHistory = ({ blogData }) => {
 
     return (
         <div className='bg-white p-8 mt-8 rounded shadow text-slate-700 overflow-hidden'>
-            <h2 className='text-3xl font-semibold mb-4 uppercase'>Blog History</h2>
+            <h2 className='text-2xl font-semibold mb-4 uppercase'>Blog History</h2>
             <div className='flex items-center justify-center'>
                 <ResponsiveContainer width='80%' height={300}>
                     <BarChart data={barData}>
