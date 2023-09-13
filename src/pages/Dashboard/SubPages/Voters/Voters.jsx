@@ -16,7 +16,11 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
+<<<<<<< HEAD
+    const res = await axios.get(`${import.meta.env.VITE_URL}/voters/${user?.email}`);
+=======
     const res = await axios.get(`${import.meta.env.VITE_URL}/${user?.email}`);
+>>>>>>> dbae3cebf03932383c6355af3b87c416ae312797
     return res.data;
   });
   const voters = data?.voters;
@@ -30,6 +34,26 @@ const Voters = () => {
     const voterInfo = { email: user.email, voter: { voterName, voterEmail } };
     const modalCloseBtn = document.getElementById("my_modal_5");
 
+<<<<<<< HEAD
+    axios.post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo).then((data) => {
+
+      if (data.data.modifiedCount >= 0) {
+        Swal.fire({
+          icon: "success",
+          title: `You added ${voterName} as a voter`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+      } else if (data.data.exist) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Voter already exists",
+        });
+      }
+    });
+=======
     axios
       .post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo)
       .then((data) => {
@@ -49,6 +73,7 @@ const Voters = () => {
           });
         }
       });
+>>>>>>> dbae3cebf03932383c6355af3b87c416ae312797
     modalCloseBtn.close();
     form.reset();
   };

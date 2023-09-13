@@ -38,7 +38,7 @@ const UpcomingAndRecentElection = () => {
             <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6 bg-gray-100'>
                 {/* Upcoming Elections */}
                 <div className='flex-1 mb-6 bg-white sm:mb-4 text-slate-700 p-8 '>
-                    <h2 className='text-3xl font-semibold mb-4 uppercase'>Upcoming Elections {elections.length}</h2>
+                    <h2 className='text-2xl font-semibold mb-4 uppercase'>Upcoming Elections {elections.length}</h2>
                     <Swiper
                         slidesPerView={1}
                         autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -63,7 +63,7 @@ const UpcomingAndRecentElection = () => {
                 </div>
                 {/* Current/Recent Elections */}
                 <div className='flex-1 bg-white sm:mb-4 text-slate-700 p-8 mb-4 '>
-                    <h2 className='text-3xl font-semibold mb-4 uppercase'>Current or Recent Elections {ongoingElection.length}</h2>
+                    <h2 className='text-2xl font-semibold mb-4 uppercase'>Current or Recent Elections {ongoingElection.length}</h2>
                     <Swiper
                         slidesPerView={1}
                         autoplay={{ delay: 2500, disableOnInteraction: false }}
