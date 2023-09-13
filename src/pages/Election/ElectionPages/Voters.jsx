@@ -73,6 +73,7 @@ const Voters = () => {
     }
   };
 
+  // adds a new voter row to store and ui
   const handleAddVoter = () => {
     if (voteType === "test" && voterEmails.length >= 5) {
       Swal.fire({
@@ -90,6 +91,7 @@ const Voters = () => {
     reset();
   };
 
+  // update email when user writes the email address in input field
   const handleUpdateEmail = (id, email) => {
     const existingEmail = voterEmails.find((voter) => voter.email === email);
     if (existingEmail) {
@@ -101,6 +103,7 @@ const Voters = () => {
     dispatch(setEmailValid(false));
   };
 
+  // =====add saved voters from voters page
   const handleAddSavedVoters = () => {
     if (voteType === "test") {
       Swal.fire({
@@ -115,6 +118,51 @@ const Voters = () => {
           dispatch(addVoterRow(voter.voterEmail));
         }
       });
+    }
+  };
+
+  // read excel file and add voters to voteEmails array in state
+  const handleExcelUpload = async (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const inputData = await file.arrayBuffer();
+      const wb = read(inputData);
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const jsondata = utils.sheet_to_json(ws);
+      if (jsondata[0].Email) {
+        const voters = [];
+        jsondata.forEach((data) =>
+          voters.push({ voterName: data.Name, voterEmail: data.Email })
+        );
+        setVoterEmails(voters);
+      } else {
+        setVoterEmails({ error: true });
+      }
+    } else {
+      setVoterEmails([]);
+    }
+    e.target.value = "";
+  };
+
+  console.log(voterEmail);
+
+  // add voterEmail array of excel voters to store and ui
+  const handleAddExcelVoters = () => {
+    const modal3 = document.getElementById("my_modal_3");
+    if (voteType === "test") {
+      modal3.close();
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Cannot add saved voters in test vote!",
+      });
+      setVoterEmails([]);
+    } else {
+      for (let voter of voterEmail) {
+        dispatch(addVoterRow(voter.voterEmail));
+        modal3.close();
+      }
+      setVoterEmails([]);
     }
   };
 
@@ -198,7 +246,7 @@ const Voters = () => {
               </div>
             )}
 
-            <div className="space-x-4">
+            <div className="flex gap-3 flex-wrap">
               <button
                 disabled={status !== "pending"}
                 type="button"
@@ -259,8 +307,8 @@ const Voters = () => {
                             type="text"
                             className={
                               errors[`voterEmail${row.id}`]
-                                ? "bg-red-300 h-8 w-full px-2"
-                                : "bg-gray-200 h-8 w-full"
+                                ? "bg-red-300 h-8 w-full px-2 min-w-[100px]"
+                                : "bg-gray-200 h-8 w-full min-w-[200px] px-2"
                             }
                             defaultValue={row.email}
                             onChange={(e) =>
@@ -364,7 +412,11 @@ const Voters = () => {
                       id="file-input"
                     />
                   </label>
-                  <button type="button" className="button-next">
+                  <button
+                    onClick={handleAddExcelVoters}
+                    type="button"
+                    className="button-next"
+                  >
                     Add Voters
                   </button>
                 </div>
