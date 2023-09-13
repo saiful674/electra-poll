@@ -210,7 +210,7 @@ const SingleBlogs = () => {
                             alt={com?.username}
                           />
                         </div>
-                        <div>
+                        <div className="w-full">
                           <p className="font-semibold">
                             {com?.username}{" "}
                             <span className="ml-5 text-sm text-gray-500">
@@ -218,7 +218,9 @@ const SingleBlogs = () => {
                             </span>
                           </p>
 
-                          <p className="">{com?.comment}</p>
+                          <div className="">
+                            <p className="">{com?.comment}</p>
+                          </div>
                         </div>
                         <div>
                           {myInfo?.role === "admin" &&
@@ -244,7 +246,7 @@ const SingleBlogs = () => {
                               alt={getReply?.author}
                             />
                           </div>
-                          <div>
+                          <div className="">
                             <p className="font-semibold">
                               {getReply?.author}{" "}
                               <span className="ml-5 text-sm text-gray-500">
