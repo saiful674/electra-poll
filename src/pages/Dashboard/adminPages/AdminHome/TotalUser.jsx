@@ -7,12 +7,12 @@ import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { GiVote } from 'react-icons/gi';
 import { HiUserGroup } from 'react-icons/hi2';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
+import getElection from '../../../../Hooks/getElection';
 
 const TotalUser = () => {
-
+  const [election, ] = getElection()
   const [users, setUsers] = useState([])
   const [blog, setBlog] = useState([])
-  const [election, setElection] = useState([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
@@ -32,16 +32,7 @@ const TotalUser = () => {
         setLoading(false)
       })
   }, [])
-  useEffect(() => {
-    setLoading(true)
-    fetch(`${import.meta.env.VITE_URL}/all-elections`)
-      .then(res => res.json())
-      .then(data => {
 
-        setElection(data)
-        setLoading(false)
-      })
-  }, [])
   if (loading) {
     return <LoadingSpinner />
   }

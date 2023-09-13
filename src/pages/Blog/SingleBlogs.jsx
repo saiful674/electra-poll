@@ -73,11 +73,7 @@ const SingleBlogs = () => {
     }
 
     axios
-<<<<<<< HEAD
-      .post(`${import.meta.env.VITE_URL}/comment/${blog?._id}`, data)
-=======
       .post(`${import.meta.env.VITE_URL}/comment?id=${blog?._id}`, data)
->>>>>>> dbae3cebf03932383c6355af3b87c416ae312797
       .then((res) => {
         if (res.data.insertedId) {
           commentRefetch();
