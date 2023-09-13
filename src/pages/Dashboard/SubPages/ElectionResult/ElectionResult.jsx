@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 import { useParams } from "react-router-dom";
-
 import { formatDateToInputValue } from "../../../../Hooks/convertDate";
 import { generatePDF } from "../../../../Hooks/genaratePDF";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
 import QuestionCard from "./QuestionCard";
 import ResultOverview from "./ResultOverview";
-
 const ElectionResult = () => {
   const [electionData, setElectionData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -50,31 +49,8 @@ const ElectionResult = () => {
 
 
   const handleGeneratePDF = (data) => {
-    const electionData = {
-      title: 'Sample Election',
-      startDate: '2023-09-05',
-      endDate: '2023-09-10',
-      questions: [
-        {
-          questionTitle: 'Question 1',
-          options: [
-            { option: 'Option 1', votes: 50 },
-            { option: 'Option 2', votes: 30 },
-          ],
-        },
-        {
-          questionTitle: 'Question 2',
-          options: [
-            { option: 'Option A', votes: 40 },
-            { option: 'Option B', votes: 60 },
-          ],
-        },
-      ],
-    };
-    
-    
-    generatePDF(data);
-  
+      generatePDF(data);
+
   };
 
 
@@ -92,9 +68,25 @@ const ElectionResult = () => {
             Election Title:
             <span className=" text-green-400"> {electionData.title}</span>
           </h2>
-          <button className="hidden md:block" onClick={() => handleDownloadClick(id)}>
-            <ButtonPrimary>Dwonload Result</ButtonPrimary>
-          </button>
+
+          <div className="hidden md:block dropdown dropdown-end dropdown-hover">
+            <label tabIndex={0} className="">
+              <ButtonPrimary><span className="flex items-center gap-1">Dwonload Result <MdOutlineArrowDropDown className="h-5 w-5"/> </span></ButtonPrimary>
+            </label>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <button onClick={() => handleGeneratePDF(electionData)}>
+                  In A PDF File
+                </button>
+              </li>
+              <li>
+                <button className="hidden md:block" onClick={() => handleDownloadClick(id)}>
+                  In A Excel File
+                </button>
+              </li>
+
+            </ul>
+          </div>
         </div>
         <div className="grid md:grid-cols-2 gap-2 font-medium text-gray-600 mt-5">
           <p>Email: {email}</p>
@@ -104,14 +96,25 @@ const ElectionResult = () => {
           <p>Status: {status}</p>
           <p>Timezone: {timeZone}</p>
           <p>Election Type: {voteType}</p>
-          <button className="text-left md:hidden" onClick={() => handleDownloadClick(id)}>
-            <ButtonPrimary>Dwonload Result excel</ButtonPrimary>
-          </button>
+          <div className="md:hidden dropdown dropdown-end dropdown-hover">
+            <label tabIndex={0} className="">
+              <ButtonPrimary><span className="flex items-center gap-1">Dwonload Result <MdOutlineArrowDropDown className="h-5 w-5"/> </span></ButtonPrimary>
+            </label>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <button onClick={() => handleGeneratePDF(electionData)}>
+                  In A PDF File
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleDownloadClick(id)}>
+                  In A Excel File
+                </button>
+              </li>
 
-          <button onClick={() => handleGeneratePDF(electionData)}>
-            <ButtonPrimary>Dwonload Result pdf</ButtonPrimary>
-          </button>
-     
+            </ul>
+          </div>
+
         </div>
       </div>
       <ResultOverview electionData={electionData} />
