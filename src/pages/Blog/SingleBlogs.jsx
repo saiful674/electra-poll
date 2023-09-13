@@ -9,6 +9,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import getMyInfo from "../../Hooks/getMyInfo";
 import moment from "moment/moment";
+import { FaTrashAlt } from "react-icons/fa";
 
 const SingleBlogs = () => {
   const { id } = useParams();
@@ -17,8 +18,8 @@ const SingleBlogs = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [reply, setReply] = useState(null);
-  // const [replyCollection, setReplyCollection] = useState([]);
-  const [replyButton, setReplyButton] = useState(true);
+
+  const [deleting, setDeleting] = useState(false);
 
   const {
     data: blog = {},
@@ -76,6 +77,7 @@ const SingleBlogs = () => {
       .then((res) => {
         if (res.data.insertedId) {
           commentRefetch();
+          replayRefetch();
           toast.success("Your comment successfully");
         }
         reset();
@@ -118,6 +120,38 @@ const SingleBlogs = () => {
     form.reset();
   };
 
+  const handleDelete = (commId) => {
+    if (myInfo?.role === "admin") {
+      Swal.fire({
+        title: "Are you sure, Want to Delete",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        setDeleting(true);
+        axios
+          .delete(`${import.meta.env.VITE_URL}/deleteComment/${commId}`)
+          .then((res) => {
+            if (result.isConfirmed) {
+              if (res.data.success) {
+                Swal.fire(
+                  "Deleted!",
+                  "Your Comment has been deleted.",
+                  "success"
+                );
+                setDeleting(false);
+                replayRefetch();
+                commentRefetch();
+              }
+            }
+          });
+      });
+    }
+  };
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   } else {
@@ -155,6 +189,7 @@ const SingleBlogs = () => {
                   const getReply = replyCollection.find(
                     (r) => r?.commentId === com?._id
                   );
+                  console.log(getReply);
                   return (
                     <div className="border mt-6 my-2 p-2" key={index}>
                       <div className="flex items-center gap-5">
@@ -174,6 +209,19 @@ const SingleBlogs = () => {
                           </p>
 
                           <p className="">{com?.comment}</p>
+                        </div>
+                        <div>
+                          {myInfo?.role === "admin" &&
+                            (deleting ? (
+                              <p>Deleting....</p>
+                            ) : (
+                              <button
+                                onClick={() => handleDelete(com?._id)}
+                                className="btn btn-error text-sm btn-sm normal-case"
+                              >
+                                <FaTrashAlt className="h-3 w-3" />{" "}
+                              </button>
+                            ))}
                         </div>
                       </div>
 
@@ -199,7 +247,7 @@ const SingleBlogs = () => {
                         </div>
                       )}
 
-                      {myInfo?.role === "admin" && (
+                      {myInfo?.role === "admin" && !getReply && (
                         <button
                           className="text-green-400 ml-10"
                           onClick={() => handleReply(com?._id)}
@@ -211,14 +259,14 @@ const SingleBlogs = () => {
                         <div>
                           <form onSubmit={(e) => submitComment(e, com)}>
                             <input
-                              className="py-1 px-2"
+                              className="py-1 px-2 w-full"
                               type="text"
                               name="reply"
                               id="reply"
                               placeholder="type your reply"
                             />
                             <input
-                              className="ml-2 border py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
+                              className="ml-2 border mt-1 py-1 px-1 rounded-sm text-green-400 border-green-400 cursor-pointer"
                               type="submit"
                               value="comment"
                             />
