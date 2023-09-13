@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { formatDateToInputValue } from "../../../../Hooks/convertDate";
+import { generatePDF } from "../../../../Hooks/genaratePDF";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
 import QuestionCard from "./QuestionCard";
@@ -47,6 +48,36 @@ const ElectionResult = () => {
     }
   };
 
+
+  const handleGeneratePDF = (data) => {
+    const electionData = {
+      title: 'Sample Election',
+      startDate: '2023-09-05',
+      endDate: '2023-09-10',
+      questions: [
+        {
+          questionTitle: 'Question 1',
+          options: [
+            { option: 'Option 1', votes: 50 },
+            { option: 'Option 2', votes: 30 },
+          ],
+        },
+        {
+          questionTitle: 'Question 2',
+          options: [
+            { option: 'Option A', votes: 40 },
+            { option: 'Option B', votes: 60 },
+          ],
+        },
+      ],
+    };
+    
+    
+    generatePDF(data);
+  
+  };
+
+
   if (isLoading) {
     return <LoadingSpinner />
   }
@@ -74,8 +105,13 @@ const ElectionResult = () => {
           <p>Timezone: {timeZone}</p>
           <p>Election Type: {voteType}</p>
           <button className="text-left md:hidden" onClick={() => handleDownloadClick(id)}>
-            <ButtonPrimary>Dwonload Result</ButtonPrimary>
+            <ButtonPrimary>Dwonload Result excel</ButtonPrimary>
           </button>
+
+          <button onClick={() => handleGeneratePDF(electionData)}>
+            <ButtonPrimary>Dwonload Result pdf</ButtonPrimary>
+          </button>
+     
         </div>
       </div>
       <ResultOverview electionData={electionData} />
