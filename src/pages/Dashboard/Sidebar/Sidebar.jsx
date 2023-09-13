@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineBars } from "react-icons/ai";
 import { BiSolidContact } from "react-icons/bi";
-import { BsFillHouseAddFill } from "react-icons/bs";
+import { BsFillHouseAddFill, BsPostcardFill } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaBlog, FaHome, FaUsers } from "react-icons/fa";
 import { HiMiniCog6Tooth } from "react-icons/hi2";
-import { MdBallot, MdReviews } from "react-icons/md";
+import { MdBallot, MdFolderDelete, MdManageAccounts, MdReviews } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import logo from "../../../assets/logo-white.png";
@@ -157,7 +157,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                       <BsFillHouseAddFill className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Home</span>
                     </NavLink>
@@ -170,7 +170,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <MdManageAccounts className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Manage Users</span>
                     </NavLink>
@@ -183,7 +183,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <BsPostcardFill Name="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Post Blogs</span>
                     </NavLink>
@@ -196,7 +196,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <MdFolderDelete className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Manage Blogs</span>
                     </NavLink>

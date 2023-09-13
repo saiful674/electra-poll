@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProvider";
+import AdminUserName from "../AdminHome/AdminUserName";
 
 const ManageBlogs = () => {
   const { user } = useContext(AuthContext);
@@ -43,6 +44,7 @@ const ManageBlogs = () => {
   };
   return (
     <div>
+      <AdminUserName></AdminUserName>
       <div className="overflow-x-auto mt-5">
         <table className="table table-zebra-zebra">
           {/* head */}

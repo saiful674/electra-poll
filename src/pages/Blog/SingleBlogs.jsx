@@ -73,7 +73,11 @@ const SingleBlogs = () => {
     }
 
     axios
+<<<<<<< HEAD
+      .post(`${import.meta.env.VITE_URL}/comment/${blog?._id}`, data)
+=======
       .post(`${import.meta.env.VITE_URL}/comment?id=${blog?._id}`, data)
+>>>>>>> dbae3cebf03932383c6355af3b87c416ae312797
       .then((res) => {
         if (res.data.insertedId) {
           commentRefetch();
@@ -210,7 +214,7 @@ const SingleBlogs = () => {
                             alt={com?.username}
                           />
                         </div>
-                        <div>
+                        <div className="w-full">
                           <p className="font-semibold">
                             {com?.username}{" "}
                             <span className="ml-5 text-sm text-gray-500">
@@ -218,7 +222,9 @@ const SingleBlogs = () => {
                             </span>
                           </p>
 
-                          <p className="">{com?.comment}</p>
+                          <div className="">
+                            <p className="">{com?.comment}</p>
+                          </div>
                         </div>
                         <div>
                           {myInfo?.role === "admin" &&
@@ -244,7 +250,7 @@ const SingleBlogs = () => {
                               alt={getReply?.author}
                             />
                           </div>
-                          <div>
+                          <div className="">
                             <p className="font-semibold">
                               {getReply?.author}{" "}
                               <span className="ml-5 text-sm text-gray-500">
