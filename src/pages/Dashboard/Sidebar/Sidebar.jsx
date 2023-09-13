@@ -183,7 +183,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <BsPostcardFill Name="w-5 h-5" />
+                      <BsPostcardFill className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Post Blogs</span>
                     </NavLink>

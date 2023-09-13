@@ -1,10 +1,13 @@
 import React from 'react';
 import getElection from '../../../../Hooks/getElection';
 import { FaAngleRight } from 'react-icons/fa6';
+import Marquee from 'react-fast-marquee';
 const MarqueeTitle = () => {
     const [elections] = getElection();
     return (
-               <div className='flex  '>
+ 
+        <Marquee pauseOnHover>
+                 <div className='flex  '>
                         {elections.map((election) => (
                             <div className='text-sm' key={election?._id}>
                               
@@ -19,6 +22,8 @@ const MarqueeTitle = () => {
                         ))}
                   
         </div>
+      </Marquee>
+
     );
 };
 
