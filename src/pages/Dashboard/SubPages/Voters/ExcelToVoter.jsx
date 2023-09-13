@@ -51,7 +51,7 @@ function ExcelToVoter({ closeModa4, refetch }) {
               showConfirmButton: false,
               timer: 1500,
             });
-          } else if (res.data.voterExist === true) {
+          } else if (res.data.exist === true) {
             refetch();
             Swal.fire({
               icon: "error",

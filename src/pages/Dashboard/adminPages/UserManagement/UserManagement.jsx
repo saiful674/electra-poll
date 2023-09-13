@@ -14,9 +14,7 @@ const UserManagement = () => {
     refetch,
     isLoading,
   } = useQuery(["users", user], async () => {
-    const res = await axios.get(
-      `${import.meta.env.VITE_URL}/all-users`
-    );
+    const res = await axios.get(`${import.meta.env.VITE_URL}/all-users`);
     return res.data;
   });
   const users = data;
