@@ -156,15 +156,22 @@ const SingleBlogs = () => {
     return <LoadingSpinner></LoadingSpinner>;
   } else {
     return (
-      <div className="mt-16">
+      <div className="mt-20">
         <div
-          style={{
-            backgroundImage: `url(${blog?.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-          className="h-[500px]"
-        ></div>
+          // style={{
+          //   backgroundImage: `url(${blog?.image})`,
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "center center",
+          // }}
+
+          className="my-container"
+        >
+          <img
+            src={blog?.image}
+            className="w-full object-cover max-h-[500px]"
+            alt=""
+          />
+        </div>
         <div className="my-container">
           <h2 className="text-3xl font-semibold text-center mt-6 mb-1">
             {blog?.title}
@@ -172,7 +179,7 @@ const SingleBlogs = () => {
           <div className="my-4">
             {blog.content &&
               blog?.content.map((b, i) => (
-                <p key={i} className="text-lg mb-1">
+                <p key={i} className="text-lg my-4">
                   {b}
                 </p>
               ))}
@@ -180,7 +187,7 @@ const SingleBlogs = () => {
           </div>
           <div className="flex justify-end my-5">
             {comments?.length > 0 && (
-              <div>
+              <div className="w-full">
                 <h4 className="text-2xl font-semibold">
                   Here you can see all comments
                 </h4>
@@ -191,7 +198,10 @@ const SingleBlogs = () => {
                   );
                   console.log(getReply);
                   return (
-                    <div className="border mt-6 my-2 p-2" key={index}>
+                    <div
+                      className="border rounded-md mt-6 my-2 p-2"
+                      key={index}
+                    >
                       <div className="flex items-center gap-5">
                         <div className="">
                           <img
@@ -203,7 +213,7 @@ const SingleBlogs = () => {
                         <div>
                           <p className="font-semibold">
                             {com?.username}{" "}
-                            <span className="ml-5">
+                            <span className="ml-5 text-sm text-gray-500">
                               {moment(com?.date).format("lll")}
                             </span>
                           </p>
@@ -237,7 +247,7 @@ const SingleBlogs = () => {
                           <div>
                             <p className="font-semibold">
                               {getReply?.author}{" "}
-                              <span className="ml-5">
+                              <span className="ml-5 text-sm text-gray-500">
                                 {moment(getReply?.date).format("lll")}
                               </span>
                             </p>
@@ -279,7 +289,7 @@ const SingleBlogs = () => {
               </div>
             )}
           </div>
-          <div className="flex justify-end my-5">
+          <div className="flex my-5">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label
@@ -288,13 +298,12 @@ const SingleBlogs = () => {
                 >
                   Add your Valuable comment
                 </label>
-                <input
-                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                <textarea
+                  className={`shadow appearance-none border rounded lg:w-[50vw] w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     errors.comment ? "border-red-500" : ""
                   }`}
                   id="comment"
                   name="comment"
-                  type="text"
                   placeholder="Enter your comment"
                   {...register("comment", { required: true })}
                 />
