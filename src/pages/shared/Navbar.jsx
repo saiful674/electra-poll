@@ -131,10 +131,9 @@ const Navbar = () => {
 
       {/* ================ mobile view================ */}
       <div
-        data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${
+        className={`${visible ? "" : "-top-[200px]"} ${
           !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0`}
+        } fixed w-screen z-10 top-0 my-transition`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -144,8 +143,10 @@ const Navbar = () => {
 
           <ul
             className={`${
-              isOpen ? "-right-4" : "-right-96"
-            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
+              isOpen
+                ? "-right-4 md:-right-4"
+                : "-right-96 md:-right-full hidden"
+            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-[200vh] md:h-[30vh] flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
           >
             <button
               className="absolute right-4"
@@ -167,12 +168,14 @@ const Navbar = () => {
             )}
 
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/"
             >
               Home
             </NavLink>
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/about "
             >
@@ -199,6 +202,7 @@ const Navbar = () => {
               </NavLink>
             )}
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/contact"
             >
@@ -210,6 +214,7 @@ const Navbar = () => {
               </button>
             ) : (
               <NavLink
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/login"
               >
