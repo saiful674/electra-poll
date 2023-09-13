@@ -2,9 +2,9 @@ import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import getElection from '../../../../Hooks/getElection';
 
-const ElectionHistory = ({ electionData }) => {
+const ElectionHistory = () => {
   const [elections] = getElection()
-  console.log(electionData)
+
   if (!Array.isArray(elections) || elections.length === 0) {
     return <p>No election data available.</p>;
   }
