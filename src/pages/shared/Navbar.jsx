@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import getMyInfo from "../../Hooks/getMyInfo";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonSecondary from "../../components/ButtonSecondary/ButtonSecondary";
+import Aos from "aos";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
+  const location = useLocation();
   const { myInfo } = getMyInfo();
   const role = myInfo.role;
   const handleLogOut = () => {
@@ -46,10 +48,9 @@ const Navbar = () => {
 
   return (
     <div
-      data-aos="fade-down"
-      className={`${visible ? "" : "hidden"} ${
+      className={`${visible ? "top-0" : "-top-[120px]"} ${
         !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-      } fixed w-screen z-30 top-0`}
+      } fixed w-screen z-30 my-transition`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
