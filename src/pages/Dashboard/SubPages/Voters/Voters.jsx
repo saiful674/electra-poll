@@ -16,7 +16,9 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
-    const res = await axios.get(`${import.meta.env.VITE_URL}/${user?.email}`);
+    const res = await axios.get(
+      `${import.meta.env.VITE_URL}/voters/${user?.email}`
+    );
     return res.data;
   });
   const voters = data?.voters;

@@ -215,7 +215,11 @@ const Sidebar = () => {
                   <HiMiniCog6Tooth className="w-5 h-5" />
                   <span className="mx-4 font-medium">Profile</span>
                 </NavLink>
-                <div className="divider  mt-8 font-semibold ">Quick Action</div>
+                <div className="flex items-center justify-center my-5">
+                  <div className="flex-1 border-t-2 border-white mr-2"></div>
+                  <span>Quick Action</span>
+                  <div className="flex-1 border-t-2 border-white ml-2"></div>
+                </div>
                 <NavLink
                   to="/"
                   onClick={handleToggle}
