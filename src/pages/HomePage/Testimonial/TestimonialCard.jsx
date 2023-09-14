@@ -13,7 +13,7 @@ const TestimonialCard = ({ testimonial }) => {
               <span className="text-lg font-bold">{testimonial.title}</span>
               <FaQuoteLeft className="text-indigo-500 bg-gray-200 p-2 h-8 w-8 rounded-full" />
             </p>
-            <p className="text-base text-gray-500 mb-5 relative">
+            <p className="text-base text-gray-700 mb-5 relative">
               {testimonial.feedback.slice(0, 200)}
             </p>
             <Rating
