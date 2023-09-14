@@ -11,12 +11,12 @@ const ImportantNotice = () => {
                 <div>
           <div className='flex items-center'>
           <AiFillNotification className='text-2xl text-red-600 mr-2' />
-                    <h2 className='text-lg font-semibold mb-2 md:mb-0'>Important ImportantNotices or Updates</h2>
+                    <h2 className='text-xl font-semibold mb-2 md:mb-0'>Important ImportantNotices or Updates</h2>
                    
           </div>
 
 
-           <p className='text-sm mb-2 md:mb-0'>
+           <p className='text-md mb-2 md:mb-0'>
                         Stay informed about important security updates on our website.
                     </p>
                <div className='pt-2'>
