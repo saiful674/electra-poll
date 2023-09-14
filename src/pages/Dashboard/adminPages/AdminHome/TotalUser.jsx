@@ -1,18 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React from 'react';
+
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { GiVote } from 'react-icons/gi';
 import { HiUserGroup } from 'react-icons/hi2';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
-import getElection from '../../../../Hooks/getElection';
+import { AuthContext } from '../../../../Providers/AuthProvider';
 
 const TotalUser = () => {
-  const [election, ] = getElection()
+  const {user} = useContext(AuthContext)
   const [users, setUsers] = useState([])
   const [blog, setBlog] = useState([])
+  const [election, setElection] = useState([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
@@ -20,6 +20,15 @@ const TotalUser = () => {
       .then(res => res.json())
       .then(data => {
         setUsers(data)
+        setLoading(false)
+      })
+  }, [])
+  useEffect(() => {
+    setLoading(true)
+    fetch(`${import.meta.env.VITE_URL}/all-elections/admin/${user?.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setElection(data)
         setLoading(false)
       })
   }, [])

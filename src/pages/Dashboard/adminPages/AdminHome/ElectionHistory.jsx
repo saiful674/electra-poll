@@ -1,10 +1,27 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
-import getElection from '../../../../Hooks/getElection';
+import { AuthContext } from '../../../../Providers/AuthProvider';
+import { useContext } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 
 const ElectionHistory = () => {
-  const [elections] = getElection()
-
+  const {user} = useContext(AuthContext)
+  const [elections, setElections] = useState([])
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setLoading(true)
+    fetch(`${import.meta.env.VITE_URL}/all-elections/admin/${user?.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setElections(data)
+        setLoading(false)
+      })
+  }, [])
+  if (loading) {
+    return <LoadingSpinner />
+  }
   if (!Array.isArray(elections) || elections.length === 0) {
     return <p>No election data available.</p>;
   }
