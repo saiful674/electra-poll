@@ -181,6 +181,13 @@ const Navbar = () => {
             >
               About
             </NavLink>
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/blog"
+            >
+              Blog
+            </NavLink>
             {user && role === "user" && (
               <NavLink
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
