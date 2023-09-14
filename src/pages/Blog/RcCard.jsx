@@ -7,7 +7,7 @@ const RcCard = ({ blog }) => {
     <div className="lg:flex items-start mb-8">
       <img
         src={blog?.image}
-        className="w-full rounded-sm md:h-[180px] md:w-[180px]"
+        className="w-full rounded-sm md:h-[160px] md:w-[160px]"
       />
       <div className="lg:ml-6">
         <h1 className="f-m-m text-xl font-semibold leading-7 lg:mt-0 mt-8">

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const PrimaryBlog = ({ blog }) => {
   return (
     <div className="mb-8">
-      <img src={blog?.image} className="h-[450px] w-full" />
+      <img src={blog?.image} className="max-h-[400px] object-cover w-full" />
       <div className="mt-8 lg:mb-0 mb-8">
         <h1 className="f-m-m text-2xl font-semibold leading-7">
           {blog?.title}
