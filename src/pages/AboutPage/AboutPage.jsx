@@ -410,7 +410,7 @@ const AboutPage = () => {
         <div className="my-20">
           <div className="mb-10  text-center">
             <h3 className="text-3xl font-semibold">Our Team member</h3>
-            <p>
+            <p className="md:w-1/2 mx-auto">
               Our team members collaborate, innovate, and achieve success
               together, forging strong bonds while driving our organization
               toward excellence and growth
@@ -427,7 +427,7 @@ const AboutPage = () => {
             breakpoints={{
               // When screen width is >= 1024px
               1024: {
-                slidesPerView: 2,
+                slidesPerView: 3,
               },
               // When screen width is >= 768px
               768: {
@@ -443,7 +443,7 @@ const AboutPage = () => {
               <div className="card   hover:shadow-xl hover:bg-base-100 ">
                 <figure>
                   <img
-                    src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
+                    src="https://i.ibb.co/LYcSv6c/myPic.jpg"
                     className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
@@ -608,6 +608,44 @@ const AboutPage = () => {
                     <p className="font-bold">
                       <span className="font-semibold">
                         Khanmahmud994@gmail.com
+                      </span>{" "}
+                    </p>
+                  </div>
+                  <div className="flex mt-5 text-xl text-[#008b46] justify-center gap-5 items-center">
+                    <Link>
+                      <FaFacebook></FaFacebook>
+                    </Link>
+                    <Link>
+                      <FaLinkedinIn></FaLinkedinIn>
+                    </Link>
+
+                    <Link>
+                      <FaYoutube></FaYoutube>
+                    </Link>
+                    <Link>
+                      <FaTwitter></FaTwitter>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+                <figure>
+                  <img
+                    src="https://i.ibb.co/C9NkXsS/1645764888408-01.jpg?fbclid=IwAR3wG-gnH9Gp-S_0w5IUiXNzikUs5K6jVyyOBHG7ThTQAInHPrBhkmaG-Ew"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
+                    alt="Team Picture"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title flex justify-center text-[#008e48]">
+                    Mohammad Masum Billah
+                  </h2>
+                  <div className="flex mt-1 text-center">
+                    <p className="font-bold">
+                      <span className="font-semibold">
+                        masumbillahyusuf1621@gmail.com
                       </span>{" "}
                     </p>
                   </div>
