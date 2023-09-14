@@ -418,21 +418,33 @@ const AboutPage = () => {
           </div>
 
           <Swiper
-            // install Swiper modules
             modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={50}
             slidesPerView={3}
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-
+            breakpoints={{
+              // When screen width is >= 1024px
+              1024: {
+                slidesPerView: 2,
+              },
+              // When screen width is >= 768px
+              768: {
+                slidesPerView: 2,
+              },
+              // When screen width is < 768px
+              0: {
+                slidesPerView: 1,
+              },
+            }}
           >
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card   hover:shadow-xl hover:bg-base-100 ">
                 <figure>
                   <img
                     src="https://i.ibb.co/Pj4wC3X/myPic.jpg"
-                    className="h-52 mt-5 w-48 rounded-lg"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
                 </figure>
@@ -470,7 +482,7 @@ const AboutPage = () => {
                 <figure>
                   <img
                     src="https://i.ibb.co/xH6qPd1/anis.jpg"
-                    className="h-52 mt-5 w-48 rounded-lg"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
                 </figure>
@@ -508,7 +520,7 @@ const AboutPage = () => {
                 <figure>
                   <img
                     src="https://i.ibb.co/bK4HB9L/maruf.jpg"
-                    className="h-52 mt-5 w-48 rounded-lg"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
                 </figure>
@@ -546,7 +558,7 @@ const AboutPage = () => {
                 <figure>
                   <img
                     src="https://i.ibb.co/bH0GX2k/saifulvail.jpg"
-                    className="h-52 mt-5 w-48 rounded-lg"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
                 </figure>
@@ -584,7 +596,7 @@ const AboutPage = () => {
                 <figure>
                   <img
                     src="https://i.ibb.co/tpFkpVp/mahdulhasan.jpg"
-                    className="h-52 mt-5 w-48 rounded-lg"
+                    className="h-52  mt-5 md:w-48 rounded-lg"
                     alt="Team Picture"
                   />
                 </figure>
