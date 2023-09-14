@@ -1,13 +1,14 @@
 import jsPDF from "jspdf";
+import logo from '../assets/logo.png';
 import { formatDateToInputValue } from "./convertDate";
-
 export const generatePDF = (electionData) => {
   const doc = new jsPDF();
 
   // Add election details to the PDF
   doc.setFontSize(16);
-  // Calculate page width
+  // Calculate page width and height
   const pageWidth = doc.internal.pageSize.width;
+  const pageHeight = doc.internal.pageSize.height;
 
   // Calculate the width of the text
   const textWidth =
@@ -78,6 +79,22 @@ export const generatePDF = (electionData) => {
     // Add some space between questions
     yOffset += 10;
   });
+
+
+   // Add your website logo at the bottom
+   const logoWidth = 30; // Adjust the width of the logo
+   const logoHeight = 15; // Adjust the height of the logo
+   const logoX = (pageWidth - logoWidth) / 2;
+   const logoY = pageHeight - 30; // Adjust the Y position for the logo
+   doc.addImage(logo, 'PNG', logoX, logoY, logoWidth, logoHeight);
+ 
+   // Add your email address below the logo
+   doc.setFontSize(10);
+   const emailText = 'Visit: electrapoll-64bc7.web.app'; // Replace with your email address
+   const emailWidth = doc.getStringUnitWidth(emailText) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+   const emailX = (pageWidth - emailWidth) / 2;
+   const emailY = logoY + logoHeight + 5; // Adjust the Y position for the email address
+   doc.text(emailText, emailX, emailY);
 
   // Save the PDF with a specific file name
   doc.save("election_data.pdf");
