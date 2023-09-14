@@ -205,15 +205,15 @@ const SingleBlogs = () => {
                       <div className="flex items-center gap-5">
                         <div className="">
                           <img
-                            className="w-10 h-10 rounded-full"
+                            className="w-10  h-10 rounded-full"
                             src={com?.photo}
                             alt={com?.username}
                           />
                         </div>
                         <div className="w-full">
-                          <p className="font-semibold">
+                          <p className=" font-semibold">
                             {com?.username}{" "}
-                            <span className="ml-5 text-sm text-gray-500">
+                            <span className="ml-5  text-sm text-gray-500">
                               {moment(com?.date).format("lll")}
                             </span>
                           </p>
@@ -222,7 +222,7 @@ const SingleBlogs = () => {
                             <p className="">{com?.comment}</p>
                           </div>
                         </div>
-                        <div>
+                        <div className="hidden md:block">
                           {myInfo?.role === "admin" &&
                             (deleting ? (
                               <p>Deleting....</p>
@@ -247,7 +247,7 @@ const SingleBlogs = () => {
                             />
                           </div>
                           <div className="">
-                            <p className="font-semibold">
+                            <p className=" font-semibold">
                               {getReply?.author}{" "}
                               <span className="ml-5 text-sm text-gray-500">
                                 {moment(getReply?.date).format("lll")}
