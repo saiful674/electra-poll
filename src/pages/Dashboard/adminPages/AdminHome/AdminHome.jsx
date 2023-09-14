@@ -7,22 +7,9 @@ import LoadingSpinner from '../../../shared/LoadingSpinner';
 import BlogHistory from './BlogHistory';
 
 const AdminHome = () => {
-    const [electionData, setElectionData] = useState([]);
     const [blogData, setBlogData] = useState([]);
     const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        setLoading(true)
-        fetch(`${import.meta.env.VITE_URL}/all-elections`)
-            .then(response => response.json())
-            .then(data => {
-                setElectionData(data)
-                setLoading(false)
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error)
-                setLoading(false)
-            });
-    }, []);
+
     useEffect(() => {
         setLoading(true)
         fetch(`${import.meta.env.VITE_URL}/blogs`)
@@ -44,7 +31,7 @@ const AdminHome = () => {
 
             <AdminUserName />
             <TotalUser />
-            <ElectionHistory electionData={electionData} />
+            <ElectionHistory  />
             <BlogHistory blogData={blogData} />
 
         </div>

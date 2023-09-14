@@ -1,8 +1,11 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import getElection from '../../../../Hooks/getElection';
 
-const ElectionHistory = ({ electionData }) => {
-  if (!Array.isArray(electionData) || electionData.length === 0) {
+const ElectionHistory = () => {
+  const [elections] = getElection()
+
+  if (!Array.isArray(elections) || elections.length === 0) {
     return <p>No election data available.</p>;
   }
   const statusCounts = {
@@ -12,7 +15,7 @@ const ElectionHistory = ({ electionData }) => {
     published: 0,
   };
 
-  electionData.forEach(election => {
+  elections.forEach(election => {
     statusCounts[election.status]++;
   });
 
@@ -25,7 +28,7 @@ const ElectionHistory = ({ electionData }) => {
 
   return (
     <div className='bg-white p-8 mt-8 rounded shadow text-slate-700 overflow-hidden'>
-      <h2 className='text-3xl font-semibold mb-4 uppercase'>Election History</h2>
+      <h2 className='text-2xl font-semibold mb-4 uppercase'>Election History</h2>
       <div className='flex items-center justify-center'>
         <ResponsiveContainer width='80%' height={300}>
           <PieChart>

@@ -37,7 +37,7 @@ const UserReview = () => {
 
     if (rating) {
       axios
-        .post(`https://electra-poll-server.vercel.app/user-review`, reviewData)
+        .post(`${import.meta.env.VITE_URL}/user-review`, reviewData)
         .then((response) => {
           if (response.data.insertedId) {
             Swal.fire("Thanks!", "Your feedback means a lot to us!", "success");
