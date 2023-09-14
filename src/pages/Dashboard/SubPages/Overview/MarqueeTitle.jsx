@@ -10,7 +10,7 @@ const MarqueeTitle = () => {
         <Marquee pauseOnHover>
                  <div className='flex  '>
                         {elections.map((election) => (
-                            <div className='text-sm' key={election?._id}>
+                            <div className='text-md' key={election?._id}>
                               
                                     <div className='flex items-center gap-2'>
                                         <p>
