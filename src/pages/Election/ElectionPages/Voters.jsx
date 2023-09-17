@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import excelSS from "../../../assets/excelSS.png";
 import {
   addVoterRow,
   next,
@@ -14,11 +15,13 @@ import {
   updateVotePassword,
   updateVoterEmail,
 } from "../../../redux/slices/FormDataSlice";
+import { read, utils } from "xlsx";
 
 const Voters = () => {
   const dispatch = useDispatch();
   const [emailErrors, setEmailErrors] = useState(false);
   const formData = useSelector((state) => state.formData);
+  const [voterEmail, setVoterEmails] = useState([]);
   const {
     _id,
     email,
@@ -45,11 +48,11 @@ const Voters = () => {
   const onSubmit = (data) => {
     setEmailErrors(false);
     const voterAccessKey = data.accessKey;
-    const voterAccessPassword = Math.floor(data.password)
+    const voterAccessPassword = Math.floor(data.password);
 
     if (status === "pending") {
       axios
-        .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+        .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
           ...formData,
           voterAccessKey,
           voterAccessPassword,
@@ -70,6 +73,7 @@ const Voters = () => {
     }
   };
 
+  // adds a new voter row to store and ui
   const handleAddVoter = () => {
     if (voteType === "test" && voterEmails.length >= 5) {
       Swal.fire({
@@ -87,6 +91,7 @@ const Voters = () => {
     reset();
   };
 
+  // update email when user writes the email address in input field
   const handleUpdateEmail = (id, email) => {
     const existingEmail = voterEmails?.find((voter) => voter.email === email);
     if (existingEmail) {
@@ -98,6 +103,7 @@ const Voters = () => {
     dispatch(setEmailValid(false));
   };
 
+  // =====add saved voters from voters page
   const handleAddSavedVoters = () => {
     if (voteType === "test") {
       Swal.fire({
@@ -106,12 +112,57 @@ const Voters = () => {
         text: "Cannot add saved voters in test vote!",
       });
     } else {
-      axios.get(`https://electra-poll-server.vercel.app/voters/${email}`).then((res) => {
+      axios.get(`${import.meta.env.VITE_URL}/voters/${email}`).then((res) => {
         const voters = res.data.voters;
         for (let voter of voters) {
           dispatch(addVoterRow(voter.voterEmail));
         }
       });
+    }
+  };
+
+  // read excel file and add voters to voteEmails array in state
+  const handleExcelUpload = async (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const inputData = await file.arrayBuffer();
+      const wb = read(inputData);
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const jsondata = utils.sheet_to_json(ws);
+      if (jsondata[0].Email) {
+        const voters = [];
+        jsondata.forEach((data) =>
+          voters.push({ voterName: data.Name, voterEmail: data.Email })
+        );
+        setVoterEmails(voters);
+      } else {
+        setVoterEmails({ error: true });
+      }
+    } else {
+      setVoterEmails([]);
+    }
+    e.target.value = "";
+  };
+
+  console.log(voterEmail);
+
+  // add voterEmail array of excel voters to store and ui
+  const handleAddExcelVoters = () => {
+    const modal3 = document.getElementById("my_modal_3");
+    if (voteType === "test") {
+      modal3.close();
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Cannot add saved voters in test vote!",
+      });
+      setVoterEmails([]);
+    } else {
+      for (let voter of voterEmail) {
+        dispatch(addVoterRow(voter.voterEmail));
+        modal3.close();
+      }
+      setVoterEmails([]);
     }
   };
 
@@ -195,7 +246,7 @@ const Voters = () => {
               </div>
             )}
 
-            <div className="space-x-4">
+            <div className="flex gap-3 flex-wrap">
               <button
                 disabled={status !== "pending"}
                 type="button"
@@ -211,6 +262,13 @@ const Voters = () => {
                 onClick={handleAddSavedVoters}
               >
                 Add Saved Voters
+              </button>
+              <button
+                className="bg-gray-500 text-white px-3 py-1 rounded-md"
+                type="button"
+                onClick={() => window.my_modal_3.showModal()}
+              >
+                Upload Voters
               </button>
             </div>
 
@@ -249,8 +307,8 @@ const Voters = () => {
                             type="text"
                             className={
                               errors[`voterEmail${row.id}`]
-                                ? "bg-red-300 h-8 w-full px-2"
-                                : "bg-gray-200 h-8 w-full"
+                                ? "bg-red-300 h-8 w-full px-2 min-w-[100px]"
+                                : "bg-gray-200 h-8 w-full min-w-[200px] px-2"
                             }
                             defaultValue={row.email}
                             onChange={(e) =>
@@ -309,6 +367,64 @@ const Voters = () => {
           </button>
         </div>
       </div>
+
+      {/* voter excel modal */}
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box w-11/12 lg:w-3/5 max-w-5xl">
+          <h2 className="text-xl font-bold mb-5 text-center">Add Voter </h2>
+          <form method="dialog">
+            <button
+              id="modal-close-btn"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >
+              ✕
+            </button>
+          </form>
+          <form>
+            <div className="mt-5 text-center">
+              <div className="flex gap-3 flex-col items-center">
+                <h1 className="text-xl text-green-500">
+                  Make sure your excel file is in this format.
+                </h1>
+                <img src={excelSS} alt="" className="w-72 lg:w-full" />
+                <div className="flex flex-col">
+                  {!voterEmail.error && voterEmail.length > 0 ? (
+                    <h1 className="text-green-500">
+                      format is ok.able to upload
+                    </h1>
+                  ) : voterEmail.error ? (
+                    <h1 className="text-red-500">
+                      wrong format. make user you excel data is in right format.
+                    </h1>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  <label className="w-20 h-10 flex justify-center items-center bg-gray-400 rounded-md text-white cursor-pointer">
+                    upload
+                    <input
+                      onInput={(e) => handleExcelUpload(e)}
+                      type="file"
+                      accept=".xlsx, .xls"
+                      hidden
+                      id="file-input"
+                    />
+                  </label>
+                  <button
+                    onClick={handleAddExcelVoters}
+                    type="button"
+                    className="button-next"
+                  >
+                    Add Voters
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 };

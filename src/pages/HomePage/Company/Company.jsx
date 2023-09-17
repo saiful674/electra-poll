@@ -18,9 +18,10 @@ const Company = () => {
     return (
         <section data-aos="fade-up" className='my-container mb-20'>
             <SectionTitle title={'Company Connected With Us'} subTitle={"We've been helping marketers with our campaign platform since 2010.Find out for yourself why we're so popular."} />
-
+          
             <div className='mt-10 grid grid-cols-2 md:grid-cols-5 gap-5 items-center off-white'>
-                <figure>
+    
+      <figure>
                     <img src={companyLogo1} alt="our connected companies logo" />
                 </figure>
                 <figure>
@@ -35,7 +36,9 @@ const Company = () => {
                 <figure>
                     <img src={companyLogo5} alt="our connected companies logo" />
                 </figure>
+   
             </div>
+          
         </section>
     );
 };

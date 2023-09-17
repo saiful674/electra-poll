@@ -7,6 +7,7 @@ import { AuthContext } from "../../../../Providers/AuthProvider";
 import ButtonPrimary from "../../../../components/ButtonPrimary/ButtonPrimary";
 import UserName from "../../../../components/Deshboard/UserName/UserName";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
+import ExcelToVoter from "./ExcelToVoter";
 const Voters = () => {
   const { user } = useContext(AuthContext);
 
@@ -15,7 +16,9 @@ const Voters = () => {
     refetch,
     isLoading,
   } = useQuery(["voters", user], async () => {
-    const res = await axios.get(`https://electra-poll-server.vercel.app/voters/${user?.email}`);
+    const res = await axios.get(
+      `${import.meta.env.VITE_URL}/voters/${user?.email}`
+    );
     return res.data;
   });
   const voters = data?.voters;
@@ -29,24 +32,25 @@ const Voters = () => {
     const voterInfo = { email: user.email, voter: { voterName, voterEmail } };
     const modalCloseBtn = document.getElementById("my_modal_5");
 
-    axios.post(`https://electra-poll-server.vercel.app/add-voters`, voterInfo).then((data) => {
-
-      if (data.data.modifiedCount >= 0) {
-        Swal.fire({
-          icon: "success",
-          title: `You added ${voterName} as a voter`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-      } else if (data.data.exist) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Voter already exists",
-        });
-      }
-    });
+    axios
+      .post(`${import.meta.env.VITE_URL}/add-voters`, voterInfo)
+      .then((data) => {
+        if (data.data.modifiedCount > 0) {
+          Swal.fire({
+            icon: "success",
+            title: `You added ${voterName} as a voter`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+        } else if (data.data.exist) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Voter already exists",
+          });
+        }
+      });
     modalCloseBtn.close();
     form.reset();
   };
@@ -64,7 +68,7 @@ const Voters = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`https://electra-poll-server.vercel.app/voters/${data?._id}`, {
+          .patch(`${import.meta.env.VITE_URL}/voters/${data?._id}`, {
             voterEmail,
           })
           .then((data) => {
@@ -80,6 +84,12 @@ const Voters = () => {
           });
       }
     });
+  };
+
+  // excel modal close function
+  const closeModa4 = () => {
+    const modalCloseBtn = document.getElementById("my_modal_4");
+    modalCloseBtn.close();
   };
 
   if (isLoading) {
@@ -100,15 +110,21 @@ const Voters = () => {
           <button onClick={() => window.my_modal_5.showModal()}>
             <ButtonPrimary>Add Voters</ButtonPrimary>
           </button>
+          <button onClick={() => window.my_modal_4.showModal()}>
+            <ButtonPrimary>Upload Voters</ButtonPrimary>
+          </button>
         </div>
       )}
 
       {/* when voter data length is more then 0 */}
       {voters?.length > 0 && (
         <>
-          <div className="text-right">
+          <div className="text-right space-x-2">
             <button onClick={() => window.my_modal_5.showModal()}>
               <ButtonPrimary>Add Voters</ButtonPrimary>
+            </button>
+            <button onClick={() => window.my_modal_4.showModal()}>
+              <ButtonPrimary>Upload Voters</ButtonPrimary>
             </button>
           </div>
           <div className="overflow-x-auto mt-5">
@@ -128,8 +144,8 @@ const Voters = () => {
                 {voters?.map((voterInfo, index) => (
                   <tr key={index} className="bg-base-200">
                     <th>{index + 1}</th>
-                    <td>{voterInfo.voterName}</td>
-                    <td>{voterInfo.voterEmail}</td>
+                    <td>{voterInfo?.voterName}</td>
+                    <td>{voterInfo?.voterEmail}</td>
                     <td>
                       <button
                         onClick={() => handleRemoveVoter(voterInfo.voterEmail)}
@@ -146,7 +162,7 @@ const Voters = () => {
         </>
       )}
 
-      {/* add voter modal */}
+      {/* add single voter modal */}
       {/* Open the modal using ID.showModal() method */}
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
@@ -184,6 +200,28 @@ const Voters = () => {
               <button>
                 <ButtonPrimary>Add</ButtonPrimary>
               </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-11/12 lg:w-3/5 max-w-5xl">
+          <h2 className="text-xl font-bold mb-5 text-center">Add Voter </h2>
+          <form method="dialog">
+            <button
+              id="modal-close-btn"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >
+              ✕
+            </button>
+          </form>
+          <form onSubmit={handleSubmit}>
+            <div className="mt-5 text-center">
+              <ExcelToVoter
+                closeModa4={closeModa4}
+                refetch={refetch}
+              ></ExcelToVoter>
             </div>
           </form>
         </div>

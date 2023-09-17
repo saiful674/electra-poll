@@ -14,9 +14,7 @@ const UserManagement = () => {
     refetch,
     isLoading,
   } = useQuery(["users", user], async () => {
-    const res = await axios.get(
-      `https://electra-poll-server.vercel.app/all-users`
-    );
+    const res = await axios.get(`${import.meta.env.VITE_URL}/all-users`);
     return res.data;
   });
   const users = data;
@@ -24,7 +22,7 @@ const UserManagement = () => {
   // /all-users/
 
   const handleMakeAdmin = (user) => {
-    fetch(`https://electra-poll-server.vercel.app/users/admin/${user._id}`, {
+    fetch(`${import.meta.env.VITE_URL}/users/admin/${user._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -42,7 +40,7 @@ const UserManagement = () => {
       });
   };
   const handleMakeUser = (user) => {
-    fetch(`https://electra-poll-server.vercel.app/users/user/${user._id}`, {
+    fetch(`${import.meta.env.VITE_URL}/users/user/${user._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -73,7 +71,7 @@ const UserManagement = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://electra-poll-server.vercel.app/all-users/${id}`)
+          .delete(`${import.meta.env.VITE_URL}/all-users/${id}`)
           .then((data) => {
             if (data.status === 200) {
               Swal.fire({
@@ -94,7 +92,7 @@ const UserManagement = () => {
   }
   return (
     <div>
-      {/* <UserName></UserName> */}
+      <AdminUserName></AdminUserName>
 
       {/* whwn voter is zero/empty */}
       {(users?.length === 0 || data.length === 0) && (

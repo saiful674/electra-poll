@@ -1,12 +1,11 @@
 import React from 'react';
 import UserName from '../../../../components/Deshboard/UserName/UserName';
-
 import UpcomingAndRecentElection from './UpcomingAndRecentElection ';
-import UserVotingHistory from './userVotingHistory';
-import CommunityEngagement from './CommunityEngagement';
 import ImportantNotice from './ImportantNotice';
 import PersonalizedRecommendations from './PersonalizedRecommendations';
 import TotalElection from './TotalElection';
+import ElectionStatusPercentage from './ElectionStatusPercentage';
+import UserVotingHistory from './UserVotingHistory';
 
 const Overview = () => {
  
@@ -20,10 +19,12 @@ const Overview = () => {
         <UpcomingAndRecentElection></UpcomingAndRecentElection>
         <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1  lg:grid-cols-2 gap-6 '>
         <UserVotingHistory></UserVotingHistory>
-        <CommunityEngagement></CommunityEngagement>
+     <ElectionStatusPercentage></ElectionStatusPercentage>
         </div>
        <PersonalizedRecommendations></PersonalizedRecommendations>
             </div>
+            {/* TODO: This feature start last week */}
+            {/* <BallonDOrVoting></BallonDOrVoting> */}
         </div>
     );
 };

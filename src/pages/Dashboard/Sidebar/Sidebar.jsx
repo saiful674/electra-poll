@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineBars } from "react-icons/ai";
 import { BiSolidContact } from "react-icons/bi";
-import { BsFillHouseAddFill } from "react-icons/bs";
+import { BsFillHouseAddFill, BsPostcardFill } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaBlog, FaHome, FaUsers } from "react-icons/fa";
 import { HiMiniCog6Tooth } from "react-icons/hi2";
-import { MdBallot } from "react-icons/md";
+import { MdBallot, MdFolderDelete, MdManageAccounts, MdReviews } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import logo from "../../../assets/logo-white.png";
@@ -128,6 +128,20 @@ const Sidebar = () => {
 
                       <span className="mx-4 font-medium">Voters</span>
                     </NavLink>
+
+                    <NavLink
+                      to="/dashboard/reviews"
+                      onClick={handleToggle}
+                      className={({ isActive }) =>
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
+                          isActive ? "bg-teal-950 " : ""
+                        }`
+                      }
+                    >
+                      <MdReviews className="w-5 h-5" />
+
+                      <span className="mx-4 font-medium">Review</span>
+                    </NavLink>
                   </>
                 )}
 
@@ -143,7 +157,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                       <BsFillHouseAddFill className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Home</span>
                     </NavLink>
@@ -156,7 +170,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <MdManageAccounts className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Manage Users</span>
                     </NavLink>
@@ -169,7 +183,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <BsPostcardFill className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Post Blogs</span>
                     </NavLink>
@@ -182,7 +196,7 @@ const Sidebar = () => {
                         }`
                       }
                     >
-                      <FaUsers className="w-5 h-5" />
+                      <MdFolderDelete className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Manage Blogs</span>
                     </NavLink>
@@ -190,7 +204,7 @@ const Sidebar = () => {
                 )}
 
                 <NavLink
-                  to="/dashboard/satings"
+                  to="/dashboard/settings"
                   onClick={handleToggle}
                   className={({ isActive }) =>
                     `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
@@ -201,7 +215,11 @@ const Sidebar = () => {
                   <HiMiniCog6Tooth className="w-5 h-5" />
                   <span className="mx-4 font-medium">Profile</span>
                 </NavLink>
-                <div className="divider  mt-8 font-semibold ">Quick Action</div>
+                <div className="flex items-center justify-center my-5">
+                  <div className="flex-1 border-t-2 border-white mr-2"></div>
+                  <span>Quick Action</span>
+                  <div className="flex-1 border-t-2 border-white ml-2"></div>
+                </div>
                 <NavLink
                   to="/"
                   onClick={handleToggle}

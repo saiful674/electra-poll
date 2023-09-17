@@ -82,7 +82,7 @@ const Overview = () => {
         }
         dispatch(addFirstPage(payload));
         axios
-          .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, payload)
+          .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, payload)
           .then((res) => {
             if (res.data) {
               setDisabled(false);

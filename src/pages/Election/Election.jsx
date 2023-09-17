@@ -24,50 +24,55 @@ const Election = () => {
   }, [pageNum]);
 
   useEffect(() => {
-    axios.get(`https://electra-poll-server.vercel.app/election/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_URL}/election/${id}`).then((res) => {
       dispatch(setInitalState(res.data));
     });
   }, []);
 
   return (
-    <div className="py-20 my-container">
+    <div className="py-16 my-container">
       <div className="grid lg:grid-cols-5 mt-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold">
         <span
-          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 0 ? `text-green-400` : ""
-            }`}
+          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
+            pageNum >= 0 ? `text-green-400` : ""
+          }`}
         >
           Overview <FaLongArrowAltRight />
         </span>
         <span
-          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 1 ? `text-green-400` : ""
-            }`}
+          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
+            pageNum >= 1 ? `text-green-400` : ""
+          }`}
         >
           Ballot
           <FaLongArrowAltRight />
         </span>
         <span
-          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 2 ? `text-green-400` : ""
-            }`}
+          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
+            pageNum >= 2 ? `text-green-400` : ""
+          }`}
         >
           Notice
           <FaLongArrowAltRight />
         </span>
         <span
-          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 3 ? `text-green-400` : ""
-            }`}
+          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
+            pageNum >= 3 ? `text-green-400` : ""
+          }`}
         >
           Voters
           <FaLongArrowAltRight />
         </span>
         <span
-          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${pageNum >= 4 ? `text-green-400` : ""
-            }`}
+          className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
+            pageNum >= 4 ? `text-green-400` : ""
+          }`}
         >
           Confirmation
           <FaLongArrowAltRight />
         </span>
       </div>
-      {(status && status !== "pending") && (
+      {status && status !== "pending" && (
         <div className="bg-red-100 justify-center mt-5 border-l-4 min-h-16 flex items-center text-lg border-red-600">
           <p>Can't changed election details after it has been published</p>
         </div>

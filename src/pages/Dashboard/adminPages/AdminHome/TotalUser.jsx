@@ -1,22 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React from 'react';
+
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { GiVote } from 'react-icons/gi';
 import { HiUserGroup } from 'react-icons/hi2';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
+import { AuthContext } from '../../../../Providers/AuthProvider';
 
 const TotalUser = () => {
-
+  const {user} = useContext(AuthContext)
   const [users, setUsers] = useState([])
   const [blog, setBlog] = useState([])
   const [election, setElection] = useState([])
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/all-users`)
+    fetch(`${import.meta.env.VITE_URL}/all-users`)
       .then(res => res.json())
       .then(data => {
         setUsers(data)
@@ -25,23 +25,23 @@ const TotalUser = () => {
   }, [])
   useEffect(() => {
     setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/blogs`)
+    fetch(`${import.meta.env.VITE_URL}/all-elections/admin/${user?.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setElection(data)
+        setLoading(false)
+      })
+  }, [])
+  useEffect(() => {
+    setLoading(true)
+    fetch(`${import.meta.env.VITE_URL}/blogs`)
       .then(res => res.json())
       .then(data => {
         setBlog(data)
         setLoading(false)
       })
   }, [])
-  useEffect(() => {
-    setLoading(true)
-    fetch(`https://electra-poll-server.vercel.app/all-elections`)
-      .then(res => res.json())
-      .then(data => {
 
-        setElection(data)
-        setLoading(false)
-      })
-  }, [])
   if (loading) {
     return <LoadingSpinner />
   }

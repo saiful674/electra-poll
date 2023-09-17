@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import moment from "moment";
 import React from "react";
+import { useContext } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../../Providers/AuthProvider";
+import AdminUserName from "../AdminHome/AdminUserName";
 
 const ManageBlogs = () => {
+  const { user } = useContext(AuthContext);
   const {
     data: blogs = [],
     refetch,
@@ -13,9 +17,7 @@ const ManageBlogs = () => {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const res = await axios.get(
-        `https://electra-poll-server.vercel.app/blogs`
-      );
+      const res = await axios.get(`${import.meta.env.VITE_URL}/blogs`);
       return res.data;
     },
   });
@@ -30,16 +32,19 @@ const ManageBlogs = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      axios.delete(`https://electra-poll-server.vercel.app/blogDelete/${id}`).then((res) => {
-        if (result.isConfirmed) {
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-        refetch();
-      });
+      axios
+        .delete(`${import.meta.env.VITE_URL}/blogDelete/${id}`)
+        .then((res) => {
+          if (result.isConfirmed) {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+          refetch();
+        });
     });
   };
   return (
     <div>
+      <AdminUserName></AdminUserName>
       <div className="overflow-x-auto mt-5">
         <table className="table table-zebra-zebra">
           {/* head */}

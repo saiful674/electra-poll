@@ -43,7 +43,7 @@ const Confirmation = () => {
             newEndDate.setMinutes(dateObject.getMinutes() + formData.autoDate);
 
             axios
-              .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+              .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
                 autoDate: formData.autoDate,
                 status: formData.autoDate ? "ongoing" : "published",
                 voterEmails,
@@ -57,7 +57,7 @@ const Confirmation = () => {
               });
           } else {
             axios
-              .patch(`https://electra-poll-server.vercel.app/election/${formData._id}`, {
+              .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, {
                 autoDate: formData.autoDate,
                 status: formData.autoDate ? "ongoing" : "published",
                 voterEmails,

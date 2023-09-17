@@ -7,7 +7,6 @@ import Contact from "../pages/Contact/Contact";
 import ElectionResult from "../pages/Dashboard/SubPages/ElectionResult/ElectionResult";
 import Overview from "../pages/Dashboard/SubPages/Overview/Overview";
 import Result from "../pages/Dashboard/SubPages/Result/Result";
-import Sating from "../pages/Dashboard/SubPages/Sattings/Sating";
 import Voters from "../pages/Dashboard/SubPages/Voters/Voters";
 import Election from "../pages/Election/Election";
 import ElectionCreationAndManagement from "../pages/ElectionCreationAndManagement/ElectionCreationAndManagement";
@@ -25,6 +24,8 @@ import UserManagement from "../pages/Dashboard/adminPages/UserManagement/UserMan
 import PostBlog from "../pages/Dashboard/adminPages/PostBlog/PostBlog";
 import VoteAccess from "../pages/Dashboard/SubPages/Vote/VoteAccess";
 import ManageBlogs from "../pages/Dashboard/adminPages/MangeBlogs/ManageBlogs";
+import Setting from "../pages/Dashboard/SubPages/Settings/Setting";
+import UserReview from "../pages/Dashboard/SubPages/UserReview/UserReview";
 
 // asjdfoiajsdf
 const router = createBrowserRouter([
@@ -99,8 +100,12 @@ const router = createBrowserRouter([
         element: <Voters />,
       },
       {
-        path: "satings",
-        element: <Sating />,
+        path: "reviews",
+        element: <UserReview />,
+      },
+      {
+        path: "settings",
+        element: <Setting />,
       },
       {
         path: "result",
