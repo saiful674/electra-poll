@@ -3,8 +3,8 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <div className="bg-green-50 min-h-[50vh] rounded-t-3xl">
-            <div className="flex lg:flex-col gap-3 my-container justify-center items-center py-8">
+        <div className="bg-green-50 lg:min-h-[50vh] rounded-t-3xl">
+            <div className="flex flex-col gap-3 my-container justify-center items-center py-8">
                 <div className="space-y-2">
                     <img className="h-12 mx-auto" src="logo.png" alt="" />
                     <p className="lg:w-[50%] text-center mx-auto ">Electro Poll is revolutionizing the voting experience, ensuring every vote is cast securely and seamlessly. Embrace the future of voting with confidence, clarity, and convenience</p>
