@@ -94,7 +94,7 @@ const UserManagement = () => {
   }
   return (
     <div>
-      <UserName></UserName>
+      {/* <UserName></UserName> */}
 
       {/* whwn voter is zero/empty */}
       {(users?.length === 0 || data.length === 0) && (

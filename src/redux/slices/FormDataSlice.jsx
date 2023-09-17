@@ -1,7 +1,54 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
-
-}
+    _id: "",
+    title: "",
+    email: "",
+    autoDate: 0,
+    startDate: "",
+    page: 0,
+    endDate: "",
+    questions: [
+        {
+            id: "",
+            voterChoose: "",
+            vacancy: 0,
+            options: [
+                {
+                    id: "",
+                    option: "",
+                    votes: 0
+                }
+            ],
+            choosedOptions: 0,
+            questionTitle: ""
+        }
+    ],
+    emailsValid: false,
+    notice: {
+        emailNotice: false,
+        useName: false
+    },
+    emailSubject: "",
+    emailInfo: "",
+    voterEmails: [
+        {
+            id: "",
+            email: "",
+            accessKey: "",
+            password: ""
+        }
+    ],
+    status: "",
+    selectedTime: "",
+    voteType: "",
+    ballotAccess: "",
+    adminResultAccess: "",
+    voterResultAccess: "",
+    timeZone: "",
+    adminEmail: "",
+    organization: "",
+    voterAccessPassword: null
+};
 
 const formDataSlice = createSlice({
     name: 'form-data',

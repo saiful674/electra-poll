@@ -30,7 +30,7 @@ const ManageBlogs = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      axios.delete(`http://localhost:5000/blogDelete/${id}`).then((res) => {
+      axios.delete(`https://electra-poll-server.vercel.app/blogDelete/${id}`).then((res) => {
         if (result.isConfirmed) {
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
