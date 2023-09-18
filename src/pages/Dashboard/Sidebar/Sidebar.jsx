@@ -47,16 +47,15 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className="mobile-menu-button p-4 focus:outline-none focus:bg-teal-800"
+          className="mobile-menu-button p-4 focus:outline-none focus:bg-teal-800 text-white"
         >
           <AiOutlineBars className="h-5 w-5" />
         </button>
       </div>
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-teal-900  w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
-          isActive && "-translate-x-full"
-        }  md:translate-x-0  transition duration-200 ease-in-out custom-scrollbar-2`}
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-teal-900  w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && "-translate-x-full"
+          }  md:translate-x-0  transition duration-200 ease-in-out custom-scrollbar-2`}
       >
         <div>
           {/* Branding & Profile Info */}
@@ -80,8 +79,7 @@ const Sidebar = () => {
                       to="/dashboard/overview"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${
-                          isActive ? "bg-teal-950" : ""
+                        `flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? "bg-teal-950" : ""
                         }`
                       }
                     >
@@ -93,8 +91,7 @@ const Sidebar = () => {
                       to="/dashboard/election-correction"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -106,8 +103,7 @@ const Sidebar = () => {
                       to="/dashboard/result"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950  ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -119,8 +115,7 @@ const Sidebar = () => {
                       to="/dashboard/voters"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -133,8 +128,7 @@ const Sidebar = () => {
                       to="/dashboard/reviews"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -152,12 +146,11 @@ const Sidebar = () => {
                       to="/dashboard/adminHome"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
-                       <BsFillHouseAddFill className="w-5 h-5" />
+                      <BsFillHouseAddFill className="w-5 h-5" />
 
                       <span className="mx-4 font-medium">Home</span>
                     </NavLink>
@@ -165,8 +158,7 @@ const Sidebar = () => {
                       to="/dashboard/userManagement"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -178,8 +170,7 @@ const Sidebar = () => {
                       to="/dashboard/postBlog"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -191,8 +182,7 @@ const Sidebar = () => {
                       to="/dashboard/ManageBlogs"
                       onClick={handleToggle}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                          isActive ? "bg-teal-950 " : ""
+                        `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                         }`
                       }
                     >
@@ -207,8 +197,7 @@ const Sidebar = () => {
                   to="/dashboard/settings"
                   onClick={handleToggle}
                   className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                      isActive ? "bg-teal-950 " : ""
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                     }`
                   }
                 >
@@ -224,8 +213,7 @@ const Sidebar = () => {
                   to="/"
                   onClick={handleToggle}
                   className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                      isActive ? "bg-teal-950 " : ""
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                     }`
                   }
                 >
@@ -236,8 +224,7 @@ const Sidebar = () => {
                   to="/about"
                   onClick={handleToggle}
                   className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                      isActive ? "bg-teal-950 " : ""
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                     }`
                   }
                 >
@@ -248,8 +235,7 @@ const Sidebar = () => {
                   to="/blog"
                   onClick={handleToggle}
                   className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                      isActive ? "bg-teal-950 " : ""
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                     }`
                   }
                 >
@@ -261,8 +247,7 @@ const Sidebar = () => {
                   to="/contact"
                   onClick={handleToggle}
                   className={({ isActive }) =>
-                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${
-                      isActive ? "bg-teal-950 " : ""
+                    `flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform  hover:bg-teal-950   ${isActive ? "bg-teal-950 " : ""
                     }`
                   }
                 >

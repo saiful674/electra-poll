@@ -6,15 +6,18 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
 import AdminUserName from "../AdminHome/AdminUserName";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 const UserManagement = () => {
   const { user } = useContext(AuthContext);
+  const [secureAxios] = UseAxiosSecure()
 
   const {
     data: data = [],
     refetch,
     isLoading,
   } = useQuery(["users", user], async () => {
-    const res = await axios.get(`${import.meta.env.VITE_URL}/all-users`);
+    const res = await secureAxios.get(`/all-users`);
+    console.log(res.data);
     return res.data;
   });
   const users = data;

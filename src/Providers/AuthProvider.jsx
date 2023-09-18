@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase.config";
+import axios from "axios";
 const auth = getAuth(app);
 export const AuthContext = createContext(null);
 const Provider = new GoogleAuthProvider();
@@ -53,6 +54,18 @@ const AuthProviders = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
             setUser(loggedUser);
             setLoading(false);
+            if (loggedUser) {
+                const user = { email: loggedUser.email, name: loggedUser.displayName }
+                axios.post(`${import.meta.env.VITE_URL}/jwt`, user)
+                    .then(res => {
+                        localStorage.setItem('electra-poll-access-token', res.data.token)
+                    })
+            }
+            else {
+                setUser(null)
+                localStorage.removeItem('electra-poll-access-token')
+            }
+
         });
         return () => {
             return unsubscribe();
