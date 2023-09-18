@@ -82,7 +82,10 @@ const Overview = () => {
         }
         dispatch(addFirstPage(payload));
         axios
-          .patch(`${import.meta.env.VITE_URL}/election/${formData._id}`, payload)
+          .patch(
+            `${import.meta.env.VITE_URL}/election/${formData._id}`,
+            payload
+          )
           .then((res) => {
             if (res.data) {
               setDisabled(false);
@@ -139,7 +142,7 @@ const Overview = () => {
   };
 
   return (
-    <div className="lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10">
+    <div className="lg:w-[80%] w-full bg-gray-50 p-3 lg:p-10 rounded-lg">
       <h1 className="text-2xl font-bold pb-3">Vote Details</h1>
       {/* errors */}
       {(Object.keys(errors).length !== 0 || dateError) && (
@@ -465,8 +468,9 @@ const Overview = () => {
           </label>
 
           <label
-            className={`pb-3 ${adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
-              }`}
+            className={`pb-3 ${
+              adminResultAccess !== "anytime" ? "opacity-50" : "placeholder:"
+            }`}
           >
             <input
               type="radio"
