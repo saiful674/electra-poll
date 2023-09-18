@@ -16,15 +16,14 @@ import { BsFillSignStopFill } from "react-icons/bs";
 
 const SingleBlogs = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user, speak, cancel, speaking } = useContext(AuthContext);
   const { myInfo } = getMyInfo();
   const location = useLocation();
   const navigate = useNavigate();
   const [reply, setReply] = useState(null);
   const [text, setText] = useState("");
-  const { speak, cancel, speaking } = useSpeechSynthesis();
+  // const { speak, cancel, speaking } = useSpeechSynthesis();
   const [deleting, setDeleting] = useState(false);
-  const [click, setClick] = useState(false);
 
   const {
     data: blog = {},
@@ -164,7 +163,6 @@ const SingleBlogs = () => {
   const handleSpeech = async () => {
     try {
       speak({ text: blog?.title + "." + text });
-      setClick(true);
     } catch (error) {
       console.log(error);
     }
@@ -173,7 +171,6 @@ const SingleBlogs = () => {
     if (speaking) {
       cancel();
     }
-    setClick(false);
   };
 
   if (isLoading) {
@@ -190,7 +187,7 @@ const SingleBlogs = () => {
         </div>
         <div className="my-container">
           <div className="flex justify-center mt-6">
-            {click ? (
+            {speaking ? (
               <button className="text-2xl text-red-400" onClick={stopSpeech}>
                 <BsFillSignStopFill></BsFillSignStopFill>
               </button>
