@@ -25,12 +25,13 @@ const ElectionCreationAndManagement = () => {
     queryKey: ["elections", user, activeStatus],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_URL}/elections/?email=${user?.email}&status=${activeStatus}`
+        `${import.meta.env.VITE_URL}/elections/?email=${
+          user?.email
+        }&status=${activeStatus}`
       );
       return res.data;
     },
   });
-
 
   const handleAddElection = () => {
     const characters =
@@ -84,9 +85,11 @@ const ElectionCreationAndManagement = () => {
         .post(`${import.meta.env.VITE_URL}/add-election`, electionData)
         .then((res) => {
           const id = res.data.insertedId;
-          axios.get(`${import.meta.env.VITE_URL}/election/${id}`).then((res) => {
-            navigate(`/election/${id}`);
-          });
+          axios
+            .get(`${import.meta.env.VITE_URL}/election/${id}`)
+            .then((res) => {
+              navigate(`/election/${id}`);
+            });
         });
     }
   };
@@ -96,13 +99,12 @@ const ElectionCreationAndManagement = () => {
     // You can perform additional actions here when a tab is clicked
   };
 
-
   return (
     <>
       <UserName></UserName>
       <div className="create-bg3">
-        <div className="bg-slate-600 bg-opacity-60 text-center h-[90vh] md:h-[50vh] flex flex-col items-center justify-center p-10 md:p-24 ">
-          <h2 className="text-slate-100  uppercase font-bold text-2xl  sm:text-2xl md:text-5xl mb-4">
+        <div className="bg-green-900 bg-opacity-80 rounded-lg text-center h-[40vh] md:h-[40vh] lg:h-[50vh] flex flex-col items-center justify-center p-10 md:p-24 ">
+          <h2 className="text-slate-100  uppercase font-bold text-2xl  sm:text-2xl md:text-3xl mb-4">
             {" "}
             Create Your Election
           </h2>

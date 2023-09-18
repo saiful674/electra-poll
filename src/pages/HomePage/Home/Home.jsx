@@ -1,4 +1,5 @@
 import ChatBot from "../../../components/ChatBot/ChatBot";
+import LazyComponent from "../../../components/LazyComponent";
 import About from "../About/About";
 import Banner from "../Banner/Banner";
 import BlogHome from "../BlogHome/BlogHome";
@@ -17,9 +18,9 @@ const Home = () => {
       <Features></Features>
       <HowItsWorks></HowItsWorks>
       <Faq></Faq>
-      <Testimonial></Testimonial>
+      <LazyComponent MyComponent={<Testimonial />}></LazyComponent>
       <Company />
-      <BlogHome></BlogHome>
+      <LazyComponent MyComponent={<BlogHome />}></LazyComponent>
 
       <ChatBot />
       {/* <ContactUs></ContactUs> */}
