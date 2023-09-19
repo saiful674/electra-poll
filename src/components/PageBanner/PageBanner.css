@@ -5,7 +5,20 @@
     background-size: cover;
     background-position: center;
     height: 50vh;
+    object-fit: cover; 
+    object-position: center; 
+    overflow: hidden;
 
+  }
+.blog-bg {
+    position: relative;
+    background-image: url('../../assets/contact/blog-5.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    object-fit: cover;
+    object-position: center; 
+    overflow: hidden;
   }
 .contact-bg2 {
     position: relative;
@@ -31,6 +44,9 @@
     .contact-bg{
         height: 30vh;
     }
+    .blog-bg{
+        height: 30vh;
+    }
     .call{
         width: 70px;
     }
@@ -46,6 +62,9 @@
 
   @media screen and (max-width:576px) {
     .contact-bg{
+        height: 30vh;
+    }
+    .blog-bg{
         height: 30vh;
     }
     .call{
