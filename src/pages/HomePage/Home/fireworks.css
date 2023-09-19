@@ -1,0 +1,19 @@
+@keyframes fireworks {
+    0% {
+      transform: translateY(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-500px) rotate(360deg) scale(0);
+      opacity: 0;
+    }
+  }
+  
+  .firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00; /* Fireworks color (you can change it) */
+    animation: fireworks 1s linear infinite;
+  }
+  
