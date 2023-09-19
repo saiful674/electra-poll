@@ -92,7 +92,7 @@ const UserManagement = () => {
   }
   return (
     <div>
-    <AdminUserName></AdminUserName>
+      <AdminUserName></AdminUserName>
 
       {/* whwn voter is zero/empty */}
       {(users?.length === 0 || data.length === 0) && (
@@ -142,21 +142,12 @@ const UserManagement = () => {
                     <td>{us?.organizationName}</td>
                     <td>{us?.role}</td>
                     <td>
-                      {us.role === "user" ? (
-                        <button
-                          disabled
-                          className="btn btn-success text-sm btn-sm normal-case"
-                        >
-                          user
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleMakeUser(us)}
-                          className="btn btn-success  text-sm btn-sm normal-case"
-                        >
-                          user
-                        </button>
-                      )}
+                      <button
+                        disabled={us.role === "admin"}
+                        className="btn btn-success text-sm btn-sm normal-case"
+                      >
+                        user
+                      </button>
                     </td>
                     <td>
                       {us.role === "admin" ? (

@@ -167,7 +167,7 @@ const Voters = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50 p-3 lg:p-10">
+    <div className="w-full bg-gray-50 p-3 rounded-lg lg:p-10">
       <h1 className="text-2xl font-bold pb-3">Add Voters</h1>
       {Object.keys(errors).length !== 0 && (
         <div className="bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600">

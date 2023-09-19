@@ -34,7 +34,6 @@ const Confirmation = () => {
         confirmButtonText: "Yes, Publish it",
       }).then((result) => {
         if (result.isConfirmed) {
-
           if (selectedTime === "option1") {
             const newStartDate = createNewDate(formData.timeZone);
             const dateObject = new Date(newStartDate);
@@ -49,7 +48,7 @@ const Confirmation = () => {
                 voterEmails,
                 startDate: newStartDate,
                 endDate: newEndDate,
-                page: 4
+                page: 4,
               })
               .then((res) => {
                 if (res.data) {
@@ -61,7 +60,7 @@ const Confirmation = () => {
                 autoDate: formData.autoDate,
                 status: formData.autoDate ? "ongoing" : "published",
                 voterEmails,
-                page: 4
+                page: 4,
               })
               .then((res) => {
                 if (res.data) {
@@ -84,7 +83,7 @@ const Confirmation = () => {
   };
 
   return (
-    <div className="lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10">
+    <div className="lg:w-[80%] w-full bg-gray-50 p-3 lg:p-10 rounded-lg">
       <h1 className="text-2xl font-bold pb-3">Confirm and Puplish vote</h1>
       <div className="text-xl space-y-2">
         <p>

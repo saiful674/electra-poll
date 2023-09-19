@@ -10,15 +10,19 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 import getMyInfo from "../../Hooks/getMyInfo";
 import moment from "moment/moment";
 import { FaTrashAlt } from "react-icons/fa";
+import { useSpeechSynthesis } from "react-speech-kit";
+import { AiFillPlayCircle } from "react-icons/ai";
+import { BsFillSignStopFill } from "react-icons/bs";
 
 const SingleBlogs = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user, speak, cancel, speaking } = useContext(AuthContext);
   const { myInfo } = getMyInfo();
   const location = useLocation();
   const navigate = useNavigate();
   const [reply, setReply] = useState(null);
-
+  const [text, setText] = useState("");
+  // const { speak, cancel, speaking } = useSpeechSynthesis();
   const [deleting, setDeleting] = useState(false);
 
   const {
@@ -32,11 +36,15 @@ const SingleBlogs = () => {
       return res.data;
     },
   });
-
+  useEffect(() => {
+    if (blog) {
+      const contentText = blog.content ? blog.content.join(" ") : "";
+      setText(contentText);
+    }
+  }, [blog]);
   const handleReply = (commentId) => {
     setReply(commentId);
   };
-  console.log(myInfo);
   const {
     register,
     handleSubmit,
@@ -152,20 +160,25 @@ const SingleBlogs = () => {
     }
   };
 
+  const handleSpeech = async () => {
+    try {
+      speak({ text: blog?.title + "." + text });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const stopSpeech = () => {
+    if (speaking) {
+      cancel();
+    }
+  };
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   } else {
     return (
       <div className="mt-20">
-        <div
-          // style={{
-          //   backgroundImage: `url(${blog?.image})`,
-          //   backgroundSize: "cover",
-          //   backgroundPosition: "center center",
-          // }}
-
-          className="my-container"
-        >
+        <div className="my-container">
           <img
             src={blog?.image}
             className="w-full object-cover max-h-[500px]"
@@ -173,7 +186,21 @@ const SingleBlogs = () => {
           />
         </div>
         <div className="my-container">
-          <h2 className="text-3xl font-semibold text-center mt-6 mb-1">
+          <div className="flex justify-center mt-6">
+            {speaking ? (
+              <button className="text-2xl text-red-400" onClick={stopSpeech}>
+                <BsFillSignStopFill></BsFillSignStopFill>
+              </button>
+            ) : (
+              <button
+                className="text-2xl flex gap-1 items-center text-green-400"
+                onClick={handleSpeech}
+              >
+                Listen <AiFillPlayCircle></AiFillPlayCircle>
+              </button>
+            )}
+          </div>
+          <h2 className="text-3xl font-semibold text-center mt-3 mb-1">
             {blog?.title}
           </h2>
           <div className="my-4">
@@ -183,7 +210,6 @@ const SingleBlogs = () => {
                   {b}
                 </p>
               ))}
-            {/* <p className="text-lg">{blog?.content}</p> */}
           </div>
           <div className="flex justify-end my-5">
             {comments?.length > 0 && (
@@ -196,7 +222,6 @@ const SingleBlogs = () => {
                   const getReply = replyCollection.find(
                     (r) => r?.commentId === com?._id
                   );
-                  console.log(getReply);
                   return (
                     <div
                       className="border rounded-md mt-6 my-2 p-2"
