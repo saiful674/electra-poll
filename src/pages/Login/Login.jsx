@@ -43,8 +43,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen px-4">
-      <div className="w-full md:w-[440px]">
+    <div className="flex justify-center items-center h-screen my-container">
+      <div className="w-full md:w-[40%]">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ border: "2px solid #3ae895" }}

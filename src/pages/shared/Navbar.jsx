@@ -16,7 +16,10 @@ const Navbar = () => {
   const role = myInfo.role;
   const handleLogOut = () => {
     logout()
-      .then(toast.success("logout successfully"))
+      .then(() => {
+        toast.success("logout successfully")
+        setIsOpen(false)
+      })
       .catch((err) => console.log(err));
   };
 
@@ -48,9 +51,8 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${visible ? "top-0" : "-top-[120px]"} ${
-        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-      } fixed w-screen z-30 my-transition`}
+      className={`${visible ? "top-0" : "-top-[120px]"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-30 my-transition`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -131,9 +133,9 @@ const Navbar = () => {
 
       {/* ================ mobile view================ */}
       <div
-        className={`${visible ? "" : "-top-[200px]"} ${
-          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0 my-transition`}
+        data-aos="fade-down"
+        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+          } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -142,11 +144,8 @@ const Navbar = () => {
           </button>
 
           <ul
-            className={`${
-              isOpen
-                ? "-right-4 md:-right-4"
-                : "-right-96 md:-right-full hidden"
-            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-[200vh] md:h-[30vh] flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
+            className={`${isOpen ? "-right-4" : "-right-[600px]"
+              } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] md:w-[40vw] items-center backdrop-blur-sm my-transition`}
           >
             <button
               className="absolute right-4"
@@ -190,6 +189,7 @@ const Navbar = () => {
             </NavLink>
             {user && role === "user" && (
               <NavLink
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/election-correction"
               >
@@ -214,7 +214,7 @@ const Navbar = () => {
               to="/contact"
             >
               Contact
-            </NavLink>
+            </NavLink >
             {user ? (
               <button className="my-btn-sec" onClick={handleLogOut}>
                 LogOUT
