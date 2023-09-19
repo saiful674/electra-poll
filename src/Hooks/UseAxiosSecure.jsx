@@ -4,7 +4,10 @@ import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
+import { getAuth, signOut } from 'firebase/auth';
+import { app } from '../firebase.config';
 
+const auth = getAuth(app)
 const UseAxiosSecure = () => {
     const navigate = useNavigate()
     const { logOut } = useContext(AuthContext)
@@ -26,8 +29,8 @@ const UseAxiosSecure = () => {
             },
             (error) => {
                 if (error.response && (error.response.status === 403 || error.response.status === 401)) {
-                    logOut();
                     navigate('/login');
+                    // signOut(auth)
                 }
                 return Promise.reject(error);
             }
