@@ -496,3 +496,16 @@ const elections = [ {
     "voterResultAccess": "after"
   }
 ]
+
+[
+  {
+    "_id": { "$oid": "64e1e21ea54fd36767ab2d61" },
+"name":"Mohammad Anisur Rahman",
+  "email": "farukul282@gmail.com",
+  "uploadedImage":
+  "https://i.ibb.co/2sBjf8Y/person1.png",
+
+  "role":
+  "user"
+  }
+]

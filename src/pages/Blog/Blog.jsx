@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import PageBanner from "../../components/PageBanner/PageBanner";
+import BlogBanner from "../../components/PageBanner/BlogBanner";
 import PrimaryBlog from "./PrimaryBlog";
 import RcCard from "./RcCard";
 
@@ -21,7 +21,7 @@ function Blog() {
 
   return (
     <div>
-      <PageBanner title={"Blog"} pageRoute={"Blog"}></PageBanner>
+      <BlogBanner title={"Blog"} pageRoute={"Blog"}></BlogBanner>
       <div className="my-container mx-auto px-4">
         <div className="pt-14 xl:px-0 px-4">
           <div className="w-full lg:flex">

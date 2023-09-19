@@ -5,7 +5,20 @@
     background-size: cover;
     background-position: center;
     height: 50vh;
+    object-fit: cover; 
+    object-position: center; 
+    overflow: hidden;
 
+  }
+.blog-bg {
+    position: relative;
+    background-image: url('../../assets/contact/blog-5.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    object-fit: cover;
+    object-position: center; 
+    overflow: hidden;
   }
 .contact-bg2 {
     position: relative;
@@ -18,29 +31,20 @@
   }
 .create-bg3 {
     position: relative;
-    background-image: url('../../assets/create-voting/voting1.jpg');
+    /* background-image: url('../../assets/create-voting/voting1.jpg'); */
+    background-image: url('https://img.freepik.com/free-photo/blue-letters-forming-word-election_53876-31428.jpg?w=1060&t=st=1694630174~exp=1694630774~hmac=de69bf131a9c7ec5e224a9e0ccc643d11c4f13d29c981bc29847894591e799b5');
     /* background-image: url('../../assets/create-voting/voting.jpg'); */
     background-size: cover;
     background-position: center;
     height: 50vh;
     overflow: hidden;
   }
-  @media screen and (max-width:576px) {
+
+  @media screen and (max-width:912px) {
     .contact-bg{
         height: 30vh;
     }
-  .create-bg3{
-    height: 70vh;
-  }
-    .call{
-        width: 70px;
-    }
-    .contact-bg2 {
-        height: 100vh;
-    }
-  }
-  @media screen and (max-width:767px) {
-    .contact-bg{
+    .blog-bg{
         height: 30vh;
     }
     .call{
@@ -50,7 +54,26 @@
         height: 100vh;
     }
     .create-bg3{
-      height: 90vh;
+      height: 40vh;
     }
   
+  }
+
+
+  @media screen and (max-width:576px) {
+    .contact-bg{
+        height: 30vh;
+    }
+    .blog-bg{
+        height: 30vh;
+    }
+    .call{
+        width: 70px;
+    }
+    .contact-bg2 {
+        height: 100vh;
+    }
+    .create-bg3{
+      height: 40vh;
+    }
   }

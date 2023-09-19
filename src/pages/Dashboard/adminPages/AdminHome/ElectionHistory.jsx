@@ -15,6 +15,7 @@ const ElectionHistory = () => {
     fetch(`${import.meta.env.VITE_URL}/all-elections/admin/${user?.email}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setElections(data)
         setLoading(false)
       })
@@ -41,7 +42,7 @@ const ElectionHistory = () => {
     value: count,
   }));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#f00cb8'];
 
   return (
     <div className='bg-white p-8 mt-8 rounded shadow text-slate-700 overflow-hidden'>
