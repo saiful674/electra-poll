@@ -135,9 +135,9 @@ const router = createBrowserRouter([
       {
         path: "userManagement",
         element: (
-          <AdminOnlyRouts>
-            <UserManagement></UserManagement>
-          </AdminOnlyRouts>
+          <UserManagement></UserManagement>
+          // <AdminOnlyRouts>
+          // </AdminOnlyRouts>
         ),
       },
       {

@@ -7,22 +7,26 @@ import { GiVote } from 'react-icons/gi';
 import { HiUserGroup } from 'react-icons/hi2';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
 import { AuthContext } from '../../../../Providers/AuthProvider';
+import UseAxiosSecure from '../../../../Hooks/UseAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const TotalUser = () => {
   const {user} = useContext(AuthContext)
-  const [users, setUsers] = useState([])
   const [blog, setBlog] = useState([])
   const [election, setElection] = useState([])
   const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    fetch(`${import.meta.env.VITE_URL}/all-users`)
-      .then(res => res.json())
-      .then(data => {
-        setUsers(data)
-        setLoading(false)
-      })
-  }, [])
+  const [secureAxios] = UseAxiosSecure()
+
+  const {
+    data: data = [],
+    refetch,
+    isLoading,
+  } = useQuery(["users", user], async () => {
+    const res = await secureAxios.get(`/all-users`);
+    console.log(res.data);
+    return res.data;
+  });
+  const users = data;
   useEffect(() => {
     setLoading(true)
     fetch(`${import.meta.env.VITE_URL}/all-elections/admin/${user?.email}`)

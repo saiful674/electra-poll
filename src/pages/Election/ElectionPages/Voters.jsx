@@ -33,7 +33,7 @@ const Voters = () => {
   } = formData;
 
   useEffect(() => {
-    if (voterEmails.length === 0) {
+    if (voterEmails?.length === 0) {
       dispatch(addVoterRow());
     }
   }, []);
@@ -93,7 +93,7 @@ const Voters = () => {
 
   // update email when user writes the email address in input field
   const handleUpdateEmail = (id, email) => {
-    const existingEmail = voterEmails.find((voter) => voter.email === email);
+    const existingEmail = voterEmails?.find((voter) => voter.email === email);
     if (existingEmail) {
       setEmailErrors("duplicate email");
       duplicateEmails.push(existingEmail.email);
@@ -167,7 +167,7 @@ const Voters = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50 p-3 lg:p-10">
+    <div className="w-full bg-gray-50 p-3 rounded-lg lg:p-10">
       <h1 className="text-2xl font-bold pb-3">Add Voters</h1>
       {Object.keys(errors).length !== 0 && (
         <div className="bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600">
@@ -234,7 +234,7 @@ const Voters = () => {
                     })}
                     placeholder="add password for voters"
                     type="number"
-                    defaultValue={formData.voterEmails[0]?.password || ""}
+                    defaultValue={formData?.voterEmails[0]?.password || ""}
                     className="my-input focus:outline-green-400"
                   />
                   {errors.password && (
@@ -288,7 +288,7 @@ const Voters = () => {
                   </tr>
                 </thead>
                 <tbody className="p-0">
-                  {voterEmails.map((row, index) => (
+                  {voterEmails?.map((row, index) =>
                     <tr key={row.id}>
                       <td className="w-12">{index + 1}</td>
                       <td className="w-full flex gap-1 my-1">
@@ -336,7 +336,7 @@ const Voters = () => {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

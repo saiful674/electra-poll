@@ -1,11 +1,11 @@
 import moment from "moment-timezone";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState ,useRef} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FcAddImage } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { imageUpload } from "../../Hooks/ImageUploade";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -19,7 +19,6 @@ const Registration = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-
   const {
     register,
     handleSubmit,
@@ -27,8 +26,6 @@ const Registration = () => {
     watch,
     formState: { errors },
   } = useForm();
-
-
   const onSubmit = (data) => {
     const {
       username,
@@ -77,11 +74,10 @@ const Registration = () => {
           toast.error("User already exists. Try logging in");
         }
       })
-
   };
 
   return (
-    <div className="flex justify-center items-center  ">
+    <div className="flex justify-center items-center  px-4 pb-4">
       <div className="w-full md:w-[440px] mt-20 ">
         <form
           onSubmit={handleSubmit(onSubmit)}

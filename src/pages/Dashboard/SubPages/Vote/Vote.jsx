@@ -111,7 +111,7 @@ const Vote = ({ election, email }) => {
   if (!election) return <LoadingSpinner />;
 
   else if (voter?.voted === true) {
-    return <div className='min-h-[70vh] flex justify-center items-center flex-col gap-3'>
+    return <div className='min-h-[40vh] flex justify-center items-center flex-col gap-3'>
       <p className='text-3xl text-green-500'>you already voted</p>
       <button className='button-next'>see result</button>
     </div>

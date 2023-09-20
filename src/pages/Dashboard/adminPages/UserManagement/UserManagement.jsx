@@ -6,15 +6,18 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProvider";
 import LoadingSpinner from "../../../shared/LoadingSpinner";
 import AdminUserName from "../AdminHome/AdminUserName";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 const UserManagement = () => {
   const { user } = useContext(AuthContext);
+  const [secureAxios] = UseAxiosSecure()
 
   const {
     data: data = [],
     refetch,
     isLoading,
   } = useQuery(["users", user], async () => {
-    const res = await axios.get(`${import.meta.env.VITE_URL}/all-users`);
+    const res = await secureAxios.get(`/all-users`);
+    console.log(res.data);
     return res.data;
   });
   const users = data;
@@ -92,7 +95,7 @@ const UserManagement = () => {
   }
   return (
     <div>
-    <AdminUserName></AdminUserName>
+      <AdminUserName></AdminUserName>
 
       {/* whwn voter is zero/empty */}
       {(users?.length === 0 || data.length === 0) && (
@@ -142,21 +145,12 @@ const UserManagement = () => {
                     <td>{us?.organizationName}</td>
                     <td>{us?.role}</td>
                     <td>
-                      {us.role === "user" ? (
-                        <button
-                          disabled
-                          className="btn btn-success text-sm btn-sm normal-case"
-                        >
-                          user
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleMakeUser(us)}
-                          className="btn btn-success  text-sm btn-sm normal-case"
-                        >
-                          user
-                        </button>
-                      )}
+                      <button
+                        disabled={us.role === "admin"}
+                        className="btn btn-success text-sm btn-sm normal-case"
+                      >
+                        user
+                      </button>
                     </td>
                     <td>
                       {us.role === "admin" ? (
