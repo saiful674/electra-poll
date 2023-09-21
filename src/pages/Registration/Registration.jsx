@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FcAddImage } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { imageUpload } from "../../Hooks/ImageUploade";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -13,7 +13,7 @@ import axios from "axios";
 import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
