@@ -9,7 +9,6 @@ const ElectionStatusPercentage = () => {
   console.log('fguygilk',statusData)
 
   useEffect(() => {
-    // Calculate the percentage of data based on "status"
     const statusCounts = {
       completed: 0,
       published: 0,
@@ -36,7 +35,7 @@ const ElectionStatusPercentage = () => {
   return (
     <div className='bg-white p-8 mt-8 rounded shadow text-slate-700'>
       <h2 className='text-2xl font-semibold mb-4 uppercase'>Election Status Percentage</h2>
-    { statusData.length > 0 ?  <ResponsiveContainer width="100%" height={400}>
+    { statusData  ?  <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             dataKey="value"

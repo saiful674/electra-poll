@@ -13,7 +13,7 @@ import axios from "axios";
 import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
