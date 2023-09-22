@@ -8,16 +8,9 @@ import getMyInfo from "../../Hooks/getMyInfo";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonSecondary from "../../components/ButtonSecondary/ButtonSecondary";
 import Aos from "aos";
-import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
-<<<<<<< HEAD
-  const { user, logout } = useContext(AuthContext);
-  const {  t } = useTranslation(["common", "home"]);
-
-=======
   const { user, logout, theme, handleThemeToggle } = useContext(AuthContext);
->>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
 
   const location = useLocation();
   const { myInfo } = getMyInfo();
@@ -72,29 +65,27 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/"
           >
-                                {t("common:Home")}
-
+            Home
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/about "
           >
-                                            {t("common:About")}
-
+            About
           </NavLink>
           <NavLink
             onClick={() => setIsOpen(false)}
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/blog"
           >
-                                {t("common:Blog")}
+            Blog
           </NavLink>
           {user && role === "user" && (
             <NavLink
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/dashboard/election-correction"
             >
-                                {t("common:Election")}
+              Election
             </NavLink>
           )}
           {user && (
@@ -104,7 +95,7 @@ const Navbar = () => {
                 role === "user" ? "/dashboard/overview" : "/dashboard/adminHome"
               }
             >
-                                {t("common:Dashboard")}
+              Dashboard
             </NavLink>
           )}
 
@@ -112,7 +103,7 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/contact"
           >
-                                {t("common:Contact")}
+            Contact
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
@@ -131,16 +122,14 @@ const Navbar = () => {
 
           {user ? (
             <button onClick={handleLogOut}>
-              <ButtonSecondary>                                              {t("common:Logout")}
-</ButtonSecondary>
+              <ButtonSecondary>Log out</ButtonSecondary>
             </button>
           ) : (
             <NavLink
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/login"
             >
-                                              {t("common:LoginButton")}
-
+              Login
             </NavLink>
           )}
           <button onClick={handleThemeToggle}>
@@ -193,23 +182,21 @@ const Navbar = () => {
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/"
             >
-                                              {t("common:Home")}
-
+              Home
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/about "
             >
-                                            {t("common:About")}
+              About
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/blog"
             >
-                                {t("common:Blog")}
-
+              Blog
             </NavLink>
             {user && role === "user" && (
               <NavLink
@@ -217,7 +204,7 @@ const Navbar = () => {
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/election-correction"
               >
-                                {t("common:Election")}
+                Election
               </NavLink>
             )}
             {user && (
@@ -229,7 +216,7 @@ const Navbar = () => {
                     : "/dashboard/adminHome"
                 }
               >
-                                {t("common:Dashboard")}
+                Dashboard
               </NavLink>
             )}
             <NavLink
@@ -237,23 +224,20 @@ const Navbar = () => {
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/contact"
             >
-<<<<<<< HEAD
-                                {t("common:Contact")}
-            </NavLink >
-=======
               Contact
             </NavLink>
->>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
             {user ? (
               <button className="my-btn-sec" onClick={handleLogOut}>
- {t("common:Logout")}              </button>
+                LogOUT
+              </button>
             ) : (
               <NavLink
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/login"
               >
-    {t("common:LoginButton")}              </NavLink>
+                Login
+              </NavLink>
             )}
             <button onClick={handleThemeToggle}>
               {theme === "dark" ? <FaSun color="white" /> : <BsFillMoonFill />}
