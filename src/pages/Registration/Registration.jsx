@@ -1,11 +1,11 @@
 import moment from "moment-timezone";
-import React, { useContext, useState ,useRef} from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FcAddImage } from "react-icons/fc";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { imageUpload } from "../../Hooks/ImageUploade";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
@@ -37,43 +37,42 @@ const Registration = () => {
     } = data;
 
     createUser(email, password)
-      .then(res => {
+      .then((res) => {
         if (res.user) {
-          imageUpload(file[0])
-            .then(imgRes => {
-              updateProfile(res.user, {
-                displayName: username,
-                photoURL: imgRes?.data?.display_url
-              })
-                .then(() => {
-                  const savedUser = {
-                    name: username,
-                    email: email,
-                    uploadedImage: imgRes?.data?.display_url,
-                    organizationName,
-                    membershipSize,
-                    role: "user",
-                  };
+          imageUpload(file[0]).then((imgRes) => {
+            updateProfile(res.user, {
+              displayName: username,
+              photoURL: imgRes?.data?.display_url,
+            }).then(() => {
+              const savedUser = {
+                name: username,
+                email: email,
+                uploadedImage: imgRes?.data?.display_url,
+                organizationName,
+                membershipSize,
+                role: "user",
+              };
 
-                  axios.post(`${import.meta.env.VITE_URL}/users`, savedUser)
-                    .then(responseData => {
-                      if (responseData.data.insertedId) {
-                        toast.success(`Hello! ${email}! Welcome`);
-                        reset();
-                        navigate("/");
-                      } else {
-                        toast.error("Already User");
-                      }
-                    })
-                })
-            })
+              axios
+                .post(`${import.meta.env.VITE_URL}/users`, savedUser)
+                .then((responseData) => {
+                  if (responseData.data.insertedId) {
+                    toast.success(`Hello! ${email}! Welcome`);
+                    reset();
+                    navigate("/");
+                  } else {
+                    toast.error("Already User");
+                  }
+                });
+            });
+          });
         }
       })
-      .catch(error => {
-        if (error.message.includes('email-already-in-use')) {
+      .catch((error) => {
+        if (error.message.includes("email-already-in-use")) {
           toast.error("User already exists. Try logging in");
         }
-      })
+      });
   };
 
   return (
@@ -82,7 +81,7 @@ const Registration = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ border: "2px solid #3ae895" }}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 "
+          className="bg-white dark:bg-[#343434] dark:text-white shadow-md rounded px-8 pt-6 pb-8 mb-4 "
         >
           <h3 className="text-xl font-bold text-center mb-4">
             Registration Now!
@@ -126,11 +125,13 @@ const Registration = () => {
             >
               {showPassword ? <AiOutlineEye /> : <FaRegEyeSlash />}
             </span>
-            {errors.password && errors.password.type === 'required' && (
+            {errors.password && errors.password.type === "required" && (
               <p className="text-red-500 text-xs mt-1">Password is required</p>
             )}
-            {errors.password && errors.password.type === 'minLength' && (
-              <p className="text-red-500 text-xs mt-1">Password should be at least 6 charecters</p>
+            {errors.password && errors.password.type === "minLength" && (
+              <p className="text-red-500 text-xs mt-1">
+                Password should be at least 6 characters
+              </p>
             )}
           </div>
           <div className="mb-6 relative">
@@ -170,7 +171,7 @@ const Registration = () => {
             </label>
           </div>
           <label className="label">
-            <span className="label-text font-bold">Organization Details</span>
+            <span className="label-text font-bold dark:text-white">Organization Details</span>
           </label>
           <div className="mb-6">
             <input

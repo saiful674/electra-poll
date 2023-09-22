@@ -9,7 +9,7 @@ import UserVotingHistory from "./UserVotingHistory";
 
 const Overview = () => {
   return (
-    <div className="dark:bg-[]">
+    <div className="bg-[#343434]">
       <UserName></UserName>
       <div>
         <ImportantNotice></ImportantNotice>
