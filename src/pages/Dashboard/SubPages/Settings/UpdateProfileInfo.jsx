@@ -134,7 +134,7 @@ const UpdateProfileInfo = () => {
                   className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="text"
                   // value={myInfo[0]?.organizationName}
-                  placeholder={myInfo[0]?.organizationName}
+                  placeholder={myInfo.organizationName}
                 />
               </div>
               <div className="mb-4">
@@ -150,7 +150,7 @@ const UpdateProfileInfo = () => {
                   className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="number"
                   // value={myInfo[0]?.membershipSize}
-                  placeholder={myInfo[0]?.membershipSize}
+                  placeholder={myInfo.membershipSize}
                 />
               </div>
               <button className="block w-full">

@@ -56,7 +56,8 @@ const TotalUser = () => {
         <BsQuestionOctagonFill className='text-6xl  text-slate-50'></BsQuestionOctagonFill>
         <div className='flex flex-col justify-center items-center '>
           <h3 className='text-3xl text-slate-50 font-bold'>Total Blog</h3>
-          <p className='text-3xl text-slate-50 font-bold'>{blog.length}</p>
+          { blog.length > 0 ?
+          <p className='text-3xl text-slate-50 font-bold'>{blog.length}</p>: <p className='text-3xl text-slate-50 font-bold'>0</p>}
         </div>
 
       </div>
@@ -64,7 +65,7 @@ const TotalUser = () => {
         <HiUserGroup className='text-6xl  text-slate-50'></HiUserGroup>
         <div className='flex flex-col justify-center items-center '>
           <h3 className='text-3xl text-slate-50 font-bold'>Total User</h3>
-          <p className='text-3xl text-slate-50 font-bold'>{users.length}</p>
+          {users.length > 0 ? <p className='text-3xl text-slate-50 font-bold'>{users.length}</p>:  <p className='text-3xl text-slate-50 font-bold'>0</p>}
         </div>
       </div>
       <div className='h-40 bg-gradient-to-l from-green-300 to-green-500 rounded shadow p-4 flex justify-center items-center gap-6'>
@@ -74,7 +75,7 @@ const TotalUser = () => {
           <h3 className='text-3xl text-slate-50 font-bold'>Total Election</h3>
 
 
-          <p className='text-3xl text-slate-50 font-bold'>{election.length}</p>
+        { election.length > 0 ? <p className='text-3xl text-slate-50 font-bold'>{election.length}</p>: <p className='text-3xl text-slate-50 font-bold'>0</p>}
 
 
         </div>

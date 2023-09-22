@@ -21,10 +21,20 @@ const AuthProviders = ({ children }) => {
 
   // dark theme
   useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
+  useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("app-theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("app-theme", "light");
     }
   }, [theme]);
 
