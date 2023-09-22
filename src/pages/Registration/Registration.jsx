@@ -77,8 +77,8 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex justify-center items-center  px-4 pb-4">
-      <div className="w-full md:w-[440px] mt-20 ">
+    <div className="flex justify-center items-center px-4 pb-4 my-10">
+      <div className="w-full md:w-[440px] mt-20">
         <form
           onSubmit={handleSubmit(onSubmit)}
           style={{ border: "2px solid #3ae895" }}

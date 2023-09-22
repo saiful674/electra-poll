@@ -32,11 +32,15 @@ const UpdateProfileInfo = () => {
             membershipSize,
           };
           axios
-            .patch(`${import.meta.env.VITE_URL}/users/${user?.email}`, userData, {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
+            .patch(
+              `${import.meta.env.VITE_URL}/users/${user?.email}`,
+              userData,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
             .then((response) => {
               const data = response.data;
               toast.success("Profile information updated successfully");
@@ -51,9 +55,9 @@ const UpdateProfileInfo = () => {
 
   return (
     <>
-      <div className=" p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl  font-semibold mb-4">Profile Information</h2>
-        <div className=" md:flex lg:flex  justify-start items-center gap-6 md:gap-10   lg:gap-20">
+      <div className=" p-6 bg-white dark:bg-[#343434] dark:text-white rounded-lg shadow-md dark:shadow-slate-500">
+        <h2 className="text-2xl font-semibold mb-4">Profile Information</h2>
+        <div className=" md:flex lg:flex justify-start items-center gap-6 md:gap-10   lg:gap-20">
           {/* Profile Picture */}
           <div className="avatar">
             <div className="w-20 md:w-28 lg:w-52 rounded-full ring ring-teal-700 ring-offset-base-100 ring-offset-2">
@@ -86,13 +90,13 @@ const UpdateProfileInfo = () => {
               <div className="mb-4">
                 <label
                   htmlFor="displayName"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Display Name
                 </label>
                 <input
                   id="displayName"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="text"
                   name="displayName"
                   // value={user?.displayName}
@@ -103,31 +107,31 @@ const UpdateProfileInfo = () => {
               <div className="mb-4">
                 <label
                   htmlFor="displayName"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Email
                 </label>
                 <input
                   id="email"
                   name="email"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="email"
                   value={user?.email}
                   readOnly
-                // placeholder={user?.email}
+                  // placeholder={user?.email}
                 />
               </div>
               <div className="mb-4">
                 <label
                   htmlFor="organizationName"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Organization Name
                 </label>
                 <input
                   id="organizationName"
                   name="organizationName"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="text"
                   // value={myInfo[0]?.organizationName}
                   placeholder={myInfo[0]?.organizationName}
@@ -136,14 +140,14 @@ const UpdateProfileInfo = () => {
               <div className="mb-4">
                 <label
                   htmlFor="displayName"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Membership Size
                 </label>
                 <input
                   id="membershipSize"
                   name="membershipSize"
-                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out"
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-green-200  focus:shadow-outline focus:out text-black"
                   type="number"
                   // value={myInfo[0]?.membershipSize}
                   placeholder={myInfo[0]?.membershipSize}

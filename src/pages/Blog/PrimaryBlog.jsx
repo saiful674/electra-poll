@@ -15,7 +15,7 @@ const PrimaryBlog = ({ blog }) => {
         </p>
         <div className="mt-6">
           <Link to={`/singleBlog/${blog?._id}`}>
-            <ButtonPrimary>Red more</ButtonPrimary>
+            <ButtonPrimary>Read More</ButtonPrimary>
           </Link>
         </div>
       </div>

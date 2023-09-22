@@ -57,8 +57,8 @@ const Ballot = () => {
   const questionSubmit = (data) => {};
 
   return (
-    <div className="lg:w-[80%] w-full bg-gray-50 py-3 rounded-lg lg:p-10">
-      <h1 className="text-2xl font-bold pb-3">Create Ballot</h1>
+    <div className="lg:w-[80%] w-full bg-gray-50 dark:bg-indigo-950 py-3 rounded-lg lg:p-10">
+      <h1 className="text-2xl font-bold pb-3 dark:text-white">Create Ballot</h1>
       <div className="bg-red-100 border-l-4 mb-5 flex items-center text-lg p-3 border-red-600">
         <p>
           Add one or Multiple questions. These questions can have multiple
@@ -70,7 +70,7 @@ const Ballot = () => {
 
       {/* --------add questions or options------- */}
       <div className="flex justify-between mb-3">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold dark:text-white">
           Total Questions ({questions.length})
         </h2>
         <button
@@ -79,7 +79,7 @@ const Ballot = () => {
           onClick={() => dispatch(addQuestion())}
           className="button-next disabled:opacity-40"
         >
-          Add quertion or position
+          Add Questions or Position
         </button>
       </div>
 

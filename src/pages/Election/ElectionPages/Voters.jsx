@@ -167,10 +167,10 @@ const Voters = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50 p-3 rounded-lg lg:p-10">
+    <div className="w-full bg-gray-50 p-3 rounded-lg lg:p-10 dark:bg-slate-900 dark:text-white">
       <h1 className="text-2xl font-bold pb-3">Add Voters</h1>
       {Object.keys(errors).length !== 0 && (
-        <div className="bg-red-100 border-l-4 h-20 flex items-center text-lg border-red-600">
+        <div className="bg-red-100 dark:bg-red-300 border-l-4 h-20 flex items-center text-lg border-red-600 mb-3">
           <ul className="list-decimal ps-6">
             {errors.accessKey && (
               <li>Access key required for voter to access ballot</li>
@@ -211,7 +211,7 @@ const Voters = () => {
                   />
                   {errors.accessKey && (
                     <p className="text-red-400">
-                      Access key should be atleast 10 charecters
+                      Access key should be at least 10 characters
                     </p>
                   )}
                 </div>
@@ -239,7 +239,7 @@ const Voters = () => {
                   />
                   {errors.password && (
                     <p className="text-red-400">
-                      Password should be atleast 6 charecters
+                      Password should be at least 6 characters
                     </p>
                   )}
                 </div>
@@ -275,7 +275,7 @@ const Voters = () => {
             <div className="overflow-y-auto max-h-96 overflow-x-auto">
               <table className="w-full mt-4 table text-center">
                 <thead>
-                  <tr className="text-lg">
+                  <tr className="text-lg dark:text-white">
                     <th>ID</th>
                     <th>Email</th>
                     {ballotAccess !== "low" && (
@@ -307,8 +307,8 @@ const Voters = () => {
                             type="text"
                             className={
                               errors[`voterEmail${row.id}`]
-                                ? "bg-red-300 h-8 w-full px-2 min-w-[100px]"
-                                : "bg-gray-200 h-8 w-full min-w-[200px] px-2"
+                                ? "bg-red-300 dark:bg-red-50 dark:text-black h-8 w-full px-2 min-w-[100px]"
+                                : "bg-gray-200 dark:bg-red-50 dark:text-black h-8 w-full min-w-[200px] px-2"
                             }
                             defaultValue={row.email}
                             onChange={(e) =>

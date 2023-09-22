@@ -24,7 +24,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="bg-green-50 mb-10">
+    <div className="bg-green-50 mb-10 dark:bg-slate-900 dark:text-white">
       <div className="my-container h-auto lg:h-[100vh] grid py-5 lg:py-0 gap-10 my-12 lg:my-0 lg:grid-cols-2 items-center">
         <Swiper
           slidesPerView={1}

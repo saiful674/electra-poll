@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen my-container">
+    <div className="flex justify-center items-center h-screen my-container dark:text-white">
       <div className="w-full md:w-[40%]">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -86,7 +86,7 @@ const Login = () => {
             <label className="label">
               <Link
                 to="/forget-password"
-                className="label-text-alt link link-hover"
+                className="label-text-alt link link-hover dark:text-gray-300 dark:hover:text-white"
               >
                 Forgot password?
               </Link>

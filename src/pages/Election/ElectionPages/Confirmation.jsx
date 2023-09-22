@@ -83,7 +83,7 @@ const Confirmation = () => {
   };
 
   return (
-    <div className="lg:w-[80%] w-full bg-gray-50 p-3 lg:p-10 rounded-lg">
+    <div className="lg:w-[80%] w-full bg-gray-50 dark:bg-indigo-950 dark:text-white p-3 lg:p-10 rounded-lg">
       <h1 className="text-2xl font-bold pb-3">Confirm and Puplish vote</h1>
       <div className="text-xl space-y-2">
         <p>
@@ -112,7 +112,7 @@ const Confirmation = () => {
           {questions.map((q) => (
             <div
               key={q.id}
-              className="bg-gray-200 rounded-md w-full space-y-2 p-4"
+              className="bg-gray-200 rounded-md w-full space-y-2 p-4 mt-2 dark:bg-slate-900"
             >
               <h2>{q.questionTitle}</h2>
               <p>
@@ -121,7 +121,7 @@ const Confirmation = () => {
               </p>
               {q.options.map((o, i) => (
                 <div key={o}>
-                  <p className="py-2 px-3 bg-white">
+                  <p className="py-2 px-3 bg-white dark:bg-slate-800">
                     {i + 1}.{o.option}
                   </p>
                 </div>

@@ -17,7 +17,7 @@ const Main = () => {
   }, [location]);
 
   return (
-    <div className={`overflow-x-hidden`}>
+    <div className={`overflow-x-hidden dark:bg-[#343434]`}>
       <Navbar></Navbar>
       <div className=" min-h-[calc(100vh-484px)]">
         <Outlet></Outlet>
