@@ -1,4 +1,5 @@
 import Aos from "aos";
+import {Suspense} from"react"
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
@@ -17,7 +18,8 @@ const Main = () => {
   }, [location]);
 
   return (
-    <div className={`overflow-x-hidden`}>
+   <Suspense fallback={null}>
+     <div className={`overflow-x-hidden`}>
       <Navbar></Navbar>
       <div className=" min-h-[calc(100vh-484px)]">
         <Outlet></Outlet>
@@ -26,6 +28,7 @@ const Main = () => {
       <Footer></Footer>
       <ScrollRestoration></ScrollRestoration>
     </div>
+   </Suspense>
   );
 };
 

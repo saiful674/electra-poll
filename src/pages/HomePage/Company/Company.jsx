@@ -7,7 +7,10 @@ import companyLogo5 from '../../../assets/company/company-logo (5).png';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { useEffect } from 'react';
 import Aos from 'aos';
+import { useTranslation } from 'react-i18next';
 const Company = () => {
+    const {t}=useTranslation(["home","common"])
+
 
     useEffect(() => {
         Aos.init({
@@ -17,7 +20,10 @@ const Company = () => {
 
     return (
         <section data-aos="fade-up" className='my-container mb-20'>
-            <SectionTitle title={'Company Connected With Us'} subTitle={"We've been helping marketers with our campaign platform since 2010.Find out for yourself why we're so popular."} />
+             <SectionTitle
+        title={`${t("home:connectedWithUs-title")}`}
+        subTitle={`${t("home:connectedWithUs-description")}`}
+      ></SectionTitle>
           
             <div className='mt-10 grid grid-cols-2 md:grid-cols-5 gap-5 items-center off-white'>
     

@@ -10,8 +10,11 @@ import "./Testimonial.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useTranslation } from "react-i18next";
 
 const Testimonial = () => {
+  const {t}=useTranslation(["home","common"])
+
   useEffect(() => {
     Aos.init({
       duration: 800,
@@ -30,8 +33,10 @@ const Testimonial = () => {
     <div className="my-20">
       <div className="my-container py-10">
         <div className="my-5">
-          <SectionTitle title={"Testimonial"} subTitle={""}></SectionTitle>
-        </div>
+        <SectionTitle
+        title={`${t("home:Testomonial")}`}
+        subTitle={``}
+      ></SectionTitle>        </div>
 
         <Swiper
           spaceBetween={50}
