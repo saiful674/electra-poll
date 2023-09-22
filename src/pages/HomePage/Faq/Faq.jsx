@@ -66,11 +66,18 @@ const Faq = () => {
 
     return (
         <div data-aos="fade-up" className='my-container'>
+<<<<<<< HEAD
              <SectionTitle
         title={`${t("home:faqs-title")}`}
         subTitle={`${t("home:faqs-subTitle")}`}
       ></SectionTitle>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10  gap-6 items-center'>
+=======
+            <SectionTitle title={"Frequently Asked Questions"}
+                subTitle={"Your Questions, Our Answers"}
+            />
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10 gap-6 items-center dark:text-gray-300'>
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
                 <Accordion className="order-2" allowZeroExpanded>
                     {faqs.map((item) => (
                         <AccordionItem key={item.id}>

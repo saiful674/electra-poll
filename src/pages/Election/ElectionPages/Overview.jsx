@@ -142,11 +142,11 @@ const Overview = () => {
   };
 
   return (
-    <div className="lg:w-[80%] w-full bg-gray-50 p-3 lg:p-10 rounded-lg">
+    <div className="lg:w-[80%] w-full bg-gray-50 dark:bg-slate-900 dark:text-gray-300 p-3 lg:p-10 rounded-lg">
       <h1 className="text-2xl font-bold pb-3">Vote Details</h1>
       {/* errors */}
       {(Object.keys(errors).length !== 0 || dateError) && (
-        <div className="bg-red-100 border-l-4 min-h-20 flex items-center text-lg border-red-600">
+        <div className="bg-red-100 dark:bg-red-200 dark:text-black border-l-4 min-h-20 flex items-center text-lg border-red-600 mb-3">
           <ul className="list-decimal ps-6">
             {errors.title && <li>Election Title can't be blank</li>}
             {errors.autoDate?.type === "required" && (
@@ -213,7 +213,7 @@ const Overview = () => {
                   max: 60,
                 })}
                 defaultValue={formData.autoDate || 10}
-                className="border h-10 px-2 ms-4 w-14"
+                className="border h-10 px-2 ms-4 w-14 dark:text-black"
                 type="number"
               ></input>
               minutes
@@ -223,7 +223,7 @@ const Overview = () => {
                 disabled={status !== "pending"}
                 type="radio"
                 value="option2"
-                className="transform scale-150 me-3 mb-3"
+                className="transform scale-150 me-3 mb-5"
                 checked={selectedTime === "option2"}
                 onChange={(e) => dispatch(setSelectedTime(e.target.value))}
               />
@@ -251,7 +251,7 @@ const Overview = () => {
                 className="my-input ms-5 focus:outline-green-400"
               />
 
-              <label className="pb-1">
+              <label className="pb-1 pt-3">
                 <span className="text-md font-semibold">ending time</span>
               </label>
               <input
@@ -274,7 +274,7 @@ const Overview = () => {
         {/* -----------time zone------------ */}
         <div className="mb-6">
           <label className="label">
-            <span className="label-text font-bold">Timezone</span>
+            <span className="label-text font-bold dark:text-gray-300">Timezone</span>
           </label>
           <select
             {...register("timeZone", { required: true })}
@@ -289,7 +289,7 @@ const Overview = () => {
               </option>
             ))}
           </select>
-          <p className="text-sm text-red-500">
+          <p className="text-sm text-red-500 pt-2">
             select your timezone carefully. The voting time will be realvent to
             the selected time zone, not their local time.
           </p>
@@ -299,7 +299,7 @@ const Overview = () => {
         <div className="form-control">
           <label className="label">
             <span className="text-lg font-semibold">
-              Organization<span className="text-red-400">&#9998;</span>
+              Organization <span className="text-red-400">&#9998;</span>
             </span>
           </label>
           <input

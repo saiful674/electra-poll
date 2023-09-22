@@ -17,12 +17,36 @@ const AuthProviders = ({ children }) => {
   const { speak, cancel, speaking } = useSpeechSynthesis();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState("light");
+
+  // dark theme
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("app-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("app-theme", "light");
+    }
+  }, [theme]);
+
+  const handleThemeToggle = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   //registration
-
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
+
   const updateUserProfile = (name, photo) => {
     setLoading(true);
     updateProfile(auth.currentUser, {
@@ -54,23 +78,19 @@ const AuthProviders = ({ children }) => {
       setUser(loggedUser);
       setLoading(false);
       if (loggedUser) {
-        const user = { email: loggedUser.email, name: loggedUser.displayName }
-        axios.post(`${import.meta.env.VITE_URL}/jwt`, user)
-          .then(res => {
-            localStorage.setItem('electra-poll-access-token', res.data.token)
-          })
+        const user = { email: loggedUser.email, name: loggedUser.displayName };
+        axios.post(`${import.meta.env.VITE_URL}/jwt`, user).then((res) => {
+          localStorage.setItem("electra-poll-access-token", res.data.token);
+        });
+      } else {
+        setUser(null);
+        localStorage.removeItem("electra-poll-access-token");
       }
-      else {
-        setUser(null)
-        localStorage.removeItem('electra-poll-access-token')
-      }
-
     });
     return () => {
       return unsubscribe();
     };
   }, []);
-
 
   // logout
   const logout = () => {
@@ -90,6 +110,8 @@ const AuthProviders = ({ children }) => {
     speak,
     cancel,
     speaking,
+    theme,
+    handleThemeToggle,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

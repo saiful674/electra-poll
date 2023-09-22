@@ -20,7 +20,7 @@ const BlogHome = () => {
   });
 
   return (
-    <div className="my-container">
+    <div className="my-container dark:text-white">
       <SectionTitle
         title={`${t("home:recentBlogs-title")}`}
         subTitle={`${t("home:recentBlogs-subTitle")}`}
@@ -33,7 +33,7 @@ const BlogHome = () => {
               <RecentCard key={blog?._id} blog={blog}></RecentCard>
             ))}
       </div>
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center mb-10">
         <Link to={"/blog"}>
           <ButtonPrimary>{t("common:SeeMoreBlogs")}</ButtonPrimary>
         </Link>

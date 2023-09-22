@@ -53,7 +53,7 @@ const TotalElection = () => {
         <GiVote className="text-6xl  text-slate-50"></GiVote>
         <div className="flex flex-col justify-center items-center ">
           <h3 className="text-3xl text-slate-50 font-bold">Total Vote</h3>
-          <p className="text-3xl text-slate-50 font-bold">{totalVotedTrueLength}</p>
+         {totalVotedTrueLength ?  <p className="text-3xl text-slate-50 font-bold">{totalVotedTrueLength}</p>:  <p className="text-3xl text-slate-50 font-bold">0</p>}
         </div>
       </div>
       <div
@@ -63,9 +63,11 @@ const TotalElection = () => {
         <HiUserGroup className="text-6xl  text-slate-50"></HiUserGroup>
         <div className="flex flex-col justify-center items-center ">
           <h3 className="text-3xl text-slate-50 font-bold">Total Voters</h3>
-          <p className="text-3xl text-slate-50 font-bold">
+       { totalVoterEmailsArraysLength ?  <p className="text-3xl text-slate-50 font-bold">
             {totalVoterEmailsArraysLength}
-          </p>
+          </p>:   <p className="text-3xl text-slate-50 font-bold">
+            0
+          </p> }
         </div>
       </div>
       <div className="h-40 bg-gradient-to-l from-green-300 to-green-500 rounded shadow p-4 flex justify-center items-center gap-6">

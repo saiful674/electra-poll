@@ -18,9 +18,8 @@ function Blog() {
     },
   });
 
-
   return (
-    <div>
+    <div className="dark:text-gray-200">
       <BlogBanner title={"Blog"} pageRoute={"Blog"}></BlogBanner>
       <div className="my-container mx-auto px-4">
         <div className="pt-14 xl:px-0 px-4">
@@ -55,7 +54,6 @@ function Blog() {
             </div>
           </div> */}
         </div>
-
         <div />
       </div>
     </div>

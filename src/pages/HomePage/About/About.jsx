@@ -18,7 +18,7 @@ const About = () => {
         title={`${t("home:about-tittle")}`}
         subTitle={`${t("home:about-sub")}`}
       ></SectionTitle>
-      <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
+      <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center dark:text-white">
         <div data-aos="fade-right" data-aos-duration="800" className="">
           <img className="w-[85%] md:w-[70%] lg:w-[75%] mx-auto" src="about.jpg" alt="" />
         </div>

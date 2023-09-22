@@ -30,7 +30,7 @@ const Testimonial = () => {
   });
 
   return (
-    <div className="my-20">
+    <div className="my-20 dark:mb-0 dark:bg-[#282828] dark:text-white">
       <div className="my-container py-10">
         <div className="my-5">
         <SectionTitle
@@ -70,7 +70,6 @@ const Testimonial = () => {
               <TestimonialCard testimonial={testimonial}></TestimonialCard>
             </SwiperSlide>
           ))}
-          ...
         </Swiper>
       </div>
     </div>

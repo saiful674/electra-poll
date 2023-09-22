@@ -18,8 +18,12 @@ const Main = () => {
   }, [location]);
 
   return (
+<<<<<<< HEAD
    <Suspense fallback={null}>
      <div className={`overflow-x-hidden`}>
+=======
+    <div className={`overflow-x-hidden dark:bg-[#343434]`}>
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
       <Navbar></Navbar>
       <div className=" min-h-[calc(100vh-484px)]">
         <Outlet></Outlet>

@@ -128,7 +128,7 @@ const ElectionCreationAndManagement = () => {
         {isLoading ? (
           <LoadingSpinner></LoadingSpinner>
         ) : elections.length === 0 ? (
-          <p className="text-2xl text-center py-10 text-gray-400">
+          <p className="text-2xl text-center py-10 text-gray-400 dark:text-white">
             You have no election.
           </p>
         ) : (

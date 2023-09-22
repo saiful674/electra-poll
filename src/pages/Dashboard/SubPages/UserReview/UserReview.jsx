@@ -64,7 +64,7 @@ const UserReview = () => {
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <UserName />
       {/* <div className="w-full md:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto my-10 text-center bg-gray-200 rounded-lg"> */}
       <div
@@ -102,7 +102,7 @@ const UserReview = () => {
           ></textarea>
 
           <button>
-            <ButtonPrimary children={"Submit"} />
+            <ButtonPrimary children={"Post Review"} />
           </button>
         </form>
       </div>

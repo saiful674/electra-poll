@@ -1,4 +1,3 @@
-
 import ChatBot from "../../../components/ChatBot/ChatBot";
 import LazyComponent from "../../../components/LazyComponent";
 import About from "../About/About";
@@ -11,9 +10,8 @@ import HowItsWorks from "../HowItsWorks/HowItsWorks";
 import Testimonial from "../Testimonial/Testimonial";
 
 const Home = () => {
-
   return (
-    <div>
+    <div className="dark:bg-[#343434]">
       <Banner />
       <About />
       <Features />
@@ -22,7 +20,6 @@ const Home = () => {
       <LazyComponent MyComponent={<Testimonial />} />
       <Company />
       <LazyComponent MyComponent={<BlogHome />} />
-
       <ChatBot />
     </div>
   );

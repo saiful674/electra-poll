@@ -16,7 +16,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const AboutPage = () => {
   return (
-    <div className="">
+    <div className="dark:text-white">
       <PageBanner title={"about us"} pageRoute={"about"}></PageBanner>
       <div className="2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 sm:gap-10 gap-12">
@@ -25,7 +25,7 @@ const AboutPage = () => {
               We are here to make great design accessible and delightfull for
               everyone
             </h2>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 dark:text-gray-400 mt-6">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum.In the first place we have granted to
@@ -166,30 +166,30 @@ const AboutPage = () => {
         </div>
         <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
           <div>
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white mt-6">
               Founded
             </p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 mt-6">
               Founded in 1850, our company has a rich history of innovation and
               excellence, shaping industries and driving progress for over a
               century..
             </p>
           </div>
           <div>
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white mt-6">
               50M monthly election
             </p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 mt-6">
               50M Monthly Election: A Global Display of Democracy's Power,
               Influence, and Choices Shaping Our Future - A Snapshot in 24
               Words.
             </p>
           </div>
           <div className="sm:block hidden">
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white mt-6">
               400k User
             </p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 mt-6">
               400k Users Celebrate Our Community's Growth, Making It Stronger
               and More Vibrant Than Ever Before. Thank You for Your Support!
             </p>
@@ -241,10 +241,10 @@ const AboutPage = () => {
         </div>
         <div className="sm:hidden grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
           <div>
-            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">
+            <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white mt-6">
               400k User
             </p>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 mt-6">
               400k Users Celebrate Our Community's Growth, Making It Stronger
               and More Vibrant Than Ever Before. Thank You for Your Support!
             </p>
@@ -253,16 +253,16 @@ const AboutPage = () => {
 
         <div className="flex lg:flex-row flex-col md:gap-14 gap-16 justify-between lg:mt-20 mt-16">
           <div className="w-full lg:w-6/12">
-            <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800">
+            <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800 dark:text-white">
               Our Mission
             </h2>
-            <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 mt-6 w-full lg:w-10/12 xl:w-9/12">
               Our mission is to electrify the electoral process. Through our
               projects, we empower organizations to conduct efficient and
               transparent elections, fostering democracy and informed
               decision-making.
             </p>
-            <p className="font-normal text-base leading-6 text-gray-600 w-full lg:w-10/12 xl:w-9/12 mt-10">
+            <p className="font-normal text-base leading-6 text-gray-600 dark:text-gray-300 w-full lg:w-10/12 xl:w-9/12 mt-10">
               The goal of the ElectraPoll project is to develop an electronic
               voting system that is reliable, secure, and user-friendly for
               organizational use. The system will be used to conduct internal
@@ -272,7 +272,7 @@ const AboutPage = () => {
           </div>
           <div className="w-full lg:w-6/12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12 gap-10">
-              <div className="flex p-4 shadow-md">
+              <div className="flex p-4 shadow-md dark:shadow-slate-400">
                 <div className="mr-6">
                   <svg
                     className="mr-6"
@@ -306,10 +306,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div className="">
-                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
+                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white">
                     Team
                   </p>
-                  <p className="mt-2 font-normal text-base leading-6 text-gray-600">
+                  <p className="mt-2 font-normal text-base leading-6 text-gray-600 dark:text-gray-300">
                     Teamwork Makes the Dream Work: Collaborate, Communicate, and
                     Succeed Together for a Stronger, More Successful Tomorrow.
                   </p>
@@ -317,7 +317,7 @@ const AboutPage = () => {
               </div>
 
               {/* <!-- Board Card --> */}
-              <div className="flex p-4 shadow-md">
+              <div className="flex p-4 shadow-md dark:shadow-slate-400">
                 <div className="mr-6">
                   <svg
                     width="36"
@@ -357,10 +357,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div className="">
-                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
+                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white">
                     Board
                   </p>
-                  <p className="mt-2 font-normal text-base leading-6 text-gray-600">
+                  <p className="mt-2 font-normal text-base leading-6 text-gray-600 dark:text-gray-300">
                     Board of Directors: Steering Corporate Strategy, Ensuring
                     Accountability, and Fostering Innovation for Sustainable
                     Growth in a Dynamic Business Landscape.
@@ -368,7 +368,7 @@ const AboutPage = () => {
                 </div>
               </div>
 
-              <div className="flex p-4 shadow-md">
+              <div className="flex p-4 shadow-md dark:shadow-slate-400">
                 <div className="mr-6">
                   <svg
                     width="36"
@@ -394,10 +394,10 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div className="">
-                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800">
+                  <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 dark:text-white">
                     Press
                   </p>
-                  <p className="mt-2 font-normal text-base leading-6 text-gray-600">
+                  <p className="mt-2 font-normal text-base leading-6 text-gray-600 dark:text-gray-300">
                     Pressing Forward: The Power of Words in a Changing World - A
                     Journey of Discovery, Connection, and Impact Through Press
                   </p>
@@ -440,7 +440,7 @@ const AboutPage = () => {
             }}
           >
             <SwiperSlide>
-              <div className="card   hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/LYcSv6c/myPic.jpg"
@@ -478,7 +478,7 @@ const AboutPage = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/xH6qPd1/anis.jpg"
@@ -516,7 +516,7 @@ const AboutPage = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/bK4HB9L/maruf.jpg"
@@ -554,7 +554,7 @@ const AboutPage = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/bH0GX2k/saifulvail.jpg"
@@ -592,7 +592,7 @@ const AboutPage = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/tpFkpVp/mahdulhasan.jpg"
@@ -630,7 +630,7 @@ const AboutPage = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  hover:shadow-xl hover:bg-base-100 ">
+              <div className="card hover:shadow-xl hover:bg-base-100 dark:hover:bg-slate-800 transition">
                 <figure>
                   <img
                     src="https://i.ibb.co/C9NkXsS/1645764888408-01.jpg?fbclid=IwAR3wG-gnH9Gp-S_0w5IUiXNzikUs5K6jVyyOBHG7ThTQAInHPrBhkmaG-Ew"

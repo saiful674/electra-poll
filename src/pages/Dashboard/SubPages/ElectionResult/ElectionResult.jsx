@@ -61,26 +61,26 @@ const ElectionResult = () => {
   return (
 
     <div className="mb-10">
-      <h1 className="text-4xl text-center font-bold">Election Result</h1>
-      <div className="bg-white p-5 rounded my-10">
+      <h1 className="text-4xl text-center font-bold dark:text-white">Election Result</h1>
+      <div className="bg-white dark:bg-slate-900 p-5 rounded my-10">
         <div className="md:flex justify-between">
-          <h2 className="text-2xl font-bold my-5">
+          <h2 className="text-2xl font-bold my-5 dark:text-white">
             Election Title:
-            <span className=" text-green-400"> {electionData.title}</span>
+            <span className="text-green-400"> {electionData.title}</span>
           </h2>
 
           <div className="hidden md:block dropdown dropdown-end dropdown-hover">
             <label tabIndex={0} className="">
               <ButtonPrimary><span className="flex items-center gap-1">Dwonload Result <MdOutlineArrowDropDown className="h-5 w-5"/> </span></ButtonPrimary>
             </label>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 dark:bg-[#343434] dark:text-white rounded-box w-52">
               <li>
-                <button onClick={() => handleGeneratePDF(electionData)}>
+                <button className="dark:hover:text-gray-200" onClick={() => handleGeneratePDF(electionData)}>
                   In A PDF File
                 </button>
               </li>
               <li>
-                <button className="hidden md:block" onClick={() => handleDownloadClick(id)}>
+                <button className="hidden md:block dark:hover:text-gray-200" onClick={() => handleDownloadClick(id)}>
                   In A Excel File
                 </button>
               </li>
@@ -88,7 +88,7 @@ const ElectionResult = () => {
             </ul>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-2 font-medium text-gray-600 mt-5">
+        <div className="grid md:grid-cols-2 gap-2 font-medium text-gray-600 dark:text-gray-300 mt-5">
           <p>Email: {email}</p>
           <p>Security: {ballotAccess}</p>
           <p>Start Date: {formatDateToInputValue(startDate, timeZone)}</p>

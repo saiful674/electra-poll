@@ -65,7 +65,7 @@ const ChangePassword = () => {
 
   return (
     <div className="mt-8">
-      <div className="p-6 bg-white rounded-lg shadow-md ">
+      <div className="p-6 bg-white dark:bg-[#343434] dark:text-white rounded-lg shadow-md dark:shadow-slate-500">
         <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
         <div className='md:flex lg:flex  justify-start items-center gap-6 md:gap-10   lg:gap-20'>
 
@@ -74,7 +74,7 @@ const ChangePassword = () => {
           <div className="divider md:divider-horizontal lg:divider-horizontal"></div>
           <div className='grid grid-rows-1 gap-4 w-full'>
             <div className=''>
-              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                 Old Password
               </label>
               <div className="relative">
@@ -97,7 +97,7 @@ const ChangePassword = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                 New Password
               </label>
               <div className="relative">
@@ -120,7 +120,7 @@ const ChangePassword = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                 Confirm New Password
               </label>
               <div className="relative">

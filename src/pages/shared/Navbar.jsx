@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaSun } from "react-icons/fa";
 import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
+import { BsFillMoonFill, BsSunFill } from "react-icons/bs";
 import { NavLink, useLocation } from "react-router-dom";
 import getMyInfo from "../../Hooks/getMyInfo";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -10,9 +11,13 @@ import Aos from "aos";
 import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+<<<<<<< HEAD
   const { user, logout } = useContext(AuthContext);
   const {  t } = useTranslation(["common", "home"]);
 
+=======
+  const { user, logout, theme, handleThemeToggle } = useContext(AuthContext);
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
 
   const location = useLocation();
   const { myInfo } = getMyInfo();
@@ -20,8 +25,8 @@ const Navbar = () => {
   const handleLogOut = () => {
     logout()
       .then(() => {
-        toast.success("logout successfully")
-        setIsOpen(false)
+        toast.success("logout successfully");
+        setIsOpen(false);
       })
       .catch((err) => console.log(err));
   };
@@ -54,8 +59,11 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${visible ? "top-0" : "-top-[120px]"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-30 my-transition`}
+      className={`dark:bg-[#1B1B1B] dark:text-gray-500 dark:border-b dark:shadow-md ${
+        visible ? "top-0" : "-top-[120px]"
+      } ${
+        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+      } fixed w-screen z-30 my-transition`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -135,14 +143,20 @@ const Navbar = () => {
 
             </NavLink>
           )}
+          <button onClick={handleThemeToggle}>
+            {theme === "dark" ? <FaSun color="white" /> : <BsFillMoonFill />}
+          </button>
         </div>
       </div>
 
       {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-          } fixed w-screen z-10 top-0`}
+        className={`dark:bg-[#313131] dark:text-gray-500 dark:border-b dark:shadow-md ${
+          visible ? "" : "hidden"
+        } ${
+          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -151,8 +165,9 @@ const Navbar = () => {
           </button>
 
           <ul
-            className={`${isOpen ? "-right-4" : "-right-[600px]"
-              } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] md:w-[40vw] items-center backdrop-blur-sm my-transition`}
+            className={`${
+              isOpen ? "-right-4" : "-right-[600px]"
+            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] dark:bg-slate-900 dark:text-gray-400 h-screen flex flex-col top-0 w-[60vw] md:w-[40vw] items-center backdrop-blur-sm my-transition`}
           >
             <button
               className="absolute right-4"
@@ -222,8 +237,13 @@ const Navbar = () => {
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/contact"
             >
+<<<<<<< HEAD
                                 {t("common:Contact")}
             </NavLink >
+=======
+              Contact
+            </NavLink>
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
             {user ? (
               <button className="my-btn-sec" onClick={handleLogOut}>
  {t("common:Logout")}              </button>
@@ -235,6 +255,9 @@ const Navbar = () => {
               >
     {t("common:LoginButton")}              </NavLink>
             )}
+            <button onClick={handleThemeToggle}>
+              {theme === "dark" ? <FaSun color="white" /> : <BsFillMoonFill />}
+            </button>
           </ul>
         </div>
       </div>

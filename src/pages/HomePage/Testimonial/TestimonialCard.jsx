@@ -10,7 +10,7 @@ const TestimonialCard = ({ testimonial }) => {
         <div className="block-quote">
           <div className="quote">
             <p className="flex justify-between items-center mb-7">
-              <span className="text-lg font-bold">{testimonial.title}</span>
+              <span className="text-lg font-bold dark:text-black">{testimonial.title}</span>
               <FaQuoteLeft className="text-indigo-500 bg-gray-200 p-2 h-8 w-8 rounded-full" />
             </p>
             <p className="text-base text-gray-700 mb-5 relative">
@@ -26,7 +26,7 @@ const TestimonialCard = ({ testimonial }) => {
       </div>
       <div className="flex items-center gap-5 mt-8 ml-14">
         <div className="avatar">
-          <div className="w-12 rounded-full">
+          <div className="w-16 border rounded-full">
             <img
               src={
                 testimonial.image ||

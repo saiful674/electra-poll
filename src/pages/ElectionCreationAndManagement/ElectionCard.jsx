@@ -8,7 +8,6 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import useElectionTimer from "../../Hooks/useElectionTimer";
 
 const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
-
   const {
     _id,
     title,
@@ -22,7 +21,7 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
     voterEmails,
   } = election;
 
-  const { timeLeft, timeDifference } = useElectionTimer(endDate)
+  const { timeLeft, timeDifference } = useElectionTimer(endDate);
   const handleElectionDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -51,8 +50,8 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
   };
 
   return (
-    <div className="border flex justify-between flex-col cursor-pointer rounded-2xl shadow-md p-4 mb-4 ">
-      <div className="space-y-2 text-xl text-gray-500">
+    <div className="border flex justify-between flex-col cursor-pointer rounded-2xl shadow-md dark:shadow-slate-500 p-4 mb-4">
+      <div className="space-y-2 text-xl text-gray-500 dark:text-gray-300">
         {title ? (
           <Link
             to={`/election/${_id}`}
@@ -72,20 +71,18 @@ const ElectionCard = ({ election, refetch, isUseForResultPage }) => {
         <p>
           Status: {status} | {voteType} Vote
         </p>
-        {
-          startDate && endDate && <p>
+        {startDate && endDate && (
+          <p>
             Voting Ends in:{" "}
             <span
               className={
-                timeDifference <= 3
-                  ? "text-red-400"
-                  : "text-green-500"
+                timeDifference <= 3 ? "text-red-400" : "text-green-500"
               }
             >
-              {timeLeft || 'election ended'}
+              {timeLeft || "election ended"}
             </span>
           </p>
-        }
+        )}
         <p>Start: {startDate && formatDateToInputValue(startDate, timeZone)}</p>
         <p>End: {endDate && formatDateToInputValue(endDate, timeZone)}</p>
         {voterEmails && <p>Voters: {voterEmails.length}</p>}
