@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Aos from "aos";
+import {useTranslation} from "react-i18next"
 
 const About = () => {
+  const {t}=useTranslation(["home","common"])
 
   useEffect(() => {
     Aos.init({
@@ -13,8 +15,8 @@ const About = () => {
   return (
     <section data-aos="fade-up" data-aos-duration="800" className="my-container mb-20">
       <SectionTitle
-        title={"About Electro Poll"}
-        subTitle={"Revolutionizing online elections since 2023"}
+        title={`${t("home:about-tittle")}`}
+        subTitle={`${t("home:about-sub")}`}
       ></SectionTitle>
       <div className="grid lg:grid-cols-2 mt-5 gap-6 items-center">
         <div data-aos="fade-right" data-aos-duration="800" className="">
@@ -22,10 +24,10 @@ const About = () => {
         </div>
         <div className="space-y-3 text-lg">
           <p>
-            Electro Poll is your trusted e-voting companion. We make voting simple, secure, and secret. With just a few clicks, you're done! Our system verifies voter authenticity and ensures complete privacy. Renowned for its reliability and ease of use, Electro Poll boosts voter turnout by making the process smooth for everyone.
+            {t("home:about-p1")}
           </p>
           <p>
-            We've proudly served diverse industries, ensuring every vote is secure and counts. Our strengths? Auditable, straightforward, and rock-solid security.
+          {t("home:about-p2 ")}
           </p>
         </div>
       </div>

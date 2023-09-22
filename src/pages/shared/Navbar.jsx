@@ -7,16 +7,22 @@ import getMyInfo from "../../Hooks/getMyInfo";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ButtonSecondary from "../../components/ButtonSecondary/ButtonSecondary";
 import Aos from "aos";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const {  t } = useTranslation(["common", "home"]);
+
 
   const location = useLocation();
   const { myInfo } = getMyInfo();
   const role = myInfo.role;
   const handleLogOut = () => {
     logout()
-      .then(toast.success("logout successfully"))
+      .then(() => {
+        toast.success("logout successfully")
+        setIsOpen(false)
+      })
       .catch((err) => console.log(err));
   };
 
@@ -48,9 +54,8 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${visible ? "top-0" : "-top-[120px]"} ${
-        !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-      } fixed w-screen z-30 my-transition`}
+      className={`${visible ? "top-0" : "-top-[120px]"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+        } fixed w-screen z-30 my-transition`}
     >
       <div className="hidden lg:flex my-container justify-between py-3">
         <img className="h-12" src="/logo.png" alt="" />
@@ -59,27 +64,29 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/"
           >
-            Home
+                                {t("common:Home")}
+
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/about "
           >
-            About
+                                            {t("common:About")}
+
           </NavLink>
           <NavLink
             onClick={() => setIsOpen(false)}
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/blog"
           >
-            Blog
+                                {t("common:Blog")}
           </NavLink>
           {user && role === "user" && (
             <NavLink
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/dashboard/election-correction"
             >
-              Election
+                                {t("common:Election")}
             </NavLink>
           )}
           {user && (
@@ -89,7 +96,7 @@ const Navbar = () => {
                 role === "user" ? "/dashboard/overview" : "/dashboard/adminHome"
               }
             >
-              Dashboard
+                                {t("common:Dashboard")}
             </NavLink>
           )}
 
@@ -97,7 +104,7 @@ const Navbar = () => {
             className={({ isActive }) => (isActive ? "text-green-400" : "")}
             to="/contact"
           >
-            Contact
+                                {t("common:Contact")}
           </NavLink>
         </div>
         <div className="flex justify-between items-center gap-5 text-lg">
@@ -116,14 +123,16 @@ const Navbar = () => {
 
           {user ? (
             <button onClick={handleLogOut}>
-              <ButtonSecondary>Log out</ButtonSecondary>
+              <ButtonSecondary>                                              {t("common:Logout")}
+</ButtonSecondary>
             </button>
           ) : (
             <NavLink
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/login"
             >
-              Login
+                                              {t("common:LoginButton")}
+
             </NavLink>
           )}
         </div>
@@ -132,9 +141,8 @@ const Navbar = () => {
       {/* ================ mobile view================ */}
       <div
         data-aos="fade-down"
-        className={`${visible ? "" : "hidden"} ${
-          !zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
-        } fixed w-screen z-10 top-0`}
+        className={`${visible ? "" : "hidden"} ${!zeroScroll ? "bg-white shadow-lg" : "bg-green-50"
+          } fixed w-screen z-10 top-0`}
       >
         <div className="lg:hidden flex justify-between my-container py-1 relative">
           <img className="h-11" src="/logo.png" alt="" />
@@ -143,9 +151,8 @@ const Navbar = () => {
           </button>
 
           <ul
-            className={`${
-              isOpen ? "-right-4" : "-right-96"
-            } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] items-center backdrop-blur-sm my-transition`}
+            className={`${isOpen ? "-right-4" : "-right-[600px]"
+              } absolute py-5 gap-2 rounded-md bg-[#ffffffdc] h-screen flex flex-col top-0 w-[60vw] md:w-[40vw] items-center backdrop-blur-sm my-transition`}
           >
             <button
               className="absolute right-4"
@@ -167,23 +174,35 @@ const Navbar = () => {
             )}
 
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/"
             >
-              Home
+                                              {t("common:Home")}
+
             </NavLink>
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/about "
             >
-              About
+                                            {t("common:About")}
+            </NavLink>
+            <NavLink
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+              to="/blog"
+            >
+                                {t("common:Blog")}
+
             </NavLink>
             {user && role === "user" && (
               <NavLink
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/dashboard/election-correction"
               >
-                Election
+                                {t("common:Election")}
               </NavLink>
             )}
             {user && (
@@ -195,26 +214,26 @@ const Navbar = () => {
                     : "/dashboard/adminHome"
                 }
               >
-                Dashboard
+                                {t("common:Dashboard")}
               </NavLink>
             )}
             <NavLink
+              onClick={() => setIsOpen(false)}
               className={({ isActive }) => (isActive ? "text-green-400" : "")}
               to="/contact"
             >
-              Contact
-            </NavLink>
+                                {t("common:Contact")}
+            </NavLink >
             {user ? (
               <button className="my-btn-sec" onClick={handleLogOut}>
-                LogOUT
-              </button>
+ {t("common:Logout")}              </button>
             ) : (
               <NavLink
+                onClick={() => setIsOpen(false)}
                 className={({ isActive }) => (isActive ? "text-green-400" : "")}
                 to="/login"
               >
-                Login
-              </NavLink>
+    {t("common:LoginButton")}              </NavLink>
             )}
           </ul>
         </div>

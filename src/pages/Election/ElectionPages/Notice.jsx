@@ -18,7 +18,7 @@ const Notice = () => {
   const formData = useSelector((s) => s.formData);
   const noticeData = formData.notice;
   const { status } = formData;
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const {
     register,
@@ -45,7 +45,7 @@ const Notice = () => {
   };
 
   return (
-    <div className="lg:w-[70%] w-full bg-gray-50 p-3 lg:p-10">
+    <div className="lg:w-[80%] w-full bg-gray-50 p-3 rounded-lg lg:p-10">
       <h1 className="text-2xl font-bold pb-3">How the voter will be noticed</h1>
 
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
