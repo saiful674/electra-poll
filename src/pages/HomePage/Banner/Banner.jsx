@@ -15,8 +15,11 @@ import { Link } from "react-router-dom";
 import { Autoplay } from "swiper/modules";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import LazyImage from "../../../components/LazyImage/LazyImage";
+import { useTranslation } from "react-i18next";
 
 const Banner = () => {
+  const {t}=useTranslation(["home","common"])
+
   useEffect(() => {
     Aos.init({
       duration: 800,
@@ -36,38 +39,37 @@ const Banner = () => {
         >
           <SwiperSlide className="space-y-3">
             <h1 className="text-4xl font-bold">
-              Your Vote, Your Voice, Our Commitment
+              {t("home:banner-tittle1")}
             </h1>
             <p>
-              We are committed to providing a seamless and secure online voting
-              experience. Empower your voice with us.
+            {t("home:banner-descrption1")}
+
             </p>
             <Link to="/about" className="block">
-              <ButtonPrimary>Learn More</ButtonPrimary>
+              <ButtonPrimary>{t("common:learnMore")}</ButtonPrimary>
             </Link>
           </SwiperSlide>
           <SwiperSlide className="space-y-3">
-            <h1 className="text-4xl font-bold">E-voting Made Easy</h1>
-            <p>
-              Simplify your organization's voting process with our intuitive,
-              secure, and reliable e-voting system. Easy voting is just a click
-              away.
+          <h1 className="text-4xl font-bold">
+              {t("home:banner-tittle2")}
+            </h1>            <p>
+            {t("home:banner-descrption2")}
+
             </p>
             <Link to="/about" className="block">
-              <ButtonPrimary>Learn More</ButtonPrimary>
+              <ButtonPrimary>{t("common:learnMore")}</ButtonPrimary>
             </Link>
           </SwiperSlide>
           <SwiperSlide className="space-y-3">
-            <h1 className="text-4xl font-bold">
-              Secure. Simple. Swift. Your Digital Ballot Box.
+          <h1 className="text-4xl font-bold">
+              {t("home:banner-tittle3")}
             </h1>
             <p>
-              We provide a reliable online voting platform that values your
-              security, appreciates simplicity, and delivers swift results.
-              Welcome to your digital ballot box.
+            {t("home:banner-descrption3")}
+
             </p>
             <Link to="/about" className="block">
-              <ButtonPrimary>Learn More</ButtonPrimary>
+              <ButtonPrimary>{t("common:learnMore")}</ButtonPrimary>
             </Link>
           </SwiperSlide>
         </Swiper>

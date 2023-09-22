@@ -5,8 +5,11 @@ import axios from "axios";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const BlogHome = () => {
+  const {t}=useTranslation(["home","common"])
+
   const { data: recentBlog = [], refetch } = useQuery({
     queryKey: ["recentBlog"],
     queryFn: async () => {
@@ -19,8 +22,8 @@ const BlogHome = () => {
   return (
     <div className="my-container dark:text-white">
       <SectionTitle
-        title={"Our Recent Blogs"}
-        subTitle={"To Read Our blogs and know about electro poll"}
+        title={`${t("home:recentBlogs-title")}`}
+        subTitle={`${t("home:recentBlogs-subTitle")}`}
       ></SectionTitle>
       <div className="grid mt-20 mb-20 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {recentBlog &&
@@ -32,7 +35,7 @@ const BlogHome = () => {
       </div>
       <div className="flex justify-center mb-10">
         <Link to={"/blog"}>
-          <ButtonPrimary>See More Blogs</ButtonPrimary>
+          <ButtonPrimary>{t("common:SeeMoreBlogs")}</ButtonPrimary>
         </Link>
       </div>
     </div>

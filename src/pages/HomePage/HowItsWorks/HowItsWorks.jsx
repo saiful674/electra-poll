@@ -6,8 +6,16 @@ import { Link } from "react-router-dom";
 import dashboardImage from "../../../assets/How-it-work/dashboard2.png";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { useTranslation } from "react-i18next";
+
 
 const HowItsWorks = () => {
+<<<<<<< HEAD
+  const {t}=useTranslation(["home","common"])
+
+
+=======
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
   useEffect(() => {
     Aos.init({
       duration: 800,
@@ -15,10 +23,17 @@ const HowItsWorks = () => {
   }, []);
 
   return (
+<<<<<<< HEAD
+    <section className="my-container mb-20">
+       <SectionTitle
+        title={`${t("home:howItWorks-title")}`}
+        subTitle={`${t("home:howItWorks-subTitle")}`}
+=======
     <section className="my-container mb-20 dark:text-white">
       <SectionTitle
         title="How it works"
         subTitle="Conducting online election on eVote is a simple 3 step process."
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
       ></SectionTitle>
       <div className="mt-10 grid lg:grid-cols-2 gap-10 items-center">
         <div className="space-y-3 divide-y-2">
@@ -31,11 +46,9 @@ const HowItsWorks = () => {
                   </p>
                 </div>
                 <div className="">
-                  <h1 className="text-xl font-bold mb-1">Create the Ballot</h1>
+                  <h1 className="text-xl font-bold mb-1">{t("home:howItWorks-title1")}</h1>
                   <p>
-                    Add questions (i.e. positions) to your ballot and add
-                    options (candidates, measures, write-in fields, etc.) to
-                    your questions. Add a photo and/or short bio.
+                  {t("home:howItWorks-description1")}
                   </p>
                 </div>
               </div>
@@ -50,10 +63,9 @@ const HowItsWorks = () => {
                   </p>
                 </div>
                 <div className="">
-                  <h1 className="text-xl font-bold mb-1">Add Voters</h1>
-                  <p>
-                    You control who is eligible to vote in your elections. Add
-                    voters one-by-one, or import them from a spreadsheet.
+                <h1 className="text-xl font-bold mb-1">{t("home:howItWorks-title2")}</h1>
+                <p>
+                  {t("home:howItWorks-description2")}
                   </p>
                 </div>
               </div>
@@ -68,12 +80,10 @@ const HowItsWorks = () => {
                   </p>
                 </div>
                 <div className="">
-                  <h1 className="text-xl font-bold mb-1">
-                    Launch the Election
-                  </h1>
-                  <p>
-                    When you're done customizing the election, you can schedule
-                    a start/end date or immediately launch it.
+                <h1 className="text-xl font-bold mb-1">{t("home:howItWorks-title3")}</h1>
+
+                <p>
+                  {t("home:howItWorks-description3")}
                   </p>
                 </div>
               </div>
@@ -87,20 +97,32 @@ const HowItsWorks = () => {
                     <FaChartPie />
                   </p>
                 </div>
+<<<<<<< HEAD
+                <div className="">
+                <h1 className="text-xl font-bold mb-1">{t("home:howItWorks-title4")}</h1>
+                <p>
+                  {t("home:howItWorks-description4")}
+=======
                 <div>
                   <h1 className="text-xl font-bold mb-1">Monitor Results</h1>
                   <p>
                     Watch the results of your election in real-time. At the end
                     of the election you have the option to publish and share the
                     results with your voters.
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
                   </p>
                 </div>
               </div>
             </div>
             <div className="mt-5">
+<<<<<<< HEAD
+              <Link to='/dashboard/election-correction'>
+              <ButtonPrimary>{t("common:CreateAPoll")}</ButtonPrimary>
+=======
               <span className="mr-3 text-warning">Want to create an Election? </span>
               <Link to="/dashboard/election-correction">
                 <ButtonPrimary>Create Election</ButtonPrimary>
+>>>>>>> 84e0b9f28f354f890fa22ccf117845d319cd3205
               </Link>
             </div>
           </div>

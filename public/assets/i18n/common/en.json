@@ -1,0 +1,35 @@
+{
+	"submit": "Submit",
+	"yousuckatcoding": "You Suck At Coding",
+	"profile": "Profile",
+	"learnMore":"Learn More",
+	"CreateAPoll": "Create A Poll",
+	"SeeMoreBlogs": "See More Blogs",
+	"ReadMore":"Read More",
+
+	"About Us": "About Us",
+	"Support": "Support",
+	"Services": "Services"
+  ,
+
+	"Home": "Home",
+	"About": "About",
+	"Contact": "Contact"
+  ,
+
+	"Blog": "Blog",
+	"Election": "Election",
+	"Dashboard": "Dashboard",
+	"Logout": "Log out",
+	"Company":"Company",
+	"ImportantLinks": "Important Links",
+	"Copyright": "© 2023 Electrapoll. All rights reserved.",
+
+	"LoginButton": "Login"
+
+
+
+
+
+
+}
