@@ -177,7 +177,7 @@ const SingleBlogs = () => {
     return <LoadingSpinner></LoadingSpinner>;
   } else {
     return (
-      <div className="mt-20">
+      <div className="mt-20 dark:text-gray-200">
         <div className="my-container">
           <img
             src={blog?.image}
@@ -320,7 +320,7 @@ const SingleBlogs = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label
-                  className="block text-gray-700 text-2xl font-semibold mb-2"
+                  className="block text-gray-700 dark:text-gray-500 text-2xl font-semibold mb-2"
                   htmlFor="comment"
                 >
                   Add your Valuable comment

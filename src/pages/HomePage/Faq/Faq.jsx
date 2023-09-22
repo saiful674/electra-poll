@@ -65,7 +65,7 @@ const Faq = () => {
             <SectionTitle title={"Frequently Asked Questions"}
                 subTitle={"Your Questions, Our Answers"}
             />
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10  gap-6 items-center'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-10 gap-6 items-center dark:text-gray-300'>
                 <Accordion className="order-2" allowZeroExpanded>
                     {faqs.map((item) => (
                         <AccordionItem key={item.id}>

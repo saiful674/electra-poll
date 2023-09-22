@@ -17,7 +17,7 @@ const BlogHome = () => {
   });
 
   return (
-    <div className="my-container">
+    <div className="my-container dark:text-white">
       <SectionTitle
         title={"Our Recent Blogs"}
         subTitle={"To Read Our blogs and know about electro poll"}
@@ -30,7 +30,7 @@ const BlogHome = () => {
               <RecentCard key={blog?._id} blog={blog}></RecentCard>
             ))}
       </div>
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center mb-10">
         <Link to={"/blog"}>
           <ButtonPrimary>See More Blogs</ButtonPrimary>
         </Link>

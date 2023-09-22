@@ -31,7 +31,7 @@ const Election = () => {
 
   return (
     <div className="py-16 my-container">
-      <div className="grid lg:grid-cols-5 mt-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold">
+      <div className="grid lg:grid-cols-5 mt-5 grid-cols-2 border-green-400 border rounded-md py-2 px-5 lg:text-xl font-bold dark:text-gray-400">
         <span
           className={`flex lg:justify-center lg:gap-10 gap-5 items-center ${
             pageNum >= 0 ? `text-green-400` : ""

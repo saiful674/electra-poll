@@ -8,15 +8,14 @@ import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const HowItsWorks = () => {
-
   useEffect(() => {
     Aos.init({
-      duration: 800
-    })
-  }, [])
+      duration: 800,
+    });
+  }, []);
 
   return (
-    <section className="my-container mb-20">
+    <section className="my-container mb-20 dark:text-white">
       <SectionTitle
         title="How it works"
         subTitle="Conducting online election on eVote is a simple 3 step process."
@@ -88,7 +87,7 @@ const HowItsWorks = () => {
                     <FaChartPie />
                   </p>
                 </div>
-                <div className="">
+                <div>
                   <h1 className="text-xl font-bold mb-1">Monitor Results</h1>
                   <p>
                     Watch the results of your election in real-time. At the end
@@ -99,14 +98,24 @@ const HowItsWorks = () => {
               </div>
             </div>
             <div className="mt-5">
-              <Link to='/dashboard/election-correction'>
-              <ButtonPrimary>Create A Poll</ButtonPrimary>
+              <span className="mr-3 text-warning">Want to create an Election? </span>
+              <Link to="/dashboard/election-correction">
+                <ButtonPrimary>Create Election</ButtonPrimary>
               </Link>
             </div>
           </div>
         </div>
-        <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" className="">
-          <img src={dashboardImage} alt="dashboard image" className="w-full h-[500px] bg-contain" />
+        <div
+          data-aos="fade-left"
+          data-aos-duration="800"
+          data-aos-delay="200"
+          className=""
+        >
+          <img
+            src={dashboardImage}
+            alt="dashboard image"
+            className="w-full h-[500px] bg-contain"
+          />
         </div>
       </div>
     </section>

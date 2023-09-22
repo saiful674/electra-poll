@@ -45,12 +45,12 @@ const Notice = () => {
   };
 
   return (
-    <div className="lg:w-[80%] w-full bg-gray-50 p-3 rounded-lg lg:p-10">
+    <div className="lg:w-[80%] w-full bg-gray-50 dark:bg-indigo-950 dark:text-white p-3 rounded-lg lg:p-10">
       <h1 className="text-2xl font-bold pb-3">How the voter will be noticed</h1>
 
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         {/* ----email notice---- */}
-        <div className="bg-gray-200 p-3 text-lg space-y-3">
+        <div className="bg-gray-200 dark:bg-slate-900 p-3 text-lg space-y-3">
           <label className="flex gap-4">
             <input
               type="checkbox"
@@ -78,9 +78,9 @@ const Notice = () => {
         {/* ---------email templete--------- */}
         {noticeData.emailNotice && (
           <>
-            <div className="bg-gray-200 p-3">
+            <div className="bg-gray-200 p-3 dark:bg-slate-800">
               <h1 className="text-xl font-bold pb-3">Email Templete</h1>
-              <label className="flex gap-3 items-center text-lg bg-white p-2 mb-1">
+              <label className="flex gap-3 items-center text-lg bg-white dark:bg-slate-900 p-2 mb-1">
                 <p>Subject:</p>
                 <input
                   disabled={status !== "pending"}
@@ -89,11 +89,11 @@ const Notice = () => {
                     formData.emailSubject ||
                     "Vote Now: {company name} {election title}"
                   }
-                  className="w-full p-1"
+                  className="w-full p-1 dark:bg-slate-900"
                   type="text"
                 />
               </label>
-              <div className="bg-white p-3 mb-1">
+              <div className="bg-white dark:bg-slate-900 p-3 mb-1">
                 <p>
                   You are cordially invited to cast your vote in the upcoming{" "}
                   {formData?.organization} - {formData.title} election.
@@ -125,9 +125,9 @@ const Notice = () => {
                 defaultValue={formData?.emailInfo}
                 onChange={(e) => dispatch(setEmailInfo(e.target.value))}
                 placeholder="add any other information here"
-                className="h-30 p-3 w-full"
+                className="h-30 p-3 w-full dark:bg-slate-900"
               ></textarea>
-              <p className="bg-white p-3">Thank you for your participation.</p>
+              <p className="bg-white p-3 dark:bg-slate-900">Thank you for your participation.</p>
             </div>
           </>
         )}

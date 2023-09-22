@@ -55,17 +55,17 @@ const Contact = () => {
             <PageBanner title={'contact us'} pageRoute={'contact'}></PageBanner>
             <div>
                 <div className='my-container'>
-                    <h1 className='text-4xl font-extrabold mt-10 px-5 text-slate-700'>Get In Touch With Us</h1>
+                    <h1 className='text-4xl font-extrabold mt-10 px-5 text-slate-700 dark:text-gray-300'>Get In Touch With Us</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  gap-10 items-center" >
-                        <form onSubmit={handleSubmit} className=" p-6">
-                            <p className='text-slate-600 mb-2'>Engage with Us: Let's Connect!
+                        <form onSubmit={handleSubmit} className="p-6">
+                            <p className='text-slate-600 dark:text-gray-300 mb-2'>Engage with Us: Let's Connect!
                                 Questions, ideas, or collaborations? We're here to listen and collaborate. Reach out today and open the door to meaningful interactions. Your input matters!</p>
                             <div className="mb-4">
                                 <label
                                     htmlFor="name"
-                                    className="block text-slate-600 font-semibold"
+                                    className="block text-slate-600 dark:text-gray-300 font-semibold mb-1"
                                 >
-                                    Name:
+                                    Name
                                 </label>
                                 <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="name" name="name" placeholder="Your Name"
                                     className="appearance-none border-2 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-green-200 focus:shadow-outline"
@@ -75,9 +75,9 @@ const Contact = () => {
                             <div className="mb-4">
                                 <label
                                     htmlFor="email"
-                                    className="block text-slate-600 font-semibold"
+                                    className="block text-slate-600 dark:text-gray-300 font-semibold mb-1"
                                 >
-                                    Email:
+                                    Email
                                 </label>
                                 <input
                                     value={email}
@@ -91,9 +91,9 @@ const Contact = () => {
                             <div className="mb-4">
                                 <label
                                     htmlFor="comment"
-                                    className="block text-slate-600 font-semibold "
+                                    className="block text-slate-600 dark:text-gray-300 font-semibold mb-1"
                                 >
-                                    Message:
+                                    Message
                                 </label>
                                 <textarea
                                     value={message}
